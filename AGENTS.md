@@ -11,6 +11,15 @@ Before making product or architecture changes, read:
 3. `docs/ROADMAP.md`
 4. `docs/ARCHITECTURE.md`
 5. `docs/THREAT_MODEL.md`
+6. `docs/ATTACK_CATALOG.md`
+7. `docs/RESEARCH_BASELINE.md`
+
+## Product identity
+
+- Product: HandoffProbe
+- Repository/package/CLI stem: `handoffprobe`
+- Stable attack-test prefix: `HP-`
+- Do not reintroduce the retired working name into active product text.
 
 ## Scope rules
 
@@ -19,6 +28,7 @@ Before making product or architecture changes, read:
 - Do not add dashboards, authentication, billing, databases or hosted infrastructure during the core CLI phase.
 - Do not introduce paid AI APIs or paid infrastructure as a core dependency.
 - Prefer TypeScript and deterministic rules for the first implementation.
+- Do not duplicate pure A2A/MCP conformance checks unless required as preconditions for a handoff-specific assertion.
 
 ## Engineering rules
 
@@ -26,6 +36,7 @@ Before making product or architecture changes, read:
 - Add tests for new attack rules and regressions.
 - Attack definitions should be data-driven where practical.
 - Security findings must contain a stable ID, severity, evidence, expected behavior and observed behavior.
+- Implemented attack definitions must record protocol applicability, property class and source/provenance.
 - Keep fixtures local and harmless; do not target third-party production systems.
 - Preserve backward-compatible machine-readable report formats once published.
 - Avoid broad refactors unless required by the task.
@@ -44,4 +55,4 @@ Before proposing a merge, the intended baseline is:
 
 ## Security-research boundary
 
-BridgeBreak is a defensive testing project. Build reproducible tests against local fixtures, authorized staging targets and intentionally vulnerable demos. Follow `SECURITY.md` for disclosure handling.
+HandoffProbe is a defensive testing project. Build reproducible tests against local fixtures, authorized staging targets and intentionally vulnerable demos. Follow `SECURITY.md` for disclosure handling.

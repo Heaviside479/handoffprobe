@@ -8,7 +8,7 @@
 - reproducible structured evidence
 - protocol adapters separated from security rules
 - source/version-linked checks
-- explicit composition/bridge model
+- explicit handoff/translation model
 - safe by default
 - no cloud dependency
 - easy CI use
@@ -34,7 +34,7 @@ Run Orchestrator
 Target / Protocol Adapters           Attack Registry
  |                                   |
  v                                   v
-A2A Harness -> Bridge -> MCP Harness Attack Executor
+A2A Harness -> Handoff -> MCP Harness Attack Executor
  |                                   |
  |-----------------------------------|
                  v
@@ -51,7 +51,7 @@ A2A Harness -> Bridge -> MCP Harness Attack Executor
        Terminal  JSON  Markdown
 ```
 
-The **Bridge** is a first-class object. BridgeBreak exists to test how intent and security context are translated there.
+The **HandoffAdapter** is a first-class object. HandoffProbe exists to test how intent and security context are translated across this boundary.
 
 ## Suggested repository shape
 
@@ -67,7 +67,7 @@ src/
   protocols/
     a2a/
     mcp/
-  bridge/
+  handoffs/
   attacks/
     authorization/
     identity/
@@ -98,7 +98,7 @@ This is a starting design, not a reason to create empty abstractions before they
 
 Should describe at minimum:
 
-- stable ID
+- stable `HP-*` ID
 - name
 - category
 - default severity
@@ -114,13 +114,13 @@ Should describe at minimum:
 - destructive/side-effect flags
 - OWASP/CWE mappings when useful
 
-A core `AttackDefinition` must satisfy the composition-only rule in `PROJECT_CONTEXT.md`.
+A core `AttackDefinition` must satisfy the handoff-specific admission rule in `PROJECT_CONTEXT.md`.
 
 ### TargetAdapter
 
-Abstracts how BridgeBreak sends actions to the target and captures protocol traces. Attack logic should not depend on one SDK implementation where avoidable.
+Abstracts how HandoffProbe sends actions to the target and captures protocol traces. Attack logic should not depend on one SDK implementation where avoidable.
 
-### BridgeAdapter
+### HandoffAdapter
 
 Represents the A2A -> MCP translation layer under test. It should expose enough structured data to compare upstream security intent with downstream tool execution without requiring framework-specific attack logic.
 
@@ -174,9 +174,9 @@ Minimum fields:
 
 ## Evidence
 
-BridgeBreak should prefer structured evidence over prose. Every failure should make it possible to answer:
+HandoffProbe should prefer structured evidence over prose. Every failure should make it possible to answer:
 
-1. What security intent existed before the A2A -> MCP boundary?
+1. What security intent existed before the A2A -> MCP handoff?
 2. What reached the downstream side?
 3. What action was attempted/executed?
 4. What translation or lifecycle step changed the invariant?
@@ -197,10 +197,10 @@ BridgeBreak should prefer structured evidence over prose. Every failure should m
 
 - do not model a hidden protocol session
 - capture request-level protocol metadata
-- support tests involving header/body routing consistency where the bridge writes both
+- support tests involving header/body routing consistency where the translation layer writes both
 - model explicit state handles separately from authorization
 - model cache scope only when the tested implementation uses cached capability/tool lists
-- model MRTR input/approval lifecycle when a composition test requires it
+- model MRTR input/approval lifecycle when a handoff test requires it
 
 ## Safe execution model
 

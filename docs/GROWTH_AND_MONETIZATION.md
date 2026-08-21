@@ -1,6 +1,6 @@
 # Growth and Monetization Strategy
 
-BridgeBreak starts with nearly zero infrastructure budget. Distribution and revenue therefore need to reinforce the open-source product rather than depend on paid acquisition.
+HandoffProbe starts with nearly zero infrastructure budget. Distribution and revenue therefore need to reinforce the open-source product rather than depend on paid acquisition.
 
 ## Growth thesis
 
@@ -8,7 +8,7 @@ The strongest acquisition loop is:
 
 ```text
 useful open-source scanner
-        -> reproducible seam finding
+        -> reproducible handoff finding
         -> technical research/content
         -> developer discovery
         -> stars/downloads/contributors
@@ -33,12 +33,12 @@ GitHub stars are a signal, not the business goal. More important indicators incl
 
 ## Strongest launch proof
 
-The best BridgeBreak demonstration is not “we have 100 checks.” It is a controlled example where:
+The best HandoffProbe demonstration is not “we have 100 checks.” It is a controlled example where:
 
 1. the A2A side passes the relevant official/expected checks;
 2. the MCP server behaves correctly in isolation for the relevant action;
-3. the A2A -> MCP composition loses an end-to-end invariant;
-4. BridgeBreak catches and reproduces the failure.
+3. the A2A -> MCP handoff loses an end-to-end invariant;
+4. HandoffProbe catches and reproduces the failure.
 
 Never state that a protocol/tool is “secure” merely because a conformance/inspector check passes. Be precise about what was tested.
 
@@ -46,15 +46,15 @@ Never state that a protocol/tool is “secure” merely because a conformance/in
 
 ### Before launch
 
-- one-command demo
+- one-command `npx handoffprobe test` demo
 - intentionally vulnerable fixture
 - secure control fixture
-- minimum 12 strong composition tests
+- minimum 12 strong handoff tests
 - excellent README
-- reproducible example of a seam failure
+- reproducible example of a handoff failure
 - source/version metadata for important findings
 - zero-signup local usage
-- final naming decision
+- package-name availability re-check immediately before npm publication
 
 ### Launch channels
 
@@ -73,7 +73,7 @@ Avoid purchased stars, engagement bots and mass spam.
 
 The best marketing asset is a useful technical finding. Preferred content:
 
-- new composition failure patterns
+- new handoff failure patterns
 - “valid alone, unsafe together” case studies
 - comparative testing of public demo implementations only when authorized/safe
 - root-cause writeups
@@ -81,7 +81,7 @@ The best marketing asset is a useful technical finding. Preferred content:
 - responsible disclosures after fixes/coordination
 - protocol-change regression notes
 
-Every research artifact should ideally be reproducible with BridgeBreak.
+Every research artifact should ideally be reproducible with HandoffProbe.
 
 Use source-linked claims and distinguish:
 
@@ -95,7 +95,7 @@ Credibility is more valuable than sensational severity labels.
 
 ## Market validation, not exit promises
 
-Recent acquisitions/investment in AI security and developer tooling validate strategic interest in open-source/adversarial-testing infrastructure, but BridgeBreak should not optimize for a hypothetical acquisition before it has users.
+Recent acquisitions/investment in AI security and developer tooling validate strategic interest in open-source/adversarial-testing infrastructure, but HandoffProbe should not optimize for a hypothetical acquisition before it has users.
 
 The asset to build is adoption + corpus + integrations + research credibility.
 
@@ -103,15 +103,15 @@ The asset to build is adoption + corpus + integrations + research credibility.
 
 Do not begin with a low-price SaaS subscription.
 
-### 1. Agent Protocol Composition Security Assessment
+### 1. Agent Handoff Security Assessment
 
-Use BridgeBreak plus manual review to assess an explicitly authorized staging architecture. Deliver reproducible findings and remediation guidance.
+Use HandoffProbe plus manual review to assess an explicitly authorized staging architecture. Deliver reproducible findings and remediation guidance.
 
 Pricing should be discovered from the market rather than fixed prematurely.
 
 ### 2. Custom adapters / test packs
 
-Organizations with proprietary agents or wrappers can pay for integration work that also improves BridgeBreak's capabilities.
+Organizations with proprietary agents or wrappers can pay for integration work that also improves HandoffProbe's capabilities.
 
 ### 3. Enterprise support
 
@@ -137,7 +137,7 @@ The open-source local scanner should remain useful without the cloud.
 1. identify companies publicly building with A2A/MCP or adjacent agent stacks
 2. study only public documentation/demos and test only owned, intentionally vulnerable or explicitly authorized targets
 3. share a technically useful observation rather than a mass sales pitch
-4. offer a scoped composition assessment if there is interest
+4. offer a scoped handoff-security assessment if there is interest
 5. convert recurring pain discovered during audits into product features
 
 ## Decision gates
@@ -147,7 +147,7 @@ The open-source local scanner should remain useful without the cloud.
 Ask:
 
 - Are real developers repeatedly using the tool?
-- Are seam-specific rules finding meaningful issues?
+- Are handoff-specific rules finding meaningful issues?
 - Are users asking for adapters or CI support?
 
 ### Around 3-6 months
@@ -162,16 +162,12 @@ Strong signals include some combination of:
 
 If none appear, reassess positioning before building a hosted product.
 
-## Naming / discoverability gate
-
-Because `BRIDGE:BREAK` is already associated with Forescout/Vedere Labs OT vulnerability research, do not invest in SEO, a domain, npm branding or public launch assets under the working name until `docs/NAMING.md` is resolved.
-
 ## Long-term strategic value
 
 A potential strategic acquirer would be more likely to value:
 
 - active developer/community adoption
-- a unique seam-specific attack corpus
+- a unique handoff-specific attack corpus
 - supported protocol/framework integrations
 - security research and regression cases
 - enterprise usage
