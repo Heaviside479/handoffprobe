@@ -8,13 +8,13 @@ The strongest acquisition loop is:
 
 ```text
 useful open-source scanner
-        -> reproducible finding
+        -> reproducible seam finding
         -> technical research/content
         -> developer discovery
         -> stars/downloads/contributors
         -> company adoption
         -> audit/support/custom integration
-        -> more real test cases
+        -> more real regression cases
         -> better scanner
 ```
 
@@ -31,16 +31,30 @@ GitHub stars are a signal, not the business goal. More important indicators incl
 - vulnerability disclosures and regression cases
 - inbound commercial requests
 
+## Strongest launch proof
+
+The best BridgeBreak demonstration is not “we have 100 checks.” It is a controlled example where:
+
+1. the A2A side passes the relevant official/expected checks;
+2. the MCP server behaves correctly in isolation for the relevant action;
+3. the A2A -> MCP composition loses an end-to-end invariant;
+4. BridgeBreak catches and reproduces the failure.
+
+Never state that a protocol/tool is “secure” merely because a conformance/inspector check passes. Be precise about what was tested.
+
 ## Launch strategy
 
 ### Before launch
 
 - one-command demo
 - intentionally vulnerable fixture
-- 15-20 credible tests
+- secure control fixture
+- minimum 12 strong composition tests
 - excellent README
-- reproducible example of a composition failure
+- reproducible example of a seam failure
+- source/version metadata for important findings
 - zero-signup local usage
+- final naming decision
 
 ### Launch channels
 
@@ -49,7 +63,7 @@ Prioritize technical communities over paid marketing:
 - GitHub discovery/topics
 - Show HN when the tool is genuinely usable
 - security/developer communities
-- relevant framework/protocol communities
+- A2A/MCP framework communities
 - technical LinkedIn/X posts where useful
 - research articles with reproduction steps
 
@@ -60,20 +74,38 @@ Avoid purchased stars, engagement bots and mass spam.
 The best marketing asset is a useful technical finding. Preferred content:
 
 - new composition failure patterns
-- comparative testing of public demo implementations
+- “valid alone, unsafe together” case studies
+- comparative testing of public demo implementations only when authorized/safe
 - root-cause writeups
 - secure-vs-vulnerable fixtures
 - responsible disclosures after fixes/coordination
+- protocol-change regression notes
 
 Every research artifact should ideally be reproducible with BridgeBreak.
+
+Use source-linked claims and distinguish:
+
+- protocol non-conformance
+- recommended-hardening gap
+- implementation bug
+- configuration error
+- unassigned composition responsibility
+
+Credibility is more valuable than sensational severity labels.
+
+## Market validation, not exit promises
+
+Recent acquisitions/investment in AI security and developer tooling validate strategic interest in open-source/adversarial-testing infrastructure, but BridgeBreak should not optimize for a hypothetical acquisition before it has users.
+
+The asset to build is adoption + corpus + integrations + research credibility.
 
 ## First revenue model
 
 Do not begin with a low-price SaaS subscription.
 
-### 1. Agent Protocol Security Assessment
+### 1. Agent Protocol Composition Security Assessment
 
-Use BridgeBreak plus manual review to assess an authorized staging architecture. Deliver reproducible findings and remediation guidance.
+Use BridgeBreak plus manual review to assess an explicitly authorized staging architecture. Deliver reproducible findings and remediation guidance.
 
 Pricing should be discovered from the market rather than fixed prematurely.
 
@@ -103,9 +135,9 @@ The open-source local scanner should remain useful without the cloud.
 ## Early commercial funnel
 
 1. identify companies publicly building with A2A/MCP or adjacent agent stacks
-2. test only public demos or explicitly authorized targets
-3. share a technically useful observation, not a mass sales pitch
-4. offer a scoped assessment if there is interest
+2. study only public documentation/demos and test only owned, intentionally vulnerable or explicitly authorized targets
+3. share a technically useful observation rather than a mass sales pitch
+4. offer a scoped composition assessment if there is interest
 5. convert recurring pain discovered during audits into product features
 
 ## Decision gates
@@ -115,8 +147,8 @@ The open-source local scanner should remain useful without the cloud.
 Ask:
 
 - Are real developers repeatedly using the tool?
-- Are attack rules finding meaningful issues?
-- Are users asking for more adapters or CI support?
+- Are seam-specific rules finding meaningful issues?
+- Are users asking for adapters or CI support?
 
 ### Around 3-6 months
 
@@ -130,12 +162,16 @@ Strong signals include some combination of:
 
 If none appear, reassess positioning before building a hosted product.
 
+## Naming / discoverability gate
+
+Because `BRIDGE:BREAK` is already associated with Forescout/Vedere Labs OT vulnerability research, do not invest in SEO, a domain, npm branding or public launch assets under the working name until `docs/NAMING.md` is resolved.
+
 ## Long-term strategic value
 
 A potential strategic acquirer would be more likely to value:
 
 - active developer/community adoption
-- a unique attack corpus
+- a unique seam-specific attack corpus
 - supported protocol/framework integrations
 - security research and regression cases
 - enterprise usage
