@@ -1,10 +1,10 @@
 # Security Policy
 
-BridgeBreak is a defensive security-testing project.
+HandoffProbe is a defensive security-testing project.
 
 ## Authorized use
 
-Use BridgeBreak only against:
+Use HandoffProbe only against:
 
 - systems you own
 - local fixtures and demos
@@ -15,15 +15,15 @@ Do not use the project to disrupt, damage or access third-party systems without 
 
 ## Safe defaults
 
-BridgeBreak v0.1 should default active tests to local/loopback fixtures. Bundled tools must use harmless synthetic side effects wherever possible.
+HandoffProbe v0.1 should default active tests to local/loopback fixtures. Bundled tools must use harmless synthetic side effects wherever possible.
 
 If remote active testing is added later, it must require explicit operator opt-in. Destructive/high-impact tests should remain disabled by default and require clear configuration plus authorization.
 
 Test reports/evidence must redact bearer tokens, credentials and other secrets before writing them to disk or CI artifacts.
 
-## Reporting a vulnerability in BridgeBreak
+## Reporting a vulnerability in HandoffProbe
 
-Please do not publish an unpatched vulnerability in BridgeBreak as a public issue if disclosure could put users at risk. Use GitHub's private vulnerability reporting / security-advisory mechanism when enabled for this repository.
+Please do not publish an unpatched vulnerability in HandoffProbe as a public issue if disclosure could put users at risk. Use GitHub's private vulnerability reporting / security-advisory mechanism when enabled for this repository.
 
 A useful report includes:
 
@@ -33,12 +33,12 @@ A useful report includes:
 - expected vs observed behavior
 - suggested mitigation if known
 
-## Vulnerabilities found with BridgeBreak
+## Vulnerabilities found with HandoffProbe
 
-When BridgeBreak identifies a likely vulnerability in another project:
+When HandoffProbe identifies a likely vulnerability in another project:
 
 1. verify it in an authorized environment
-2. distinguish composition gap, protocol requirement, implementation bug and configuration/hardening issue
+2. distinguish handoff/composition gap, protocol requirement, implementation bug and configuration/hardening issue
 3. minimize the reproduction and remove real credentials/data
 4. contact the affected maintainer privately where feasible
 5. allow reasonable remediation time before publication

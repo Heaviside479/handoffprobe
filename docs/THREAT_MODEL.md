@@ -14,7 +14,7 @@ A2A caller
 A2A receiver / downstream agent
     |
     v
-Bridge / translation logic
+Handoff / translation logic
     |
     v
 MCP client
@@ -23,7 +23,7 @@ MCP client
 MCP server / tool
 ```
 
-The bridge/glue code is a first-class trust boundary, not invisible plumbing.
+The handoff/glue code is a first-class trust boundary, not invisible plumbing.
 
 ## Security objective
 
@@ -35,12 +35,12 @@ A useful invariant is **authority monotonicity**: delegation/translation may pre
 
 1. original actor -> calling agent
 2. A2A caller -> A2A receiver
-3. A2A receiver -> bridge/translation logic
-4. bridge -> MCP client/request
+3. A2A receiver -> handoff/translation logic
+4. handoff -> MCP client/request
 5. MCP client -> MCP server
 6. MCP server -> tool/resource
 
-BridgeBreak focuses especially on properties that can be lost across boundaries 2-5.
+HandoffProbe focuses especially on properties that can be lost across boundaries 2-5.
 
 ## Assets / properties to protect
 
@@ -64,13 +64,13 @@ BridgeBreak focuses especially on properties that can be lost across boundaries 
 
 ## Composition-responsibility gap
 
-Some end-to-end properties may not be assigned cleanly to either protocol. A2A can be correct about delegation and MCP can be correct about tool invocation while the bridge still maps them unsafely.
+Some end-to-end properties may not be assigned cleanly to either protocol. A2A can be correct about delegation and MCP can be correct about tool invocation while the handoff still maps them unsafely.
 
-BridgeBreak treats these as `composition_responsibility` findings rather than falsely labeling every issue as protocol non-conformance.
+HandoffProbe treats these as `composition_responsibility` findings rather than falsely labeling every issue as protocol non-conformance.
 
 ## Adversary model for tests
 
-BridgeBreak simulates protocol-level and integration-level manipulation in an authorized test environment. Depending on the test, assume an attacker or faulty bridge can influence one or more of:
+HandoffProbe simulates protocol-level and integration-level manipulation in an authorized test environment. Depending on the test, assume an attacker or faulty translation layer can influence one or more of:
 
 - downstream message fields
 - delegation metadata
@@ -136,7 +136,7 @@ Race conditions or retries cause a protected action to execute more than allowed
 
 The final side effect cannot be linked back to the original actor/delegation/request with enough fidelity to explain who authorized what.
 
-## A2A-specific seam concerns
+## A2A-specific handoff concerns
 
 Relevant A2A 1.0 properties include:
 
@@ -147,9 +147,9 @@ Relevant A2A 1.0 properties include:
 - handling of credentials or sensitive material across delegated agent chains
 - treating external Agent Cards/messages/artifacts as untrusted input
 
-BridgeBreak should test these only when they affect the A2A -> MCP composition, rather than duplicating A2A TCK coverage.
+HandoffProbe should test these only when they affect the A2A -> MCP handoff, rather than duplicating A2A TCK coverage.
 
-## MCP-specific seam concerns
+## MCP-specific handoff concerns
 
 Relevant MCP 2026-07-28 properties include:
 
@@ -157,15 +157,15 @@ Relevant MCP 2026-07-28 properties include:
 - token audience/resource and issuer binding
 - prohibition/avoidance of broad token passthrough
 - state-handle binding independent of authorization
-- header/body routing consistency when bridges construct requests
+- header/body routing consistency when handoff logic constructs requests
 - private/public cache scope and stale capability views
 - MRTR input/approval binding
 
-BridgeBreak should test these only where upstream A2A context is translated into those mechanisms.
+HandoffProbe should test these only where upstream A2A context is translated into those mechanisms.
 
 ## Semantic untrusted-input boundary
 
-Generic prompt-injection detection remains out of scope. However, BridgeBreak may test a structured end-to-end invariant when untrusted A2A content/artifacts cause the bridge to select or authorize a different MCP tool/resource than the trusted upstream policy allowed. The focus is the security-property change, not model jailbreak quality.
+Generic prompt-injection detection remains out of scope. However, HandoffProbe may test a structured end-to-end invariant when untrusted A2A content/artifacts cause the handoff layer to select or authorize a different MCP tool/resource than the trusted upstream policy allowed. The focus is the security-property change, not model jailbreak quality.
 
 ## Out of scope initially
 

@@ -2,7 +2,7 @@
 
 As of: 2026-08-21
 
-BridgeBreak tests fast-moving protocols. This document pins the assumptions used by the project so tests do not silently target outdated behavior.
+HandoffProbe tests fast-moving protocols. This document pins the assumptions used by the project so tests do not silently target outdated behavior.
 
 ## Authoritative protocol baseline
 
@@ -11,7 +11,7 @@ BridgeBreak tests fast-moving protocols. This document pins the assumptions used
 - Latest released specification: **1.0.0**
 - Wire compatibility version: **1.0**
 - Core official bindings: HTTP+JSON, JSON-RPC and gRPC
-- v0.1 BridgeBreak implementation priority: HTTP+JSON first
+- v0.1 HandoffProbe implementation priority: HTTP+JSON first
 - Agent Cards declare interfaces, skills/capabilities and security requirements and may be JWS-signed.
 - A2A 1.0 requires callers to send/declare the appropriate protocol version and requires servers to authorize protocol operations within caller boundaries.
 - The optional `tenant` value in an AgentInterface must be propagated to requests for that interface.
@@ -46,7 +46,7 @@ Before implementation is pinned in `package.json`, Phase 0 should verify the exa
 - official A2A JavaScript/TypeScript SDK
 - MCP TypeScript v2 split packages supporting 2026-07-28
 
-Important: MCP v2 SDK code does not necessarily speak the 2026-07-28 wire revision automatically. BridgeBreak fixtures must explicitly opt into the intended revision and test that assumption.
+Important: MCP v2 SDK code does not necessarily speak the 2026-07-28 wire revision automatically. HandoffProbe fixtures must explicitly opt into the intended revision and test that assumption.
 
 ## Existing official testing tools
 
@@ -68,7 +68,7 @@ Interactive/CLI tool for connecting to and debugging MCP servers.
 
 - https://github.com/modelcontextprotocol/inspector
 
-BridgeBreak should integrate with or reference these tools rather than reproduce their single-protocol validation scope.
+HandoffProbe should integrate with or reference these tools rather than reproduce their single-protocol validation scope.
 
 ## Security research baseline
 
@@ -84,11 +84,11 @@ BridgeBreak should integrate with or reference these tools rather than reproduce
 
 - https://arxiv.org/abs/2606.28690
 
-BridgeBreak should treat these works as evidence that the problem is real and as design inspiration for traceability. It should not copy implementation/code or claim the underlying composition-safety concept as original.
+HandoffProbe should treat these works as evidence that the problem is real and as design inspiration for traceability. It should not copy implementation/code or claim the underlying composition-safety concept as original.
 
 ## OWASP mapping
 
-The OWASP Top 10 for Agentic Applications 2026 provides a useful external taxonomy. BridgeBreak is most relevant to:
+The OWASP Top 10 for Agentic Applications 2026 provides a useful external taxonomy. HandoffProbe is most relevant to:
 
 - ASI02 — Tool Misuse & Exploitation
 - ASI03 — Identity & Privilege Abuse
@@ -106,10 +106,11 @@ Sources:
 
 Every implemented `AttackDefinition` should record:
 
+- stable `HP-*` ID
 - applicable A2A version/range
 - applicable MCP revision/range
 - property class
-- source references (spec sections, research, CVE/advisory, or BridgeBreak-derived invariant)
+- source references (spec sections, research, CVE/advisory, or HandoffProbe-derived invariant)
 - whether the test is normative conformance, recommended hardening or composition-responsibility testing
 
 Property classes:
@@ -129,4 +130,4 @@ Before each public release:
 4. mark tests as active/deprecated/version-specific rather than silently rewriting their meaning;
 5. retain regression fixtures for historical protocol versions only when maintenance value justifies it.
 
-A protocol update must not silently change the security meaning of an existing stable BridgeBreak test ID.
+A protocol update must not silently change the security meaning of an existing stable HandoffProbe test ID.

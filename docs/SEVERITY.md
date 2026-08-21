@@ -1,6 +1,6 @@
 # Finding Classification and Severity
 
-BridgeBreak should not assign dramatic severity labels without evidence. Severity describes the demonstrated composition impact in the tested fixture/context; it is not automatically a CVSS score for every real deployment.
+HandoffProbe should not assign dramatic severity labels without evidence. Severity describes the demonstrated handoff/composition impact in the tested fixture/context; it is not automatically a CVSS score for every real deployment.
 
 ## Finding status
 
@@ -8,7 +8,7 @@ BridgeBreak should not assign dramatic severity labels without evidence. Severit
 - `fail` — invariant was reproducibly violated
 - `not_applicable` — required protocol/feature/precondition is absent
 - `inconclusive` — evidence is insufficient to claim pass or fail
-- `error` — BridgeBreak could not execute/observe the test correctly
+- `error` — HandoffProbe could not execute/observe the test correctly
 
 `error` must never be presented as a security failure.
 
@@ -19,7 +19,7 @@ BridgeBreak should not assign dramatic severity labels without evidence. Severit
 - `hardening` — defensive best practice beyond protocol requirements
 - `composition_responsibility` — end-to-end security property not cleanly owned by a single protocol
 
-This distinction prevents BridgeBreak from incorrectly calling every composition gap a protocol violation.
+This distinction prevents HandoffProbe from incorrectly calling every handoff gap a protocol violation.
 
 ## Suggested severity dimensions
 
@@ -36,7 +36,7 @@ Severity should consider:
 
 ### Critical
 
-Use sparingly for demonstrated composition failures enabling broad unauthorized destructive/admin/financial action, cross-tenant compromise or equivalent high-impact authority amplification with realistic preconditions.
+Use sparingly for demonstrated handoff failures enabling broad unauthorized destructive/admin/financial action, cross-tenant compromise or equivalent high-impact authority amplification with realistic preconditions.
 
 ### High
 
@@ -56,7 +56,7 @@ Observation/recommendation with no demonstrated security invariant violation.
 
 ## External mappings
 
-BridgeBreak may attach:
+HandoffProbe may attach:
 
 - OWASP Agentic Application risk IDs
 - CWE identifiers
