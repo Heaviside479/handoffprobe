@@ -39,9 +39,10 @@ Eliminate ambiguity before implementation.
 
 ## Remaining
 
-- [ ] bootstrap TypeScript/npm project
-- [ ] baseline lint/typecheck/test/build
-- [ ] baseline GitHub CI
+- [x] bootstrap TypeScript/npm project
+- [x] baseline lint/typecheck/test/build
+- [x] baseline GitHub Actions workflow added
+- [ ] baseline GitHub Actions workflow verified on remote
 
 ## Exit gate
 

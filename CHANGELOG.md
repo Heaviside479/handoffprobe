@@ -6,6 +6,11 @@ All notable project changes will be documented here.
 
 ### Added
 
+- TypeScript/npm project bootstrap with Node 24 LTS policy
+- minimal HandoffProbe CLI entrypoint and deterministic CLI tests
+- format, lint, typecheck, test, build and package-validation gates
+- baseline GitHub Actions CI workflow
+
 - research/protocol baseline for A2A 1.0 and MCP 2026-07-28
 - competitive-landscape and explicit handoff/composition admission rule
 - severity/property classification policy
