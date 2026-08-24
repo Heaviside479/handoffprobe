@@ -1,13 +1,8 @@
-export type FixtureMode = 'secure' | 'vulnerable';
+import type { EvidenceEvent, SecurityContext } from '../core/index.js';
 
-export interface SecurityContext {
-  principal: string;
-  caller: string;
-  downstream: string;
-  tenant: string;
-  resource: string;
-  capabilities: string[];
-}
+export type { EvidenceEvent, SecurityContext } from '../core/index.js';
+
+export type FixtureMode = 'secure' | 'vulnerable';
 
 export interface FakeInvoiceResult {
   invoiceId: string;
@@ -37,16 +32,4 @@ export interface ProtocolLabResult {
   toolResult: FakeInvoiceResult;
   responseText: string;
   evidence: EvidenceEvent[];
-}
-
-export interface EvidenceEvent {
-  runId: string;
-  sequence: number;
-  fixture: FixtureMode;
-  protocol: 'A2A' | 'HANDOFF' | 'MCP' | 'TOOL';
-  protocolVersion: string;
-  boundary: string;
-  event: string;
-  context: SecurityContext;
-  details: Record<string, unknown>;
 }

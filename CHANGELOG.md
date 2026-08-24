@@ -6,6 +6,16 @@ All notable project changes will be documented here.
 
 ### Added
 
+- reusable core security engine with attack registry, runner and adapter contracts
+- canonical `SecurityContext`, `EvidenceEvent` and `Finding` domain models
+- deterministic `CoreRunner` with run/correlation IDs and protocol evidence normalization
+- structured PASS/FAIL/NOT_APPLICABLE/INCONCLUSIVE/ERROR finding semantics
+- timeout, adapter and evaluation error handling that cannot masquerade as security failures
+- recursive secret redaction for structured evidence
+- first-class protocol-lab `TargetAdapter` and replaceable `HandoffAdapter`
+- attack source/provenance propagation into findings and evidence
+- automated Phase 2 exit-gate coverage proving attacks can reuse unchanged A2A/MCP plumbing
+
 - deterministic A2A 1.0 → MCP 2026-07-28 protocol laboratory
 - real local A2A HTTP+JSON caller and receiver using the official A2A SDK
 - modern MCP client/server fixture using the official MCP TypeScript SDK

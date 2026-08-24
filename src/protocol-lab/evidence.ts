@@ -1,19 +1,18 @@
+import { cloneSecurityContext, redactRecord } from '../core/index.js';
 import type { EvidenceEvent, FixtureMode, SecurityContext } from './models.js';
-
-function cloneContext(context: SecurityContext): SecurityContext {
-  return {
-    ...context,
-    capabilities: [...context.capabilities],
-  };
-}
 
 export class EvidenceRecorder {
   readonly events: EvidenceEvent[] = [];
 
+  readonly correlationId: string;
+
   constructor(
     readonly runId: string,
     readonly fixture: FixtureMode,
-  ) {}
+    correlationId?: string,
+  ) {
+    this.correlationId = correlationId ?? runId;
+  }
 
   record(input: {
     protocol: EvidenceEvent['protocol'];
@@ -25,14 +24,16 @@ export class EvidenceRecorder {
   }): void {
     this.events.push({
       runId: this.runId,
+      correlationId: this.correlationId,
       sequence: this.events.length + 1,
       fixture: this.fixture,
       protocol: input.protocol,
       protocolVersion: input.protocolVersion,
       boundary: input.boundary,
       event: input.event,
-      context: cloneContext(input.context),
-      details: input.details ?? {},
+      context: cloneSecurityContext(input.context),
+      details: redactRecord(input.details ?? {}),
+      provenance: [],
     });
   }
 }

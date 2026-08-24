@@ -1,5 +1,8 @@
-import { EvidenceRecorder } from './evidence.js';
+import { cloneSecurityContext } from '../core/index.js';
+import type { HandoffAdapter } from '../core/index.js';
 import { executeA2aFixture } from './a2a/harness.js';
+import { EvidenceRecorder } from './evidence.js';
+import { ProtocolLabHandoffAdapter } from './handoff/adapter.js';
 import type { FixtureMode, LabRunState, ProtocolLabResult, SecurityContext } from './models.js';
 
 export const REFERENCE_CONTEXT: SecurityContext = {
@@ -11,27 +14,39 @@ export const REFERENCE_CONTEXT: SecurityContext = {
   capabilities: ['invoice.read'],
 };
 
-function cloneReferenceContext(): SecurityContext {
-  return {
-    ...REFERENCE_CONTEXT,
-    capabilities: [...REFERENCE_CONTEXT.capabilities],
-  };
+export interface ProtocolFixtureOptions {
+  runId?: string;
+  correlationId?: string;
+  context?: SecurityContext;
+  handoffAdapter?: HandoffAdapter;
 }
 
-export async function runProtocolFixture(fixture: FixtureMode): Promise<ProtocolLabResult> {
-  const runId = fixture === 'secure' ? 'hp-lab-secure-001' : 'hp-lab-vulnerable-001';
+function defaultRunId(fixture: FixtureMode): string {
+  return fixture === 'secure' ? 'hp-lab-secure-001' : 'hp-lab-vulnerable-001';
+}
 
-  const context = cloneReferenceContext();
+export async function runProtocolFixture(
+  fixture: FixtureMode,
+  options: ProtocolFixtureOptions = {},
+): Promise<ProtocolLabResult> {
+  const runId = options.runId ?? defaultRunId(fixture);
 
-  const recorder = new EvidenceRecorder(runId, fixture);
+  const correlationId = options.correlationId ?? runId;
+
+  const context = cloneSecurityContext(options.context ?? REFERENCE_CONTEXT);
+
+  const recorder = new EvidenceRecorder(runId, fixture, correlationId);
 
   const state: LabRunState = {};
+
+  const handoffAdapter = options.handoffAdapter ?? new ProtocolLabHandoffAdapter(fixture);
 
   const responseText = await executeA2aFixture({
     fixture,
     recorder,
     state,
     context,
+    handoffAdapter,
   });
 
   const translatedContext = state.translatedContext;

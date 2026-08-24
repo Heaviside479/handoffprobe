@@ -107,29 +107,64 @@ Phase 1 exit gate satisfied on 2026-08-24.
 
 # Phase 2 — Core security engine
 
+Status: completed 2026-08-24
+
 ## Deliverables
 
-- AttackDefinition
-- AttackRegistry
-- TargetAdapter
-- HandoffAdapter
-- SecurityContext
-- EvidenceEvent
-- Finding
-- finding statuses
-- severity model
-- property class
-- protocol applicability
-- source/provenance metadata
-- run/correlation IDs
-- deterministic orchestration
-- timeout model
-- structured internal errors
-- secret redaction
+- [x] AttackDefinition
+- [x] AttackRegistry
+- [x] TargetAdapter
+- [x] HandoffAdapter
+- [x] SecurityContext
+- [x] EvidenceEvent
+- [x] Finding
+- [x] finding statuses
+- [x] severity model
+- [x] property class
+- [x] protocol applicability
+- [x] source/provenance metadata
+- [x] run/correlation IDs
+- [x] deterministic orchestration
+- [x] timeout model
+- [x] structured internal errors
+- [x] secret redaction
+
+## Implemented core
+
+The Phase 2 core now provides:
+
+- reusable `AttackDefinition` and deterministic `AttackRegistry`
+- first-class `TargetAdapter` and `HandoffAdapter` boundaries
+- canonical `SecurityContext` and `EvidenceEvent` models
+- structured `Finding` objects with PASS/FAIL/NOT_APPLICABLE/INCONCLUSIVE/ERROR semantics
+- qualitative severity and property-class types
+- A2A/MCP protocol applicability metadata
+- attack source/provenance propagation into findings and evidence
+- explicit run IDs and correlation IDs
+- deterministic `CoreRunner` orchestration
+- configurable execution timeout handling with `AbortSignal`
+- structured core, adapter and evaluation errors
+- guarantee that runner `ERROR` is not treated as a security `FAIL`
+- recursive evidence secret redaction while retaining safe fingerprints
+- package-root exports for the reusable core API
+
+The existing A2A 1.0 → MCP 2026-07-28 protocol laboratory now runs through
+the reusable target/handoff adapter boundary without changing its observable
+Phase 1 behavior.
 
 ## Exit gate
 
+- [x] independent attack definitions reuse the same A2A/MCP protocol plumbing
+- [x] handoff translation can be replaced through a first-class `HandoffAdapter`
+- [x] attack provenance reaches findings and evidence
+- [x] attack evaluation logic can change without protocol implementation changes
+- [x] adapter failures produce `ERROR`, never vulnerability `FAIL`
+- [x] timeout failures produce `ERROR`, never vulnerability `FAIL`
+- [x] Phase 1 protocol-lab regression remains green
+
 A new security attack can be added without rewriting protocol plumbing.
+
+Phase 2 exit gate satisfied on 2026-08-24.
 
 ---
 

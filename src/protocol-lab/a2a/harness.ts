@@ -8,6 +8,7 @@ import { DefaultRequestHandler, InMemoryTaskStore } from '@a2a-js/sdk/server';
 import { agentCardHandler, restHandler, UserBuilder } from '@a2a-js/sdk/server/express';
 import express from 'express';
 
+import type { HandoffAdapter } from '../../core/index.js';
 import type { EvidenceRecorder } from '../evidence.js';
 import type { FixtureMode, LabRunState, SecurityContext } from '../models.js';
 import { HandoffLabExecutor } from './executor.js';
@@ -117,6 +118,7 @@ export async function executeA2aFixture(input: {
   recorder: EvidenceRecorder;
   state: LabRunState;
   context: SecurityContext;
+  handoffAdapter: HandoffAdapter;
 }): Promise<string> {
   const app = express();
 
@@ -136,7 +138,7 @@ export async function executeA2aFixture(input: {
 
   const agentCard = createAgentCard(`${baseUrl}/a2a`);
 
-  const executor = new HandoffLabExecutor(input.fixture, input.recorder, input.state);
+  const executor = new HandoffLabExecutor(input.handoffAdapter, input.recorder, input.state);
 
   const requestHandler = new DefaultRequestHandler(agentCard, new InMemoryTaskStore(), executor);
 

@@ -6,9 +6,9 @@ import {
   type RequestContext,
 } from '@a2a-js/sdk/server';
 
+import type { HandoffAdapter } from '../../core/index.js';
 import type { EvidenceRecorder } from '../evidence.js';
-import type { FixtureMode, LabRunState, SecurityContext } from '../models.js';
-import { translateSecurityContext } from '../handoff/translate.js';
+import type { LabRunState, SecurityContext } from '../models.js';
 import { callReadInvoiceThroughMcp } from '../mcp/harness.js';
 
 function readContext(value: unknown): SecurityContext {
@@ -72,7 +72,7 @@ function createTextMessage(messageId: string, contextId: string, text: string): 
 
 export class HandoffLabExecutor implements AgentExecutor {
   constructor(
-    private readonly fixture: FixtureMode,
+    private readonly handoffAdapter: HandoffAdapter,
     private readonly recorder: EvidenceRecorder,
     private readonly state: LabRunState,
   ) {}
@@ -91,7 +91,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       },
     });
 
-    const translated = translateSecurityContext(original, this.fixture);
+    const translated = await this.handoffAdapter.translate(original);
 
     this.state.translatedContext = translated;
 
@@ -104,7 +104,8 @@ export class HandoffLabExecutor implements AgentExecutor {
       details: {
         originalPrincipal: original.principal,
         translatedPrincipal: translated.principal,
-        fixture: this.fixture,
+        fixture: this.recorder.fixture,
+        handoffAdapter: this.handoffAdapter.id,
       },
     });
 
