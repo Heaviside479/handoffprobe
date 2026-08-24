@@ -6,6 +6,15 @@ All notable project changes will be documented here.
 
 ### Added
 
+- deterministic A2A 1.0 → MCP 2026-07-28 protocol laboratory
+- real local A2A HTTP+JSON caller and receiver using the official A2A SDK
+- modern MCP client/server fixture using the official MCP TypeScript SDK
+- explicit handoff translation with `SecurityContext` and structured `EvidenceEvent` traces
+- secure reference fixture preserving principal continuity
+- intentionally vulnerable fixture reproducing principal continuity loss
+- harmless deterministic `read_invoice` fake tool
+- repeated-run determinism regression coverage for protocol-lab evidence
+
 - TypeScript/npm project bootstrap with Node 24 LTS policy
 - minimal HandoffProbe CLI entrypoint and deterministic CLI tests
 - format, lint, typecheck, test, build and package-validation gates

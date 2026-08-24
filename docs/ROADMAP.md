@@ -52,22 +52,24 @@ No unresolved naming, product-scope, protocol-baseline or P0-test ambiguity.
 
 # Phase 1 — Protocol laboratory
 
+Status: completed 2026-08-24
+
 ## Goal
 
 Create the smallest real A2A → MCP system HandoffProbe can observe.
 
 ## Deliverables
 
-- A2A 1.0 HTTP+JSON caller
-- A2A 1.0 receiver
-- MCP 2026-07-28 client
-- local MCP server
-- harmless fake tools
-- explicit handoff translation layer
-- SecurityContext model
-- EvidenceEvent model
-- secure reference fixture
-- intentionally vulnerable fixture
+- [x] A2A 1.0 HTTP+JSON caller
+- [x] A2A 1.0 receiver
+- [x] MCP 2026-07-28 client
+- [x] local MCP server
+- [x] harmless fake tools
+- [x] explicit handoff translation layer
+- [x] SecurityContext model
+- [x] EvidenceEvent model
+- [x] secure reference fixture
+- [x] intentionally vulnerable fixture
 
 ## First vertical slice
 
@@ -79,9 +81,27 @@ user
 → MCP server
 → fake tool
 
+Implemented and verified locally using:
+
+- real A2A 1.0 HTTP+JSON over loopback HTTP
+- explicit A2A → MCP security-context translation
+- MCP 2026-07-28 modern protocol negotiation
+- local `read_invoice` fake tool with no external side effects
+- structured nine-event evidence timeline
+- secure fixture preserving `user:alice`
+- vulnerable fixture reproducing principal continuity loss
+- deterministic repeated-run equality checks
+- evidence free of ephemeral loopback ports
+
 ## Exit gate
 
-Both fixtures execute deterministically and produce structured traces.
+- [x] secure fixture executes deterministically
+- [x] vulnerable fixture executes deterministically
+- [x] both fixtures produce structured traces
+- [x] repeated runs produce identical structured results
+- [x] no destructive or external side effects
+
+Phase 1 exit gate satisfied on 2026-08-24.
 
 ---
 
