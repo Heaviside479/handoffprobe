@@ -119,6 +119,19 @@ Early success is not defined by revenue alone. Watch for:
 
 A formal trademark/legal review can still be performed before meaningful commercial branding spend; that does not reopen the routine product naming decision by default.
 
+## Implementation contracts
+
+Before implementation work, also read:
+
+- `docs/TECHNICAL_BASELINE.md`
+- `docs/P0_TEST_SPECIFICATION.md`
+- `docs/FINAL_PRODUCT_DEFINITION.md`
+
+The twelve P0 tests are mandatory v0.1 acceptance criteria.
+
+A working scanner or CLI alone does not mean the project is professionally
+finished. `docs/FINAL_PRODUCT_DEFINITION.md` defines the mature product target.
+
 ## Build philosophy
 
 Small vertical slices. Test first. No speculative platform work. Do not build features merely because they might be useful later.

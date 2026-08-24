@@ -92,6 +92,9 @@ See [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) for the current backlog.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — planned technical architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — security model and trust boundaries
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — security-test backlog
+- [`docs/P0_TEST_SPECIFICATION.md`](docs/P0_TEST_SPECIFICATION.md) — executable v0.1 P0 acceptance contract
+- [`docs/TECHNICAL_BASELINE.md`](docs/TECHNICAL_BASELINE.md) — implementation/runtime baseline
+- [`docs/FINAL_PRODUCT_DEFINITION.md`](docs/FINAL_PRODUCT_DEFINITION.md) — mature-product completion definition
 - [`docs/RESEARCH_BASELINE.md`](docs/RESEARCH_BASELINE.md) — current protocol/research baseline
 - [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md) — differentiation and kill criteria
 - [`docs/SEVERITY.md`](docs/SEVERITY.md) — finding classification policy

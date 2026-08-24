@@ -1,226 +1,537 @@
 # HandoffProbe Roadmap
 
-This roadmap is intentionally staged to protect the project's zero-budget, open-source-first strategy.
+Status: active
 
-## Phase 0 — Research-locked foundation
+Strategy:
 
-Status: in progress
+- open-source first
+- local first
+- near-zero infrastructure cost
+- evidence before UI
+- adoption before SaaS
 
-- [x] Public GitHub repository
+---
+
+# Phase 0 — Foundation lock
+
+## Goal
+
+Eliminate ambiguity before implementation.
+
+## Completed
+
+- [x] public GitHub repository
 - [x] Apache-2.0 license
-- [x] Canonical product context
-- [x] Final product name: HandoffProbe
-- [x] Repository renamed to `handoffprobe`
-- [x] Planned package/CLI naming standardized to `handoffprobe`
-- [x] Test-ID prefix standardized to `HP-`
-- [x] Initial product scope
-- [x] Architecture plan
-- [x] Threat-model baseline
-- [x] Initial attack catalog
-- [x] Growth and monetization hypothesis
-- [x] Current A2A/MCP research baseline
-- [x] Competitive-landscape boundary
-- [x] Finding/severity policy
-- [ ] Re-verify exact current SDK/package versions immediately before scaffold
-- [ ] Pin A2A 1.0 / MCP 2026-07-28 fixture behavior
-- [ ] Choose Node/tooling versions (target Node 24 LTS unless SDK constraints justify otherwise)
-- [ ] Create initial TypeScript project
-- [ ] Add CI baseline
+- [x] HandoffProbe final product name
+- [x] repository renamed to `handoffprobe`
+- [x] canonical project context
+- [x] product definition
+- [x] architecture baseline
+- [x] threat model
+- [x] attack catalog
+- [x] severity policy
+- [x] research baseline
+- [x] competitive landscape
+- [x] growth/monetization hypothesis
+- [x] twelve P0 tests fully specified
+- [x] technical implementation baseline
+- [x] final-product definition
 
-Exit condition: contributors and coding agents can explain exactly what v0.1 is, what it is not, which protocol versions it targets and why official single-protocol tools do not make it redundant.
+## Remaining
 
-## Phase 1 — Protocol laboratory
+- [ ] bootstrap TypeScript/npm project
+- [ ] baseline lint/typecheck/test/build
+- [ ] baseline GitHub CI
 
-Goal: prove that HandoffProbe can model the A2A 1.0 -> MCP 2026-07-28 handoff.
+## Exit gate
 
-- build a minimal A2A 1.0 HTTP+JSON caller/receiver fixture
-- build a minimal MCP 2026-07-28 server with harmless fake tools
-- explicitly opt SDK fixtures into the intended protocol revision
-- implement a first-class handoff/translation layer
-- model identity, authority, tenant, resource, approval and lifecycle context
-- create one secure composition fixture
-- create one intentionally vulnerable composition fixture
-- use harmless side-effect counters/temp state
-- establish structured trace/evidence timeline
-- run relevant individual protocol checks/preflight where useful
+No unresolved naming, product-scope, protocol-baseline or P0-test ambiguity.
 
-Exit condition: one deterministic failure exists where the handoff violates an end-to-end invariant and the failure is attributable to the boundary rather than a basic malformed protocol implementation.
+---
 
-## Phase 2 — Core engine
+# Phase 1 — Protocol laboratory
 
-Goal: turn the lab into a reusable scanner engine.
+## Goal
 
-- attack/test interface
-- target and handoff adapter interfaces
-- assertion model
-- finding/severity schema
-- property classification
-- protocol-version applicability
-- source/provenance references
-- deterministic evidence capture
+Create the smallest real A2A → MCP system HandoffProbe can observe.
+
+## Deliverables
+
+- A2A 1.0 HTTP+JSON caller
+- A2A 1.0 receiver
+- MCP 2026-07-28 client
+- local MCP server
+- harmless fake tools
+- explicit handoff translation layer
+- SecurityContext model
+- EvidenceEvent model
+- secure reference fixture
+- intentionally vulnerable fixture
+
+## First vertical slice
+
+user
+→ A2A caller
+→ A2A receiver
+→ translation layer
+→ MCP client
+→ MCP server
+→ fake tool
+
+## Exit gate
+
+Both fixtures execute deterministically and produce structured traces.
+
+---
+
+# Phase 2 — Core security engine
+
+## Deliverables
+
+- AttackDefinition
+- AttackRegistry
+- TargetAdapter
+- HandoffAdapter
+- SecurityContext
+- EvidenceEvent
+- Finding
+- finding statuses
+- severity model
+- property class
+- protocol applicability
+- source/provenance metadata
 - run/correlation IDs
+- deterministic orchestration
+- timeout model
+- structured internal errors
 - secret redaction
-- run orchestration
-- timeout/retry handling
-- safety policy / local-default target restrictions
-- stable `HP-*` test IDs
-- versioned JSON result schema
 
-Exit condition: handoff attack rules can be added without rewriting the runner and every failure carries reproducible, source-linked evidence.
+## Exit gate
 
-## Phase 3 — First attack corpus
+A new security attack can be added without rewriting protocol plumbing.
 
-Goal: implement the 12 P0 handoff tests in `docs/ATTACK_CATALOG.md`.
+---
 
-P0 priorities:
+# Phase 3 — Mandatory P0 attack corpus
 
-- delegated authority amplification
-- missing-scope fail-open translation
-- cross-agent authorization reuse
-- principal continuity
-- agent identity substitution
-- tenant continuity
-- resource binding
-- capability/tool semantic binding
-- post-consent payload mutation
-- broad credential propagation
-- credential audience binding
-- cancellation propagation
+Implement:
 
-Then add P1 replay, concurrency, partial-failure and audit-lineage cases.
+- [ ] HP-AUTH-001
+- [ ] HP-AUTH-002
+- [ ] HP-AUTH-003
+- [ ] HP-ID-001
+- [ ] HP-ID-002
+- [ ] HP-TENANT-001
+- [ ] HP-TARGET-001
+- [ ] HP-TARGET-002
+- [ ] HP-APPROVAL-001
+- [ ] HP-CRED-001
+- [ ] HP-CRED-002
+- [ ] HP-LIFECYCLE-001
 
-Exit condition: all 12 P0 tests implemented; vulnerable fixture produces known failures and secure fixture passes expected tests. Do not inflate the number with generic A2A/MCP checks.
+## Exit gate
 
-## Phase 4 — Current-spec advanced handoff cases
+Requirements in `docs/P0_TEST_SPECIFICATION.md` are fully satisfied.
 
-Only after P0 is stable, evaluate handoff-specific tests for:
+Secure fixture passes.
 
-- explicit MCP state-handle binding
-- MCP cache-scope context
-- MRTR input/approval binding
-- routing-header/body translation
-- protocol-version downgrade/translation
-- Agent Card-derived capability/security translation
-- structured untrusted-content-to-tool semantic integrity
+Vulnerable fixture fails exactly where intended.
 
-Exit condition: each accepted test demonstrates a handoff-specific property rather than duplicating official tooling.
+ERROR cannot masquerade as FAIL.
 
-## Phase 5 — Developer-quality CLI
+---
 
-Goal: one-command local use.
+# Phase 4 — Advanced handoff corpus
 
-Target UX:
+Candidates include:
 
-```bash
-npx handoffprobe test
-```
+- delegation expiry
+- delegation-chain truncation
+- exact replay
+- cross-run replay
+- retry duplicate execution
+- approval/tool substitution
+- approval/resource substitution
+- one-time authorization races
+- stale execution after partial failure
+- audit lineage loss
+- state-handle confusion
+- cache-scope leakage
+- MRTR task misbinding
+- delayed MRTR after cancellation
+- routing metadata mismatch
+- version downgrade/translation
+- Agent Card security translation
+- structured untrusted-content → unauthorized tool selection
 
-Deliverables:
+## Admission gate
 
-- CLI help and configuration
-- explicit protocol baseline in output
-- readable terminal report
-- JSON output
-- Markdown output
-- non-zero exit code on configured severities
-- examples
-- troubleshooting docs
-- versioned configuration schema
-- safe defaults (local targets; destructive tests disabled)
+Every attack must demonstrate a handoff/composition-specific invariant.
 
-Exit condition: a developer unfamiliar with the repository can run the demo from the README and understand exactly why a failure is handoff-specific.
+Generic protocol checks do not enter Core.
 
-## Phase 6 — CI / GitHub integration
+---
 
-- GitHub Action wrapper
-- PR-friendly summary output
-- severity threshold / fail policy
-- artifact/evidence retention guidance
-- SARIF only if it maps cleanly to findings
-- public example repository
+# Phase 5 — Developer-quality CLI
 
-Exit condition: HandoffProbe can gate a demo pull request on a handoff-security regression.
+Target:
 
-## Phase 7 — Public v0.1 launch
+`npx handoffprobe test`
 
-Launch only when the product demonstrates a real, understandable failure.
+## Commands
 
-- re-check exact npm package availability for `handoffprobe`; use scoped package if necessary without changing the product brand
-- polished README and demo artifact if useful
-- npm publication
+- `handoffprobe test`
+- `handoffprobe list`
+- `handoffprobe explain <HP-ID>`
+- `handoffprobe --version`
+- `handoffprobe --help`
+
+## Deliverables
+
+- configuration file
+- target selection
+- test selection
+- severity threshold
+- safe defaults
+- readable terminal output
+- JSON reporter
+- Markdown reporter
+- deterministic CI exit codes
+- troubleshooting output
+- explicit protocol versions
+
+## Exit gate
+
+A developer unfamiliar with the project can reproduce the full demo using only
+the README.
+
+---
+
+# Phase 6 — Automated quality and GitHub integration
+
+## Repository CI
+
+- format
+- lint
+- typecheck
+- unit tests
+- integration tests
+- regression tests
+- build/package validation
+- dependency review
+- secret-safety validation
+
+## HandoffProbe GitHub Action
+
+- run scanner in PR workflow
+- configurable severity threshold
+- PR summary
+- machine-readable artifact
+- evidence artifact handling
+- deterministic merge gate
+
+## Exit gate
+
+A deliberate vulnerable regression blocks a demo pull request.
+
+---
+
+# Phase 7 — Open-source v0.1 launch
+
+## Required
+
+- minimum 12 P0 tests
+- secure fixture
+- vulnerable fixture
+- one-command demo
+- polished README
+- npm package
 - GitHub release
-- Show HN launch candidate
-- security/developer community posts
-- technical research article, not generic marketing
-- demo showing relevant individual checks pass but a handoff invariant fails (without overstating certification)
-- clear contribution path
-- public roadmap
+- install docs
+- usage docs
+- security policy
+- contribution guide
+- attack catalog
+- research article
+- launch examples
 
-Primary metrics:
+## Public demonstration
 
-- successful first-run rate
-- repeat usage/downloads
-- stars from real users
-- issues and contributions
-- integrations requested
+The strongest demo should show:
 
-## Phase 8 — Research and adoption loop
+A2A-side behavior: expected
 
-- expand attack corpus based on real implementations
-- monitor A2A/MCP release notes and SDK changes
-- version/deprecate tests explicitly when specs change
+MCP-side behavior: expected
+
+Combined handoff invariant: FAIL
+
+HandoffProbe: reproducibly detects the failure
+
+---
+
+# Phase 8 — Adoption and research loop
+
+## Goals
+
+- reduce first-run friction
+- observe real user workflows
+- add high-value adapters
 - publish reproducible research
 - responsibly disclose confirmed vulnerabilities
-- add framework adapters where demand exists
-- maintain regression cases for fixed issues
-- cultivate external contributors
+- convert fixed issues into regression tests
+- attract external contributors
 
-Do not chase star count at the expense of technical credibility.
+## Metrics
 
-## Phase 9 — First revenue
+Prefer:
 
-Prefer services before expensive SaaS infrastructure:
+- successful installs
+- successful scans
+- repeat usage
+- CI usage
+- real repositories using HandoffProbe
+- npm downloads
+- contributors
+- high-quality issues
+- adapter requests
+- vulnerability disclosures
+- commercial inquiries
 
-1. agent handoff / protocol-composition security assessments
-2. custom HandoffProbe adapters/test packs
-3. enterprise support
+GitHub stars are useful but secondary.
 
-Target outcome: validate willingness to pay before building a hosted platform.
+---
 
-## Phase 10 — Hosted / enterprise layer (conditional)
+# Phase 9 — Framework and adapter expansion
 
-Only build if recurring organizational pain is demonstrated.
+Possible integration targets should be chosen from real demand.
 
-Potential paid features:
+## Principle
 
-- private organization dashboard
-- scan history
+Adapters must reuse the same engine.
+
+Do not create independent scanners for every framework.
+
+---
+
+# Phase 10 — v0.5 reliability hardening
+
+## Deliverables
+
+- compatibility matrix
+- fixture-version matrix
+- versioned report schema
+- versioned config schema
+- backward compatibility policy
+- test deprecation policy
+- deterministic seeds
+- performance benchmarks
+- concurrency tests
+- structured diagnostic logs
+- redaction regression tests
+- macOS CI
+- Linux CI
+- Windows CI where practical
+- dependency upgrade process
+- upstream spec-drift review
+
+## Exit gate
+
+HandoffProbe behaves like dependable developer infrastructure rather than a
+research prototype.
+
+---
+
+# Phase 11 — v0.9 release engineering
+
+## Deliverables
+
+- release automation
+- npm publication workflow
+- tagged releases
+- release notes
+- reproducible build validation
+- provenance/SBOM where practical
+- migration policy
+- upgrade guide
+- troubleshooting guide
+- FAQ
+- release candidate testing
+- external feedback round
+
+## Exit gate
+
+No known Critical or High HandoffProbe defect.
+
+Public interfaces intended for v1 are frozen.
+
+---
+
+# Phase 12 — HandoffProbe v1.0 GA
+
+## GA requirements
+
+- stable Core engine
+- stable CLI
+- stable config schema
+- stable report schema
+- all P0 attacks mature
+- meaningful additional handoff coverage
+- GitHub Action mature
+- compatibility documented
+- CI comprehensive
+- safe defaults
+- threat model current
+- limitations documented
+- external users demonstrated
+- release automation proven
+- upgrade process documented
+
+## Rule
+
+Do not ship v1.0 because of time or marketing pressure.
+
+Ship when external users can reasonably depend on the tool.
+
+---
+
+# Phase 13 — Commercial validation
+
+Before building SaaS, sell high-value work around Core.
+
+## Offers
+
+### Handoff Security Assessment
+
+Authorized architecture/security assessment using HandoffProbe plus manual
+analysis.
+
+### Custom Adapter
+
+Integration with proprietary agent infrastructure.
+
+### Private Test Pack
+
+Organization-specific handoff invariants.
+
+### Enterprise Support
+
+Onboarding, integration support and maintenance.
+
+## Exit gate
+
+Real organizations demonstrate willingness to pay.
+
+---
+
+# Phase 14 — HandoffProbe Cloud beta
+
+Conditional.
+
+Build only if centralized usage is repeatedly requested.
+
+Possible features:
+
+- accounts
+- organizations
+- projects
+- private scan history
 - scheduled scans
 - centralized policies
-- SSO/RBAC
-- audit/compliance evidence
-- organization-wide GitHub integration
-- support SLAs
+- GitHub organization integration
+- alerts
+- evidence retention
+- basic team roles
 
-## Phase 11 — Expansion (conditional)
+Core must remain independently useful.
 
-Expansion candidates, based on demand and research:
+---
 
-- additional A2A/MCP transports/SDKs
-- other protocol pairings
-- approval-integrity testing
-- agentic transaction testing
-- CI trust-flow analysis
+# Phase 15 — Enterprise product
 
-No expansion should weaken the core handoff-testing identity without evidence.
+Conditional capabilities:
 
-## Kill / reassessment gates
+- SSO
+- SCIM if demanded
+- granular RBAC
+- audit logs
+- data-retention controls
+- compliance evidence
+- organization policy packs
+- private adapters
+- private attack packs
+- support SLA
+- enterprise deployment options
+- security/compliance documentation
 
-Reassess before expensive expansion if:
+---
 
-- an official handoff/composition-security TCK covers the wedge comprehensively;
-- a mature open-source competitor provides equivalent dynamic handoff testing and wins adoption;
-- strong fixtures fail to reveal meaningful handoff-specific issues;
-- users consistently value another problem more than the current wedge.
+# Phase 16 — Broader handoff coverage
 
-Preserve reusable runner/evidence/corpus assets if a pivot is necessary.
+Only after the original wedge is proven.
+
+Candidates:
+
+- A2A → A2A
+- additional MCP handoffs
+- approval handoffs
+- browser/tool execution
+- agentic transactions
+- payment handoffs
+- AP2
+- x402
+- UCP/commerce
+- additional agent protocols
+
+Every module must still satisfy the HandoffProbe thesis:
+
+> security properties lost during a handoff
+
+---
+
+# Phase 17 — Mature product
+
+Desired long-term state:
+
+- respected open-source Core
+- meaningful external adoption
+- substantial attack corpus
+- recurring original research
+- responsible disclosures
+- external contributors
+- CI adoption
+- framework/protocol integrations
+- commercial customers
+- optional profitable enterprise layer
+
+Strategic value should come from:
+
+- adoption
+- corpus
+- integrations
+- regression knowledge
+- research credibility
+- developer trust
+- enterprise trust
+
+not raw source-code volume.
+
+---
+
+# Permanent reassessment gates
+
+Reassess the product if:
+
+- official protocol tooling comprehensively solves the same problem
+- another mature project dominates dynamic handoff testing
+- real implementations do not reveal meaningful handoff-specific failures
+- users consistently request a materially different problem
+- compatibility maintenance exceeds demonstrated user value
+
+Reusable assets to preserve during any pivot:
+
+- test runner
+- evidence model
+- attack corpus
+- protocol adapters
+- regression fixtures
+- research
