@@ -3,3 +3,4 @@ export const PACKAGE_NAME = 'handoffprobe';
 export const VERSION = '0.0.0';
 
 export * from './core/index.js';
+export * from './attacks/index.js';

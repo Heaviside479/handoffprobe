@@ -1,11 +1,33 @@
 export const REDACTED_VALUE = '[REDACTED]';
 
+function normalizeKey(key: string): string {
+  return key.toLowerCase().replaceAll('-', '').replaceAll('_', '');
+}
+
 function isSensitiveKey(key: string): boolean {
-  const normalized = key.toLowerCase().replaceAll('-', '').replaceAll('_', '');
+  const normalized = normalizeKey(key);
 
-  const markers = ['authorization', 'password', 'secret', 'token', 'apikey', 'cookie', 'setcookie'];
+  const exactSensitiveKeys = new Set([
+    'authorization',
+    'authorizationheader',
+    'proxyauthorization',
+    'password',
+    'passwd',
+    'secret',
+    'token',
+    'apikey',
+    'cookie',
+    'setcookie',
+    'clientsecret',
+  ]);
 
-  return markers.some((marker) => normalized.includes(marker));
+  if (exactSensitiveKeys.has(normalized)) {
+    return true;
+  }
+
+  const sensitiveSuffixes = ['password', 'secret', 'token', 'apikey'];
+
+  return sensitiveSuffixes.some((suffix) => normalized.endsWith(suffix));
 }
 
 function redactValue(value: unknown): unknown {
