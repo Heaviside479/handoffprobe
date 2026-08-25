@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { renderCliTestRun, resolveCliTestSelection, runCliTests } from '../src/cli/test-command.js';
+import type { CliTestRun } from '../src/cli/test-command.js';
+import {
+  evaluateCliTestExitCode,
+  renderCliTestRun,
+  resolveCliTestSelection,
+  runCliTests,
+} from '../src/cli/test-command.js';
 
 describe('CLI test command execution', () => {
   it('selects all 22 stable attacks when no IDs are requested', () => {
@@ -68,7 +74,72 @@ describe('CLI test command execution', () => {
     expect(run.results.map((result) => result.finding.status)).toEqual(['fail', 'fail', 'fail']);
   });
 
-  it('renders protocol baseline, findings and summary deterministically', async () => {
+  it('fails the default HIGH gate for a HIGH vulnerability but not a CRITICAL gate', async () => {
+    const selection = resolveCliTestSelection(['HP-AUTH-001']);
+
+    const run = await runCliTests({
+      target: 'vulnerable',
+      bindings: selection.bindings,
+    });
+
+    expect(run.results[0]?.finding.severity).toBe('high');
+    expect(evaluateCliTestExitCode(run, 'high')).toBe(1);
+    expect(evaluateCliTestExitCode(run, 'critical')).toBe(0);
+  });
+
+  it('fails a MEDIUM gate for a MEDIUM vulnerability', async () => {
+    const selection = resolveCliTestSelection(['HP-CRED-001']);
+
+    const run = await runCliTests({
+      target: 'vulnerable',
+      bindings: selection.bindings,
+    });
+
+    expect(run.results[0]?.finding.severity).toBe('medium');
+    expect(evaluateCliTestExitCode(run, 'medium')).toBe(1);
+    expect(evaluateCliTestExitCode(run, 'high')).toBe(0);
+  });
+
+  it('returns runtime exit 3 for ERROR regardless of the vulnerability threshold', async () => {
+    const selection = resolveCliTestSelection(['HP-AUTH-001']);
+
+    const base = await runCliTests({
+      target: 'secure',
+      bindings: selection.bindings,
+    });
+
+    const first = base.results[0];
+
+    if (first === undefined) {
+      throw new Error('Expected one CLI test result.');
+    }
+
+    const errorRun: CliTestRun = {
+      ...base,
+      results: [
+        {
+          ...first,
+          finding: {
+            ...first.finding,
+            status: 'error',
+          },
+        },
+      ],
+      summary: {
+        pass: 0,
+        fail: 0,
+        notApplicable: 0,
+        inconclusive: 0,
+        error: 1,
+        total: 1,
+      },
+    };
+
+    expect(evaluateCliTestExitCode(errorRun, 'info')).toBe(3);
+    expect(evaluateCliTestExitCode(errorRun, 'critical')).toBe(3);
+  });
+
+  it('renders threshold, protocol baseline, findings and gate deterministically', async () => {
     const selection = resolveCliTestSelection(['HP-AUTH-001']);
 
     const first = await runCliTests({
@@ -81,14 +152,15 @@ describe('CLI test command execution', () => {
       bindings: selection.bindings,
     });
 
-    const firstOutput = renderCliTestRun(first);
-    const secondOutput = renderCliTestRun(second);
+    const firstOutput = renderCliTestRun(first, 'high');
+    const secondOutput = renderCliTestRun(second, 'high');
 
     expect(firstOutput).toBe(secondOutput);
     expect(firstOutput).toContain('Protocols: A2A 1.0 | MCP 2026-07-28');
+    expect(firstOutput).toContain('Fail on: HIGH');
     expect(firstOutput).toContain('PASS           HP-AUTH-001 Delegated authority amplification');
     expect(firstOutput).toContain('PASS: 1');
     expect(firstOutput).toContain('ERROR: 0');
-    expect(firstOutput).toContain('Security gate: informational in Phase 5.3');
+    expect(firstOutput).toContain('Security gate: PASS');
   });
 });

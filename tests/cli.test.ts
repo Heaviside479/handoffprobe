@@ -40,6 +40,7 @@ describe('runCli', () => {
     expect(capture.stdout.join('\n')).toContain('explain <HP-ID>');
     expect(capture.stdout.join('\n')).toContain('--target <target>');
     expect(capture.stdout.join('\n')).toContain('--test <HP-ID>');
+    expect(capture.stdout.join('\n')).toContain('--fail-on <severity>');
     expect(capture.stderr).toEqual([]);
   });
 
@@ -145,13 +146,15 @@ describe('runCli', () => {
     expect(output).toContain('Target: secure');
     expect(output).toContain('Protocols: A2A 1.0 | MCP 2026-07-28');
     expect(output).toContain('Selected attacks: 22');
+    expect(output).toContain('Fail on: HIGH');
     expect(output).toContain('PASS: 22');
     expect(output).toContain('FAIL: 0');
     expect(output).toContain('ERROR: 0');
     expect(output).toContain('TOTAL: 22');
+    expect(output).toContain('Security gate: PASS');
   });
 
-  it('runs a deterministic selected subset against the vulnerable target', async () => {
+  it('returns exit 1 for a HIGH vulnerability at the default HIGH threshold', async () => {
     const capture = createCapture();
 
     const exitCode = await runCli(
@@ -159,18 +162,55 @@ describe('runCli', () => {
       capture.io,
     );
 
-    expect(exitCode).toBe(0);
+    expect(exitCode).toBe(1);
     expect(capture.stderr).toEqual([]);
 
     const output = capture.stdout[0] ?? '';
 
     expect(output).toContain('Target: vulnerable');
     expect(output).toContain('Selected attacks: 2');
+    expect(output).toContain('Fail on: HIGH');
     expect(output).toContain('PASS: 0');
     expect(output).toContain('FAIL: 2');
     expect(output).toContain('TOTAL: 2');
+    expect(output).toContain('Security gate: FAIL');
 
     expect(output.indexOf('HP-AUTH-001')).toBeLessThan(output.indexOf('HP-CRED-001'));
+  });
+
+  it('keeps a HIGH vulnerability visible but returns exit 0 at CRITICAL threshold', async () => {
+    const capture = createCapture();
+
+    const exitCode = await runCli(
+      ['test', '--target', 'vulnerable', '--test', 'HP-AUTH-001', '--fail-on', 'critical'],
+      capture.io,
+    );
+
+    expect(exitCode).toBe(0);
+
+    const output = capture.stdout[0] ?? '';
+
+    expect(output).toContain('FAIL           HP-AUTH-001');
+    expect(output).toContain('FAIL: 1');
+    expect(output).toContain('Fail on: CRITICAL');
+    expect(output).toContain('Security gate: PASS');
+  });
+
+  it('returns exit 1 for a MEDIUM vulnerability at MEDIUM threshold', async () => {
+    const capture = createCapture();
+
+    const exitCode = await runCli(
+      ['test', '--target', 'vulnerable', '--test', 'HP-CRED-001', '--fail-on', 'medium'],
+      capture.io,
+    );
+
+    expect(exitCode).toBe(1);
+
+    const output = capture.stdout[0] ?? '';
+
+    expect(output).toContain('FAIL           HP-CRED-001');
+    expect(output).toContain('Fail on: MEDIUM');
+    expect(output).toContain('Security gate: FAIL');
   });
 
   it('deduplicates repeated test selection', async () => {
@@ -211,6 +251,16 @@ describe('runCli', () => {
     expect(capture.stderr.join('\n')).toContain('expected secure or vulnerable');
   });
 
+  it('rejects an invalid fail-on severity', async () => {
+    const capture = createCapture();
+
+    const exitCode = await runCli(['test', '--fail-on', 'urgent'], capture.io);
+
+    expect(exitCode).toBe(2);
+    expect(capture.stdout).toEqual([]);
+    expect(capture.stderr.join('\n')).toContain('expected info, low, medium, high, or critical');
+  });
+
   it('rejects positional arguments for test', async () => {
     const capture = createCapture();
 
@@ -225,7 +275,7 @@ describe('runCli', () => {
     const listCapture = createCapture();
     const explainCapture = createCapture();
 
-    const listExit = await runCli(['list', '--target', 'secure'], listCapture.io);
+    const listExit = await runCli(['list', '--fail-on', 'high'], listCapture.io);
 
     const explainExit = await runCli(
       ['explain', 'HP-AUTH-001', '--test', 'HP-AUTH-001'],
@@ -238,22 +288,18 @@ describe('runCli', () => {
     expect(explainCapture.stderr.join('\n')).toContain('"explain" does not accept test options');
   });
 
-  it('returns a usage error for an unknown command', async () => {
-    const capture = createCapture();
+  it('rejects unknown commands and unknown options as usage errors', async () => {
+    const commandCapture = createCapture();
+    const optionCapture = createCapture();
 
-    const exitCode = await runCli(['wat'], capture.io);
+    const commandExit = await runCli(['wat'], commandCapture.io);
 
-    expect(exitCode).toBe(2);
-    expect(capture.stdout).toEqual([]);
-    expect(capture.stderr.join('\n')).toContain('unknown command "wat"');
-  });
+    const optionExit = await runCli(['--unknown-option'], optionCapture.io);
 
-  it('returns a usage error for an unknown option', async () => {
-    const capture = createCapture();
-
-    const exitCode = await runCli(['--unknown-option'], capture.io);
-
-    expect(exitCode).toBe(2);
-    expect(capture.stderr.join('\n')).toContain('HandoffProbe');
+    expect(commandExit).toBe(2);
+    expect(optionExit).toBe(2);
+    expect(commandCapture.stdout).toEqual([]);
+    expect(commandCapture.stderr.join('\n')).toContain('unknown command "wat"');
+    expect(optionCapture.stderr.join('\n')).toContain('HandoffProbe');
   });
 });

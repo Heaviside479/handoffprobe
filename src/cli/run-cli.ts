@@ -2,9 +2,16 @@ import { parseArgs } from 'node:util';
 
 import { PRODUCT_NAME, VERSION } from '../index.js';
 
+import { DEFAULT_FAIL_ON, loadHandoffProbeConfig } from './config.js';
 import { renderAttackExplanation, renderAttackList } from './discovery.js';
-import { renderCliTestRun, resolveCliTestSelection, runCliTests } from './test-command.js';
+import {
+  evaluateCliTestExitCode,
+  renderCliTestRun,
+  resolveCliTestSelection,
+  runCliTests,
+} from './test-command.js';
 
+import type { CliFailOn } from './config.js';
 import type { CliTargetFixture } from './execution-catalog.js';
 
 export interface CliIo {
@@ -28,6 +35,8 @@ Commands:
 Test options:
   --target <target>                secure | vulnerable (default: secure)
   --test <HP-ID>                   Select one attack; repeatable
+  --fail-on <severity>             info | low | medium | high | critical
+                                   default: high
 
 Options:
   -h, --help                       Show this help
@@ -64,27 +73,46 @@ function parseCliArgs(args: readonly string[]) {
         type: 'string',
         multiple: true,
       },
+      'fail-on': {
+        type: 'string',
+      },
     },
   });
 }
 
 function hasTestOptions(values: ReturnType<typeof parseCliArgs>['values']): boolean {
-  return values.target !== undefined || values.test !== undefined;
+  return (
+    values.target !== undefined || values.test !== undefined || values['fail-on'] !== undefined
+  );
 }
 
-function parseTarget(value: string | undefined): CliTargetFixture | undefined {
-  if (value === undefined || value === 'secure') {
-    return 'secure';
-  }
-
-  if (value === 'vulnerable') {
-    return 'vulnerable';
+function parseTarget(value: string): CliTargetFixture | undefined {
+  if (value === 'secure' || value === 'vulnerable') {
+    return value;
   }
 
   return undefined;
 }
 
-export async function runCli(args: readonly string[], io: CliIo): Promise<number> {
+function parseFailOn(value: string): CliFailOn | undefined {
+  if (
+    value === 'info' ||
+    value === 'low' ||
+    value === 'medium' ||
+    value === 'high' ||
+    value === 'critical'
+  ) {
+    return value;
+  }
+
+  return undefined;
+}
+
+export async function runCli(
+  args: readonly string[],
+  io: CliIo,
+  cwd: string = process.cwd(),
+): Promise<number> {
   let parsed: ReturnType<typeof parseCliArgs>;
 
   try {
@@ -154,20 +182,40 @@ export async function runCli(args: readonly string[], io: CliIo): Promise<number
       return usageError(io, '"test" does not accept positional arguments.');
     }
 
-    const target = parseTarget(parsed.values.target);
+    let config;
+
+    try {
+      config = await loadHandoffProbeConfig(cwd);
+    } catch (error) {
+      return usageError(io, errorMessage(error));
+    }
+
+    const targetValue = parsed.values.target ?? config.target ?? 'secure';
+    const target = parseTarget(targetValue);
 
     if (target === undefined) {
+      return usageError(io, `invalid target "${targetValue}"; expected secure or vulnerable.`);
+    }
+
+    const failOnValue = parsed.values['fail-on'] ?? config.failOn ?? DEFAULT_FAIL_ON;
+
+    const failOn = parseFailOn(failOnValue);
+
+    if (failOn === undefined) {
       return usageError(
         io,
-        `invalid target "${parsed.values.target ?? ''}"; expected secure or vulnerable.`,
+        `invalid --fail-on "${failOnValue}"; expected info, low, medium, high, or critical.`,
       );
     }
 
-    const selection = resolveCliTestSelection(parsed.values.test);
+    const requestedTests = parsed.values.test ?? config.tests;
+    const selection = resolveCliTestSelection(requestedTests);
 
     if (selection.unknownIds.length > 0) {
       io.stderr(
-        `${PRODUCT_NAME}: unknown attack ID${selection.unknownIds.length === 1 ? '' : 's'}: ${selection.unknownIds.join(', ')}.`,
+        `${PRODUCT_NAME}: unknown attack ID${
+          selection.unknownIds.length === 1 ? '' : 's'
+        }: ${selection.unknownIds.join(', ')}.`,
       );
       io.stderr('Run "handoffprobe list" to see stable attack IDs.');
       return 2;
@@ -179,9 +227,9 @@ export async function runCli(args: readonly string[], io: CliIo): Promise<number
         bindings: selection.bindings,
       });
 
-      io.stdout(renderCliTestRun(run));
+      io.stdout(renderCliTestRun(run, failOn));
 
-      return run.summary.error > 0 ? 3 : 0;
+      return evaluateCliTestExitCode(run, failOn);
     } catch (error) {
       io.stderr(`${PRODUCT_NAME}: scanner runtime failure: ${errorMessage(error)}`);
       return 3;

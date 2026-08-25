@@ -1,7 +1,8 @@
 import { CoreRunner } from '../core/index.js';
 
-import type { CoreRunResult, FindingStatus } from '../core/index.js';
+import type { CoreRunResult, FindingSeverity, FindingStatus } from '../core/index.js';
 
+import type { CliFailOn } from './config.js';
 import { CLI_EXECUTION_CATALOG, getCliExecutionBinding } from './execution-catalog.js';
 
 import type { CliExecutionBinding, CliTargetFixture } from './execution-catalog.js';
@@ -26,6 +27,14 @@ export interface CliTestRun {
   readonly results: readonly CoreRunResult[];
   readonly summary: CliTestSummary;
 }
+
+const SEVERITY_RANK: Readonly<Record<FindingSeverity, number>> = {
+  info: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  critical: 4,
+};
 
 export function resolveCliTestSelection(
   requestedIds: readonly string[] | undefined,
@@ -104,17 +113,50 @@ export async function runCliTests(input: {
   };
 }
 
+export function evaluateCliTestExitCode(run: CliTestRun, failOn: CliFailOn): 0 | 1 | 3 {
+  if (run.summary.error > 0) {
+    return 3;
+  }
+
+  const thresholdRank = SEVERITY_RANK[failOn];
+
+  const securityFailure = run.results.some((result) => {
+    return (
+      result.finding.status === 'fail' && SEVERITY_RANK[result.finding.severity] >= thresholdRank
+    );
+  });
+
+  return securityFailure ? 1 : 0;
+}
+
 function statusLabel(status: FindingStatus): string {
   return status.toUpperCase();
 }
 
-export function renderCliTestRun(run: CliTestRun): string {
+function gateLabel(exitCode: 0 | 1 | 3, failOn: CliFailOn): string {
+  const threshold = failOn.toUpperCase();
+
+  if (exitCode === 3) {
+    return 'Security gate: ERROR (scanner/runtime result present; not reported as a vulnerability gate failure).';
+  }
+
+  if (exitCode === 1) {
+    return `Security gate: FAIL (at least one vulnerability FAIL at or above ${threshold}).`;
+  }
+
+  return `Security gate: PASS (no vulnerability FAIL at or above ${threshold}).`;
+}
+
+export function renderCliTestRun(run: CliTestRun, failOn: CliFailOn): string {
+  const exitCode = evaluateCliTestExitCode(run, failOn);
+
   const lines = [
     'HandoffProbe test',
     '',
     `Target: ${run.target}`,
     'Protocols: A2A 1.0 | MCP 2026-07-28',
     `Selected attacks: ${run.selectedIds.length}`,
+    `Fail on: ${failOn.toUpperCase()}`,
     '',
   ];
 
@@ -137,7 +179,7 @@ export function renderCliTestRun(run: CliTestRun): string {
     `  ERROR: ${run.summary.error}`,
     `  TOTAL: ${run.summary.total}`,
     '',
-    'Security gate: informational in Phase 5.3; severity threshold exits are added in Phase 5.4.',
+    gateLabel(exitCode, failOn),
   );
 
   return lines.join('\n');
