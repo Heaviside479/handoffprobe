@@ -88,6 +88,7 @@ function buildAuthorization(input: {
   tool: P0McpToolName;
   resource: string;
   mode: P0EnforcementMode;
+  downstreamAudience: string;
   approvalPayload?: unknown;
   approvalId?: string;
 }): P0ToolAuthorization {
@@ -111,17 +112,36 @@ function buildAuthorization(input: {
     input.approvalId,
   );
 
+  const forwardedCredential = input.context.forwardedCredential;
+
+  const credentialAudienceMatches =
+    forwardedCredential === undefined
+      ? null
+      : forwardedCredential.audience === input.downstreamAudience;
+
+  const credentialAccepted =
+    forwardedCredential !== undefined &&
+    (credentialAudienceMatches === true || input.mode === 'bypass');
+
   const reasons = [...decision.reasons];
 
   if (!semanticBindingMatches) {
     reasons.push('tool_capability_semantic_mismatch');
   }
 
+  if (credentialAudienceMatches === false) {
+    reasons.push('credential_audience_mismatch');
+  }
+
   if (approval === false) {
     reasons.push('approval_binding_mismatch');
   }
 
-  const invariantAllowed = decision.allowed && semanticBindingMatches && approval !== false;
+  const invariantAllowed =
+    decision.allowed &&
+    semanticBindingMatches &&
+    approval !== false &&
+    credentialAudienceMatches !== false;
 
   const executed = invariantAllowed || input.mode === 'bypass';
 
@@ -131,7 +151,17 @@ function buildAuthorization(input: {
     executed,
     decision,
     approvalMatches: approval,
+
     semanticBindingMatches,
+
+    downstreamAudience: input.downstreamAudience,
+
+    credentialForwarded: forwardedCredential !== undefined,
+
+    credentialAudienceMatches,
+
+    credentialAccepted,
+
     reasons,
   };
 }
@@ -164,7 +194,23 @@ function recordAuthorization(
       policyMode: input.authorization.policyMode,
       authorizationReasons: input.authorization.reasons,
       approvalMatches: input.authorization.approvalMatches,
+
       semanticBindingMatches: input.authorization.semanticBindingMatches,
+
+      downstreamAudience: input.authorization.downstreamAudience,
+
+      credentialFingerprint: context.forwardedCredential?.fingerprint,
+
+      credentialClass: context.forwardedCredential?.credentialClass,
+
+      credentialAudience: context.forwardedCredential?.audience,
+
+      credentialForwarded: input.authorization.credentialForwarded,
+
+      credentialAudienceMatches: input.authorization.credentialAudienceMatches,
+
+      credentialAccepted: input.authorization.credentialAccepted,
+
       sideEffectStateBefore: input.before,
     },
   });
@@ -209,6 +255,7 @@ export function createP0FakeToolServer(
   state: P0FixtureState,
   era: string,
   mode: P0EnforcementMode,
+  downstreamAudience: string,
 ): McpServer {
   const server = new McpServer({
     name: 'handoffprobe-p0-fixture-mcp',
@@ -230,6 +277,7 @@ export function createP0FakeToolServer(
         tool: 'read_invoice',
         resource,
         mode,
+        downstreamAudience,
       });
 
       recordAuthorization(recorder, context, {
@@ -276,6 +324,7 @@ export function createP0FakeToolServer(
         tool: 'update_invoice',
         resource,
         mode,
+        downstreamAudience,
       });
 
       recordAuthorization(recorder, context, {
@@ -329,6 +378,7 @@ export function createP0FakeToolServer(
         tool: 'refund_payment',
         resource,
         mode,
+        downstreamAudience,
         approvalPayload: payload,
         approvalId,
       });
@@ -385,6 +435,7 @@ export function createP0FakeToolServer(
         tool: 'send_email',
         resource,
         mode,
+        downstreamAudience,
       });
 
       recordAuthorization(recorder, context, {

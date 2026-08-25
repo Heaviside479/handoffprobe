@@ -3,6 +3,7 @@ import { createMcpHandler } from '@modelcontextprotocol/server';
 
 import type { SecurityContext } from '../../core/index.js';
 import type { EvidenceRecorder } from '../../protocol-lab/evidence.js';
+import { P0_MCP_AUDIENCE } from '../constants.js';
 import type { P0FixtureState } from '../state.js';
 import { createP0FakeToolServer } from './fake-tools.js';
 import type {
@@ -34,6 +35,11 @@ export interface P0McpCallInput {
   recorder: EvidenceRecorder;
   state: P0FixtureState;
   mode?: P0EnforcementMode;
+
+  audience?: string;
+
+  cancelLifecycleBeforeTool?: boolean;
+
   tool: P0McpToolName;
   arguments: Record<string, unknown>;
 }
@@ -41,8 +47,18 @@ export interface P0McpCallInput {
 export async function callP0ToolThroughMcp(input: P0McpCallInput): Promise<P0McpExecutionResult> {
   const mode = input.mode ?? 'enforce';
 
+  const downstreamAudience = input.audience ?? P0_MCP_AUDIENCE;
+
   const handler = createMcpHandler(
-    ({ era }) => createP0FakeToolServer(input.recorder, input.context, input.state, era, mode),
+    ({ era }) =>
+      createP0FakeToolServer(
+        input.recorder,
+        input.context,
+        input.state,
+        era,
+        mode,
+        downstreamAudience,
+      ),
     {
       legacy: 'reject',
     },
@@ -84,6 +100,7 @@ export async function callP0ToolThroughMcp(input: P0McpCallInput): Promise<P0Mcp
       details: {
         era,
         enforcementMode: mode,
+        downstreamAudience,
       },
     });
 
@@ -97,11 +114,49 @@ export async function callP0ToolThroughMcp(input: P0McpCallInput): Promise<P0Mcp
         selectedTool: input.tool,
         targetResource: input.arguments.resource,
         enforcementMode: mode,
+        downstreamAudience,
       },
     });
 
+    if (input.cancelLifecycleBeforeTool === true) {
+      const lifecycle = input.context.lifecycle;
+
+      if (lifecycle === undefined) {
+        throw new Error('Lifecycle cancellation requested without lifecycle context.');
+      }
+
+      const previousState = lifecycle.state;
+
+      lifecycle.state = 'cancelled';
+
+      input.recorder.record({
+        protocol: 'CORE',
+
+        protocolVersion: 'p0-lifecycle-v1',
+
+        boundary: 'governing-a2a-task -> p0-mcp-tool',
+
+        event: 'lifecycle.cancel',
+
+        context: input.context,
+
+        details: {
+          taskId: lifecycle.taskId,
+
+          previousState,
+
+          state: lifecycle.state,
+
+          delayPoint: 'after_mcp_request_before_tool_execution',
+
+          sideEffectCounterBefore: input.state.sideEffectCounter,
+        },
+      });
+    }
+
     const result = await client.callTool({
       name: input.tool,
+
       arguments: input.arguments,
     });
 

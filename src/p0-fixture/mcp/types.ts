@@ -12,6 +12,15 @@ export interface P0ToolAuthorization {
   decision: P0AuthorizationDecision | null;
   approvalMatches: boolean | null;
   semanticBindingMatches: boolean;
+
+  downstreamAudience: string;
+
+  credentialForwarded: boolean;
+
+  credentialAudienceMatches: boolean | null;
+
+  credentialAccepted: boolean;
+
   reasons: string[];
 }
 

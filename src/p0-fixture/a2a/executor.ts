@@ -6,6 +6,7 @@ import type { AgentExecutor, ExecutionEventBus, RequestContext } from '@a2a-js/s
 import { cloneSecurityContext } from '../../core/index.js';
 import type { HandoffAdapter, SecurityContext } from '../../core/index.js';
 import type { EvidenceRecorder } from '../../protocol-lab/evidence.js';
+import { P0_MCP_AUDIENCE } from '../constants.js';
 import { callP0ToolThroughMcp } from '../mcp/harness.js';
 import type { P0EnforcementMode, P0McpExecutionResult } from '../mcp/types.js';
 import type { P0Scenario } from '../scenario.js';
@@ -135,14 +136,102 @@ export class P0A2aExecutor implements AgentExecutor {
       },
     });
 
-    const argumentsForTool = this.scenario.buildArguments(translated);
+    const downstreamAudience = this.scenario.mcpAudience ?? P0_MCP_AUDIENCE;
+
+    const mcpContext = cloneSecurityContext(translated);
+
+    const requestedCredential = translated.forwardedCredential;
+
+    /*
+     * Upstream credential metadata belongs to
+     * the upstream boundary and must never be
+     * copied into MCP implicitly.
+     */
+    delete mcpContext.upstreamCredential;
+
+    if (requestedCredential !== undefined) {
+      const audienceMatches = requestedCredential.audience === downstreamAudience;
+
+      const blockedBySecurePolicy =
+        this.enforcementMode === 'enforce' &&
+        (requestedCredential.credentialClass === 'bearer' || !audienceMatches);
+
+      if (blockedBySecurePolicy) {
+        delete mcpContext.forwardedCredential;
+      }
+
+      this.recorder.record({
+        protocol: 'HANDOFF',
+
+        protocolVersion: 'handoffprobe-p0-v1',
+
+        boundary: 'handoff-credential-policy -> p0-mcp-client',
+
+        event: 'p0.credential.forwarding',
+
+        context: mcpContext,
+
+        details: {
+          credentialFingerprint: requestedCredential.fingerprint,
+
+          credentialClass: requestedCredential.credentialClass,
+
+          originalAudience: requestedCredential.audience,
+
+          downstreamAudience,
+
+          audienceMatches,
+
+          forwardingDecision: blockedBySecurePolicy ? 'blocked' : 'forwarded',
+        },
+      });
+    }
+
+    if (this.scenario.lifecycleTracking === true) {
+      const lifecycle = mcpContext.lifecycle;
+
+      if (lifecycle === undefined) {
+        throw new Error('Lifecycle tracking requested without lifecycle context.');
+      }
+
+      this.recorder.record({
+        protocol: 'CORE',
+
+        protocolVersion: 'p0-lifecycle-v1',
+
+        boundary: 'a2a-task -> downstream-operation',
+
+        event: 'lifecycle.start',
+
+        context: mcpContext,
+
+        details: {
+          taskId: lifecycle.taskId,
+
+          state: lifecycle.state,
+
+          sideEffectCounterBefore: this.fixtureState.sideEffectCounter,
+        },
+      });
+    }
+
+    const argumentsForTool = this.scenario.buildArguments(mcpContext);
 
     const mcpResult = await callP0ToolThroughMcp({
-      context: translated,
+      context: mcpContext,
+
       recorder: this.recorder,
+
       state: this.fixtureState,
+
       mode: this.enforcementMode,
+
+      audience: downstreamAudience,
+
+      cancelLifecycleBeforeTool: this.scenario.cancelLifecycleBeforeTool ?? false,
+
       tool: this.scenario.tool,
+
       arguments: argumentsForTool,
     });
 

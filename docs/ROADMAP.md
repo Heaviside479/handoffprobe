@@ -170,30 +170,49 @@ Phase 2 exit gate satisfied on 2026-08-24.
 
 # Phase 3 — Mandatory P0 attack corpus
 
-Implement:
+Status: completed 2026-08-25
 
-- [ ] HP-AUTH-001
-- [ ] HP-AUTH-002
-- [ ] HP-AUTH-003
-- [ ] HP-ID-001
-- [ ] HP-ID-002
-- [ ] HP-TENANT-001
-- [ ] HP-TARGET-001
-- [ ] HP-TARGET-002
-- [ ] HP-APPROVAL-001
-- [ ] HP-CRED-001
-- [ ] HP-CRED-002
-- [ ] HP-LIFECYCLE-001
+## Implemented
+
+- [x] HP-AUTH-001
+- [x] HP-AUTH-002
+- [x] HP-AUTH-003
+- [x] HP-ID-001
+- [x] HP-ID-002
+- [x] HP-TENANT-001
+- [x] HP-TARGET-001
+- [x] HP-TARGET-002
+- [x] HP-APPROVAL-001
+- [x] HP-CRED-001
+- [x] HP-CRED-002
+- [x] HP-LIFECYCLE-001
+
+## Verified behavior
+
+- all 12 mandatory P0 IDs are stable and productive
+- secure fixtures reject the designed invalid handoffs
+- vulnerable fixtures reproduce the intended failures
+- A2A 1.0 and MCP 2026-07-28 remain the pinned protocol baseline
+- evidence carries protocol applicability and source/provenance metadata
+- raw credentials are not recorded; credential evidence uses safe metadata/fingerprints
+- tenant substitution demonstrates CRITICAL only on actual cross-tenant protected access
+- approval mutations remain bound to deterministic payload hashes
+- lifecycle cancellation is ordered deterministically between MCP request and protected tool execution
+- bundled fixtures remain local/synthetic and create no real external side effects
 
 ## Exit gate
 
-Requirements in `docs/P0_TEST_SPECIFICATION.md` are fully satisfied.
+- [x] requirements in `docs/P0_TEST_SPECIFICATION.md` are satisfied
+- [x] secure fixture passes every applicable mandatory P0 test
+- [x] vulnerable fixture fails exactly where designed
+- [x] runner `ERROR` cannot masquerade as vulnerability `FAIL`
+- [x] every P0 definition records A2A/MCP applicability
+- [x] findings/evidence retain source and provenance metadata
+- [x] raw secrets do not appear in productive evidence
+- [x] bundled P0 fixtures create no external side effects
+- [x] mandatory P0 corpus runs without a paid AI service
 
-Secure fixture passes.
-
-Vulnerable fixture fails exactly where intended.
-
-ERROR cannot masquerade as FAIL.
+Phase 3 exit gate satisfied on 2026-08-25.
 
 ---
 

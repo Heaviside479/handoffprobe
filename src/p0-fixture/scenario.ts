@@ -7,6 +7,12 @@ export interface P0Scenario {
   id: string;
   tool: P0McpToolName;
 
+  mcpAudience?: string;
+
+  lifecycleTracking?: boolean;
+
+  cancelLifecycleBeforeTool?: boolean;
+
   buildArguments(context: SecurityContext): Record<string, unknown>;
 }
 
