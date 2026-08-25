@@ -218,7 +218,7 @@ Phase 3 exit gate satisfied on 2026-08-25.
 
 # Phase 4 — Advanced handoff corpus
 
-Status: implementation complete; final PR/CI/merge gate pending
+Status: completed 2026-08-25
 
 ## P1 implementation contract
 
@@ -283,11 +283,23 @@ Implementation milestone reached on 2026-08-25:
 - P1 is 10 / 10
 - total locked corpus is 22 / 22
 - secure/vulnerable fixture behavior is covered by deterministic automated tests
-- final Phase 4 completion remains gated on branch-wide QA, PR CI and merge to `main`
+- PR #8 completed successfully
+- PR CI run #10 completed successfully
+- Phase 4 was fast-forwarded to `main`
+- post-merge `main` CI run #11 completed successfully
+- final Phase 4 main commit: `8f2759c143ad71aa395b145364d6a075329a82b1`
+
+Phase 4 exit gate satisfied on 2026-08-25.
 
 ---
 
 # Phase 5 — Developer-quality CLI
+
+Status: active
+
+Implementation contract:
+
+`docs/CLI_SPECIFICATION.md`
 
 Target:
 
