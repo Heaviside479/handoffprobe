@@ -50,6 +50,12 @@ Cancel/terminate the upstream A2A task before the protected MCP side effect comp
 
 ## v0.1 P1 — add after P0 engine is credible
 
+Implementation contract:
+
+`docs/P1_TEST_SPECIFICATION.md`
+
+The ten IDs in this section form the locked first Phase 4 P1 corpus.
+
 ### HP-AUTH-004 — Expired delegation reuse
 Attempt an action after upstream delegated authority has expired.
 

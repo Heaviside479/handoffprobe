@@ -218,18 +218,31 @@ Phase 3 exit gate satisfied on 2026-08-25.
 
 # Phase 4 — Advanced handoff corpus
 
-Candidates include:
+Status: active
 
-- delegation expiry
-- delegation-chain truncation
-- exact replay
-- cross-run replay
-- retry duplicate execution
-- approval/tool substitution
-- approval/resource substitution
-- one-time authorization races
-- stale execution after partial failure
-- audit lineage loss
+## P1 implementation contract
+
+Specification:
+
+`docs/P1_TEST_SPECIFICATION.md`
+
+The first advanced corpus is locked to ten P1 attacks:
+
+- [ ] HP-AUTH-004 — expired delegation reuse
+- [ ] HP-AUTH-005 — delegation-chain truncation
+- [ ] HP-REPLAY-001 — exact action replay
+- [ ] HP-REPLAY-002 — cross-context / cross-run replay
+- [ ] HP-REPLAY-003 — retry double execution
+- [ ] HP-APPROVAL-002 — tool substitution after approval
+- [ ] HP-APPROVAL-003 — approval reuse for another resource
+- [ ] HP-RACE-001 — parallel one-time authority consumption
+- [ ] HP-RACE-002 — partial-failure stale execution
+- [ ] HP-AUDIT-001 — cross-protocol audit lineage break
+
+## Deferred advanced candidates
+
+These remain candidates after the P1 corpus proves credible:
+
 - state-handle confusion
 - cache-scope leakage
 - MRTR task misbinding
@@ -241,9 +254,27 @@ Candidates include:
 
 ## Admission gate
 
-Every attack must demonstrate a handoff/composition-specific invariant.
+- every attack demonstrates a handoff/composition-specific invariant
+- generic protocol checks do not enter Core
+- replay/retry tests distinguish logical action identity from attempts
+- expiry uses deterministic logical time
+- race tests use deterministic synchronization barriers
+- bundled tests remain local/synthetic
+- every FAIL has reproducible evidence
+- ERROR cannot masquerade as FAIL
+- P0 regression remains green
 
-Generic protocol checks do not enter Core.
+## Exit gate
+
+Requirements in `docs/P1_TEST_SPECIFICATION.md` are fully satisfied.
+
+All ten P1 IDs are implemented and stable.
+
+Secure fixtures pass every applicable P1 mutation.
+
+Vulnerable fixtures fail exactly where designed.
+
+The complete P0 corpus remains green.
 
 ---
 
