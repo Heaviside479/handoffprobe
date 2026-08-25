@@ -1,4 +1,5 @@
 import { CoreRunner } from '../core/index.js';
+import { VERSION } from '../index.js';
 
 import type { CoreRunResult, FindingSeverity, FindingStatus } from '../core/index.js';
 
@@ -152,6 +153,7 @@ export function renderCliTestRun(run: CliTestRun, failOn: CliFailOn): string {
 
   const lines = [
     'HandoffProbe test',
+    `Version: ${VERSION}`,
     '',
     `Target: ${run.target}`,
     'Protocols: A2A 1.0 | MCP 2026-07-28',
@@ -167,6 +169,11 @@ export function renderCliTestRun(run: CliTestRun, failOn: CliFailOn): string {
       `${statusLabel(finding.status).padEnd(14)} ${finding.testId} ${finding.title} [${finding.severity.toUpperCase()}]`,
     );
     lines.push(`  ${finding.observedBehavior}`);
+
+    const evidenceRefs =
+      finding.evidenceSequences.length === 0 ? 'none' : finding.evidenceSequences.join(', ');
+
+    lines.push(`  Evidence: ${result.evidence.length}; refs: ${evidenceRefs}`);
   }
 
   lines.push(

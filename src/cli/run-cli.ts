@@ -1,17 +1,15 @@
+import { writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
 import { PRODUCT_NAME, VERSION } from '../index.js';
 
 import { DEFAULT_FAIL_ON, loadHandoffProbeConfig } from './config.js';
 import { renderAttackExplanation, renderAttackList } from './discovery.js';
-import {
-  evaluateCliTestExitCode,
-  renderCliTestRun,
-  resolveCliTestSelection,
-  runCliTests,
-} from './test-command.js';
+import { renderCliReport } from './reporters.js';
+import { evaluateCliTestExitCode, resolveCliTestSelection, runCliTests } from './test-command.js';
 
-import type { CliFailOn } from './config.js';
+import type { CliFailOn, CliReporter } from './config.js';
 import type { CliTargetFixture } from './execution-catalog.js';
 
 export interface CliIo {
@@ -37,6 +35,9 @@ Test options:
   --test <HP-ID>                   Select one attack; repeatable
   --fail-on <severity>             info | low | medium | high | critical
                                    default: high
+  --reporter <reporter>            terminal | json | markdown
+                                   default: terminal
+  --output <path>                  Write the selected report to a file
 
 Options:
   -h, --help                       Show this help
@@ -76,13 +77,23 @@ function parseCliArgs(args: readonly string[]) {
       'fail-on': {
         type: 'string',
       },
+      reporter: {
+        type: 'string',
+      },
+      output: {
+        type: 'string',
+      },
     },
   });
 }
 
 function hasTestOptions(values: ReturnType<typeof parseCliArgs>['values']): boolean {
   return (
-    values.target !== undefined || values.test !== undefined || values['fail-on'] !== undefined
+    values.target !== undefined ||
+    values.test !== undefined ||
+    values['fail-on'] !== undefined ||
+    values.reporter !== undefined ||
+    values.output !== undefined
   );
 }
 
@@ -106,6 +117,26 @@ function parseFailOn(value: string): CliFailOn | undefined {
   }
 
   return undefined;
+}
+
+function parseReporter(value: string): CliReporter | undefined {
+  if (value === 'terminal' || value === 'json' || value === 'markdown') {
+    return value;
+  }
+
+  return undefined;
+}
+
+function parseOutput(value: string | undefined): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (value.trim().length === 0) {
+    return undefined;
+  }
+
+  return value;
 }
 
 export async function runCli(
@@ -191,6 +222,7 @@ export async function runCli(
     }
 
     const targetValue = parsed.values.target ?? config.target ?? 'secure';
+
     const target = parseTarget(targetValue);
 
     if (target === undefined) {
@@ -208,7 +240,27 @@ export async function runCli(
       );
     }
 
+    const reporterValue = parsed.values.reporter ?? config.reporter ?? 'terminal';
+
+    const reporter = parseReporter(reporterValue);
+
+    if (reporter === undefined) {
+      return usageError(
+        io,
+        `invalid reporter "${reporterValue}"; expected terminal, json, or markdown.`,
+      );
+    }
+
+    const rawOutput = parsed.values.output ?? config.output;
+
+    const output = parseOutput(rawOutput);
+
+    if (rawOutput !== undefined && output === undefined) {
+      return usageError(io, 'invalid --output; expected a non-empty path.');
+    }
+
     const requestedTests = parsed.values.test ?? config.tests;
+
     const selection = resolveCliTestSelection(requestedTests);
 
     if (selection.unknownIds.length > 0) {
@@ -221,19 +273,32 @@ export async function runCli(
       return 2;
     }
 
+    let run;
+
     try {
-      const run = await runCliTests({
+      run = await runCliTests({
         target,
         bindings: selection.bindings,
       });
-
-      io.stdout(renderCliTestRun(run, failOn));
-
-      return evaluateCliTestExitCode(run, failOn);
     } catch (error) {
       io.stderr(`${PRODUCT_NAME}: scanner runtime failure: ${errorMessage(error)}`);
       return 3;
     }
+
+    const report = renderCliReport(run, failOn, reporter);
+
+    if (output === undefined) {
+      io.stdout(report);
+    } else {
+      try {
+        await writeFile(resolve(cwd, output), report, 'utf8');
+      } catch (error) {
+        io.stderr(`${PRODUCT_NAME}: output write failure: ${errorMessage(error)}`);
+        return 3;
+      }
+    }
+
+    return evaluateCliTestExitCode(run, failOn);
   }
 
   return usageError(io, `unknown command "${command}".`);
