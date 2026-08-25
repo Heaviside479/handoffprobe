@@ -1,16 +1,13 @@
 import { VERSION } from '../index.js';
 
 import type { CliFailOn, CliReporter } from './config.js';
+import { sanitizeCliLine } from './diagnostics.js';
+import { CLI_PROTOCOL_BASELINE, CLI_PROTOCOLS } from './protocols.js';
 import { evaluateCliTestExitCode, renderCliTestRun } from './test-command.js';
 
 import type { CliTestRun } from './test-command.js';
 
 export const CLI_REPORT_SCHEMA_VERSION = '1';
-
-const PROTOCOLS = {
-  a2a: '1.0',
-  mcp: '2026-07-28',
-} as const;
 
 function gateStatus(run: CliTestRun, failOn: CliFailOn): 'PASS' | 'FAIL' | 'ERROR' {
   const exitCode = evaluateCliTestExitCode(run, failOn);
@@ -27,7 +24,7 @@ function gateStatus(run: CliTestRun, failOn: CliFailOn): 'PASS' | 'FAIL' | 'ERRO
 }
 
 function escapeMarkdownCell(value: string): string {
-  return value.replace(/\r?\n/g, ' ').replace(/\|/g, '\\|');
+  return sanitizeCliLine(value).replace(/\|/g, '\\|');
 }
 
 export function renderJsonReport(run: CliTestRun, failOn: CliFailOn): string {
@@ -35,7 +32,10 @@ export function renderJsonReport(run: CliTestRun, failOn: CliFailOn): string {
     schemaVersion: CLI_REPORT_SCHEMA_VERSION,
     handoffProbeVersion: VERSION,
     target: run.target,
-    protocols: PROTOCOLS,
+    protocols: {
+      a2a: CLI_PROTOCOLS.a2a,
+      mcp: CLI_PROTOCOLS.mcp,
+    },
     selection: {
       count: run.selectedIds.length,
       attackIds: [...run.selectedIds],
@@ -54,12 +54,12 @@ export function renderJsonReport(run: CliTestRun, failOn: CliFailOn): string {
 
       return {
         id: finding.testId,
-        title: finding.title,
+        title: sanitizeCliLine(finding.title),
         status: finding.status,
         severity: finding.severity,
         propertyClass: finding.propertyClass,
-        expectedInvariant: finding.expectedInvariant,
-        observedBehavior: finding.observedBehavior,
+        expectedInvariant: sanitizeCliLine(finding.expectedInvariant),
+        observedBehavior: sanitizeCliLine(finding.observedBehavior),
         evidence: {
           count: result.evidence.length,
           sequences: [...finding.evidenceSequences],
@@ -67,7 +67,7 @@ export function renderJsonReport(run: CliTestRun, failOn: CliFailOn): string {
         ...(finding.remediation === undefined
           ? {}
           : {
-              remediation: finding.remediation,
+              remediation: sanitizeCliLine(finding.remediation),
             }),
       };
     }),
@@ -84,7 +84,7 @@ export function renderMarkdownReport(run: CliTestRun, failOn: CliFailOn): string
     '',
     `- Version: ${VERSION}`,
     `- Target: ${run.target}`,
-    '- Protocols: A2A 1.0 | MCP 2026-07-28',
+    `- Protocols: ${CLI_PROTOCOL_BASELINE}`,
     `- Selected attacks: ${run.selectedIds.length}`,
     `- Fail on: ${failOn.toUpperCase()}`,
     `- Gate: ${gate}`,
@@ -110,7 +110,9 @@ export function renderMarkdownReport(run: CliTestRun, failOn: CliFailOn): string
     const finding = result.finding;
 
     lines.push(
-      `| ${finding.status.toUpperCase()} | ${finding.testId} | ${finding.severity.toUpperCase()} | ${escapeMarkdownCell(
+      `| ${finding.status.toUpperCase()} | ${
+        finding.testId
+      } | ${finding.severity.toUpperCase()} | ${escapeMarkdownCell(
         finding.title,
       )} | ${result.evidence.length} |`,
     );
@@ -127,21 +129,22 @@ export function renderMarkdownReport(run: CliTestRun, failOn: CliFailOn): string
   } else {
     for (const result of detailedResults) {
       const finding = result.finding;
+
       const sequences =
         finding.evidenceSequences.length === 0 ? 'none' : finding.evidenceSequences.join(', ');
 
       lines.push(
-        `### ${finding.testId} — ${finding.title}`,
+        `### ${finding.testId} — ${sanitizeCliLine(finding.title)}`,
         '',
         `- Status: ${finding.status.toUpperCase()}`,
         `- Severity: ${finding.severity.toUpperCase()}`,
-        `- Observed behavior: ${finding.observedBehavior}`,
+        `- Observed behavior: ${sanitizeCliLine(finding.observedBehavior)}`,
         `- Evidence count: ${result.evidence.length}`,
         `- Evidence refs: ${sequences}`,
       );
 
       if (finding.remediation !== undefined) {
-        lines.push(`- Remediation: ${finding.remediation}`);
+        lines.push(`- Remediation: ${sanitizeCliLine(finding.remediation)}`);
       }
 
       lines.push('');

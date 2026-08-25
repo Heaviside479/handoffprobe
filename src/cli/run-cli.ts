@@ -5,12 +5,15 @@ import { parseArgs } from 'node:util';
 import { PRODUCT_NAME, VERSION } from '../index.js';
 
 import { DEFAULT_FAIL_ON, loadHandoffProbeConfig } from './config.js';
+import { renderCliRuntimeDiagnostic, sanitizeCliLine } from './diagnostics.js';
 import { renderAttackExplanation, renderAttackList } from './discovery.js';
 import { renderCliReport } from './reporters.js';
+import { CLI_PROTOCOL_BASELINE } from './protocols.js';
 import { evaluateCliTestExitCode, resolveCliTestSelection, runCliTests } from './test-command.js';
 
-import type { CliFailOn, CliReporter } from './config.js';
+import type { CliFailOn, CliReporter, HandoffProbeConfig } from './config.js';
 import type { CliTargetFixture } from './execution-catalog.js';
+import type { CliTestRun } from './test-command.js';
 
 export interface CliIo {
   stdout(message: string): void;
@@ -20,6 +23,8 @@ export interface CliIo {
 const HELP = `${PRODUCT_NAME}
 
 Adversarial security testing for AI agent handoffs.
+
+Protocol baseline: ${CLI_PROTOCOL_BASELINE}
 
 Usage:
   handoffprobe <command> [arguments]
@@ -43,14 +48,32 @@ Options:
   -h, --help                       Show this help
   -v, --version                    Show version`;
 
-function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
+function argumentErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return 'invalid arguments.';
+}
+
+function writeSafeStderr(io: CliIo, message: string): void {
+  io.stderr(sanitizeCliLine(message));
 }
 
 function usageError(io: CliIo, message: string): number {
-  io.stderr(`${PRODUCT_NAME}: ${message}`);
-  io.stderr('Run "handoffprobe --help" for usage.');
+  writeSafeStderr(io, `${PRODUCT_NAME}: ${message}`);
+
+  writeSafeStderr(io, 'Run "handoffprobe --help" for usage.');
+
   return 2;
+}
+
+function runtimeError(io: CliIo, kind: 'scanner' | 'output', error: unknown): 3 {
+  for (const line of renderCliRuntimeDiagnostic(kind, error)) {
+    writeSafeStderr(io, line);
+  }
+
+  return 3;
 }
 
 function parseCliArgs(args: readonly string[]) {
@@ -149,7 +172,7 @@ export async function runCli(
   try {
     parsed = parseCliArgs(args);
   } catch (error) {
-    return usageError(io, errorMessage(error));
+    return usageError(io, argumentErrorMessage(error));
   }
 
   if (parsed.values.version === true) {
@@ -199,8 +222,10 @@ export async function runCli(
     const explanation = renderAttackExplanation(id);
 
     if (explanation === undefined) {
-      io.stderr(`${PRODUCT_NAME}: unknown attack ID "${id}".`);
-      io.stderr('Run "handoffprobe list" to see stable attack IDs.');
+      writeSafeStderr(io, `${PRODUCT_NAME}: unknown attack ID "${id}".`);
+
+      writeSafeStderr(io, 'Run "handoffprobe list" to see stable attack IDs.');
+
       return 2;
     }
 
@@ -213,12 +238,12 @@ export async function runCli(
       return usageError(io, '"test" does not accept positional arguments.');
     }
 
-    let config;
+    let config: HandoffProbeConfig;
 
     try {
       config = await loadHandoffProbeConfig(cwd);
     } catch (error) {
-      return usageError(io, errorMessage(error));
+      return usageError(io, argumentErrorMessage(error));
     }
 
     const targetValue = parsed.values.target ?? config.target ?? 'secure';
@@ -264,16 +289,19 @@ export async function runCli(
     const selection = resolveCliTestSelection(requestedTests);
 
     if (selection.unknownIds.length > 0) {
-      io.stderr(
+      writeSafeStderr(
+        io,
         `${PRODUCT_NAME}: unknown attack ID${
           selection.unknownIds.length === 1 ? '' : 's'
         }: ${selection.unknownIds.join(', ')}.`,
       );
-      io.stderr('Run "handoffprobe list" to see stable attack IDs.');
+
+      writeSafeStderr(io, 'Run "handoffprobe list" to see stable attack IDs.');
+
       return 2;
     }
 
-    let run;
+    let run: CliTestRun;
 
     try {
       run = await runCliTests({
@@ -281,8 +309,7 @@ export async function runCli(
         bindings: selection.bindings,
       });
     } catch (error) {
-      io.stderr(`${PRODUCT_NAME}: scanner runtime failure: ${errorMessage(error)}`);
-      return 3;
+      return runtimeError(io, 'scanner', error);
     }
 
     const report = renderCliReport(run, failOn, reporter);
@@ -293,8 +320,7 @@ export async function runCli(
       try {
         await writeFile(resolve(cwd, output), report, 'utf8');
       } catch (error) {
-        io.stderr(`${PRODUCT_NAME}: output write failure: ${errorMessage(error)}`);
-        return 3;
+        return runtimeError(io, 'output', error);
       }
     }
 

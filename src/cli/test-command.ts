@@ -4,7 +4,9 @@ import { VERSION } from '../index.js';
 import type { CoreRunResult, FindingSeverity, FindingStatus } from '../core/index.js';
 
 import type { CliFailOn } from './config.js';
+import { sanitizeCliLine } from './diagnostics.js';
 import { CLI_EXECUTION_CATALOG, getCliExecutionBinding } from './execution-catalog.js';
+import { CLI_PROTOCOL_BASELINE } from './protocols.js';
 
 import type { CliExecutionBinding, CliTargetFixture } from './execution-catalog.js';
 
@@ -156,7 +158,7 @@ export function renderCliTestRun(run: CliTestRun, failOn: CliFailOn): string {
     `Version: ${VERSION}`,
     '',
     `Target: ${run.target}`,
-    'Protocols: A2A 1.0 | MCP 2026-07-28',
+    `Protocols: ${CLI_PROTOCOL_BASELINE}`,
     `Selected attacks: ${run.selectedIds.length}`,
     `Fail on: ${failOn.toUpperCase()}`,
     '',
@@ -166,9 +168,12 @@ export function renderCliTestRun(run: CliTestRun, failOn: CliFailOn): string {
     const finding = result.finding;
 
     lines.push(
-      `${statusLabel(finding.status).padEnd(14)} ${finding.testId} ${finding.title} [${finding.severity.toUpperCase()}]`,
+      `${statusLabel(finding.status).padEnd(14)} ${finding.testId} ${sanitizeCliLine(
+        finding.title,
+      )} [${finding.severity.toUpperCase()}]`,
     );
-    lines.push(`  ${finding.observedBehavior}`);
+
+    lines.push(`  ${sanitizeCliLine(finding.observedBehavior)}`);
 
     const evidenceRefs =
       finding.evidenceSequences.length === 0 ? 'none' : finding.evidenceSequences.join(', ');

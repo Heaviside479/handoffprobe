@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { REDACTED_VALUE, redactRecord } from '../src/core/index.js';
+import { REDACTED_VALUE, redactRecord, redactText } from '../src/core/index.js';
 
 describe('evidence redaction policy', () => {
   it('preserves non-secret authorization evidence', () => {
@@ -93,5 +93,59 @@ describe('evidence redaction policy', () => {
       passwordPolicy: 'strict',
       authorizationResult: true,
     });
+  });
+
+  it('redacts inline bearer/basic credentials and sensitive key-value text', () => {
+    const input = [
+      'Authorization: Bearer hp-auth-secret',
+      'fallback Basic hp-basic-secret',
+      'rawToken=hp-token-secret',
+      'api_key=hp-api-secret',
+      'clientSecret=hp-client-secret',
+      'password=hp-password-secret',
+    ].join(' | ');
+
+    const result = redactText(input);
+
+    for (const secret of [
+      'hp-auth-secret',
+      'hp-basic-secret',
+      'hp-token-secret',
+      'hp-api-secret',
+      'hp-client-secret',
+      'hp-password-secret',
+    ]) {
+      expect(result).not.toContain(secret);
+    }
+
+    expect(result).toContain(REDACTED_VALUE);
+  });
+
+  it('preserves harmless text keys while redacting freeform bearer values', () => {
+    const result = redactText(
+      'tokenCount=3 passwordPolicy=strict credentialFingerprint=sha256:safe Bearer hp-free-secret',
+    );
+
+    expect(result).toContain('tokenCount=3');
+
+    expect(result).toContain('passwordPolicy=strict');
+
+    expect(result).toContain('credentialFingerprint=sha256:safe');
+
+    expect(result).not.toContain('hp-free-secret');
+
+    expect(result).toContain('Bearer [REDACTED]');
+  });
+
+  it('redacts text deterministically', () => {
+    const input = 'authorizationHeader=Bearer hp-repeat-secret';
+
+    const first = redactText(input);
+
+    const second = redactText(input);
+
+    expect(first).toBe(second);
+
+    expect(first).not.toContain('hp-repeat-secret');
   });
 });

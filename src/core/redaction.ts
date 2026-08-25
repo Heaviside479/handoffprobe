@@ -30,6 +30,28 @@ function isSensitiveKey(key: string): boolean {
   return sensitiveSuffixes.some((suffix) => normalized.endsWith(suffix));
 }
 
+const INLINE_KEY_VALUE_PATTERN =
+  /\b([A-Za-z][A-Za-z0-9_-]*)(\s*[:=]\s*)(?:"[^"\r\n]*"|'[^'\r\n]*'|(?:Bearer|Basic)\s+[^\s,;"']+|[^\s,;"']+)/gi;
+
+const AUTH_SCHEME_PATTERN = /\b(Bearer|Basic)(\s+)[^\s,;"']+/gi;
+
+export function redactText(input: string): string {
+  const keyed = input.replace(
+    INLINE_KEY_VALUE_PATTERN,
+    (match: string, key: string, separator: string) => {
+      if (!isSensitiveKey(key)) {
+        return match;
+      }
+
+      return `${key}${separator}${REDACTED_VALUE}`;
+    },
+  );
+
+  return keyed.replace(AUTH_SCHEME_PATTERN, (_match: string, scheme: string, spacing: string) => {
+    return `${scheme}${spacing}${REDACTED_VALUE}`;
+  });
+}
+
 function redactValue(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map((item) => redactValue(item));
