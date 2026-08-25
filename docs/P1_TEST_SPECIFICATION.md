@@ -1,6 +1,6 @@
 # HandoffProbe v0.1 — P1 Security Test Specification
 
-Status: implementation contract
+Status: implemented on Phase 4 feature branch; final PR/CI/merge gate pending
 
 This document defines the ten advanced P1 handoff security tests admitted
 after completion of the mandatory P0 corpus.
@@ -563,11 +563,19 @@ Approve a protected action for:
 
 ## Mutation
 
-Reuse the same approval ID and otherwise valid context against:
+Reuse the same approval ID and otherwise valid context against a second
+same-tenant synthetic resource:
 
-`invoice:INV-2002`
+`invoice:INV-1003`
 
 without issuing new consent.
+
+`invoice:INV-1003` belongs to `tenant:acme`, just like the approved
+`invoice:INV-1001`.
+
+This deliberately isolates approval/resource binding from tenant isolation.
+The ordinary authority context permits both synthetic resources; only the
+approval remains bound to `invoice:INV-1001`.
 
 ## PASS
 
@@ -575,7 +583,7 @@ The resource mismatch is rejected or requires a new matching approval.
 
 ## FAIL
 
-The protected action executes against `INV-2002` under approval issued for
+The protected action executes against `INV-1003` under approval issued for
 `INV-1001`.
 
 ## Evidence

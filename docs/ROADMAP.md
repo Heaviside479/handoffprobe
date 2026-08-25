@@ -218,7 +218,7 @@ Phase 3 exit gate satisfied on 2026-08-25.
 
 # Phase 4 — Advanced handoff corpus
 
-Status: active
+Status: implementation complete; final PR/CI/merge gate pending
 
 ## P1 implementation contract
 
@@ -228,16 +228,16 @@ Specification:
 
 The first advanced corpus is locked to ten P1 attacks:
 
-- [ ] HP-AUTH-004 — expired delegation reuse
-- [ ] HP-AUTH-005 — delegation-chain truncation
-- [ ] HP-REPLAY-001 — exact action replay
-- [ ] HP-REPLAY-002 — cross-context / cross-run replay
-- [ ] HP-REPLAY-003 — retry double execution
-- [ ] HP-APPROVAL-002 — tool substitution after approval
-- [ ] HP-APPROVAL-003 — approval reuse for another resource
-- [ ] HP-RACE-001 — parallel one-time authority consumption
-- [ ] HP-RACE-002 — partial-failure stale execution
-- [ ] HP-AUDIT-001 — cross-protocol audit lineage break
+- [x] HP-AUTH-004 — expired delegation reuse
+- [x] HP-AUTH-005 — delegation-chain truncation
+- [x] HP-REPLAY-001 — exact action replay
+- [x] HP-REPLAY-002 — cross-context / cross-run replay
+- [x] HP-REPLAY-003 — retry double execution
+- [x] HP-APPROVAL-002 — tool substitution after approval
+- [x] HP-APPROVAL-003 — approval reuse for another resource
+- [x] HP-RACE-001 — parallel one-time authority consumption
+- [x] HP-RACE-002 — partial-failure stale execution
+- [x] HP-AUDIT-001 — cross-protocol audit lineage break
 
 ## Deferred advanced candidates
 
@@ -275,6 +275,15 @@ Secure fixtures pass every applicable P1 mutation.
 Vulnerable fixtures fail exactly where designed.
 
 The complete P0 corpus remains green.
+
+Implementation milestone reached on 2026-08-25:
+
+- all 10 locked P1 attacks are implemented on the Phase 4 feature branch
+- P0 remains 12 / 12
+- P1 is 10 / 10
+- total locked corpus is 22 / 22
+- secure/vulnerable fixture behavior is covered by deterministic automated tests
+- final Phase 4 completion remains gated on branch-wide QA, PR CI and merge to `main`
 
 ---
 
