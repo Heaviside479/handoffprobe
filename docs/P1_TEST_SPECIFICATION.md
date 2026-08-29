@@ -1,6 +1,6 @@
 # HandoffProbe v0.1 — P1 Security Test Specification
 
-Status: implemented on Phase 4 feature branch; final PR/CI/merge gate pending
+Status: completed 2026-08-25; PR #8 merged and post-merge main CI verified
 
 This document defines the ten advanced P1 handoff security tests admitted
 after completion of the mandatory P0 corpus.

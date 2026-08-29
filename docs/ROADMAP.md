@@ -360,6 +360,12 @@ Phase 5 shipped the complete developer-quality CLI baseline:
 
 # Phase 6 — Automated quality and GitHub integration
 
+Status: in progress 2026-08-29
+
+Implementation contract:
+
+`docs/GITHUB_INTEGRATION_SPECIFICATION.md`
+
 ## Repository CI
 
 - format
