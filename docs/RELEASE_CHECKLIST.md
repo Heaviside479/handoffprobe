@@ -46,29 +46,33 @@ Protocol baseline remains A2A 1.0 -> MCP 2026-07-28.
 
 ## 7.2B Local release-candidate gate
 
-- [ ] exact RC commit recorded
-- [ ] `npm run check` passes
-- [ ] secure target is 22 PASS / 0 FAIL / 0 ERROR
-- [ ] vulnerable corpus remains reproducible
-- [ ] `HP-AUTH-001` exits `1`
-- [ ] `npm audit --audit-level=high` passes
-- [ ] secret safety passes
-- [ ] `npm run package:check` passes
-- [ ] exact tarball tested outside repository
-- [ ] tarball CLI reports `HandoffProbe 0.1.0`
-- [ ] tarball list exposes exactly 22 stable IDs
-- [ ] tarball JSON stays machine-readable
+- [x] exact RC commit recorded
+- [x] `npm run check` passes
+- [x] secure target is 22 PASS / 0 FAIL / 0 ERROR
+- [x] vulnerable corpus remains reproducible
+- [x] `HP-AUTH-001` exits `1`
+- [x] `npm audit --audit-level=high` passes
+- [x] secret safety passes
+- [x] `npm run package:check` passes
+- [x] exact tarball tested outside repository
+- [x] tarball CLI reports `HandoffProbe 0.1.0`
+- [x] tarball list exposes exactly 22 stable IDs
+- [x] tarball JSON stays machine-readable
 
 Release artifact evidence:
 
-- tarball filename: `TBD`
-- package size: `TBD`
-- unpacked size: `TBD`
-- file count: `TBD`
-- npm shasum: `TBD`
-- npm integrity: `TBD`
-- local SHA-256: `TBD`
-- release-candidate commit: `TBD`
+- tarball filename: `handoffprobe-0.1.0.tgz`
+- package size: `113949 bytes`
+- unpacked size: `577877 bytes`
+- file count: `295`
+- npm shasum: `2aa56211d7559cac2cf2052275af45331fba6663`
+- npm integrity: `sha512-fdDa8/KHmxjfwxcoQMsiLdKjSokFn70nXJhq9mL8ZpBph+trV0uwTU4wCchTW1YahmG16+eDD4PjpcJj7bJjkQ==`
+- local SHA-256: `3ea4936980893f893e072bf6a378234da8777b1becf494493ff3ffaf4755163a`
+- release-candidate commit: `43f06be606c377b1ab30f59c70782b65bb01649e`
+
+7.2B conclusion: local release candidate accepted.
+
+The recorded tarball was built from the release-candidate source commit above and successfully installed and executed outside the repository.
 
 ## 7.2C Protected remote PR gate and merge
 

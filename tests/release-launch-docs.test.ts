@@ -58,13 +58,22 @@ describe('v0.1 research and launch documentation', () => {
       '## 7.3B npm publication',
       '## 7.4A Git tag and GitHub release',
       '## 7.5A Public verification and completion',
-      'tarball filename: `TBD`',
-      'local SHA-256: `TBD`',
+      'tarball filename: `handoffprobe-0.1.0.tgz`',
+      '- [x] exact tarball tested outside repository',
+      '- [x] tarball JSON stays machine-readable',
       'do not paste OTP, password or token into logs/chat',
       'Stop the release immediately if:',
     ]) {
       expect(checklist).toContain(text);
     }
+
+    expect(checklist).toMatch(/local SHA-256: `[0-9a-f]{64}`/u);
+    expect(checklist).toMatch(/npm shasum: `[0-9a-f]{40}`/u);
+    expect(checklist).toMatch(/npm integrity: `sha512-[A-Za-z0-9+/=]+`/u);
+    expect(checklist).toMatch(/release-candidate commit: `[0-9a-f]{40}`/u);
+    expect(checklist).not.toContain('tarball filename: `TBD`');
+    expect(checklist).not.toContain('local SHA-256: `TBD`');
+    expect(checklist).not.toContain('npm integrity: `TBD`');
 
     expect(checklist).not.toContain('- [x] npm package publicly published');
     expect(checklist).not.toContain('- [x] GitHub release `v0.1.0` created');
