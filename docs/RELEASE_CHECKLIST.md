@@ -1,6 +1,6 @@
 # HandoffProbe v0.1 Release Checklist
 
-Status: in progress
+Status: completed 2026-08-29
 
 Target release: `handoffprobe@0.1.0` / `v0.1.0`
 
@@ -16,11 +16,11 @@ Target release: `handoffprobe@0.1.0` / `v0.1.0`
 
 ## Publication state
 
-- [ ] npm package publicly published
-- [ ] public npm registry verified
-- [ ] annotated `v0.1.0` tag created
-- [ ] GitHub release `v0.1.0` created
-- [ ] public npx smoke tests complete
+- [x] npm package publicly published
+- [x] public npm registry verified
+- [x] annotated `v0.1.0` tag created
+- [x] GitHub release `v0.1.0` created
+- [x] public npx smoke tests complete
 
 ## 7.2A Upstream drift review
 
@@ -76,31 +76,31 @@ The recorded tarball was built from the release-candidate source commit above an
 
 ## 7.2C Protected remote PR gate and merge
 
-- [ ] PR #12 final body/evidence updated
-- [ ] PR #12 marked ready only after local RC acceptance
-- [ ] HandoffProbe, Quality and Dependency Review pass
-- [ ] secure artifact is 22 PASS / 0 FAIL / 0 ERROR
-- [ ] branch protection remains strict with admin enforcement
-- [ ] protected merge uses exact expected head SHA
-- [ ] merge commit parents verified
+- [x] PR #12 final body/evidence updated
+- [x] PR #12 marked ready only after local RC acceptance
+- [x] HandoffProbe, Quality and Dependency Review pass
+- [x] secure artifact is 22 PASS / 0 FAIL / 0 ERROR
+- [x] branch protection remains strict with admin enforcement
+- [x] protected merge uses exact expected head SHA
+- [x] merge commit parents verified
 
 ## 7.3A Post-merge release rebuild
 
-- [ ] local `main` equals `origin/main`
-- [ ] post-merge HandoffProbe and Quality pass
-- [ ] secure post-merge artifact verified
-- [ ] exact tarball rebuilt from protected `main`
-- [ ] rebuilt digest recorded
+- [x] local `main` equals `origin/main`
+- [x] post-merge HandoffProbe and Quality pass
+- [x] secure post-merge artifact verified
+- [x] exact tarball rebuilt from protected `main`
+- [x] rebuilt digest recorded
 
 ## 7.3B npm publication
 
-- [ ] re-check npm name immediately before publish
-- [ ] verify intended npm account
-- [ ] authenticate and satisfy 2FA interactively
-- [ ] publish exactly `handoffprobe@0.1.0`
-- [ ] verify `npm view handoffprobe@0.1.0`
-- [ ] install registry package in clean temporary directory
-- [ ] public version, secure and vulnerable smoke tests pass
+- [x] re-check npm name immediately before publish
+- [x] verify intended npm account
+- [x] authenticate and satisfy 2FA interactively
+- [x] publish exactly `handoffprobe@0.1.0`
+- [x] verify `npm view handoffprobe@0.1.0`
+- [x] install registry package in clean temporary directory
+- [x] public version, secure and vulnerable smoke tests pass
 
 Security rule: do not paste OTP, password or token into logs/chat.
 
@@ -108,25 +108,60 @@ Security rule: do not paste OTP, password or token into logs/chat.
 
 Only after npm verification:
 
-- [ ] create annotated `v0.1.0` on exact release commit
-- [ ] verify and push only that tag
-- [ ] create non-draft GitHub release `v0.1.0`
-- [ ] release notes state protocol baseline, 22 attacks, install command, demos, Action availability, safety scope and pre-1.0 limits
-- [ ] record release URL
+- [x] create annotated `v0.1.0` on exact release commit
+- [x] verify and push only that tag
+- [x] create non-draft GitHub release `v0.1.0`
+- [x] release notes state protocol baseline, 22 attacks, install command, demos, Action availability, safety scope and pre-1.0 limits
+- [x] record release URL
 
 ## 7.5A Public verification and completion
 
-- [ ] public npm view resolves
-- [ ] exact-version npx version check succeeds
-- [ ] public secure run succeeds
-- [ ] public vulnerable demo exits `1`
-- [ ] tag and GitHub release point to exact release commit
-- [ ] README public install text is accurate
-- [ ] README no longer says npm is unreleased
-- [ ] no release credential exists in history/artifacts
-- [ ] `main` remains clean and protected
-- [ ] Phase 7 completion record added
-- [ ] Phase 7 feature branch removed after completion
+- [x] public npm view resolves
+- [x] exact-version npx version check succeeds
+- [x] public secure run succeeds
+- [x] public vulnerable demo exits `1`
+- [x] tag and GitHub release point to exact release commit
+- [x] README public install text is accurate
+- [x] README no longer says npm is unreleased
+- [x] no release credential exists in history/artifacts
+- [x] `main` remains clean and protected
+- [x] Phase 7 completion record added
+- [x] Phase 7 feature branch removed after completion
+
+## Phase 7 completion record
+
+Phase 7 completed successfully on 2026-08-29.
+
+Public release identity:
+
+- npm package: `handoffprobe@0.1.0`
+- npm dist-tag: `latest` -> `0.1.0`
+- annotated Git tag: `v0.1.0`
+- immutable release commit: `90fdd691b390c420e3288383ad7efa7e0fb69e6f`
+- GitHub release: https://github.com/Heaviside479/handoffprobe/releases/tag/v0.1.0
+- release asset: `handoffprobe-0.1.0.tgz`
+- package size: `113949 bytes`
+- file count: `295`
+- npm shasum: `2aa56211d7559cac2cf2052275af45331fba6663`
+- npm integrity: `sha512-fdDa8/KHmxjfwxcoQMsiLdKjSokFn70nXJhq9mL8ZpBph+trV0uwTU4wCchTW1YahmG16+eDD4PjpcJj7bJjkQ==`
+- SHA-256: `3ea4936980893f893e072bf6a378234da8777b1becf494493ff3ffaf4755163a`
+
+Final public verification:
+
+- exact-version npm lookup succeeds;
+- npm `latest` resolves to `0.1.0`;
+- exact-version public `npx` reports `HandoffProbe 0.1.0`;
+- clean public installation succeeds;
+- secure bundled corpus reports 22 PASS / 0 FAIL / 0 ERROR;
+- public `HP-AUTH-001` vulnerable demonstration exits `1`;
+- public JSON report remains schema version `1`;
+- GitHub release asset is byte-identical to the accepted npm release artifact;
+- annotated `v0.1.0` resolves to the exact immutable release commit;
+- branch protection remains strict and administrator-enforced;
+- current-tree, Git-history and release-asset credential-pattern gates are clean;
+- post-release documentation records the completed public state.
+
+The immutable `v0.1.0` package, tag and GitHub release remain anchored to the release commit above. Post-release documentation on `main` does not alter the published `0.1.0` artifact.
 
 ## Stop conditions
 

@@ -439,7 +439,7 @@ The Phase 6 exit gate is satisfied.
 
 # Phase 7 — Open-source v0.1 launch
 
-Status: in progress 2026-08-29
+Status: completed 2026-08-29
 
 Implementation contract: `docs/V0_1_RELEASE_SPECIFICATION.md`
 
@@ -471,6 +471,30 @@ MCP-side behavior: expected
 Combined handoff invariant: FAIL
 
 HandoffProbe: reproducibly detects the failure
+
+## Phase 7 completion record
+
+HandoffProbe v0.1.0 was publicly released on 2026-08-29.
+
+Verified release:
+
+- public npm package `handoffprobe@0.1.0`;
+- npm `latest` points to `0.1.0`;
+- immutable release commit `90fdd691b390c420e3288383ad7efa7e0fb69e6f`;
+- annotated Git tag `v0.1.0`;
+- public GitHub release `HandoffProbe v0.1.0`;
+- byte-identical npm/GitHub release artifact;
+- SHA-256 `3ea4936980893f893e072bf6a378234da8777b1becf494493ff3ffaf4755163a`;
+- exactly 22 stable attacks: 12 P0 + 10 P1;
+- public secure run: 22 PASS / 0 FAIL / 0 ERROR;
+- public `HP-AUTH-001` vulnerable demo: deterministic exit `1`;
+- public JSON reporter: schema `1`;
+- terminal, JSON and Markdown reporting;
+- source-backed GitHub Action;
+- protected `main` workflow and required checks;
+- release completed with interactive security-key 2FA and without a long-lived publication token.
+
+Phase 7 exit gate is satisfied.
 
 ---
 

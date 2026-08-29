@@ -2,9 +2,9 @@
 
 ## Status
 
-The npm package is **not publicly released yet**.
+The npm package is publicly available as `handoffprobe@0.1.0`.
 
-These commands describe the v0.1.0 release candidate. Public npm commands become canonical only after registry verification.
+These commands describe the verified public v0.1.0 release.
 
 ## v0.1.0 snapshot
 
@@ -15,7 +15,7 @@ These commands describe the v0.1.0 release candidate. Public npm commands become
 - deterministic exits `0`, `1`, `2`, `3`;
 - reusable GitHub Action with redacted safe evidence.
 
-## Public version check after publication
+## Public version check
 
 ```bash
 npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
@@ -27,7 +27,7 @@ Expected:
 HandoffProbe 0.1.0
 ```
 
-## Secure control after publication
+## Secure control
 
 ```bash
 npx --yes --package=handoffprobe@0.1.0 handoffprobe test
@@ -86,7 +86,7 @@ For security-sensitive CI, immutable commit-SHA pinning is strongest:
 
 Do not use `pull_request_target` to execute untrusted pull-request code.
 
-## Local package smoke before publication
+## Local package smoke
 
 ```bash
 PACKAGE_TARBALL="$(npm pack --silent)"

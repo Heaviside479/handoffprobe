@@ -52,7 +52,7 @@ describe('v0.1 upstream drift review', () => {
     }
   });
 
-  it('marks the 7.2A checklist complete without claiming publication', async () => {
+  it('keeps the completed 7.2A evidence after public release', async () => {
     const checklist = await read('docs/RELEASE_CHECKLIST.md');
 
     for (const text of [
@@ -71,7 +71,7 @@ describe('v0.1 upstream drift review', () => {
       expect(checklist).toContain(text);
     }
 
-    expect(checklist).not.toContain('- [x] npm package publicly published');
-    expect(checklist).not.toContain('- [x] GitHub release `v0.1.0` created');
+    expect(checklist).toContain('- [x] npm package publicly published');
+    expect(checklist).toContain('- [x] GitHub release `v0.1.0` created');
   });
 });

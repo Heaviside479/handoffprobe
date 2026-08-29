@@ -26,11 +26,11 @@ describe('v0.1 research and launch documentation', () => {
     }
   });
 
-  it('keeps launch examples honest before publication', async () => {
+  it('keeps launch examples accurate after publication', async () => {
     const launch = await read('docs/LAUNCH_EXAMPLES.md');
 
     for (const text of [
-      'The npm package is **not publicly released yet**.',
+      'The npm package is publicly available as `handoffprobe@0.1.0`.',
       'npx --yes --package=handoffprobe@0.1.0 handoffprobe --version',
       'npx --yes --package=handoffprobe@0.1.0 handoffprobe test',
       'handoffprobe test --target vulnerable --test HP-AUTH-001',
@@ -49,7 +49,7 @@ describe('v0.1 research and launch documentation', () => {
     const checklist = await read('docs/RELEASE_CHECKLIST.md');
 
     for (const text of [
-      'Status: in progress',
+      'Status: completed 2026-08-29',
       'Target release: `handoffprobe@0.1.0` / `v0.1.0`',
       'stable corpus: exactly 22 attacks',
       '## 7.2A Upstream drift review',
@@ -62,6 +62,10 @@ describe('v0.1 research and launch documentation', () => {
       '- [x] exact tarball tested outside repository',
       '- [x] tarball JSON stays machine-readable',
       'do not paste OTP, password or token into logs/chat',
+      '## Phase 7 completion record',
+      'immutable release commit: `90fdd691b390c420e3288383ad7efa7e0fb69e6f`',
+      'https://github.com/Heaviside479/handoffprobe/releases/tag/v0.1.0',
+      '3ea4936980893f893e072bf6a378234da8777b1becf494493ff3ffaf4755163a',
       'Stop the release immediately if:',
     ]) {
       expect(checklist).toContain(text);
@@ -75,18 +79,18 @@ describe('v0.1 research and launch documentation', () => {
     expect(checklist).not.toContain('local SHA-256: `TBD`');
     expect(checklist).not.toContain('npm integrity: `TBD`');
 
-    expect(checklist).not.toContain('- [x] npm package publicly published');
-    expect(checklist).not.toContain('- [x] GitHub release `v0.1.0` created');
+    expect(checklist).toContain('- [x] npm package publicly published');
+    expect(checklist).toContain('- [x] GitHub release `v0.1.0` created');
   });
 
-  it('links launch docs from README without a public-release claim', async () => {
+  it('links launch docs from the public-release README', async () => {
     const readme = await read('README.md');
 
     for (const text of [
       'docs/RESEARCH_ARTICLE.md',
       'docs/LAUNCH_EXAMPLES.md',
       'docs/RELEASE_CHECKLIST.md',
-      'The npm package is **not publicly released yet**.',
+      'The npm package is publicly available as **`handoffprobe@0.1.0`**.',
     ]) {
       expect(readme).toContain(text);
     }
