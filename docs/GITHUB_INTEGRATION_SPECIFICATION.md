@@ -1,6 +1,6 @@
 # HandoffProbe Phase 6 — Automated Quality and GitHub Integration Specification
 
-Status: implementation contract locked 2026-08-29
+Status: completed 2026-08-29
 
 This document defines the implementation and acceptance contract for Phase 6.
 
@@ -480,3 +480,137 @@ Phase 6 may be marked completed only when:
 Only after this gate may the roadmap status become:
 
 `Status: completed <date>`
+
+---
+
+## 20. Phase 6 completion record
+
+Phase 6 satisfied this implementation and acceptance contract on 2026-08-29.
+
+The stable security corpus remains unchanged:
+
+- P0: 12 attacks;
+- P1: 10 attacks;
+- total: 22 attacks;
+- protocol baseline: A2A 1.0 → MCP 2026-07-28.
+
+### 20.1 Repository quality gates
+
+The completed repository automation provides:
+
+- immutable-pinned GitHub checkout and Node setup;
+- `npm ci`;
+- format verification;
+- ESLint;
+- TypeScript typecheck;
+- deterministic secret-safety validation;
+- complete unit, integration and regression tests;
+- build validation;
+- npm package validation;
+- pull-request Dependency Review.
+
+Secret-safety regression coverage uses synthetic canaries and does not print
+secret values.
+
+Dependency Review executes without a paid external service.
+
+### 20.2 HandoffProbe GitHub Action
+
+The repository-root `action.yml` provides a source-backed composite GitHub
+Action.
+
+Verified behavior:
+
+- default target: `secure`;
+- default security threshold: `high`;
+- stable attack-ID selection is validated;
+- unsafe artifact names are rejected;
+- the scanner executes exactly once per action invocation;
+- JSON is the canonical machine-readable report;
+- Markdown is derived from the completed scan;
+- the same result is written to `GITHUB_STEP_SUMMARY`;
+- exit code `0` represents a successful security gate;
+- exit code `1` represents a completed scan with a qualifying vulnerability;
+- exit code `2` remains a usage/configuration failure;
+- exit code `3` remains a scanner/runtime/output failure;
+- vulnerability FAIL is never collapsed into operational ERROR;
+- safe artifacts are uploaded before security exit code `1` is propagated.
+
+The normal repository pull-request control path runs the bundled secure target
+and produces 22 / 22 PASS findings.
+
+### 20.3 Supply-chain completion
+
+Final external GitHub Action pins used by the Phase 6 implementation:
+
+- `actions/checkout` v6.0.2:
+  `de0fac2e4500dabe0009e67214ff5f5447ce83dd`;
+- `actions/setup-node` v6.5.0:
+  `249970729cb0ef3589644e2896645e5dc5ba9c38`;
+- `actions/dependency-review-action` v5.0.0:
+  `a1d282b36b6f3519aa1f3fc636f609c47dddb294`;
+- `actions/upload-artifact` v7.0.1:
+  `043fb46d1a93c77aae656e7c1c64a875d1fc6a0a`.
+
+The final `actions/upload-artifact` pin uses its native Node.js 24 runtime.
+
+### 20.4 Required merge policy
+
+The protected `main` branch requires these GitHub Actions checks:
+
+- `HandoffProbe`;
+- `Quality`;
+- `Dependency Review`.
+
+All three required checks are bound to GitHub Actions app ID `15368`.
+
+Repository merge policy additionally verifies:
+
+- strict/up-to-date required status checks;
+- required-check enforcement for administrators;
+- no mandatory pull-request review requirement;
+- force pushes disabled;
+- branch deletion disabled.
+
+### 20.5 Deterministic vulnerable merge-gate proof
+
+The Phase 6 exit-gate demonstration used only the bundled synthetic vulnerable
+target.
+
+Evidence:
+
+- demo pull request: #11;
+- demo head:
+  `6a5a4f1c02efdaecf208ced3d258d01a9f08fce9`;
+- HandoffProbe workflow run: `33251273506`;
+- Quality workflow run: `33251273501`;
+- Dependency Review workflow run: `33251273503`;
+- HandoffProbe findings: 22 FAIL / 22 total;
+- HIGH or CRITICAL failing findings: 20;
+- runtime ERROR count: 0;
+- HandoffProbe result: security FAIL;
+- HandoffProbe exit code: `1`;
+- Quality result: success;
+- Dependency Review result: success;
+- failed HandoffProbe run still uploaded the safe JSON and Markdown artifact;
+- GitHub merge state: `BLOCKED`;
+- the failing HandoffProbe check was a required status check;
+- administrator enforcement remained active;
+- demo pull request #11 was closed without merge;
+- the temporary demo branch was deleted locally and remotely;
+- `main` remained unchanged throughout the demonstration.
+
+No real credential, third-party production target, paid AI service or hosted
+HandoffProbe account was used.
+
+### 20.6 Completion conclusion
+
+Every acceptance requirement in section 19 has been demonstrated.
+
+Phase 6 exit gate:
+
+`A deliberate vulnerable regression blocks a demo pull request.`
+
+Result:
+
+`SATISFIED`

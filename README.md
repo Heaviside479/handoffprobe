@@ -51,7 +51,10 @@ The developer CLI currently includes:
 - secure and intentionally vulnerable bundled fixtures;
 - terminal, JSON and Markdown reporters;
 - deterministic CI exit codes;
-- secret redaction and safe runtime diagnostics.
+- secret redaction and safe runtime diagnostics;
+- reusable source-backed composite GitHub Action;
+- pull-request summaries and machine-readable artifacts;
+- repository gates for dependency review and secret safety.
 
 The npm package is **not publicly released yet**.
 
@@ -109,6 +112,100 @@ After the public npm release, the intended command is:
 ```bash
 npx handoffprobe test
 ```
+
+## GitHub Action
+
+HandoffProbe includes a reusable source-backed composite GitHub Action in
+[`action.yml`](action.yml).
+
+The action installs and builds HandoffProbe from its own `GITHUB_ACTION_PATH`.
+It therefore does not require the calling repository to contain the HandoffProbe
+source tree or depend on the npm package already being publicly released.
+
+A single action invocation executes the scanner exactly once. The canonical
+machine-readable JSON report and the Markdown/GitHub summary are derived from
+that same completed scan.
+
+The repository self-test uses:
+
+```yaml
+- uses: ./
+  with:
+    target: secure
+    fail-on: high
+    artifact-name: handoffprobe-report
+```
+
+For another repository, pin HandoffProbe to a reviewed commit SHA until a
+versioned public release exists:
+
+```yaml
+name: HandoffProbe
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  handoffprobe:
+    name: HandoffProbe
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - uses: Heaviside479/handoffprobe@<pinned-handoffprobe-commit-sha>
+        with:
+          target: secure
+          fail-on: high
+          artifact-name: handoffprobe-report
+```
+
+Replace `<pinned-handoffprobe-commit-sha>` with a reviewed HandoffProbe commit.
+Do not use the placeholder as a literal revision.
+
+Supported inputs:
+
+| Input           | Default               | Meaning                                               |
+| --------------- | --------------------- | ----------------------------------------------------- |
+| `target`        | `secure`              | bundled `secure` or intentionally `vulnerable` target |
+| `tests`         | all stable attacks    | optional comma-separated stable `HP-` IDs             |
+| `fail-on`       | `high`                | `info`, `low`, `medium`, `high` or `critical`         |
+| `artifact-name` | `handoffprobe-report` | validated artifact name                               |
+
+Action outputs:
+
+| Output         | Meaning                                   |
+| -------------- | ----------------------------------------- |
+| `exit-code`    | deterministic HandoffProbe exit code      |
+| `result`       | `pass`, `fail` or `error`                 |
+| `report-path`  | canonical JSON report path when available |
+| `summary-path` | generated Markdown summary path           |
+
+Security behavior:
+
+- exit code `0` means the security gate passed;
+- exit code `1` means the scan completed correctly and found a qualifying vulnerability;
+- exit code `2` means usage or configuration failure;
+- exit code `3` means scanner, runtime or output failure;
+- a security exit code `1` still uploads its safe report artifact before the GitHub check fails;
+- reports contain redacted finding data plus safe evidence counts and sequence references;
+- the reference pull-request workflow uses `contents: read`;
+- the reference workflow does not use `pull_request_target`.
+
+The protected `main` branch of this repository currently requires:
+
+- `HandoffProbe`;
+- `Quality`;
+- `Dependency Review`.
+
+The Phase 6 merge-gate demonstration proved that a qualifying HandoffProbe
+security failure blocks a non-draft pull request while Quality and Dependency
+Review remain successful.
 
 ## Vulnerable demo
 
@@ -263,12 +360,12 @@ An output write failure is a runtime error and returns exit code `3`.
 
 ## Exit codes
 
-| Exit | Meaning |
-| ---: | --- |
-| `0` | scan completed correctly and no qualifying vulnerability FAIL exists |
-| `1` | at least one vulnerability FAIL meets or exceeds the configured threshold |
-| `2` | usage or configuration error |
-| `3` | scanner, runtime or output error |
+| Exit | Meaning                                                                   |
+| ---: | ------------------------------------------------------------------------- |
+|  `0` | scan completed correctly and no qualifying vulnerability FAIL exists      |
+|  `1` | at least one vulnerability FAIL meets or exceeds the configured threshold |
+|  `2` | usage or configuration error                                              |
+|  `3` | scanner, runtime or output error                                          |
 
 **ERROR is never converted into vulnerability exit code `1`.**
 
@@ -396,6 +493,7 @@ The core admission rule remains:
 - [`docs/P0_TEST_SPECIFICATION.md`](docs/P0_TEST_SPECIFICATION.md) — P0 acceptance contract
 - [`docs/P1_TEST_SPECIFICATION.md`](docs/P1_TEST_SPECIFICATION.md) — P1 acceptance contract
 - [`docs/CLI_SPECIFICATION.md`](docs/CLI_SPECIFICATION.md) — CLI contract
+- [`docs/GITHUB_INTEGRATION_SPECIFICATION.md`](docs/GITHUB_INTEGRATION_SPECIFICATION.md) — GitHub Action and CI contract
 - [`docs/TECHNICAL_BASELINE.md`](docs/TECHNICAL_BASELINE.md) — technical baseline
 - [`docs/FINAL_PRODUCT_DEFINITION.md`](docs/FINAL_PRODUCT_DEFINITION.md) — mature-product definition
 - [`docs/RESEARCH_BASELINE.md`](docs/RESEARCH_BASELINE.md) — protocol and research baseline
