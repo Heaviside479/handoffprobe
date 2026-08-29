@@ -1,0 +1,30 @@
+name: HandoffProbe
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  handoffprobe:
+    name: HandoffProbe
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Run HandoffProbe
+        id: handoffprobe
+        uses: ./
+        with:
+          target: secure
+          fail-on: high
+          artifact-name: handoffprobe-report

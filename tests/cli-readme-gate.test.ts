@@ -57,16 +57,16 @@ describe('Phase 5 README developer experience gate', () => {
     const readme = await readReadme();
 
     for (const text of [
-      '| `0` |',
-      '| `1` |',
-      '| `2` |',
-      '| `3` |',
       'ERROR is never converted into vulnerability exit code `1`',
       '## Security and redaction',
       '## Troubleshooting',
       'A2A 1.0 → MCP 2026-07-28',
     ]) {
       expect(readme).toContain(text);
+    }
+
+    for (const exitCode of ['0', '1', '2', '3']) {
+      expect(readme).toMatch(new RegExp(`\\|\\s+\`${exitCode}\`\\s+\\|`, 'u'));
     }
   });
 

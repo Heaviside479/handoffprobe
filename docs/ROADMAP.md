@@ -360,6 +360,12 @@ Phase 5 shipped the complete developer-quality CLI baseline:
 
 # Phase 6 — Automated quality and GitHub integration
 
+Status: completed 2026-08-29
+
+Implementation contract:
+
+`docs/GITHUB_INTEGRATION_SPECIFICATION.md`
+
 ## Repository CI
 
 - format
@@ -384,6 +390,50 @@ Phase 5 shipped the complete developer-quality CLI baseline:
 ## Exit gate
 
 A deliberate vulnerable regression blocks a demo pull request.
+
+## Phase 6 completion record
+
+Phase 6 completed the automated quality and GitHub integration baseline on
+2026-08-29.
+
+Verified implementation:
+
+- repository CI covers format, lint, typecheck, tests, build and package validation;
+- deterministic secret-safety validation is active;
+- pull requests receive Dependency Review;
+- the repository provides a reusable source-backed composite GitHub Action;
+- one action invocation executes the scanner exactly once;
+- canonical JSON and derived Markdown artifacts are produced safely;
+- `GITHUB_STEP_SUMMARY` is supported;
+- exit codes 0, 1, 2 and 3 preserve the CLI contract;
+- the normal secure PR path produces 22 / 22 PASS findings;
+- `main` requires `HandoffProbe`, `Quality` and `Dependency Review`;
+- required checks use strict/up-to-date enforcement and apply to administrators;
+- force pushes and deletion of `main` are disabled.
+
+Deterministic exit-gate evidence:
+
+- deliberate vulnerable demo PR: #11;
+- demo head: `6a5a4f1c02efdaecf208ced3d258d01a9f08fce9`;
+- HandoffProbe run: `33251273506`;
+- Quality run: `33251273501`;
+- Dependency Review run: `33251273503`;
+- vulnerable target produced 22 / 22 FAIL findings;
+- 20 findings were HIGH or CRITICAL;
+- HandoffProbe returned security exit code `1`;
+- runtime ERROR count remained zero;
+- the failed HandoffProbe run still uploaded JSON and Markdown artifacts;
+- Quality remained successful;
+- Dependency Review remained successful;
+- GitHub reported the non-draft demo PR as `MERGE_STATE=BLOCKED`;
+- demo PR #11 was closed without merge;
+- the temporary demo branch was deleted locally and remotely;
+- `main` remained unchanged throughout the demonstration.
+
+The stable corpus remains 12 P0 + 10 P1 = 22 attacks on
+A2A 1.0 → MCP 2026-07-28.
+
+The Phase 6 exit gate is satisfied.
 
 ---
 
