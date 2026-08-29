@@ -295,7 +295,7 @@ Phase 4 exit gate satisfied on 2026-08-25.
 
 # Phase 5 — Developer-quality CLI
 
-Status: active
+Status: completed 2026-08-29
 
 Implementation contract:
 
@@ -333,6 +333,30 @@ A developer unfamiliar with the project can reproduce the full demo using only
 the README.
 
 ---
+
+## Phase 5 completion record
+
+Phase 5 shipped the complete developer-quality CLI baseline:
+
+- all 22 stable attacks are bound to the execution catalog;
+- `list` exposes all 22 stable attacks;
+- `explain <HP-ID>` works for all 22 stable attacks;
+- the bundled secure target completes with 22 PASS findings;
+- the bundled vulnerable target reproduces 22 FAIL findings;
+- attack selection and repeated-ID deduplication are deterministic;
+- config loading and CLI-over-config precedence are implemented;
+- severity thresholds control the security-gate exit code without hiding findings;
+- terminal, JSON and Markdown reporters are implemented and deterministic;
+- report file output is implemented;
+- exit codes 0, 1, 2 and 3 are deterministic;
+- scanner/runtime ERROR remains distinct from vulnerability FAIL;
+- A2A 1.0 and MCP 2026-07-28 are explicit in CLI output;
+- CLI diagnostics and finding text are redacted;
+- troubleshooting diagnostics avoid raw runtime errors and internal paths;
+- the README contains the complete developer demo and command reference;
+- the npm tarball contains the required CLI artifacts;
+- the real local npm tarball executes successfully through `npx`;
+- the bundled workflow remains synthetic, local-first and requires no paid AI service.
 
 # Phase 6 — Automated quality and GitHub integration
 

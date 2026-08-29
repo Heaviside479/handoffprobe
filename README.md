@@ -2,13 +2,18 @@
 
 Open-source adversarial security testing for AI agent handoffs.
 
-HandoffProbe is a defensive developer tool for finding security properties that are lost when AI-agent tasks cross protocol and execution boundaries. The initial scope is deliberately narrow: **A2A 1.0 -> MCP 2026-07-28**.
+HandoffProbe tests whether security properties survive when an AI-agent action crosses protocol and execution boundaries.
 
-## The problem
+Current deterministic protocol baseline:
 
-An A2A agent can delegate work to another agent, which then calls tools through MCP. Each individual layer can look valid in isolation while identity, authority, consent, tenant, resource, lifecycle or execution constraints change during the handoff.
+**A2A 1.0 → MCP 2026-07-28**
 
-HandoffProbe tests that handoff.
+The bundled developer experience is local-first, deterministic and synthetic.
+It requires no paid AI service, no telemetry and no signup.
+
+## Why HandoffProbe exists
+
+A system can look secure at each individual protocol layer while becoming insecure at the handoff between those layers.
 
 ```text
 Human / calling service
@@ -23,89 +28,381 @@ Human / calling service
        Tool
 ```
 
-## What HandoffProbe is not
+HandoffProbe checks security properties such as:
 
-HandoffProbe is not intended to replace:
+- delegated authority;
+- principal identity;
+- tenant continuity;
+- resource binding;
+- approval and consent;
+- credential audience;
+- replay protection;
+- cancellation;
+- retry identity;
+- audit lineage.
 
-- the official A2A Technology Compatibility Kit or A2A Inspector;
-- the official MCP Inspector;
-- generic LLM red-team platforms;
-- a production runtime firewall, gateway or identity provider.
+## Current status
 
-The core admission rule is simple: **a core test must exercise a security property that can be lost because an agent handoff composes or translates protocol/security context.**
+The developer CLI currently includes:
 
-## v0.1 goal
+- 12 stable P0 attacks;
+- 10 stable P1 attacks;
+- 22 stable attacks total;
+- secure and intentionally vulnerable bundled fixtures;
+- terminal, JSON and Markdown reporters;
+- deterministic CI exit codes;
+- secret redaction and safe runtime diagnostics.
 
-Provide a local TypeScript CLI that runs a reproducible A2A -> MCP handoff-security suite and reports whether security properties survive the boundary.
+The npm package is **not publicly released yet**.
 
-Planned developer experience:
+The repository package version is currently `0.0.0`.
+
+## Requirements
+
+- Node.js 24
+- npm
+
+## Quick start from source
+
+```bash
+git clone https://github.com/Heaviside479/handoffprobe.git
+cd handoffprobe
+npm ci
+npm run build
+node dist/cli.js test
+```
+
+The default target is the bundled `secure` target.
+
+Expected high-level result:
+
+```text
+Target: secure
+Protocols: A2A 1.0 | MCP 2026-07-28
+Selected attacks: 22
+
+Summary:
+  PASS: 22
+  FAIL: 0
+  ERROR: 0
+  TOTAL: 22
+
+Security gate: PASS
+```
+
+## Packaged-artifact demo
+
+Before the public npm release, create the npm tarball locally:
+
+```bash
+PACKAGE_TARBALL="$(npm pack --silent)"
+```
+
+Run the packaged CLI through `npx`:
+
+```bash
+npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
+```
+
+After the public npm release, the intended command is:
 
 ```bash
 npx handoffprobe test
 ```
 
-Example output:
+## Vulnerable demo
 
-```text
-HandoffProbe Security Audit
-A2A 1.0 -> MCP 2026-07-28
+HandoffProbe includes intentionally vulnerable synthetic fixtures for defensive testing.
 
-PASS  principal continuity
-PASS  resource binding
-FAIL  delegated authority amplification    HIGH
-FAIL  cancellation not propagated          HIGH
-
-12 tests | 10 passed | 2 failed
+```bash
+node dist/cli.js test --target vulnerable --test HP-AUTH-001
 ```
 
-## Initial test families
+Expected result:
 
-- authority monotonicity and delegation translation
-- identity / tenant continuity
-- replay and cross-context reuse
-- approval / consent integrity
-- tool, capability and resource binding
-- credential audience and propagation
-- state-handle and cache isolation
-- cancellation, retry and partial-failure behavior
-- audit lineage continuity
+```text
+FAIL           HP-AUTH-001 Delegated authority amplification [HIGH]
 
-See [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) for the current backlog.
+Security gate: FAIL
+```
+
+This exits with code `1`.
+
+## Run the complete corpus
+
+Secure reference target:
+
+```bash
+node dist/cli.js test
+```
+
+Intentionally vulnerable target:
+
+```bash
+node dist/cli.js test --target vulnerable
+```
+
+## Select attacks
+
+Run one attack:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001
+```
+
+Run multiple attacks:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001 --test HP-CRED-001
+```
+
+Repeated IDs are deduplicated and execution order remains deterministic.
+
+## Discover attacks
+
+List all 22 stable attacks:
+
+```bash
+node dist/cli.js list
+```
+
+Explain one attack without executing it:
+
+```bash
+node dist/cli.js explain HP-AUTH-001
+```
+
+## Severity gate
+
+Supported thresholds:
+
+```text
+info < low < medium < high < critical
+```
+
+The default threshold is `high`.
+
+Example:
+
+```bash
+node dist/cli.js test --target vulnerable --test HP-CRED-001 --fail-on medium
+```
+
+All findings remain visible.
+The threshold controls the process exit code, not finding visibility.
+
+## Reporters
+
+HandoffProbe supports three deterministic reporters:
+
+- `terminal`
+- `json`
+- `markdown`
+
+Terminal:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001 --reporter terminal
+```
+
+JSON:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001 --reporter json
+```
+
+Markdown:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001 --reporter markdown
+```
+
+JSON writes only the JSON document to stdout.
+Markdown is suitable for CI artifacts and pull-request summaries.
+
+Reports expose safe evidence counts and sequence references instead of raw EvidenceEvent context/details.
+
+## Configuration
+
+HandoffProbe reads an optional `handoffprobe.config.json` from the current working directory.
+
+Example:
+
+```json
+{
+  "target": "vulnerable",
+  "tests": ["HP-AUTH-001", "HP-CRED-001"],
+  "failOn": "high",
+  "reporter": "json",
+  "output": "handoffprobe-report.json"
+}
+```
+
+Supported keys:
+
+- `target`
+- `tests`
+- `failOn`
+- `reporter`
+- `output`
+
+The config file is optional.
+Unknown keys, malformed JSON and invalid values are rejected.
+CLI flags override config values.
+
+## Output files
+
+Write a JSON report to a file:
+
+```bash
+node dist/cli.js test --test HP-AUTH-001 --reporter json --output handoffprobe-report.json
+```
+
+When `--output` is supplied, the selected report is written to that path instead of stdout.
+An output write failure is a runtime error and returns exit code `3`.
+
+## Exit codes
+
+| Exit | Meaning |
+| ---: | --- |
+| `0` | scan completed correctly and no qualifying vulnerability FAIL exists |
+| `1` | at least one vulnerability FAIL meets or exceeds the configured threshold |
+| `2` | usage or configuration error |
+| `3` | scanner, runtime or output error |
+
+**ERROR is never converted into vulnerability exit code `1`.**
+
+Exit code `1` means HandoffProbe executed correctly and detected a qualifying security failure.
+Exit code `3` means the operation could not complete trustworthily.
+
+## Security and redaction
+
+The CLI includes:
+
+- recursive structured secret redaction;
+- free-text bearer/basic credential redaction;
+- sensitive key/value redaction;
+- redacted terminal finding text;
+- redacted JSON finding text;
+- redacted Markdown finding text;
+- deterministic runtime diagnostics;
+- no raw OS path in output-write diagnostics;
+- no raw runtime `error.message`;
+- no environment dump;
+- no telemetry or signup requirement.
+
+Reports use safe evidence counts and sequence references instead of raw EvidenceEvent context/details.
+Bundled fixtures are synthetic and perform no real external destructive actions.
+
+## Troubleshooting
+
+### Invalid configuration
+
+Check that `handoffprobe.config.json` contains valid JSON and only supported keys.
+
+```bash
+node dist/cli.js --help
+```
+
+### Unknown attack ID
+
+List the stable attack IDs:
+
+```bash
+node dist/cli.js list
+```
+
+Then inspect one attack:
+
+```bash
+node dist/cli.js explain HP-AUTH-001
+```
+
+### Report file cannot be written
+
+Ensure the parent directory exists and is writable.
+
+```bash
+mkdir -p reports
+node dist/cli.js test --reporter json --output reports/handoffprobe.json
+```
+
+Output-write failures return exit code `3`.
+
+### Exit code 1
+
+This is a detected vulnerability, not a scanner crash.
+
+### Exit code 3
+
+This indicates a scanner, runtime or output problem rather than a vulnerability finding.
+Use the deterministic troubleshooting message written to stderr and rerun the same command.
+
+## Command reference
+
+```text
+handoffprobe test [options]
+handoffprobe list
+handoffprobe explain <HP-ID>
+handoffprobe --version
+handoffprobe --help
+```
+
+Test options:
+
+```text
+--target secure|vulnerable
+--test <HP-ID>                 repeatable
+--fail-on info|low|medium|high|critical
+--reporter terminal|json|markdown
+--output <path>
+```
+
+## What HandoffProbe is not
+
+HandoffProbe is not intended to replace:
+
+- official A2A conformance or inspection tooling;
+- the official MCP Inspector;
+- generic LLM red-team platforms;
+- a production runtime firewall or gateway;
+- an identity provider.
+
+The core admission rule remains:
+
+> A core test must exercise a security property that can be lost because an agent handoff composes or translates protocol/security context.
 
 ## Principles
 
 - Open-source core under Apache-2.0.
-- Local-first and useful without a hosted service.
-- No paid AI API required for core testing.
-- Deterministic tests before AI-assisted heuristics.
-- Safe, authorized testing only.
-- Build a high-quality attack corpus before building a dashboard.
-- Keep v0.1 focused on A2A -> MCP.
-- Source-link important checks to protocol versions, specifications or published research.
-- Do not duplicate existing single-protocol conformance tools.
+- Local-first.
+- Safe and authorized testing only.
+- Synthetic bundled targets.
+- No paid AI API required for bundled tests.
+- Deterministic attacks before AI-assisted heuristics.
+- Evidence before UI.
+- No hidden external side effects.
+- No telemetry or signup requirement.
+- Initial protocol wedge remains A2A → MCP.
 
 ## Project documents
 
-- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical context and constraints
-- [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition and positioning
-- [`docs/ROADMAP.md`](docs/ROADMAP.md) — phased build and launch roadmap
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — planned technical architecture
-- [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — security model and trust boundaries
-- [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — security-test backlog
-- [`docs/P0_TEST_SPECIFICATION.md`](docs/P0_TEST_SPECIFICATION.md) — executable v0.1 P0 acceptance contract
-- [`docs/TECHNICAL_BASELINE.md`](docs/TECHNICAL_BASELINE.md) — implementation/runtime baseline
-- [`docs/FINAL_PRODUCT_DEFINITION.md`](docs/FINAL_PRODUCT_DEFINITION.md) — mature-product completion definition
-- [`docs/RESEARCH_BASELINE.md`](docs/RESEARCH_BASELINE.md) — current protocol/research baseline
-- [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md) — differentiation and kill criteria
-- [`docs/SEVERITY.md`](docs/SEVERITY.md) — finding classification policy
-- [`docs/NAMING.md`](docs/NAMING.md) — naming decision record
-- [`docs/GROWTH_AND_MONETIZATION.md`](docs/GROWTH_AND_MONETIZATION.md) — adoption and revenue strategy
+- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical project context
+- [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
+- [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
+- [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog
+- [`docs/P0_TEST_SPECIFICATION.md`](docs/P0_TEST_SPECIFICATION.md) — P0 acceptance contract
+- [`docs/P1_TEST_SPECIFICATION.md`](docs/P1_TEST_SPECIFICATION.md) — P1 acceptance contract
+- [`docs/CLI_SPECIFICATION.md`](docs/CLI_SPECIFICATION.md) — CLI contract
+- [`docs/TECHNICAL_BASELINE.md`](docs/TECHNICAL_BASELINE.md) — technical baseline
+- [`docs/FINAL_PRODUCT_DEFINITION.md`](docs/FINAL_PRODUCT_DEFINITION.md) — mature-product definition
+- [`docs/RESEARCH_BASELINE.md`](docs/RESEARCH_BASELINE.md) — protocol and research baseline
+- [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md) — competitive landscape
+- [`docs/SEVERITY.md`](docs/SEVERITY.md) — severity policy
 - [`SECURITY.md`](SECURITY.md) — authorized-use and disclosure policy
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution guidelines
-
-## Status
-
-**Pre-alpha / research-locked foundation.** No production-ready scanner exists yet.
 
 ## License
 

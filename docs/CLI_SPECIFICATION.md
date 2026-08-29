@@ -1,6 +1,6 @@
 # HandoffProbe Phase 5 — CLI Specification
 
-Status: implementation contract
+Status: completed 2026-08-29
 
 This document defines the developer-facing CLI contract for Phase 5.
 
@@ -370,3 +370,42 @@ Phase 5 is complete only when:
 
 A developer unfamiliar with HandoffProbe must be able to reproduce the full
 Phase 5 demo using only the README.
+
+## 15. Completion record
+
+Phase 5 was completed on 2026-08-29.
+
+The implemented CLI baseline now satisfies this contract:
+
+- `test`, `list`, `explain <HP-ID>`, `--version`, and `--help` are implemented;
+- the execution catalog binds all 22 stable attacks;
+- `list` exposes all 22 stable attacks deterministically;
+- `explain` works for all 22 stable attack IDs without execution;
+- the bundled secure target produces 22 PASS findings;
+- the bundled vulnerable target reproduces 22 FAIL findings;
+- repeatable `--test` selection and deduplication are deterministic;
+- `handoffprobe.config.json` is supported;
+- CLI arguments override config values;
+- `--fail-on` supports info, low, medium, high, and critical;
+- the default severity threshold is high;
+- terminal, JSON, and Markdown reporters are implemented;
+- JSON and Markdown reporter output is deterministic;
+- `--output` writes the selected report to a file;
+- output-write failures return exit code 3;
+- usage and configuration errors return exit code 2;
+- qualifying vulnerability findings return exit code 1;
+- successful scans without qualifying vulnerability findings return exit code 0;
+- scanner/runtime ERROR remains distinct from vulnerability FAIL and never becomes exit code 1;
+- A2A 1.0 and MCP 2026-07-28 are explicit in CLI output;
+- structured and free-text secret redaction is active;
+- Bearer and Basic credentials are redacted from diagnostics;
+- runtime troubleshooting avoids leaking raw OS paths and raw system error messages;
+- the README documents the complete local developer workflow;
+- the npm package contains the required CLI artifacts;
+- a real locally packed npm tarball executes successfully through `npx`;
+- the packaged secure demo produces 22 PASS findings with exit code 0;
+- the packaged vulnerable demo reproduces a FAIL finding with exit code 1;
+- the bundled developer workflow remains synthetic, local-first, non-destructive, and requires no paid AI service.
+
+The package remains at version `0.0.0` and is not publicly released on npm yet.
+Public npm publication is intentionally deferred to a later release phase.
