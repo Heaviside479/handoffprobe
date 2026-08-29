@@ -56,9 +56,9 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-The npm package is **not publicly released yet**.
+The npm package is publicly available as **`handoffprobe@0.1.0`**.
 
-The release-candidate package version is `0.1.0`. Public npm commands remain documentation-only until registry verification succeeds during Phase 7.
+The current public package version is `0.1.0`. Exact-version npm commands below are verified against the public registry.
 
 ## Requirements
 
@@ -70,9 +70,9 @@ The release-candidate package version is `0.1.0`. Public npm commands remain doc
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-Until the npm publication gate succeeds, use the source checkout or locally packed tarball below.
+Use the public exact-version commands below for the released package, or use the source checkout or locally packed tarball for development.
 
-After `handoffprobe@0.1.0` is verified on npm, the canonical exact-version checks are:
+The canonical public exact-version checks are:
 
 ```bash
 npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
@@ -109,7 +109,7 @@ Security gate: PASS
 
 ## Packaged-artifact demo
 
-Before the public npm release, create the npm tarball locally:
+To create the package tarball locally:
 
 ```bash
 PACKAGE_TARBALL="$(npm pack --silent)"
@@ -121,7 +121,7 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-After `handoffprobe@0.1.0` is verified on the public npm registry, the canonical exact-version commands are:
+For the public `handoffprobe@0.1.0` release, the canonical exact-version commands are:
 
 ```bash
 npx --yes --package=handoffprobe@0.1.0 handoffprobe --version

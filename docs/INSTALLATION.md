@@ -4,9 +4,9 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-The repository currently contains the `0.1.0` release candidate.
+HandoffProbe `0.1.0` is the current public release.
 
-The npm package is **not publicly released yet**. Until registry verification succeeds during the Phase 7 release gate, use the source checkout or a locally packed tarball. The public npm commands below become canonical only after `handoffprobe@0.1.0` is verified on the npm registry.
+The npm package is publicly available as `handoffprobe@0.1.0`. The public registry, exact package integrity and clean-install smoke tests were verified during the Phase 7 release gate.
 
 ## Requirements
 
@@ -24,9 +24,9 @@ node --version
 npm --version
 ```
 
-## Public npm execution after release
+## Public npm execution
 
-After `handoffprobe@0.1.0` is publicly verified, the recommended one-shot version check is:
+The recommended one-shot public version check is:
 
 ```bash
 npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
@@ -46,9 +46,9 @@ HandoffProbe 0.1.0
 
 Using the exact version keeps first-run and CI reproduction deterministic.
 
-## Install into a project after release
+## Install into a project
 
-After registry verification:
+Install the exact public release:
 
 ```bash
 npm install --save-dev handoffprobe@0.1.0
@@ -86,13 +86,13 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-The release-candidate source checkout should report:
+The v0.1.0 source checkout should report:
 
 ```text
 HandoffProbe 0.1.0
 ```
 
-## Run the locally packed release candidate
+## Run the locally packed package
 
 Build the exact package artifact:
 
@@ -100,14 +100,14 @@ Build the exact package artifact:
 PACKAGE_TARBALL="$(npm pack --silent)"
 ```
 
-Verify the tarball through `npx` without requiring a public registry release:
+Verify a locally packed tarball through `npx`:
 
 ```bash
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-This is the preferred pre-publication installation smoke test because it exercises the package boundary instead of relying on the source checkout.
+This exercises the package boundary independently of the public registry.
 
 ## GitHub Action
 
@@ -143,9 +143,7 @@ Do not assume report, configuration or protocol compatibility across future pre-
 
 ### npm reports that `handoffprobe` does not exist
 
-Before the Phase 7 public publication gate completes, this is expected. Use the source checkout or local tarball instructions above.
-
-After publication, specify the exact version:
+Verify the exact public version:
 
 ```bash
 npm view handoffprobe@0.1.0

@@ -70,7 +70,7 @@ describe('Phase 5 README developer experience gate', () => {
     }
   });
 
-  it('documents packaged npx execution without claiming a public release', async () => {
+  it('documents packaged and public npx execution', async () => {
     const readme = await readReadme();
 
     expect(readme).toContain(`PACKAGE_TARBALL="$(npm pack --silent)"`);
@@ -78,6 +78,6 @@ describe('Phase 5 README developer experience gate', () => {
     expect(readme).toContain(`npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test`);
 
     expect(readme).toContain('npx handoffprobe test');
-    expect(readme).toContain('not publicly released yet');
+    expect(readme).toContain('publicly available as **`handoffprobe@0.1.0`**');
   });
 });
