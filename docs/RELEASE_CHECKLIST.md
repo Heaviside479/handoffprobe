@@ -24,15 +24,25 @@ Target release: `handoffprobe@0.1.0` / `v0.1.0`
 
 ## 7.2A Upstream drift review
 
-- [ ] verify latest released A2A version and security-relevant changes
-- [ ] verify relevant A2A SDK/reference state
-- [ ] verify MCP 2026-07-28 remains the intended released baseline
-- [ ] review MCP changes/roadmap after 2026-07-28
-- [ ] verify relevant Tier 1 MCP SDK state
-- [ ] review AgentRFC and AgentThread source versions
-- [ ] classify drift as no-impact, documentation-only, test-impact or release-blocking
-- [ ] record URLs, dates and conclusions
-- [ ] update `docs/RESEARCH_BASELINE.md` if needed
+- [x] verify latest released A2A version and security-relevant changes
+- [x] verify relevant A2A SDK/reference state
+- [x] verify MCP 2026-07-28 remains the intended released baseline
+- [x] review MCP changes/roadmap after 2026-07-28
+- [x] verify relevant Tier 1 MCP SDK state
+- [x] review AgentRFC and AgentThread source versions
+- [x] classify drift as no-impact, documentation-only, test-impact or release-blocking
+- [x] record URLs, dates and conclusions
+- [x] update `docs/RESEARCH_BASELINE.md` if needed
+
+Review date: 2026-08-29
+
+7.2A conclusion: no release-blocking upstream drift.
+
+A2A SDK drift: test-impact resolved by 1.0.1 -> 1.1.0 upgrade and full regression.
+
+MCP roadmap drift: documentation-only; no released baseline change.
+
+Protocol baseline remains A2A 1.0 -> MCP 2026-07-28.
 
 ## 7.2B Local release-candidate gate
 
@@ -47,7 +57,7 @@ Target release: `handoffprobe@0.1.0` / `v0.1.0`
 - [ ] exact tarball tested outside repository
 - [ ] tarball CLI reports `HandoffProbe 0.1.0`
 - [ ] tarball list exposes exactly 22 stable IDs
-- [ ] tarball JSO`stays machine-readable
+- [ ] tarball JSON stays machine-readable
 
 Release artifact evidence:
 

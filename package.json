@@ -48,7 +48,7 @@
     "vitest": "4.1.11"
   },
   "dependencies": {
-    "@a2a-js/sdk": "1.0.1",
+    "@a2a-js/sdk": "1.1.0",
     "@modelcontextprotocol/client": "2.0.0",
     "@modelcontextprotocol/server": "2.0.0",
     "express": "5.2.1",

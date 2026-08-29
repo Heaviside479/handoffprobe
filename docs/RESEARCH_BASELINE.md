@@ -1,6 +1,6 @@
 # Research and Protocol Baseline
 
-As of: 2026-08-21
+As of: 2026-08-29
 
 HandoffProbe tests fast-moving protocols. This document pins the assumptions used by the project so tests do not silently target outdated behavior.
 
@@ -40,13 +40,12 @@ Authoritative sources:
 
 ## Tooling baseline
 
-Before implementation is pinned in `package.json`, Phase 0 should verify the exact current versions of:
+- Node.js release baseline: Node 24, enforced as `>=24 <25`.
+- Official JavaScript/TypeScript SDK: **@a2a-js/sdk 1.1.0**, implementing A2A Protocol Specification 1.0.0.
+- MCP TypeScript client/server SDK: **2.0.0** split packages implementing the 2026-07-28 revision.
+- HandoffProbe explicitly pins MCP version negotiation to `2026-07-28` in the protocol lab.
 
-- Node.js LTS (target baseline: Node 24 unless current SDK requirements justify otherwise)
-- official A2A JavaScript/TypeScript SDK
-- MCP TypeScript v2 split packages supporting 2026-07-28
-
-Important: MCP v2 SDK code does not necessarily speak the 2026-07-28 wire revision automatically. HandoffProbe fixtures must explicitly opt into the intended revision and test that assumption.
+The SDK versions are exact release inputs rather than floating ranges so protocol-lab behavior cannot silently move during the v0.1 release.
 
 ## Existing official testing tools
 
@@ -119,6 +118,32 @@ Property classes:
 - `spec_recommended` — tied to SHOULD/SHOULD NOT guidance
 - `hardening` — defensive property not required by the protocol
 - `composition_responsibility` — end-to-end invariant whose enforcement is not assigned cleanly to one protocol
+
+## v0.1 release drift review — 2026-08-29
+
+The formal Phase 7.2A review classified upstream changes using the release contract categories.
+
+- **A2A specification: no-impact** — the latest released specification remains 1.0.0 and the v0.1 wire baseline remains 1.0.
+- **A2A JavaScript SDK: test-impact, resolved** — `@a2a-js/sdk` advanced from the HandoffProbe pin 1.0.1 to stable 1.1.0 on 2026-08-26. The SDK still implements A2A Protocol Specification 1.0.0. The release contains event-bus configurability plus fixes around task serialization, push configuration, compatibility translation and related SDK behavior. HandoffProbe upgrades to 1.1.0 and requires the full regression suite before release freeze.
+- **A2A governance: documentation-only** — A2A joined the Agentic AI Foundation as a Growth Stage project on 2026-08-27. This does not change the released v1.0.0 protocol baseline.
+- **MCP released specification: no-impact** — 2026-07-28 remains the released specification baseline used by HandoffProbe.
+- **MCP roadmap: documentation-only** — the 2026-08-22 roadmap describes future work including agentic messaging, transport hardening, identity/security and composition review, but it does not introduce a newer released protocol revision.
+- **MCP TypeScript SDK: no-impact** — `@modelcontextprotocol/client` 2.0.0 and `@modelcontextprotocol/server` 2.0.0 remain the stable v2 packages for the 2026-07-28 specification and are already pinned by HandoffProbe.
+- **AgentRFC / AgentThread: no-impact** — the tracked arXiv sources remain the v1 research baseline used for the v0.1 source/provenance model.
+- **Release-blocking drift: none found.**
+
+Review sources:
+
+- https://a2a-protocol.org/dev/specification/
+- https://github.com/a2aproject/a2a-js/releases/tag/v1.1.0
+- https://www.npmjs.com/package/@a2a-js/sdk
+- https://a2a-protocol.org/latest/blog/2026/08/27/a-new-chapter-for-a2a-joining-the-agentic-ai-foundation/
+- https://blog.modelcontextprotocol.io/posts/2026-07-28/
+- https://blog.modelcontextprotocol.io/posts/mcp-roadmap/
+- https://www.npmjs.com/package/@modelcontextprotocol/client
+- https://www.npmjs.com/package/@modelcontextprotocol/server
+- https://arxiv.org/abs/2603.23801
+- https://arxiv.org/abs/2606.28690
 
 ## Upstream drift policy
 
