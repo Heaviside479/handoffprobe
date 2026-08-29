@@ -22,13 +22,13 @@ describe('HandoffProbe reference workflow', () => {
     expect(contents).toContain('persist-credentials: false');
   });
 
-  it('invokes the repository action exactly once with safe defaults', async () => {
+  it('invokes the repository action exactly once with the configured target', async () => {
     const contents = await readFile('.github/workflows/handoffprobe.yml', 'utf8');
 
     const localActionUses = [...contents.matchAll(/^\s*uses:\s*\.\/\s*$/gmu)];
 
     expect(localActionUses).toHaveLength(1);
-    expect(contents).toContain('target: secure');
+    expect(contents).toContain('target: vulnerable');
     expect(contents).toContain('fail-on: high');
     expect(contents).toContain('artifact-name: handoffprobe-report');
     expect(contents).not.toMatch(/^\s*tests:\s*/gmu);

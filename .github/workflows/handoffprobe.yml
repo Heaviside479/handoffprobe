@@ -25,6 +25,6 @@ jobs:
         id: handoffprobe
         uses: ./
         with:
-          target: secure
+          target: vulnerable
           fail-on: high
           artifact-name: handoffprobe-report
