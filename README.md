@@ -58,12 +58,26 @@ The developer CLI currently includes:
 
 The npm package is **not publicly released yet**.
 
-The repository package version is currently `0.0.0`.
+The release-candidate package version is `0.1.0`. Public npm commands remain documentation-only until registry verification succeeds during Phase 7.
 
 ## Requirements
 
-- Node.js 24
+- Node.js `>=24 <25`
 - npm
+
+## Installation
+
+Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
+The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
+
+Until the npm publication gate succeeds, use the source checkout or locally packed tarball below.
+
+After `handoffprobe@0.1.0` is verified on npm, the canonical exact-version checks are:
+
+```bash
+npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+```
 
 ## Quick start from source
 
@@ -107,7 +121,14 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-After the public npm release, the intended command is:
+After `handoffprobe@0.1.0` is verified on the public npm registry, the canonical exact-version commands are:
+
+```bash
+npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+```
+
+The shorter convenience command is:
 
 ```bash
 npx handoffprobe test
@@ -487,6 +508,11 @@ The core admission rule remains:
 - [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical project context
 - [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
+- [`docs/INSTALLATION.md`](docs/INSTALLATION.md) — installation and release-candidate execution
+- [`docs/USAGE.md`](docs/USAGE.md) — CLI commands, reporters, configuration and exit codes
+- [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
+- [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
+- [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog

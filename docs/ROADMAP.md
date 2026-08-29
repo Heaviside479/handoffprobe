@@ -439,6 +439,10 @@ The Phase 6 exit gate is satisfied.
 
 # Phase 7 — Open-source v0.1 launch
 
+Status: in progress 2026-08-29
+
+Implementation contract: `docs/V0_1_RELEASE_SPECIFICATION.md`
+
 ## Required
 
 - minimum 12 P0 tests
