@@ -24,7 +24,7 @@ describe('CLI reporters', () => {
     const second = renderCliTestRun(run, 'high');
 
     expect(first).toBe(second);
-    expect(first).toContain('Version: 0.0.0');
+    expect(first).toContain('Version: 0.1.0');
     expect(first).toContain('Protocols: A2A 1.0 | MCP 2026-07-28');
     expect(first).toContain('Evidence:');
     expect(first).toContain('refs:');
@@ -52,7 +52,7 @@ describe('CLI reporters', () => {
     ]);
 
     expect(parsed.schemaVersion).toBe(CLI_REPORT_SCHEMA_VERSION);
-    expect(parsed.handoffProbeVersion).toBe('0.0.0');
+    expect(parsed.handoffProbeVersion).toBe('0.1.0');
     expect(parsed.target).toBe('secure');
     expect(parsed.threshold).toBe('high');
 
@@ -86,7 +86,7 @@ describe('CLI reporters', () => {
 
     expect(first).toBe(second);
     expect(first).toContain('# HandoffProbe Report');
-    expect(first).toContain('- Version: 0.0.0');
+    expect(first).toContain('- Version: 0.1.0');
     expect(first).toContain('- Protocols: A2A 1.0 | MCP 2026-07-28');
     expect(first).toContain('- Gate: FAIL');
     expect(first).toContain('## Summary');
