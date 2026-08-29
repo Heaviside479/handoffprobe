@@ -510,6 +510,9 @@ The core admission rule remains:
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
 - [`docs/INSTALLATION.md`](docs/INSTALLATION.md) — installation and release-candidate execution
 - [`docs/USAGE.md`](docs/USAGE.md) — CLI commands, reporters, configuration and exit codes
+- [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
+- [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
+- [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog
