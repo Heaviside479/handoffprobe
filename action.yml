@@ -1,0 +1,92 @@
+name: HandoffProbe
+description: Deterministic security testing for A2A to MCP agent handoffs
+author: HandoffProbe contributors
+
+inputs:
+  target:
+    description: Bundled target to test
+    required: false
+    default: secure
+  tests:
+    description: Optional comma-separated stable HP- attack IDs
+    required: false
+    default: ''
+  fail-on:
+    description: Minimum vulnerability severity that fails the security gate
+    required: false
+    default: high
+  artifact-name:
+    description: Safe name for the uploaded HandoffProbe report artifact
+    required: false
+    default: handoffprobe-report
+
+outputs:
+  exit-code:
+    description: HandoffProbe exit code 0, 1, 2, or 3
+    value: ${{ steps.scan.outputs.exit-code }}
+  result:
+    description: HandoffProbe result pass, fail, or error
+    value: ${{ steps.scan.outputs.result }}
+  report-path:
+    description: Path to the machine-readable JSON report when available
+    value: ${{ steps.scan.outputs.report-path }}
+  summary-path:
+    description: Path to the generated Markdown summary
+    value: ${{ steps.scan.outputs.summary-path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node 24
+      uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+      with:
+        node-version: 24
+
+    - name: Install HandoffProbe action dependencies
+      shell: bash
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        npm ci --ignore-scripts --no-audit --no-fund
+
+    - name: Build HandoffProbe action source
+      shell: bash
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        npm run build
+
+    - name: Run HandoffProbe
+      id: scan
+      shell: bash
+      env:
+        HANDOFFPROBE_ACTION_TARGET: ${{ inputs.target }}
+        HANDOFFPROBE_ACTION_TESTS: ${{ inputs.tests }}
+        HANDOFFPROBE_ACTION_FAIL_ON: ${{ inputs.fail-on }}
+        HANDOFFPROBE_ACTION_ARTIFACT_NAME: ${{ inputs.artifact-name }}
+      run: node "$GITHUB_ACTION_PATH/dist/github-action/run-action.js"
+
+    - name: Upload HandoffProbe artifact
+      if: ${{ steps.scan.outputs.artifact-name != '' }}
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: ${{ steps.scan.outputs.artifact-name }}
+        path: ${{ steps.scan.outputs.artifact-path }}
+        if-no-files-found: error
+        retention-days: 7
+
+    - name: Propagate HandoffProbe result
+      shell: bash
+      env:
+        HANDOFFPROBE_EXIT_CODE: ${{ steps.scan.outputs.exit-code }}
+      run: |
+        if [ "$HANDOFFPROBE_EXIT_CODE" = "0" ]; then
+          exit 0
+        fi
+
+        case "$HANDOFFPROBE_EXIT_CODE" in
+          1|2|3)
+            exit "$HANDOFFPROBE_EXIT_CODE"
+            ;;
+          *)
+            exit 3
+            ;;
+        esac
