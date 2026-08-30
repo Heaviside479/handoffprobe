@@ -29,7 +29,7 @@ describe('v0.1 installation and usage documentation', () => {
       'PACKAGE_TARBALL="$(npm pack --silent)"',
       'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
       'npx --yes --package=handoffprobe@0.1.0 handoffprobe --version',
-      'npm install --save-dev handoffprobe@0.1.0',
+      'npm install --save-dev --save-exact handoffprobe@0.1.0',
       'owned, synthetic or explicitly authorized target',
     ]) {
       expect(installation).toContain(text);

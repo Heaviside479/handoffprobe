@@ -51,7 +51,7 @@ Using the exact version keeps first-run and CI reproduction deterministic.
 Install the exact public release:
 
 ```bash
-npm install --save-dev handoffprobe@0.1.0
+npm install --save-dev --save-exact handoffprobe@0.1.0
 ```
 
 Then run:
@@ -125,7 +125,7 @@ For external repositories, immutable commit-SHA pinning is the strongest default
 
 Replace the placeholder with a reviewed 40-character HandoffProbe commit SHA.
 
-After `v0.1.0` is released, the version tag may be useful for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
+The `v0.1.0` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
 
 ## Updating
 
@@ -134,7 +134,7 @@ Before v1.0, HandoffProbe follows pre-1.0 compatibility expectations. Read relea
 For an exact npm version after publication:
 
 ```bash
-npm install --save-dev handoffprobe@0.1.0
+npm install --save-dev --save-exact handoffprobe@0.1.0
 ```
 
 Do not assume report, configuration or protocol compatibility across future pre-1.0 versions unless the release notes state it.

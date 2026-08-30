@@ -551,8 +551,23 @@ These counters are raw platform signals, not verified user counts. Clone traffic
 
 - [x] 8.0A — collect raw adoption baseline without repository mutation
 - [x] 8.0B — freeze adoption and research operating contract
-- [ ] 8.1A — audit first-run friction from a clean external-user perspective
-- [ ] 8.1B — fix the highest measurable first-run friction with regression coverage
+- [x] 8.1A — audit first-run friction from a clean external-user perspective
+- [x] 8.1B — fix the highest measurable first-run friction with regression coverage
+
+Phase 8.1 completion record:
+
+- fresh exact-version public `npx` execution succeeded;
+- first secure scan produced 22 PASS / 0 FAIL / 0 ERROR;
+- vulnerable `HP-AUTH-001` produced the expected security exit code `1`;
+- JSON reporting, project installation, config discovery and recovery paths succeeded;
+- no HIGH first-run blocker was reproduced;
+- exact-install documentation was corrected to use `--save-exact`;
+- stale pre-release wording was removed from public documentation;
+- first-run documentation regression coverage was added;
+- no CLI behavior, attack behavior, protocol baseline, report schema or published `handoffprobe@0.1.0` artifact was changed.
+
+Detailed evidence: `docs/PHASE8_FIRST_RUN_AUDIT_20260830.md`.
+
 - [ ] 8.2A — audit GitHub Action onboarding and CI adoption path
 - [ ] 8.2B — improve telemetry-free public or opt-in adoption signals
 - [ ] 8.3A — research and rank adapter demand using real evidence

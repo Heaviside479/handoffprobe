@@ -157,8 +157,7 @@ The repository self-test uses:
     artifact-name: handoffprobe-report
 ```
 
-For another repository, pin HandoffProbe to a reviewed commit SHA until a
-versioned public release exists:
+For another repository, pin HandoffProbe to a reviewed immutable commit SHA:
 
 ```yaml
 name: HandoffProbe
