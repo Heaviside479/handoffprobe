@@ -603,7 +603,23 @@ Phase 8.2B completion record:
 
 Detailed evidence: `docs/PHASE8_ADOPTION_SIGNALS_20260830.md`.
 
-- [ ] 8.3A — research and rank adapter demand using real evidence
+- [x] 8.3A — research and rank adapter demand using real evidence
+
+Phase 8.3A completion record:
+
+- direct HandoffProbe opt-in demand remains unclaimed because no external `[Adapter]` or `[Adoption]` issue existed at the research snapshot;
+- public ecosystem evidence was ranked against the existing handoff-specific security, demand, reproducibility, maintenance, version-stability and no-paid-infrastructure criteria;
+- Google ADK ranks first because `google/adk-python#5729` demonstrates a real `to_a2a()` → `McpToolset` multi-agent path with production measurements and a minimal reproduction;
+- Google ADK exposes a public `BaseLlm` abstraction and its own tests demonstrate deterministic predefined model responses, so a no-paid model fixture is technically feasible;
+- IBM ContextForge ranks second because `IBM/mcp-context-forge#3621` demonstrates client-identified caller-identity propagation demand across a multi-agent chain;
+- tRPC-Agent-Go, LangGraph A2A→MCP paths and fast-agent remain ranked research candidates but do not currently beat ADK on the combined admission evidence;
+- framework popularity, generic prompt injection, generic MCP-only failures and maintainer-created synthetic usage do not admit an adapter;
+- 8.3B remains closed to implementation until an isolated ADK admission probe pins the exact framework/protocol versions, local MCP fixture, deterministic no-paid model substitute and stable PASS/FAIL observation surface;
+- if the ADK probe fails the admission gate, ContextForge is re-evaluated instead of forcing adapter implementation;
+- no scanner behavior, attack behavior, protocol baseline, report schema, `action.yml`, package metadata or published `handoffprobe@0.1.0` artifact was changed.
+
+Detailed evidence: `docs/PHASE8_ADAPTER_DEMAND_RESEARCH_20260830.md`.
+
 - [ ] 8.3B — implement the first adapter only if the evidence gate is met
 - [ ] 8.4A — publish a reproducible research case with responsible-disclosure gates
 - [ ] 8.5A — reduce contributor friction with focused external tasks and fixtures

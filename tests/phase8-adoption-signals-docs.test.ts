@@ -47,11 +47,11 @@ describe('Phase 8.2B telemetry-free adoption signals', () => {
     );
   });
 
-  it('closes 8.2B and keeps evidence-backed adapter research next', () => {
+  it('keeps completed 8.2B while evidence-backed adapter work advances', () => {
     expect(roadmap).toContain(
       '- [x] 8.2B — improve telemetry-free public or opt-in adoption signals',
     );
-    expect(roadmap).toContain('- [ ] 8.3A — research and rank adapter demand using real evidence');
+    expect(roadmap).toContain('- [x] 8.3A — research and rank adapter demand using real evidence');
     expect(record).toContain('No scanner behavior');
     expect(record).toContain('already published `handoffprobe@0.1.0` artifact is changed');
   });
