@@ -116,14 +116,14 @@ HandoffProbe also ships a source-backed composite GitHub Action.
 For external repositories, immutable commit-SHA pinning is the strongest default:
 
 ```yaml
-- uses: Heaviside479/handoffprobe@<reviewed-commit-sha>
+- uses: Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f
   with:
     target: secure
     fail-on: high
     artifact-name: handoffprobe-report
 ```
 
-Replace the placeholder with a reviewed 40-character HandoffProbe commit SHA.
+The pin above is the reviewed immutable commit for HandoffProbe v0.1.0.
 
 The `v0.1.0` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
 

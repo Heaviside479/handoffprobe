@@ -18,9 +18,11 @@ describe('GitHub Action README contract', () => {
   it('documents external immutable revision pinning without recommending main', async () => {
     const contents = await readFile('README.md', 'utf8');
 
-    expect(contents).toContain('Heaviside479/handoffprobe@<pinned-handoffprobe-commit-sha>');
     expect(contents).toContain(
-      'Replace `<pinned-handoffprobe-commit-sha>` with a reviewed HandoffProbe commit.',
+      'Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f',
+    );
+    expect(contents).toContain(
+      'The pin above is the reviewed immutable commit for HandoffProbe v0.1.0.',
     );
     expect(contents).not.toContain('uses: Heaviside479/handoffprobe@main');
   });
