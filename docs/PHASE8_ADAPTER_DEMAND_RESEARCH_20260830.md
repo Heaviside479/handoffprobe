@@ -194,10 +194,20 @@ Before Phase 8.3B writes framework adapter code, an isolated local probe must de
 
 If that probe fails, do not force an ADK adapter. Re-evaluate ContextForge as the next candidate.
 
+## Phase 8.3B follow-up
+
+Phase 8.3B completed on 2026-08-30 with a deliberate no-build decision.
+
+The isolated admission work evaluated Google ADK, IBM ContextForge, tRPC-Agent-Go, LangGraph A2A-to-MCP paths and fast-agent against the full demand, protocol, reproducibility, maintenance and zero-paid gates.
+
+No candidate satisfied every admission condition at the same time, so no framework adapter was admitted or implemented.
+
+The successful fast-agent technical E2E probe remains maintainer-run research evidence and is not counted as independent adoption. Its bearer non-forwarding observation is not claimed as a vulnerability.
+
+Detailed decision: `docs/PHASE8_ADAPTER_ADMISSION_DECISION_20260830.md`.
+
+No scanner behavior, attack behavior, protocol baseline, report schema, `action.yml`, package metadata, or already-published `handoffprobe@0.1.0` artifact was changed.
+
 ## Next work package
 
-Phase 8.3B remains open and evidence-gated.
-
-Its first action is an isolated, read-only-to-HandoffProbe ADK admission probe. Adapter implementation begins only if the probe satisfies every admission condition.
-
-No scanner behavior, attack behavior, protocol baseline, report schema, `action.yml`, package metadata, or already-published `handoffprobe@0.1.0` artifact is changed by Phase 8.3A.
+Proceed to Phase 8.4A and publish a reproducible research case under the existing responsible-disclosure gates.

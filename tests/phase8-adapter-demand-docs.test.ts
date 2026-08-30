@@ -30,10 +30,10 @@ describe('Phase 8.3A adapter demand research contract', () => {
     expect(research).toContain('If that probe fails, do not force an ADK adapter.');
   });
 
-  it('closes 8.3A while leaving implementation evidence-gated', () => {
+  it('closes 8.3A and records the completed evidence gate', () => {
     expect(roadmap).toContain('- [x] 8.3A — research and rank adapter demand using real evidence');
     expect(roadmap).toContain(
-      '- [ ] 8.3B — implement the first adapter only if the evidence gate is met',
+      '- [x] 8.3B — implement the first adapter only if the evidence gate is met',
     );
   });
 });

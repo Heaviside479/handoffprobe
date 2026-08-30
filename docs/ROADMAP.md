@@ -620,7 +620,23 @@ Phase 8.3A completion record:
 
 Detailed evidence: `docs/PHASE8_ADAPTER_DEMAND_RESEARCH_20260830.md`.
 
-- [ ] 8.3B — implement the first adapter only if the evidence gate is met
+- [x] 8.3B — implement the first adapter only if the evidence gate is met
+
+Phase 8.3B completion record:
+
+- all five ranked adapter candidates were evaluated against the full evidence gate;
+- Google ADK did not satisfy the exact current A2A 1.0 + MCP 2026-07-28 protocol tuple;
+- IBM ContextForge has strong identity/delegation demand and an A2A v1-compatible path, but its reviewed MCP runtime line remains before the current HandoffProbe MCP baseline;
+- tRPC-Agent-Go has a proven A2A 1.0 path, but the reviewed MCP implementation supports 2024-11-05 and 2025-03-26 rather than 2026-07-28;
+- the public LangGraph A2A-to-MCP sample demonstrates meaningful composition but fails the exact-version and deterministic no-paid reproduction gates as published;
+- fast-agent completed a real local A2A 1.0 to MCP 2026-07-28 deterministic zero-paid E2E probe, but lacks sufficient demand for this exact boundary;
+- the fast-agent bearer non-forwarding observation is recorded as boundary behavior and is not claimed as a vulnerability;
+- no framework adapter was admitted or implemented because no candidate satisfied every admission criterion at the same time;
+- no paid AI API, paid cloud service, hidden telemetry or unauthorized third-party activity was required;
+- no scanner runtime, attack behavior, protocol baseline, report schema, CLI behavior, GitHub Action runtime, package metadata or published handoffprobe@0.1.0 artifact was changed.
+
+Detailed evidence: `docs/PHASE8_ADAPTER_ADMISSION_DECISION_20260830.md`.
+
 - [ ] 8.4A — publish a reproducible research case with responsible-disclosure gates
 - [ ] 8.5A — reduce contributor friction with focused external tasks and fixtures
 - [ ] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
