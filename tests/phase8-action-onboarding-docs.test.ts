@@ -45,6 +45,6 @@ describe('Phase 8.2 external GitHub Action onboarding contract', () => {
     expect(roadmap).toContain(
       '- [x] 8.2B — improve telemetry-free public or opt-in adoption signals',
     );
-    expect(roadmap).toContain('- [ ] 8.3A — research and rank adapter demand using real evidence');
+    expect(roadmap).toContain('- [x] 8.3A — research and rank adapter demand using real evidence');
   });
 });

@@ -45,7 +45,7 @@ describe('Phase 8 adoption and research contract', () => {
     expect(roadmap).toContain(
       '- [x] 8.2B — improve telemetry-free public or opt-in adoption signals',
     );
-    expect(roadmap).toContain('- [ ] 8.3A — research and rank adapter demand using real evidence');
+    expect(roadmap).toContain('- [x] 8.3A — research and rank adapter demand using real evidence');
     expect(roadmap).toContain('- [x] 8.0B — freeze adoption and research operating contract');
     expect(roadmap).toContain('no hidden usage telemetry');
     expect(roadmap).toContain('no republishing changed contents as `handoffprobe@0.1.0`');
