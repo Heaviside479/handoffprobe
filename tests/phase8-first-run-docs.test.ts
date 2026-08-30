@@ -37,13 +37,16 @@ describe('Phase 8.1 first-run friction regression', () => {
     );
   });
 
-  it('closes 8.1 and keeps GitHub Action onboarding next', () => {
+  it('keeps completed first-run work while Phase 8 advances', () => {
     expect(roadmap).toContain(
       '- [x] 8.1A — audit first-run friction from a clean external-user perspective',
     );
     expect(roadmap).toContain(
       '- [x] 8.1B — fix the highest measurable first-run friction with regression coverage',
     );
-    expect(roadmap).toContain('- [ ] 8.2A — audit GitHub Action onboarding and CI adoption path');
+    expect(roadmap).toContain('- [x] 8.2A — audit GitHub Action onboarding and CI adoption path');
+    expect(roadmap).toContain(
+      '- [ ] 8.2B — improve telemetry-free public or opt-in adoption signals',
+    );
   });
 });

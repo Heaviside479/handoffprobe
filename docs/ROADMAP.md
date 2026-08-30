@@ -568,7 +568,24 @@ Phase 8.1 completion record:
 
 Detailed evidence: `docs/PHASE8_FIRST_RUN_AUDIT_20260830.md`.
 
-- [ ] 8.2A — audit GitHub Action onboarding and CI adoption path
+- [x] 8.2A — audit GitHub Action onboarding and CI adoption path
+
+Phase 8.2A completion record:
+
+- a separate private consumer repository executed the published v0.1.0 Action successfully;
+- the consumer required no HandoffProbe source tree or `package.json`;
+- `contents: read` was sufficient;
+- immutable release commit `90fdd691b390c420e3288383ad7efa7e0fb69e6f` produced action result `pass` and exit code `0`;
+- the external run produced 22 PASS / 0 FAIL / 0 ERROR;
+- canonical JSON schema `"1"` and the Markdown summary were verified from the uploaded artifact;
+- F8-CI-001 identified four public immutable-pin placeholders and zero direct release-SHA references;
+- public Action examples now use the reviewed immutable v0.1.0 release commit directly;
+- source-backed install/build overhead remains observational and does not trigger architecture work;
+- the synthetic maintainer-created audit repository is not counted as independent adoption;
+- no `action.yml`, scanner behavior, attack behavior, protocol baseline, report schema or published `handoffprobe@0.1.0` artifact was changed.
+
+Detailed evidence: `docs/PHASE8_GITHUB_ACTION_AUDIT_20260830.md`.
+
 - [ ] 8.2B — improve telemetry-free public or opt-in adoption signals
 - [ ] 8.3A — research and rank adapter demand using real evidence
 - [ ] 8.3B — implement the first adapter only if the evidence gate is met

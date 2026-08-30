@@ -275,14 +275,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@<reviewed-commit-sha>
+      - uses: Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-Use a reviewed immutable commit SHA for the strongest supply-chain pinning.
+The revision above is the reviewed immutable commit for HandoffProbe v0.1.0 and preserves the strongest supply-chain pinning model.
 
 ## Reproducible public demo
 
