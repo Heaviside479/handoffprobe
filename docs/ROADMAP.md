@@ -500,11 +500,15 @@ Phase 7 exit gate is satisfied.
 
 # Phase 8 — Adoption and research loop
 
+Status: active
+
+Implementation contract: `docs/PHASE8_ADOPTION_RESEARCH_SPECIFICATION.md`
+
 ## Goals
 
 - reduce first-run friction
 - observe real user workflows
-- add high-value adapters
+- add only evidence-backed high-value adapters
 - publish reproducible research
 - responsibly disclose confirmed vulnerabilities
 - convert fixed issues into regression tests
@@ -527,6 +531,45 @@ Prefer:
 - commercial inquiries
 
 GitHub stars are useful but secondary.
+
+## Phase 8 baseline
+
+Phase 8.0A completed a read-only post-launch adoption baseline on 2026-08-29.
+
+Recorded raw signals included:
+
+- 0 stars, 0 forks and 0 open items
+- 1 contributor
+- 4 GitHub views / 1 unique viewer in the available rolling window
+- 87 GitHub clones / 55 unique cloners in the available rolling window
+- 3 GitHub release-asset downloads
+- npm download counters unavailable from the point-download endpoint at collection time
+
+These counters are raw platform signals, not verified user counts. Clone traffic may include maintainer, CI and automated activity.
+
+## Work packages
+
+- [x] 8.0A — collect raw adoption baseline without repository mutation
+- [x] 8.0B — freeze adoption and research operating contract
+- [ ] 8.1A — audit first-run friction from a clean external-user perspective
+- [ ] 8.1B — fix the highest measurable first-run friction with regression coverage
+- [ ] 8.2A — audit GitHub Action onboarding and CI adoption path
+- [ ] 8.2B — improve telemetry-free public or opt-in adoption signals
+- [ ] 8.3A — research and rank adapter demand using real evidence
+- [ ] 8.3B — implement the first adapter only if the evidence gate is met
+- [ ] 8.4A — publish a reproducible research case with responsible-disclosure gates
+- [ ] 8.5A — reduce contributor friction with focused external tasks and fixtures
+- [ ] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
+
+## Phase 8 constraints
+
+- no hidden usage telemetry
+- no paid analytics requirement
+- no SaaS/dashboard work
+- no accounts or billing
+- no paid AI API requirement
+- no speculative adapter expansion
+- no republishing changed contents as `handoffprobe@0.1.0`
 
 ---
 
