@@ -2,7 +2,7 @@
 
 HandoffProbe v0.1.0 is a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs.
 
-The examples below use the installed `handoffprobe` command. Before the npm package is publicly released, run the same commands through `node dist/cli.js` from source or through the local tarball workflow documented in [`INSTALLATION.md`](INSTALLATION.md).
+The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
 ## Command surface
 
@@ -318,7 +318,7 @@ HandoffProbe v0.1.0 is not a generic internet scanner, runtime firewall or autho
 
 ## More documentation
 
-- [`INSTALLATION.md`](INSTALLATION.md) — installation and release-candidate execution
+- [`INSTALLATION.md`](INSTALLATION.md) — installation and public package execution
 - [`ATTACK_CATALOG.md`](ATTACK_CATALOG.md) — stable attack catalog
 - [`CLI_SPECIFICATION.md`](CLI_SPECIFICATION.md) — CLI contract
 - [`GITHUB_INTEGRATION_SPECIFICATION.md`](GITHUB_INTEGRATION_SPECIFICATION.md) — action and CI contract
