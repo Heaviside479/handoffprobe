@@ -1,0 +1,97 @@
+name: Adapter / integration request
+description: Opt-in public evidence for a handoff or integration that may justify future adapter work.
+title: '[Adapter] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adapter work is evidence-gated. A request is useful when it describes a real handoff/composition path, protocol versions, security value, and a reproducible local or authorized test path.
+
+        Do not include secrets, private data, or undisclosed vulnerabilities. Follow SECURITY.md for security-sensitive reports.
+
+  - type: input
+    id: handoff-path
+    attributes:
+      label: Handoff or composition path
+      description: Name both sides of the boundary.
+      placeholder: 'Framework A / protocol X → Framework B / protocol Y'
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Protocol and framework versions
+      description: Pin the versions that create the integration demand.
+      placeholder: 'A2A 1.0; MCP 2026-07-28; framework versions if applicable'
+    validations:
+      required: true
+
+  - type: textarea
+    id: demand-evidence
+    attributes:
+      label: Demand evidence
+      description: Describe the real project, workflow, research case, or repeated request that needs this adapter. Redact private details.
+    validations:
+      required: true
+
+  - type: textarea
+    id: security-value
+    attributes:
+      label: Handoff-specific security value
+      description: Which security property can be lost at this boundary, and why is this more than generic single-protocol scanning?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reproducibility
+    attributes:
+      label: Reproducible test path
+      description: Can the integration be tested deterministically without unauthorized third-party activity?
+      options:
+        - Local deterministic fixture is available
+        - Explicitly authorized test environment is available
+        - Reproducible public research fixture is available
+        - Not available yet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: paid-infrastructure
+    attributes:
+      label: Paid infrastructure requirement
+      description: Does meaningful testing require paid infrastructure or paid AI APIs?
+      options:
+        - No
+        - Optional only
+        - Yes
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: maintenance
+    attributes:
+      label: Maintenance and versioning risk
+      description: Note unstable APIs, fast-moving versions, proprietary dependencies, or compatibility concerns.
+    validations:
+      required: false
+
+  - type: input
+    id: public-reference
+    attributes:
+      label: Public reference
+      description: Optional public repository, specification, documentation, or research link.
+      placeholder: 'https://...'
+
+  - type: checkboxes
+    id: request-safety
+    attributes:
+      label: Public and evidence-gated request
+      options:
+        - label: I understand this issue is public and I removed secrets, credentials, and private data.
+          required: true
+        - label: I understand a request does not guarantee implementation; Phase 8 adapter work remains evidence-gated.
+          required: true
+        - label: This is not an undisclosed vulnerability report; security-sensitive reports follow SECURITY.md.
+          required: true

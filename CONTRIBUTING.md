@@ -34,6 +34,17 @@ A strong proposal should include:
 
 Avoid vague checks such as "AI behaves unsafely" when a deterministic property can be tested instead.
 
+## Adapter and integration demand
+
+HandoffProbe does not collect hidden usage telemetry. Public users and contributors can voluntarily provide evidence through:
+
+- [adoption / integration feedback](https://github.com/Heaviside479/handoffprobe/issues/new?template=adoption-feedback.yml);
+- [adapter / integration requests](https://github.com/Heaviside479/handoffprobe/issues/new?template=adapter-request.yml).
+
+Adapter requests should describe a real handoff/composition path, protocol versions, handoff-specific security value and a reproducible local, public-research or explicitly authorized test path.
+
+These public reports must not contain secrets, private data or undisclosed vulnerabilities. Security-sensitive reporting continues to follow `SECURITY.md`.
+
 ## Code expectations
 
 Once the codebase is bootstrapped:
