@@ -40,10 +40,11 @@ describe('Phase 8.2 external GitHub Action onboarding contract', () => {
     );
   });
 
-  it('closes 8.2A while leaving telemetry-free adoption signals next', () => {
+  it('keeps completed action onboarding while Phase 8 advances', () => {
     expect(roadmap).toContain('- [x] 8.2A — audit GitHub Action onboarding and CI adoption path');
     expect(roadmap).toContain(
-      '- [ ] 8.2B — improve telemetry-free public or opt-in adoption signals',
+      '- [x] 8.2B — improve telemetry-free public or opt-in adoption signals',
     );
+    expect(roadmap).toContain('- [ ] 8.3A — research and rank adapter demand using real evidence');
   });
 });

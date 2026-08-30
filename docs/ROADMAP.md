@@ -586,7 +586,23 @@ Phase 8.2A completion record:
 
 Detailed evidence: `docs/PHASE8_GITHUB_ACTION_AUDIT_20260830.md`.
 
-- [ ] 8.2B — improve telemetry-free public or opt-in adoption signals
+- [x] 8.2B — improve telemetry-free public or opt-in adoption signals
+
+Phase 8.2B completion record:
+
+- no hidden CLI or GitHub Action usage telemetry was added;
+- a voluntary public adoption-feedback issue form now distinguishes first evaluation from repeated local and CI use;
+- adoption feedback can optionally reference a public repository while remaining explicitly self-reported evidence;
+- a voluntary adapter-request form now captures both sides of the handoff path, versions, demand evidence, handoff-specific security value, reproducibility, paid-infrastructure requirements and maintenance risk;
+- public issue forms warn against secrets, private data and undisclosed vulnerability disclosure;
+- the issue chooser links security-sensitive reporters to the repository security policy while retaining blank issues;
+- README and CONTRIBUTING expose the opt-in feedback paths;
+- maintainer-created test reports and synthetic audit repositories remain excluded from independent-adoption claims;
+- adapter requests remain evidence inputs and do not guarantee implementation;
+- no scanner behavior, attack behavior, protocol baseline, report schema, `action.yml`, package metadata or published `handoffprobe@0.1.0` artifact was changed.
+
+Detailed evidence: `docs/PHASE8_ADOPTION_SIGNALS_20260830.md`.
+
 - [ ] 8.3A — research and rank adapter demand using real evidence
 - [ ] 8.3B — implement the first adapter only if the evidence gate is met
 - [ ] 8.4A — publish a reproducible research case with responsible-disclosure gates

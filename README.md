@@ -227,6 +227,17 @@ The Phase 6 merge-gate demonstration proved that a qualifying HandoffProbe
 security failure blocks a non-draft pull request while Quality and Dependency
 Review remain successful.
 
+## Opt-in adoption and integration feedback
+
+HandoffProbe does not collect hidden usage telemetry. If you choose to share how you use the project, the repository provides two voluntary public feedback paths:
+
+- [Share adoption / integration feedback](https://github.com/Heaviside479/handoffprobe/issues/new?template=adoption-feedback.yml) — report one-time evaluation, repeated local use, repeated CI use, friction and an optional public integration.
+- [Request an adapter / integration](https://github.com/Heaviside479/handoffprobe/issues/new?template=adapter-request.yml) — provide evidence about a real handoff path, protocol versions, reproducibility and integration demand.
+
+These reports are public and optional. An adapter request is evidence for evaluation; it does not guarantee implementation.
+
+Do not include secrets, private data or undisclosed vulnerabilities in these public forms. Follow [`SECURITY.md`](SECURITY.md) for security-sensitive reporting.
+
 ## Vulnerable demo
 
 HandoffProbe includes intentionally vulnerable synthetic fixtures for defensive testing.

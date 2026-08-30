@@ -1,0 +1,98 @@
+name: Adoption / integration feedback
+description: Opt-in public feedback about real HandoffProbe usage, repeat use, and integration friction.
+title: '[Adoption] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        HandoffProbe does not collect hidden usage telemetry. This form is an optional public signal from users who choose to share how they use the project.
+
+        Do not include secrets, private data, or undisclosed vulnerabilities. Follow SECURITY.md for security-sensitive reports.
+
+  - type: dropdown
+    id: usage-mode
+    attributes:
+      label: Usage mode
+      description: Which best describes your current HandoffProbe usage?
+      options:
+        - First successful evaluation
+        - Repeated local use
+        - Repeated CI use
+        - Evaluating for a team or organization
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: HandoffProbe version or revision
+      description: Exact package version, tag, or commit SHA when known.
+      placeholder: '0.1.0'
+    validations:
+      required: true
+
+  - type: input
+    id: handoff-path
+    attributes:
+      label: Handoff or integration path
+      description: The protocol or framework boundary you are testing.
+      placeholder: 'A2A 1.0 → MCP 2026-07-28'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Usage frequency
+      description: This helps distinguish one-time evaluation from repeat usage.
+      options:
+        - One-time evaluation
+        - Occasional manual use
+        - Repeated local development use
+        - Every pull request
+        - Scheduled or recurring CI
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: public-repository
+    attributes:
+      label: Public repository URL
+      description: Optional. Share only if the integration is already public.
+      placeholder: 'https://github.com/owner/repository'
+
+  - type: textarea
+    id: worked
+    attributes:
+      label: What worked?
+      description: Briefly describe the workflow that succeeded.
+    validations:
+      required: true
+
+  - type: textarea
+    id: friction
+    attributes:
+      label: Friction or blockers
+      description: What made setup, repeat use, or CI integration harder than expected?
+    validations:
+      required: false
+
+  - type: textarea
+    id: next-need
+    attributes:
+      label: Integration or adapter need
+      description: Optional. What boundary or workflow would make HandoffProbe more useful?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: public-safety
+    attributes:
+      label: Public and security-safe report
+      options:
+        - label: I understand this issue is public and I removed secrets, credentials, and private data.
+          required: true
+        - label: This is not an undisclosed vulnerability report; security-sensitive reports follow SECURITY.md.
+          required: true

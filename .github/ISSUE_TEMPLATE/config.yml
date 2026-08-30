@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security-sensitive vulnerability report
+    url: https://github.com/Heaviside479/handoffprobe/security/policy
+    about: Read the security policy before reporting sensitive vulnerabilities.
