@@ -54,7 +54,7 @@ describe('Phase 9.1A crossing-corpus integration contract', () => {
       '- [x] 9.1B — implement the offline pinned-corpus loader and digest verification',
     );
     expect(roadmap).toContain(
-      '- [ ] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations',
+      '- [x] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations',
     );
     expect(roadmap).toContain(
       '- [ ] 9.1D — add an external effect recorder and execute the complete 28-case corpus',
