@@ -637,7 +637,29 @@ Phase 8.3B completion record:
 
 Detailed evidence: `docs/PHASE8_ADAPTER_ADMISSION_DECISION_20260830.md`.
 
-- [ ] 8.4A — publish a reproducible research case with responsible-disclosure gates
+- [x] 8.4A — publish a reproducible research case with responsible-disclosure gates
+
+Phase 8.4A Abschlussprotokoll:
+
+- erster öffentlicher Phase-8-Research-Fall: `HP-AUTH-001 — Delegated authority amplification`;
+- Reproduktion gegen das unveränderliche öffentliche Paket `handoffprobe@0.1.0`;
+- öffentlicher npm-Shasum bleibt `2aa56211d7559cac2cf2052275af45331fba6663`;
+- Protokoll-Baseline bleibt A2A 1.0 → MCP 2026-07-28;
+- sichere Variante: PASS / Exit `0`;
+- absichtlich verwundbare Variante: FAIL / Exit `1`;
+- Scanner-/Runtime-Fehler: `0`;
+- A2A-lokale Beobachtung, Handoff-Grenze und MCP-lokale Beobachtung werden getrennt dokumentiert;
+- ausschließlich synthetische HandoffProbe-Fixtures verwendet;
+- keine Drittanbieter-Systeme, echten Zugangsdaten oder echten Benutzerdaten getestet;
+- keine private Drittanbieter-Offenlegung für diesen synthetischen Fall erforderlich;
+- keine Schwachstelle in A2A oder MCP behauptet;
+- Dokumentations-Regressionstest bindet den öffentlichen Fall an die produktiven HP-AUTH-001-Metadaten;
+- Research-Fall ist aus dem öffentlichen README erreichbar;
+- keine kostenpflichtige KI-API, Cloud-Infrastruktur oder versteckte Telemetrie erforderlich;
+- Scanner-Verhalten, Protokoll-Baseline, Report-Schema, Paketmetadaten und `handoffprobe@0.1.0` bleiben unverändert.
+
+Detailnachweis: `docs/PHASE8_RESEARCH_CASE_HP_AUTH_001_20260831.md`.
+
 - [ ] 8.5A — reduce contributor friction with focused external tasks and fixtures
 - [ ] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
 

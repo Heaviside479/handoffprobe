@@ -238,6 +238,14 @@ These reports are public and optional. An adapter request is evidence for evalua
 
 Do not include secrets, private data or undisclosed vulnerabilities in these public forms. Follow [`SECURITY.md`](SECURITY.md) for security-sensitive reporting.
 
+## Reproduzierbarer Research-Fall
+
+Der erste öffentliche Phase-8-Research-Fall dokumentiert eine unzulässige Berechtigungserweiterung an der A2A-zu-MCP-Handoff-Grenze:
+
+- [Reproduzierbarer Research-Fall HP-AUTH-001](docs/PHASE8_RESEARCH_CASE_HP_AUTH_001_20260831.md)
+
+Der Fall reproduziert sowohl den sicheren PASS als auch den absichtlich verwundbaren FAIL mit dem unveränderlichen öffentlichen Paket `handoffprobe@0.1.0` und dokumentiert die Responsible-Disclosure-Einstufung.
+
 ## Vulnerable demo
 
 HandoffProbe includes intentionally vulnerable synthetic fixtures for defensive testing.
