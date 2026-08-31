@@ -6,7 +6,7 @@ import { Role } from '@a2a-js/sdk';
 import { ClientFactory, RestTransportFactory } from '@a2a-js/sdk/client';
 import { DefaultRequestHandler, InMemoryTaskStore } from '@a2a-js/sdk/server';
 import { agentCardHandler, restHandler, UserBuilder } from '@a2a-js/sdk/server/express';
-import express from 'express';
+import express, { type Request as ExpressRequest } from 'express';
 
 import type { HandoffAdapter } from '../../core/index.js';
 import type { EvidenceRecorder } from '../evidence.js';
@@ -52,12 +52,16 @@ function createAgentCard(restUrl: string): AgentCard {
   };
 }
 
-function createRequest(runId: string, context: SecurityContext): SendMessageRequest {
+function createRequest(
+  runId: string,
+  context: SecurityContext,
+  serverResolveIds: boolean,
+): SendMessageRequest {
   return {
     tenant: '',
     message: {
       messageId: `${runId}-request`,
-      contextId: `${runId}-context`,
+      contextId: serverResolveIds ? '' : `${runId}-context`,
       taskId: '',
       role: Role.ROLE_USER,
       metadata: undefined,
@@ -142,6 +146,20 @@ export async function executeA2aFixture(input: {
 
   const requestHandler = new DefaultRequestHandler(agentCard, new InMemoryTaskStore(), executor);
 
+  const crossingObservationEnabled = input.state.crossingObservation !== undefined;
+  const localAuthorization = 'Bearer handoffprobe-local-fixture-caller';
+
+  const userBuilder = crossingObservationEnabled
+    ? (request: ExpressRequest) => {
+        const authenticated = request.headers.authorization === localAuthorization;
+
+        return Promise.resolve({
+          isAuthenticated: authenticated,
+          userName: authenticated ? input.context.caller : '',
+        });
+      }
+    : UserBuilder.noAuthentication;
+
   app.use(express.json());
 
   app.use(
@@ -155,7 +173,7 @@ export async function executeA2aFixture(input: {
     '/a2a',
     restHandler({
       requestHandler,
-      userBuilder: UserBuilder.noAuthentication,
+      userBuilder,
     }),
   );
 
@@ -166,6 +184,15 @@ export async function executeA2aFixture(input: {
     });
 
     const client = await factory.createFromAgentCard(agentCard);
+
+    const request = createRequest(input.recorder.runId, input.context, crossingObservationEnabled);
+
+    if (crossingObservationEnabled) {
+      input.state.a2aRequestIdentity = {
+        taskIdSuppliedByClient: (request.message?.taskId.trim().length ?? 0) > 0,
+        contextIdSuppliedByClient: (request.message?.contextId.trim().length ?? 0) > 0,
+      };
+    }
 
     input.recorder.record({
       protocol: 'A2A',
@@ -180,7 +207,16 @@ export async function executeA2aFixture(input: {
       },
     });
 
-    const response = await client.sendMessage(createRequest(input.recorder.runId, input.context));
+    const response = await client.sendMessage(
+      request,
+      crossingObservationEnabled
+        ? {
+            serviceParameters: {
+              authorization: localAuthorization,
+            },
+          }
+        : undefined,
+    );
 
     const responseText = extractMessageText(response);
 

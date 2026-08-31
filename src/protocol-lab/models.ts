@@ -1,4 +1,5 @@
 import type { EvidenceEvent, SecurityContext } from '../core/index.js';
+import type { CrossingObservationState } from '../phase9/crossing-corpus/observation.js';
 
 export type { EvidenceEvent, SecurityContext } from '../core/index.js';
 
@@ -19,6 +20,11 @@ export interface LabRunState {
   translatedContext?: SecurityContext;
   toolResult?: FakeInvoiceResult;
   mcpEra?: string;
+  crossingObservation?: CrossingObservationState;
+  a2aRequestIdentity?: {
+    taskIdSuppliedByClient: boolean;
+    contextIdSuppliedByClient: boolean;
+  };
 }
 
 export interface ProtocolLabResult {
@@ -32,4 +38,5 @@ export interface ProtocolLabResult {
   toolResult: FakeInvoiceResult;
   responseText: string;
   evidence: EvidenceEvent[];
+  crossingObservation?: CrossingObservationState;
 }

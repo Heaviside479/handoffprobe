@@ -1,5 +1,9 @@
 import { cloneSecurityContext } from '../core/index.js';
 import type { HandoffAdapter } from '../core/index.js';
+import {
+  createCrossingObservationState,
+  snapshotCrossingObservation,
+} from '../phase9/crossing-corpus/observation.js';
 import { executeA2aFixture } from './a2a/harness.js';
 import { EvidenceRecorder } from './evidence.js';
 import { ProtocolLabHandoffAdapter } from './handoff/adapter.js';
@@ -19,6 +23,7 @@ export interface ProtocolFixtureOptions {
   correlationId?: string;
   context?: SecurityContext;
   handoffAdapter?: HandoffAdapter;
+  crossingObservation?: boolean;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -37,7 +42,12 @@ export async function runProtocolFixture(
 
   const recorder = new EvidenceRecorder(runId, fixture, correlationId);
 
-  const state: LabRunState = {};
+  const state: LabRunState =
+    options.crossingObservation === true
+      ? {
+          crossingObservation: createCrossingObservationState(),
+        }
+      : {};
 
   const handoffAdapter = options.handoffAdapter ?? new ProtocolLabHandoffAdapter(fixture);
 
@@ -62,7 +72,7 @@ export async function runProtocolFixture(
   }
 
   if (state.mcpEra === 'modern') {
-    return {
+    const result: ProtocolLabResult = {
       runId,
       fixture,
       a2aProtocolVersion: '1.0',
@@ -73,6 +83,15 @@ export async function runProtocolFixture(
       toolResult,
       responseText,
       evidence: recorder.events,
+    };
+
+    if (state.crossingObservation === undefined) {
+      return result;
+    }
+
+    return {
+      ...result,
+      crossingObservation: snapshotCrossingObservation(state.crossingObservation),
     };
   }
 

@@ -7,6 +7,7 @@ import {
 } from '@a2a-js/sdk/server';
 
 import type { HandoffAdapter } from '../../core/index.js';
+import { recordA2aCrossingObservation } from '../../phase9/crossing-corpus/observation.js';
 import type { EvidenceRecorder } from '../evidence.js';
 import type { LabRunState, SecurityContext } from '../models.js';
 import { callReadInvoiceThroughMcp } from '../mcp/harness.js';
@@ -80,6 +81,21 @@ export class HandoffLabExecutor implements AgentExecutor {
   async execute(requestContext: RequestContext, eventBus: ExecutionEventBus): Promise<void> {
     const original = readContext(requestContext.request.metadata?.handoffprobeContext);
 
+    if (this.state.crossingObservation !== undefined) {
+      const requestIdentity = this.state.a2aRequestIdentity;
+      const user = requestContext.context.user;
+
+      recordA2aCrossingObservation(this.state.crossingObservation, {
+        caller: user?.userName,
+        messageId: requestContext.userMessage.messageId,
+        taskId: requestContext.taskId,
+        contextId: requestContext.contextId,
+        transportAuthenticated: user?.isAuthenticated === true,
+        taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
+        contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
+      });
+    }
+
     this.recorder.record({
       protocol: 'A2A',
       protocolVersion: '1.0',
@@ -109,7 +125,11 @@ export class HandoffLabExecutor implements AgentExecutor {
       },
     });
 
-    const mcp = await callReadInvoiceThroughMcp(translated, this.recorder);
+    const mcp = await callReadInvoiceThroughMcp(
+      translated,
+      this.recorder,
+      this.state.crossingObservation,
+    );
 
     this.state.mcpEra = mcp.era;
     this.state.toolResult = mcp.result;

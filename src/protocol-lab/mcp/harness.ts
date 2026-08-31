@@ -1,6 +1,10 @@
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { createMcpHandler } from '@modelcontextprotocol/server';
 
+import {
+  recordMcpCrossingObservation,
+  type CrossingObservationState,
+} from '../../phase9/crossing-corpus/observation.js';
 import type { EvidenceRecorder } from '../evidence.js';
 import type { FakeInvoiceResult, SecurityContext } from '../models.js';
 import { createFakeToolServer } from './fake-tools.js';
@@ -25,6 +29,7 @@ function readTextContent(content: McpContentBlock[]): string {
 export async function callReadInvoiceThroughMcp(
   context: SecurityContext,
   recorder: EvidenceRecorder,
+  crossingObservation?: CrossingObservationState,
 ): Promise<{
   era: 'modern';
   result: FakeInvoiceResult;
@@ -33,7 +38,9 @@ export async function callReadInvoiceThroughMcp(
     legacy: 'reject',
   });
 
-  const transport = new StreamableHTTPClientTransport(new URL('http://handoffprobe.local/mcp'), {
+  const mcpAudience = new URL('http://handoffprobe.local/mcp');
+
+  const transport = new StreamableHTTPClientTransport(mcpAudience, {
     fetch: (input, init) => handler.fetch(new Request(input, init)),
   });
 
@@ -77,6 +84,16 @@ export async function callReadInvoiceThroughMcp(
       throw new Error('Translated context has no capability.');
     }
 
+    const toolName = 'read_invoice';
+    const toolArguments = {
+      principal: context.principal,
+      caller: context.caller,
+      downstream: context.downstream,
+      tenant: context.tenant,
+      resource: context.resource,
+      capability,
+    };
+
     recorder.record({
       protocol: 'MCP',
       protocolVersion: '2026-07-28',
@@ -84,22 +101,24 @@ export async function callReadInvoiceThroughMcp(
       event: 'mcp.tool.call',
       context,
       details: {
-        tool: 'read_invoice',
+        tool: toolName,
         capability,
         resource: context.resource,
       },
     });
 
+    if (crossingObservation !== undefined) {
+      recordMcpCrossingObservation(crossingObservation, {
+        audience: mcpAudience.toString(),
+        audienceDerivationSource: 'pinned_configuration',
+        tool: toolName,
+        arguments: toolArguments,
+      });
+    }
+
     const result = await client.callTool({
-      name: 'read_invoice',
-      arguments: {
-        principal: context.principal,
-        caller: context.caller,
-        downstream: context.downstream,
-        tenant: context.tenant,
-        resource: context.resource,
-        capability,
-      },
+      name: toolName,
+      arguments: toolArguments,
     });
 
     const text = readTextContent(result.content);

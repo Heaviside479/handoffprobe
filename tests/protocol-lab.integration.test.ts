@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { evaluateCrossingObservationReadiness } from '../src/phase9/crossing-corpus/observation.js';
 import { runProtocolFixture } from '../src/protocol-lab/fixture.js';
 
 const EXPECTED_EVENTS = [
@@ -37,6 +38,68 @@ describe('A2A to MCP protocol laboratory', () => {
     expect(result.evidence.map((event) => event.sequence)).toEqual(
       EXPECTED_EVENTS.map((_, index) => index + 1),
     );
+  });
+
+  it('captures authenticated A2A provenance and server-resolved identifiers', async () => {
+    const result = await runProtocolFixture('secure', {
+      runId: 'hp-crossing-a2a-001',
+      crossingObservation: true,
+    });
+
+    const observation = result.crossingObservation;
+
+    expect(observation).toBeDefined();
+
+    if (observation === undefined) {
+      throw new Error('Expected a Phase 9 crossing observation.');
+    }
+
+    expect(observation.caller).toEqual({
+      value: 'agent:sales',
+      source: 'a2a.transport_auth',
+      transportAuthenticated: true,
+    });
+
+    expect(observation.messageId.value).toBe('hp-crossing-a2a-001-request');
+    expect(observation.messageId.source).toBe('a2a.user_message');
+
+    expect(observation.taskId.value).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
+    expect(observation.taskId.serverResolved).toBe(true);
+
+    expect(observation.contextId.value).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
+    expect(observation.contextId.serverResolved).toBe(true);
+
+    expect(observation.contextId.value).not.toBe('hp-crossing-a2a-001-context');
+
+    expect(observation.mcpAudience).toEqual({
+      value: 'http://handoffprobe.local/mcp',
+      source: 'mcp.transport_url',
+      derivationSource: 'pinned_configuration',
+    });
+
+    expect(observation.action).toEqual({
+      tool: 'read_invoice',
+      arguments: {
+        principal: result.translatedContext.principal,
+        caller: result.translatedContext.caller,
+        downstream: result.translatedContext.downstream,
+        tenant: result.translatedContext.tenant,
+        resource: result.translatedContext.resource,
+        capability: result.translatedContext.capabilities[0],
+      },
+      source: 'mcp.pre_dispatch',
+    });
+
+    expect(evaluateCrossingObservationReadiness(observation)).toEqual({
+      complete: true,
+      missing: [],
+    });
+
+    expect(JSON.stringify(result)).not.toContain('handoffprobe-local-fixture-caller');
   });
 
   it('reproduces principal loss in the vulnerable fixture', async () => {
