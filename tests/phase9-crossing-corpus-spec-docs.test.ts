@@ -51,7 +51,7 @@ describe('Phase 9.1A crossing-corpus integration contract', () => {
   it('locks 9.1A and leaves the runtime packages open in the roadmap', () => {
     expect(roadmap).toContain('- [x] 9.1A — lock the crossing-corpus integration contract');
     expect(roadmap).toContain(
-      '- [ ] 9.1B — implement the offline pinned-corpus loader and digest verification',
+      '- [x] 9.1B — implement the offline pinned-corpus loader and digest verification',
     );
     expect(roadmap).toContain(
       '- [ ] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations',

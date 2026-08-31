@@ -18,7 +18,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "fixtures/phase9/a2a-mcp-crossing-v2"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

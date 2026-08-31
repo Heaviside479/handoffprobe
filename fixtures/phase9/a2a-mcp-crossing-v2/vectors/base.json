@@ -1,0 +1,45 @@
+{
+  "initial_authority": {
+    "issuer_id":"https://issuer.example",
+    "authority_id":"authority-002",
+    "requester_id":"agent-a",
+    "a2a_binding":{"stage":"initial","message_id":"message-001"},
+    "mcp_audience":{"value":"https://mcp.example/interop","source":"oauth_resource"},
+    "action_digest":"f5d429925e015a7718881bf2ab3983c1b372c7f45088176a38d34441d1eea716",
+    "not_before":"2026-08-23T00:00:00Z",
+    "expires_at":"2026-08-24T00:00:00Z",
+    "status_ref":"https://issuer.example/status/authority-002",
+    "nonce":"nonce-002-abcdef0123456789"
+  },
+  "initial_reference": {
+    "profile":"https://minorityprophet.org/conformance/a2a-mcp-crossing/v2",
+    "authority_id":"authority-002",
+    "authority_digest":"31327760a68742cd956303a189de6ad39cfe91b0a4617619930c60db47d2c8fc"
+  },
+  "authority": {
+    "issuer_id":"https://issuer.example",
+    "authority_id":"authority-002",
+    "requester_id":"agent-a",
+    "a2a_binding":{"stage":"resolved","mode":"first_turn_reissued","message_id":"message-001","task_id":"task-001","context_id":"context-001","previous_stage_digest":"31327760a68742cd956303a189de6ad39cfe91b0a4617619930c60db47d2c8fc"},
+    "mcp_audience":{"value":"https://mcp.example/interop","source":"oauth_resource"},
+    "action_digest":"f5d429925e015a7718881bf2ab3983c1b372c7f45088176a38d34441d1eea716",
+    "not_before":"2026-08-23T00:00:00Z",
+    "expires_at":"2026-08-24T00:00:00Z",
+    "status_ref":"https://issuer.example/status/authority-002",
+    "nonce":"nonce-002-abcdef0123456789"
+  },
+  "reference": {
+    "profile":"https://minorityprophet.org/conformance/a2a-mcp-crossing/v2",
+    "authority_id":"authority-002",
+    "authority_digest":"1b500d9af7bbee064066aceef4c5891674d0a945059e499cefc22d19e86d65db"
+  },
+  "observed": {
+    "caller_id":"agent-a",
+    "message_id":"message-001",
+    "task_id":"task-001",
+    "context_id":"context-001",
+    "mcp_audience":{"value":"https://mcp.example/interop","source":"oauth_resource"},
+    "tool":"interop.echo",
+    "arguments":{"message":"hello"}
+  }
+}

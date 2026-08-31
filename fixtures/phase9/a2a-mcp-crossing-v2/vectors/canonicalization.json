@@ -1,0 +1,9 @@
+[
+  {"description":"ASCII ordering","value":{"b":1,"a":2},"canonical":"{\"a\":2,\"b\":1}","sha256":"d3626ac30a87e6f7a6428233b3c68299976865fa5508e4267c5415c76af7a772"},
+  {"description":"UTF-16 key ordering across the BMP boundary","value":{"":1,"𐀀":2},"canonical":"{\"𐀀\":2,\"\":1}","sha256":"9d4cdc71dda603c42f9b21d88d0c2ffc31a76cd1bd461d7359406cf169845f1e"},
+  {"description":"unescaped Unicode value","value":{"é":"雪","z":"café"},"canonical":"{\"z\":\"café\",\"é\":\"雪\"}","sha256":"137f201f34875dce24442d58c432395cadc196d000b901ce1d64ea899dc896fc"},
+  {"description":"safe integer boundaries","value":{"maximum":9007199254740991,"minimum":-9007199254740991},"canonical":"{\"maximum\":9007199254740991,\"minimum\":-9007199254740991}","sha256":"fbfd7545b6e2e70fe97a1b1de6bb85a3cea527c9e49f787bb6392cd36964b62c"},
+  {"description":"floating point is refused","value":{"number":1.5},"invalid":true,"error":"floating-point JSON is invalid fixture input"},
+  {"description":"unsafe integer is refused","value":{"number":9007199254740992},"invalid":true,"error":"integer exceeds the interoperable safe range"},
+  {"description":"lone surrogate is refused","value":{"text":"\ud800"},"invalid":true,"error":"Unicode surrogate code points are invalid fixture input"}
+]
