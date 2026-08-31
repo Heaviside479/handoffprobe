@@ -16,6 +16,16 @@ Read `PROJECT_CONTEXT.md` and the documents under `docs/`. The v0.1 scope is del
 - documentation and examples
 - portability and developer-experience fixes
 
+## Schneller Contributor-Einstieg
+
+Für kleine, reproduzierbare Beiträge gibt es einen konkreten Phase-8.5A-Einstieg:
+
+- [Phase-8.5A-Contributor-Quickstart](docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md)
+
+Der Quickstart definiert lokale Voraussetzungen, Fixture-Regeln, Test-Erwartungen und den Vertrag für kleine extern bearbeitbare Aufgaben.
+
+Vor einem Pull Request sollen mindestens die gezielten Tests der Änderung und anschließend die vollständigen lokalen Qualitäts-Gates ausgeführt werden.
+
 ## Proposing an attack test
 
 A strong proposal should include:
