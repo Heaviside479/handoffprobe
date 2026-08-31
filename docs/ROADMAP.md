@@ -681,7 +681,26 @@ Phase 8.5A Abschlussprotokoll:
 
 Detailnachweis: `docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md`.
 
-- [ ] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
+- [x] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
+
+Phase 8.6A Abschlussprotokoll:
+
+- Adoption-Baseline gegen einen neuen Read-only-Snapshot vom 2026-08-31 verglichen;
+- Stars/Forks/Subscriber bleiben `0/0/0`;
+- GitHub Traffic im rollierenden Fenster: Views `6` / `1` unique, Clones `244` / `103` unique;
+- Release-Asset-Downloads bleiben bei `3`;
+- npm Download-Punktzähler sind jetzt verfügbar und melden beim Snapshot `142` für last-day, last-week und last-month;
+- npm-Zähler werden wegen der zuvor nicht verfügbaren Baseline nicht als numerischer Delta-Wert interpretiert;
+- ein externes Research-/Integrationssignal liegt mit Issue `#20` vor;
+- externe Pull Requests und externe Code-Contributors bleiben bei `0`;
+- öffentliche GitHub-Action-Code-Suche lieferte keinen Treffer, wird wegen Indexierungsgrenzen nicht als Null-Nutzung interpretiert;
+- Phase-9-Primärziel aus Evidenz gewählt: Issue `#20` — externe Crossing-Corpus-Conformance-Integration für A2A 1.0 → MCP 2026-07-28;
+- der externe Corpus bleibt auf Commit `09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a` und SHA-256 `f7a72b5c1c0473080aff468d1af6b0500d035d6a00ebbfce1d2499a0897534fb` gepinnt;
+- keine breite spekulative Framework-Expansion beschlossen;
+- kein SaaS, keine Accounts, kein Billing, keine bezahlte KI-/Cloud-Pflicht und keine versteckte Telemetrie;
+- `handoffprobe@0.1.0` bleibt unverändert.
+
+Detailnachweis: `docs/PHASE8_REVIEW_20260831.md`.
 
 ## Phase 8 constraints
 
@@ -698,6 +717,21 @@ Detailnachweis: `docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md`.
 # Phase 9 — Framework and adapter expansion
 
 Possible integration targets should be chosen from real demand.
+
+## Evidence-selected first target
+
+The Phase 8.6A review selects one narrow first target from current evidence:
+
+- Issue `#20` — external A2A 1.0 → MCP 2026-07-28 crossing-corpus conformance integration;
+- pinned corpus commit `09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a`;
+- pinned corpus SHA-256 `f7a72b5c1c0473080aff468d1af6b0500d035d6a00ebbfce1d2499a0897534fb`;
+- HandoffProbe-owned observation path plus an effect recorder outside the verifier;
+- deterministic, local and no-paid execution;
+- no broad framework expansion until additional demand evidence exists.
+
+This target is an evidence-backed conformance/research integration, not a claim of vulnerability and not permission to broaden the scanner beyond the current handoff-security scope.
+
+Detailed decision: `docs/PHASE8_REVIEW_20260831.md`.
 
 ## Principle
 
