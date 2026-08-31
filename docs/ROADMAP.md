@@ -660,7 +660,27 @@ Phase 8.4A Abschlussprotokoll:
 
 Detailnachweis: `docs/PHASE8_RESEARCH_CASE_HP_AUTH_001_20260831.md`.
 
-- [ ] 8.5A — reduce contributor friction with focused external tasks and fixtures
+- [x] 8.5A — reduce contributor friction with focused external tasks and fixtures
+
+Phase 8.5A Abschlussprotokoll:
+
+- öffentlicher Contributor-Quickstart mit Node.js 24 dokumentiert;
+- vorhandene synthetische Fixture-Flächen und klare Test-Erwartungen dokumentiert;
+- `CONTRIBUTING.md` und README verlinken den Contributor-Einstieg;
+- Dokumentations-Regressionstest schützt den Contributor-Vertrag;
+- drei kleine externe Aufgaben als GitHub-Issues veröffentlicht:
+  - `#22` — Clean-Clone-Quickstart auf Node.js 24 verifizieren;
+  - `#23` — Windows-PowerShell-Beitragspfad dokumentieren;
+  - `#24` — eine bestehende synthetische Fixture erklären;
+- Issues `#22`, `#23` und `#24` sind als `good first issue`, `help wanted` und `documentation` veröffentlicht;
+- externes Research-Issue `#20` bleibt fortgeschrittene Research-Evidenz und ausdrücklich keine Einsteigeraufgabe;
+- kein neuer Scanner-Scope, keine neue Attack-ID und keine neue Runtime-Abhängigkeit eingeführt;
+- keine kostenpflichtige KI-API, Cloud-Infrastruktur oder versteckte Telemetrie hinzugefügt;
+- Protokoll-Baseline bleibt A2A 1.0 → MCP 2026-07-28;
+- `handoffprobe@0.1.0` bleibt unverändert.
+
+Detailnachweis: `docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md`.
+
 - [ ] 8.6A — re-measure adoption, review findings and choose Phase 9 from evidence
 
 ## Phase 8 constraints

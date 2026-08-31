@@ -227,6 +227,15 @@ The Phase 6 merge-gate demonstration proved that a qualifying HandoffProbe
 security failure blocks a non-draft pull request while Quality and Dependency
 Review remain successful.
 
+## Mitwirken
+
+Beiträge sollen klein, reproduzierbar und sicher testbar bleiben.
+
+- [Contribution Guide](CONTRIBUTING.md)
+- [Contributor-Quickstart](docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md)
+
+Der Contributor-Quickstart beschreibt die vorhandenen synthetischen Fixture-Flächen, konkrete Test-Erwartungen und kleine extern bearbeitbare Aufgaben.
+
 ## Opt-in adoption and integration feedback
 
 HandoffProbe does not collect hidden usage telemetry. If you choose to share how you use the project, the repository provides two voluntary public feedback paths:
