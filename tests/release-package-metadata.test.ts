@@ -99,7 +99,7 @@ describe('v0.1 package release metadata', () => {
         import: './dist/index.js',
       },
     });
-    expect(manifest.files).toEqual(['dist']);
+    expect(manifest.files).toEqual(['dist', 'fixtures/phase9/a2a-mcp-crossing-v2']);
     expect(manifest.scripts?.prepack).toBe('npm run build');
   });
 

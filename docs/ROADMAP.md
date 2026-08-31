@@ -736,7 +736,7 @@ Detailed decision: `docs/PHASE8_REVIEW_20260831.md`.
 ## Phase 9 work packages
 
 - [x] 9.1A — lock the crossing-corpus integration contract
-- [ ] 9.1B — implement the offline pinned-corpus loader and digest verification
+- [x] 9.1B — implement the offline pinned-corpus loader and digest verification
 - [ ] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations
 - [ ] 9.1D — add an external effect recorder and execute the complete 28-case corpus
 - [ ] 9.1E — produce and validate reviewable external submission artifacts

@@ -1,0 +1,7 @@
+[
+  {"description":"duplicate object key is refused before canonicalization","json":"{\"authority_id\":\"first\",\"authority_id\":\"second\"}","error":"duplicate JSON object key"},
+  {"description":"decimal notation is refused before numeric coercion","json":"{\"number\":1.0}","error":"floating-point JSON is invalid fixture input"},
+  {"description":"exponent notation is refused before numeric coercion","json":"{\"number\":1e0}","error":"floating-point JSON is invalid fixture input"},
+  {"description":"unsafe integer is refused before numeric rounding","json":"{\"number\":9007199254740993}","error":"integer exceeds the interoperable safe range"},
+  {"description":"lone surrogate is refused after string decoding","json":"{\"text\":\"\\ud800\"}","error":"Unicode surrogate code points are invalid fixture input"}
+]
