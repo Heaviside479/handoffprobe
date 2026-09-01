@@ -1,4 +1,7 @@
 import type { EvidenceEvent, SecurityContext } from '../core/index.js';
+import type { BoundCrossingVerificationResult } from '../phase9/crossing-corpus/binding.js';
+import type { CrossingEffectRecorder } from '../phase9/crossing-corpus/effects.js';
+import type { CrossingPreDispatchGate } from '../phase9/crossing-corpus/gate.js';
 import type { CrossingObservationState } from '../phase9/crossing-corpus/observation.js';
 
 export type { EvidenceEvent, SecurityContext } from '../core/index.js';
@@ -21,6 +24,9 @@ export interface LabRunState {
   toolResult?: FakeInvoiceResult;
   mcpEra?: string;
   crossingObservation?: CrossingObservationState;
+  crossingEffectRecorder?: CrossingEffectRecorder;
+  crossingPreDispatchGate?: CrossingPreDispatchGate;
+  crossingVerification?: BoundCrossingVerificationResult;
   a2aRequestIdentity?: {
     taskIdSuppliedByClient: boolean;
     contextIdSuppliedByClient: boolean;
@@ -39,4 +45,5 @@ export interface ProtocolLabResult {
   responseText: string;
   evidence: EvidenceEvent[];
   crossingObservation?: CrossingObservationState;
+  crossingVerification?: BoundCrossingVerificationResult;
 }

@@ -500,7 +500,7 @@ Phase 7 exit gate is satisfied.
 
 # Phase 8 — Adoption and research loop
 
-Status: active
+Status: completed 2026-08-31
 
 Implementation contract: `docs/PHASE8_ADOPTION_RESEARCH_SPECIFICATION.md`
 
@@ -716,6 +716,8 @@ Detailnachweis: `docs/PHASE8_REVIEW_20260831.md`.
 
 # Phase 9 — Framework and adapter expansion
 
+Status: active
+
 Possible integration targets should be chosen from real demand.
 
 ## Evidence-selected first target
@@ -738,9 +740,185 @@ Detailed decision: `docs/PHASE8_REVIEW_20260831.md`.
 - [x] 9.1A — lock the crossing-corpus integration contract
 - [x] 9.1B — implement the offline pinned-corpus loader and digest verification
 - [x] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations
-- [ ] 9.1D — add an external effect recorder and execute the complete 28-case corpus
+- [ ] 9.1D — add an external effect recorder and execute the complete 28-case corpus — **in progress**
 - [ ] 9.1E — produce and validate reviewable external submission artifacts
 - [ ] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand
+
+## Phase 9.1D implementation checkpoint — 2026-09-01
+
+Status: **in progress**
+
+### Working branch
+
+`feat/phase9-1d-crossing-corpus-execution-20260831`
+
+Feature-branch base before the Phase 9.1D checkpoint:
+
+`b96c4e98c4a293ed86fecd23051a27fdf6071a04`
+
+This checkpoint records the completed Phase 9.1D work so far.
+The caller runtime-boundary seam is not implemented yet.
+
+### Completed inside Phase 9.1D
+
+- [x] independent `CrossingEffectRecorder`;
+- [x] exactly one productive fake-tool effect recording point;
+- [x] effect recording remains outside the verifier;
+- [x] pre-dispatch verification gate before MCP tool dispatch;
+- [x] typed `CrossingPreDispatchRejectedError`;
+- [x] structured reject result preserved across the A2A fixture boundary without parsing stderr or exception text;
+- [x] corpus case-mutation builder;
+- [x] pinned-corpus rebinding to HandoffProbe-owned runtime observations;
+- [x] external reference `observed` rows are not accepted as HandoffProbe runtime evidence;
+- [x] valid-control end-to-end execution;
+- [x] first discriminating negative end-to-end execution using `authority_digest_swap`.
+
+### Valid-control proof
+
+For the unique unmutated one-attempt valid control:
+
+- native lane actual local synthetic effect delta = `1`;
+- bound lane verifier decision = `succeed / accepted`;
+- bound lane actual local synthetic effect delta = `1`;
+- verification uses HandoffProbe-owned runtime observation;
+- the external reference `observed` row is not substituted for runtime evidence.
+
+### First discriminating end-to-end proof
+
+Pinned corpus case:
+
+`authority_digest_swap`
+
+Verified behavior:
+
+- native execution runs without the bound gate;
+- native actual local synthetic effect delta = `1`;
+- bound execution rebinds authority to HandoffProbe-owned runtime observation;
+- the real corpus mutation changes `reference.authority_digest`;
+- actual runtime observation remains unchanged;
+- verifier returns `reject / authority_digest_mismatch`;
+- the pre-dispatch gate rejects before MCP tool dispatch;
+- bound actual local synthetic effect delta = `0`;
+- typed rejection is preserved across the A2A fixture boundary;
+- no stderr parsing or exception-message parsing is used as security evidence.
+
+This is an observed local synthetic effect, not an externally observed
+real-world effect.
+
+### Last fully green QA checkpoint
+
+The last complete green checkpoint produced:
+
+- `authority_digest_swap` E2E test: green;
+- valid-control E2E test: green;
+- Phase 9 + Protocol Lab regression: `11` test files / `37` tests green;
+- TypeScript typecheck: green;
+- ESLint: green;
+- Prettier check: green;
+- `git diff --check`: green;
+- productive effect recording point count: exactly `1`.
+
+All later caller-seam attempts stopped during read-only/precheck gates before
+mutation. Therefore the green 15-file implementation checkpoint remains intact.
+
+### Phase 9.1D checkpoint contents
+
+Five existing runtime files are modified by this checkpoint:
+
+- `src/protocol-lab/a2a/executor.ts`
+- `src/protocol-lab/fixture.ts`
+- `src/protocol-lab/mcp/fake-tools.ts`
+- `src/protocol-lab/mcp/harness.ts`
+- `src/protocol-lab/models.ts`
+
+Ten new Phase 9.1D files are added by this checkpoint:
+
+- `src/phase9/crossing-corpus/case-builder.ts`
+- `src/phase9/crossing-corpus/effects.ts`
+- `src/phase9/crossing-corpus/gate.ts`
+- `src/phase9/crossing-corpus/rebinding.ts`
+- `tests/phase9-crossing-authority-digest-swap-execution.test.ts`
+- `tests/phase9-crossing-case-builder.test.ts`
+- `tests/phase9-crossing-effect-recorder.test.ts`
+- `tests/phase9-crossing-predispatch-gate.test.ts`
+- `tests/phase9-crossing-rebinding.test.ts`
+- `tests/phase9-crossing-valid-control-execution.test.ts`
+
+Together with this roadmap update, the checkpoint contains 16 changed or new files.
+
+### Exact next implementation step
+
+Resume at:
+
+**Phase 9.1D Step 3D-D-B — caller runtime-boundary seam.**
+
+The caller seam is **not implemented yet**.
+
+For `caller_swap`, HandoffProbe must preserve two distinct runtime views:
+
+1. pre-mutation authority basis;
+2. actual observation after the mutation at the real protocol boundary.
+
+Required `caller_swap` behavior:
+
+- authority-basis caller remains the authenticated fixture caller `agent:sales`;
+- actual A2A runtime caller becomes corpus value `agent-c`;
+- authority rebinding uses the pre-mutation authority observation;
+- verification uses the actual runtime observation;
+- verifier returns `reject / caller_mismatch`;
+- native actual local synthetic effect delta = `1`;
+- bound actual local synthetic effect delta = `0`.
+
+Do not implement this by mutating `mutated.observed` after execution and then
+passing that object to `verifyObservedCrossing`. The mutation must occur at the
+real A2A transport-auth/runtime boundary.
+
+Implementing the caller seam is expected to add
+`src/protocol-lab/a2a/harness.ts` to the tracked runtime diff.
+
+### Remaining observed-boundary cases
+
+The pinned 28-case corpus contains 11 cases that mutate `observed`:
+
+- `caller_swap`
+- `message_swap`
+- `task_swap`
+- `context_swap`
+- `requester_omitted_both`
+- `message_omitted_both`
+- `task_omitted_both`
+- `context_omitted_both`
+- `audience_swap`
+- `tool_swap`
+- `arguments_swap`
+
+Minimum real runtime-boundary seams should be added only as required:
+
+- caller → A2A transport authentication;
+- message ID → A2A user message;
+- task/context → server-resolved A2A request context;
+- audience → MCP transport URL/source;
+- tool/arguments → exact MCP pre-dispatch call;
+- omissions → corresponding real boundary wherever possible.
+
+Reference fixture rows must never fill observation gaps.
+
+### Phase 9.1D remaining completion gate
+
+Phase 9.1D remains incomplete until the complete pinned 28-case corpus is
+executed and its native/bound results and effect observations are validated
+under the locked methodology.
+
+The final evaluation must preserve the distinction between:
+
+- reference fixture evidence;
+- HandoffProbe native measurement;
+- HandoffProbe bound measurement;
+- observation/provenance readiness;
+- implementation independence;
+- operator independence.
+
+Only after Phase 9.1D is complete should work proceed to Phase 9.1E.
 
 Phase 9.1A contract: `docs/PHASE9_CROSSING_CORPUS_INTEGRATION_SPEC_20260831.md`.
 

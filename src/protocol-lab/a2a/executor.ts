@@ -129,10 +129,16 @@ export class HandoffLabExecutor implements AgentExecutor {
       translated,
       this.recorder,
       this.state.crossingObservation,
+      this.state.crossingEffectRecorder,
+      this.state.crossingPreDispatchGate,
     );
 
     this.state.mcpEra = mcp.era;
     this.state.toolResult = mcp.result;
+
+    if (mcp.crossingVerification !== undefined) {
+      this.state.crossingVerification = mcp.crossingVerification;
+    }
 
     const responseText = JSON.stringify(mcp.result);
 

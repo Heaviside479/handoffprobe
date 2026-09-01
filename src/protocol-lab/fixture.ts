@@ -1,5 +1,10 @@
 import { cloneSecurityContext } from '../core/index.js';
 import type { HandoffAdapter } from '../core/index.js';
+import type { CrossingEffectRecorder } from '../phase9/crossing-corpus/effects.js';
+import {
+  CrossingPreDispatchRejectedError,
+  type CrossingPreDispatchGate,
+} from '../phase9/crossing-corpus/gate.js';
 import {
   createCrossingObservationState,
   snapshotCrossingObservation,
@@ -24,6 +29,8 @@ export interface ProtocolFixtureOptions {
   context?: SecurityContext;
   handoffAdapter?: HandoffAdapter;
   crossingObservation?: boolean;
+  crossingEffectRecorder?: CrossingEffectRecorder;
+  crossingPreDispatchGate?: CrossingPreDispatchGate;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -42,22 +49,45 @@ export async function runProtocolFixture(
 
   const recorder = new EvidenceRecorder(runId, fixture, correlationId);
 
-  const state: LabRunState =
-    options.crossingObservation === true
-      ? {
-          crossingObservation: createCrossingObservationState(),
-        }
-      : {};
+  const state: LabRunState = {};
+
+  if (options.crossingObservation === true) {
+    state.crossingObservation = createCrossingObservationState();
+  }
+
+  if (options.crossingEffectRecorder !== undefined) {
+    state.crossingEffectRecorder = options.crossingEffectRecorder;
+  }
+
+  if (options.crossingPreDispatchGate !== undefined) {
+    const configuredGate = options.crossingPreDispatchGate;
+
+    state.crossingPreDispatchGate = (observation) => {
+      const verification = configuredGate(observation);
+      state.crossingVerification = verification;
+      return verification;
+    };
+  }
 
   const handoffAdapter = options.handoffAdapter ?? new ProtocolLabHandoffAdapter(fixture);
 
-  const responseText = await executeA2aFixture({
-    fixture,
-    recorder,
-    state,
-    context,
-    handoffAdapter,
-  });
+  let responseText: string;
+
+  try {
+    responseText = await executeA2aFixture({
+      fixture,
+      recorder,
+      state,
+      context,
+      handoffAdapter,
+    });
+  } catch (error) {
+    if (state.crossingVerification?.decision.outcome === 'reject') {
+      throw new CrossingPreDispatchRejectedError(state.crossingVerification);
+    }
+
+    throw error;
+  }
 
   const translatedContext = state.translatedContext;
 
@@ -89,9 +119,18 @@ export async function runProtocolFixture(
       return result;
     }
 
-    return {
+    const crossingResult: ProtocolLabResult = {
       ...result,
       crossingObservation: snapshotCrossingObservation(state.crossingObservation),
+    };
+
+    if (state.crossingVerification === undefined) {
+      return crossingResult;
+    }
+
+    return {
+      ...crossingResult,
+      crossingVerification: state.crossingVerification,
     };
   }
 

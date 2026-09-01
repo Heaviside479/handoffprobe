@@ -1,6 +1,12 @@
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { createMcpHandler } from '@modelcontextprotocol/server';
 
+import type { BoundCrossingVerificationResult } from '../../phase9/crossing-corpus/binding.js';
+import type { CrossingEffectRecorder } from '../../phase9/crossing-corpus/effects.js';
+import {
+  CrossingPreDispatchRejectedError,
+  type CrossingPreDispatchGate,
+} from '../../phase9/crossing-corpus/gate.js';
 import {
   recordMcpCrossingObservation,
   type CrossingObservationState,
@@ -30,13 +36,19 @@ export async function callReadInvoiceThroughMcp(
   context: SecurityContext,
   recorder: EvidenceRecorder,
   crossingObservation?: CrossingObservationState,
+  crossingEffectRecorder?: CrossingEffectRecorder,
+  crossingPreDispatchGate?: CrossingPreDispatchGate,
 ): Promise<{
   era: 'modern';
   result: FakeInvoiceResult;
+  crossingVerification?: BoundCrossingVerificationResult;
 }> {
-  const handler = createMcpHandler(({ era }) => createFakeToolServer(recorder, context, era), {
-    legacy: 'reject',
-  });
+  const handler = createMcpHandler(
+    ({ era }) => createFakeToolServer(recorder, context, era, crossingEffectRecorder),
+    {
+      legacy: 'reject',
+    },
+  );
 
   const mcpAudience = new URL('http://handoffprobe.local/mcp');
 
@@ -94,6 +106,29 @@ export async function callReadInvoiceThroughMcp(
       capability,
     };
 
+    let crossingVerification: BoundCrossingVerificationResult | undefined;
+
+    if (crossingObservation !== undefined) {
+      recordMcpCrossingObservation(crossingObservation, {
+        audience: mcpAudience.toString(),
+        audienceDerivationSource: 'pinned_configuration',
+        tool: toolName,
+        arguments: toolArguments,
+      });
+    }
+
+    if (crossingPreDispatchGate !== undefined) {
+      if (crossingObservation === undefined) {
+        throw new Error('Crossing pre-dispatch gate requires a crossing observation.');
+      }
+
+      crossingVerification = crossingPreDispatchGate(crossingObservation);
+
+      if (crossingVerification.decision.outcome === 'reject') {
+        throw new CrossingPreDispatchRejectedError(crossingVerification);
+      }
+    }
+
     recorder.record({
       protocol: 'MCP',
       protocolVersion: '2026-07-28',
@@ -106,15 +141,6 @@ export async function callReadInvoiceThroughMcp(
         resource: context.resource,
       },
     });
-
-    if (crossingObservation !== undefined) {
-      recordMcpCrossingObservation(crossingObservation, {
-        audience: mcpAudience.toString(),
-        audienceDerivationSource: 'pinned_configuration',
-        tool: toolName,
-        arguments: toolArguments,
-      });
-    }
 
     const result = await client.callTool({
       name: toolName,
@@ -140,6 +166,7 @@ export async function callReadInvoiceThroughMcp(
     return {
       era,
       result: parsed,
+      ...(crossingVerification === undefined ? {} : { crossingVerification }),
     };
   } finally {
     await client.close();
