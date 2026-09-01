@@ -38,6 +38,30 @@ export const FIRST_CROSSING_EXECUTION_SLICE = [
   'context_swap',
 ] as const;
 
+export const CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
 export type CrossingExecutionOutcome = 'succeed' | 'reject' | 'non_comparable';
 
 export interface CrossingExecutionAttempt {
@@ -58,6 +82,13 @@ export interface CrossingCaseExecutionResult {
   readonly case: string;
   readonly native: CrossingExecutionLane;
   readonly bound: CrossingExecutionLane;
+}
+
+interface AdaptedCrossingBundle {
+  readonly reference: CrossingReference;
+  readonly authority: CrossingAuthority;
+  readonly initial_reference?: CrossingReference;
+  readonly initial_authority?: CrossingAuthority;
 }
 
 type RuntimeObservedField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
@@ -122,8 +153,35 @@ function loadPinnedStatus(path: string): CrossingStatusRecord {
   ) as unknown as CrossingStatusRecord;
 }
 
-function requireAdaptedBundle(value: Record<string, unknown>): CrossingAuthorityBundle {
+function requireAdaptedBundle(value: Record<string, unknown>): AdaptedCrossingBundle {
+  const reference = requireRecord(
+    value.reference,
+    'adapted reference',
+  ) as unknown as CrossingReference;
+
+  const authority = requireRecord(
+    value.authority,
+    'adapted authority',
+  ) as unknown as CrossingAuthority;
+
+  const hasInitialReference = Object.prototype.hasOwnProperty.call(value, 'initial_reference');
+
+  const hasInitialAuthority = Object.prototype.hasOwnProperty.call(value, 'initial_authority');
+
+  if (hasInitialReference !== hasInitialAuthority) {
+    throw new Error('Adapted crossing bundle must preserve paired initial stage evidence.');
+  }
+
+  if (!hasInitialReference) {
+    return {
+      reference,
+      authority,
+    };
+  }
+
   return {
+    reference,
+    authority,
     initial_reference: requireRecord(
       value.initial_reference,
       'adapted initial_reference',
@@ -132,8 +190,6 @@ function requireAdaptedBundle(value: Record<string, unknown>): CrossingAuthority
       value.initial_authority,
       'adapted initial_authority',
     ) as unknown as CrossingAuthority,
-    reference: requireRecord(value.reference, 'adapted reference') as unknown as CrossingReference,
-    authority: requireRecord(value.authority, 'adapted authority') as unknown as CrossingAuthority,
   };
 }
 
@@ -162,7 +218,13 @@ function runtimeMutationForCase(
     ) {
       throw new Error('valid_crossing must be the unmutated one-attempt valid control.');
     }
+  }
 
+  const mutations = normalizeCrossingCaseMutations(corpusCase);
+
+  const observedMutations = mutations.filter((mutation) => mutation.target === 'observed');
+
+  if (observedMutations.length === 0) {
     return undefined;
   }
 
@@ -170,21 +232,19 @@ function runtimeMutationForCase(
 
   if (expectedField === undefined) {
     throw new Error(
-      'Crossing corpus case is not supported by the identity executor slice: ' + corpusCase.id,
+      'Crossing corpus case requires a runtime observed seam that is not implemented yet: ' +
+        corpusCase.id,
     );
   }
 
-  const mutations = normalizeCrossingCaseMutations(corpusCase);
-
-  if (mutations.length !== 1 || mutations[0] === undefined) {
-    throw new Error(corpusCase.id + ' must contain exactly one runtime mutation.');
+  if (observedMutations.length !== 1 || observedMutations[0] === undefined) {
+    throw new Error(corpusCase.id + ' must contain exactly one supported runtime mutation.');
   }
 
-  const mutation = mutations[0];
+  const mutation = observedMutations[0];
 
   if (
     mutation.op !== 'set' ||
-    mutation.target !== 'observed' ||
     mutation.path.length !== 1 ||
     mutation.path[0] !== expectedField ||
     typeof mutation.value !== 'string'
@@ -379,14 +439,21 @@ async function executeBoundLane(
       const bundle = requireAdaptedBundle(mutated.bundle);
       const status = requireAdaptedStatus(mutated.status);
 
+      const stageEvidence =
+        bundle.initial_reference !== undefined && bundle.initial_authority !== undefined
+          ? {
+              initialReference: bundle.initial_reference,
+              initialAuthority: bundle.initial_authority,
+            }
+          : {};
+
       return verifyObservedCrossing(
         observation,
         {
           reference: bundle.reference,
           authority: bundle.authority,
           status,
-          initialReference: bundle.initial_reference,
-          initialAuthority: bundle.initial_authority,
+          ...stageEvidence,
           now: NOW,
           attempt,
         },
@@ -474,4 +541,10 @@ export async function executeFirstCrossingCorpusSlice(): Promise<
   readonly CrossingCaseExecutionResult[]
 > {
   return executePinnedCrossingCorpusCases(FIRST_CROSSING_EXECUTION_SLICE);
+}
+
+export async function executeCrossingCorpusWithoutNewRuntimeSeams(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS);
 }
