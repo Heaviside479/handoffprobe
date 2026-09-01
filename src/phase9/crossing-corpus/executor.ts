@@ -11,10 +11,18 @@ import {
   type LoadedCrossingCorpus,
 } from './loader.js';
 import {
+  evaluateCrossingObservationReadiness,
+  snapshotCrossingObservation,
   toExternalCrossingObservedShape,
+  type CrossingObservationState,
   type ExternalCrossingObservedShape,
 } from './observation.js';
-import { createCrossingProvenanceState } from './provenance.js';
+import {
+  createCrossingProvenanceState,
+  snapshotCrossingProvenance,
+  type CrossingFullProvenanceReadiness,
+  type CrossingProvenanceState,
+} from './provenance.js';
 import {
   rebindCrossingCorpusBase,
   type CrossingAuthorityBundle,
@@ -141,6 +149,28 @@ export interface CrossingCaseExecutionResult {
   readonly case: string;
   readonly native: CrossingExecutionLane;
   readonly bound: CrossingExecutionLane;
+}
+
+export interface CrossingAttemptEvidenceRecord {
+  readonly case: string;
+  readonly lane: 'native' | 'bound';
+  readonly attempt: number;
+  readonly run_id: string;
+  readonly observation: CrossingObservationState;
+  readonly authority_observation: CrossingObservationState | null;
+  readonly observation_ready: boolean;
+  readonly provenance: CrossingProvenanceState | null;
+  readonly provenance_readiness: CrossingFullProvenanceReadiness | null;
+  readonly decision: {
+    readonly outcome: CrossingExecutionOutcome;
+    readonly reason: string;
+  };
+  readonly effect: CrossingEffectDelta;
+}
+
+export interface CrossingCorpusExecutionCapture {
+  readonly results: readonly CrossingCaseExecutionResult[];
+  readonly attempts: readonly CrossingAttemptEvidenceRecord[];
 }
 
 interface AdaptedCrossingBundle {
@@ -566,15 +596,17 @@ function fixtureRunId(
 async function executeNativeLane(
   corpusCase: CrossingCorpusCase,
   overrides: CrossingRuntimeOverrides,
+  capture?: CrossingAttemptEvidenceRecord[],
 ): Promise<CrossingExecutionLane> {
   const effects = new CrossingEffectRecorder();
   const attempts: CrossingExecutionAttempt[] = [];
 
   for (let attempt = 1; attempt <= corpusCase.attempts; attempt += 1) {
     const before = effects.snapshot();
+    const runId = fixtureRunId(corpusCase, 'native', attempt);
 
     const options: ProtocolFixtureOptions = {
-      runId: fixtureRunId(corpusCase, 'native', attempt),
+      runId,
       crossingObservation: true,
       crossingEffectRecorder: effects,
       ...overrides,
@@ -591,13 +623,36 @@ async function executeNativeLane(
       throw new Error(corpusCase.id + ' native lane unexpectedly executed the bound verifier.');
     }
 
-    const observed = toExternalCrossingObservedShape(observation);
+    const observationSnapshot = snapshotCrossingObservation(observation);
+    const observed = toExternalCrossingObservedShape(observationSnapshot);
 
     assertRuntimeMutation(corpusCase, observed);
 
     const effect = effects.deltaSince(before);
+    const row = createAttempt(attempt, 'succeed', 'accepted', effect);
 
-    attempts.push(createAttempt(attempt, 'succeed', 'accepted', effect));
+    attempts.push(row);
+
+    capture?.push({
+      case: corpusCase.id,
+      lane: 'native',
+      attempt,
+      run_id: runId,
+      observation: observationSnapshot,
+      authority_observation: null,
+      observation_ready: evaluateCrossingObservationReadiness(observationSnapshot).complete,
+      provenance: null,
+      provenance_readiness: null,
+      decision: {
+        outcome: row.outcome,
+        reason: row.reason,
+      },
+      effect: {
+        before: effect.before,
+        after: effect.after,
+        delta: effect.delta,
+      },
+    });
   }
 
   return {
@@ -611,6 +666,7 @@ async function executeBoundLane(
   pinnedBundle: CrossingAuthorityBundle,
   pinnedStatus: CrossingStatusRecord,
   overrides: CrossingRuntimeOverrides,
+  capture?: CrossingAttemptEvidenceRecord[],
 ): Promise<CrossingExecutionLane> {
   const effects = new CrossingEffectRecorder();
   const attempts: CrossingExecutionAttempt[] = [];
@@ -620,8 +676,13 @@ async function executeBoundLane(
   for (let attempt = 1; attempt <= corpusCase.attempts; attempt += 1) {
     const before = effects.snapshot();
     const provenance = createCrossingProvenanceState();
+    const runId = fixtureRunId(corpusCase, 'bound', attempt);
 
     let gateCalls = 0;
+    let capturedObservation: CrossingObservationState | undefined;
+    let capturedAuthorityObservation: CrossingObservationState | undefined;
+    let capturedProvenance: CrossingProvenanceState | undefined;
+    let capturedProvenanceReadiness: CrossingFullProvenanceReadiness | undefined;
 
     const gate: CrossingPreDispatchGate = (observation, authorityObservation) => {
       gateCalls += 1;
@@ -651,7 +712,7 @@ async function executeBoundLane(
             }
           : {};
 
-      return verifyObservedCrossing(
+      const verificationResult = verifyObservedCrossing(
         observation,
         {
           reference: bundle.reference,
@@ -664,13 +725,23 @@ async function executeBoundLane(
         replayStore,
         provenance,
       );
+
+      capturedObservation = snapshotCrossingObservation(observation);
+      capturedAuthorityObservation = snapshotCrossingObservation(authorityObservation);
+      capturedProvenance = snapshotCrossingProvenance(provenance);
+      capturedProvenanceReadiness = {
+        complete: verificationResult.provenanceReadiness.complete,
+        missing: [...verificationResult.provenanceReadiness.missing],
+      };
+
+      return verificationResult;
     };
 
     let verification: BoundCrossingVerificationResult;
 
     try {
       const result = await runProtocolFixture('secure', {
-        runId: fixtureRunId(corpusCase, 'bound', attempt),
+        runId,
         crossingObservation: true,
         crossingEffectRecorder: effects,
         crossingPreDispatchGate: gate,
@@ -707,9 +778,46 @@ async function executeBoundLane(
 
     const effect = effects.deltaSince(before);
 
-    attempts.push(
-      createAttempt(attempt, verification.decision.outcome, verification.decision.reason, effect),
+    const row = createAttempt(
+      attempt,
+      verification.decision.outcome,
+      verification.decision.reason,
+      effect,
     );
+
+    attempts.push(row);
+
+    if (capture !== undefined) {
+      if (
+        capturedObservation === undefined ||
+        capturedAuthorityObservation === undefined ||
+        capturedProvenance === undefined ||
+        capturedProvenanceReadiness === undefined
+      ) {
+        throw new Error(corpusCase.id + ' bound attempt produced no evidence capture.');
+      }
+
+      capture.push({
+        case: corpusCase.id,
+        lane: 'bound',
+        attempt,
+        run_id: runId,
+        observation: capturedObservation,
+        authority_observation: capturedAuthorityObservation,
+        observation_ready: verification.observationReady,
+        provenance: capturedProvenance,
+        provenance_readiness: capturedProvenanceReadiness,
+        decision: {
+          outcome: row.outcome,
+          reason: row.reason,
+        },
+        effect: {
+          before: effect.before,
+          after: effect.after,
+          delta: effect.delta,
+        },
+      });
+    }
   }
 
   return {
@@ -720,6 +828,7 @@ async function executeBoundLane(
 
 export async function executePinnedCrossingCorpusCases(
   caseIds: readonly string[],
+  capture?: CrossingAttemptEvidenceRecord[],
 ): Promise<readonly CrossingCaseExecutionResult[]> {
   if (new Set(caseIds).size !== caseIds.length) {
     throw new Error('Crossing corpus execution case IDs must be unique.');
@@ -740,8 +849,8 @@ export async function executePinnedCrossingCorpusCases(
 
     results.push({
       case: corpusCase.id,
-      native: await executeNativeLane(corpusCase, overrides),
-      bound: await executeBoundLane(corpusCase, pinnedBundle, pinnedStatus, overrides),
+      native: await executeNativeLane(corpusCase, overrides, capture),
+      bound: await executeBoundLane(corpusCase, pinnedBundle, pinnedStatus, overrides, capture),
     });
   }
 
@@ -770,4 +879,15 @@ export async function executeFullPinnedCrossingCorpus(): Promise<
   readonly CrossingCaseExecutionResult[]
 > {
   return executePinnedCrossingCorpusCases(FULL_PINNED_CROSSING_CORPUS);
+}
+
+export async function executeFullPinnedCrossingCorpusWithEvidence(): Promise<CrossingCorpusExecutionCapture> {
+  const attempts: CrossingAttemptEvidenceRecord[] = [];
+
+  const results = await executePinnedCrossingCorpusCases(FULL_PINNED_CROSSING_CORPUS, attempts);
+
+  return {
+    results,
+    attempts,
+  };
 }
