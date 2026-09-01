@@ -1,0 +1,893 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+import { applyCrossingCaseMutations, normalizeCrossingCaseMutations } from './case-builder.js';
+import { verifyObservedCrossing, type BoundCrossingVerificationResult } from './binding.js';
+import { CrossingEffectRecorder, type CrossingEffectDelta } from './effects.js';
+import { CrossingPreDispatchRejectedError, type CrossingPreDispatchGate } from './gate.js';
+import {
+  loadPinnedCrossingCorpus,
+  type CrossingCorpusCase,
+  type LoadedCrossingCorpus,
+} from './loader.js';
+import {
+  evaluateCrossingObservationReadiness,
+  snapshotCrossingObservation,
+  toExternalCrossingObservedShape,
+  type CrossingObservationState,
+  type ExternalCrossingObservedShape,
+} from './observation.js';
+import {
+  createCrossingProvenanceState,
+  snapshotCrossingProvenance,
+  type CrossingFullProvenanceReadiness,
+  type CrossingProvenanceState,
+} from './provenance.js';
+import {
+  rebindCrossingCorpusBase,
+  type CrossingAuthorityBundle,
+  type CrossingStatusRecord,
+} from './rebinding.js';
+import {
+  digestCrossingJson,
+  SharedCrossingReplayStore,
+  type CrossingAuthority,
+  type CrossingReference,
+} from './verifier.js';
+import { runProtocolFixture, type ProtocolFixtureOptions } from '../../protocol-lab/fixture.js';
+
+const NOW = '2026-08-23T12:00:00Z';
+
+export const FIRST_CROSSING_EXECUTION_SLICE = [
+  'valid_crossing',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+] as const;
+
+export const CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
+export const CROSSING_EXECUTION_WITH_A2A_OMISSIONS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'requester_omitted_both',
+  'message_omitted_both',
+  'task_omitted_both',
+  'context_omitted_both',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
+export const FULL_PINNED_CROSSING_CORPUS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'requester_omitted_both',
+  'message_omitted_both',
+  'task_omitted_both',
+  'context_omitted_both',
+  'audience_swap',
+  'tool_swap',
+  'arguments_swap',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
+export type CrossingExecutionOutcome = 'succeed' | 'reject' | 'non_comparable';
+
+export interface CrossingExecutionAttempt {
+  readonly attempt: number;
+  readonly outcome: CrossingExecutionOutcome;
+  readonly reason: string;
+  readonly effect_before: number;
+  readonly effect_after: number;
+  readonly effect_delta: number;
+}
+
+export interface CrossingExecutionLane {
+  readonly measurement: 'externally_observed';
+  readonly attempts: readonly CrossingExecutionAttempt[];
+}
+
+export interface CrossingCaseExecutionResult {
+  readonly case: string;
+  readonly native: CrossingExecutionLane;
+  readonly bound: CrossingExecutionLane;
+}
+
+export interface CrossingAttemptEvidenceRecord {
+  readonly case: string;
+  readonly lane: 'native' | 'bound';
+  readonly attempt: number;
+  readonly run_id: string;
+  readonly observation: CrossingObservationState;
+  readonly authority_observation: CrossingObservationState | null;
+  readonly observation_ready: boolean;
+  readonly provenance: CrossingProvenanceState | null;
+  readonly provenance_readiness: CrossingFullProvenanceReadiness | null;
+  readonly decision: {
+    readonly outcome: CrossingExecutionOutcome;
+    readonly reason: string;
+  };
+  readonly effect: CrossingEffectDelta;
+}
+
+export interface CrossingCorpusExecutionCapture {
+  readonly results: readonly CrossingCaseExecutionResult[];
+  readonly attempts: readonly CrossingAttemptEvidenceRecord[];
+}
+
+interface AdaptedCrossingBundle {
+  readonly reference: CrossingReference;
+  readonly authority: CrossingAuthority;
+  readonly initial_reference?: CrossingReference;
+  readonly initial_authority?: CrossingAuthority;
+}
+
+type A2aRuntimeObservedField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
+
+type RuntimeObservedField = A2aRuntimeObservedField | 'mcp_audience.value' | 'tool' | 'arguments';
+
+type RuntimeObservedMutation =
+  | {
+      readonly op: 'set';
+      readonly field: A2aRuntimeObservedField | 'mcp_audience.value' | 'tool';
+      readonly value: string;
+    }
+  | {
+      readonly op: 'set';
+      readonly field: 'arguments';
+      readonly value: Record<string, unknown>;
+    }
+  | {
+      readonly op: 'delete';
+      readonly field: A2aRuntimeObservedField;
+    };
+
+interface CrossingRuntimeOverrides {
+  crossingCallerOverride?: string;
+  crossingMessageIdOverride?: string;
+  crossingTaskIdOverride?: string;
+  crossingContextIdOverride?: string;
+  crossingObservedOmissions?: readonly A2aRuntimeObservedField[];
+  crossingMcpRuntimeOverride?: {
+    audience?: string;
+    tool?: string;
+    arguments?: Record<string, unknown>;
+  };
+}
+
+const runtimeMutationFields = {
+  caller_swap: 'caller_id',
+  message_swap: 'message_id',
+  task_swap: 'task_id',
+  context_swap: 'context_id',
+  requester_omitted_both: 'caller_id',
+  message_omitted_both: 'message_id',
+  task_omitted_both: 'task_id',
+  context_omitted_both: 'context_id',
+  audience_swap: 'mcp_audience.value',
+  tool_swap: 'tool',
+  arguments_swap: 'arguments',
+} as const;
+
+function isA2aRuntimeObservedField(field: RuntimeObservedField): field is A2aRuntimeObservedField {
+  return (
+    field === 'caller_id' || field === 'message_id' || field === 'task_id' || field === 'context_id'
+  );
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function readJson(path: string): unknown {
+  return JSON.parse(readFileSync(path, 'utf8')) as unknown;
+}
+
+function requireRecord(value: unknown, label: string): Record<string, unknown> {
+  if (!isRecord(value)) {
+    throw new Error(label + ' must be an object.');
+  }
+
+  return value;
+}
+
+function loadPinnedAuthorityBundle(path: string): CrossingAuthorityBundle {
+  const base = requireRecord(readJson(path), 'Pinned crossing base vector');
+
+  return {
+    initial_reference: structuredClone(
+      requireRecord(base.initial_reference, 'initial_reference'),
+    ) as unknown as CrossingReference,
+    initial_authority: structuredClone(
+      requireRecord(base.initial_authority, 'initial_authority'),
+    ) as unknown as CrossingAuthority,
+    reference: structuredClone(
+      requireRecord(base.reference, 'reference'),
+    ) as unknown as CrossingReference,
+    authority: structuredClone(
+      requireRecord(base.authority, 'authority'),
+    ) as unknown as CrossingAuthority,
+  };
+}
+
+function loadPinnedStatus(path: string): CrossingStatusRecord {
+  return structuredClone(
+    requireRecord(readJson(path), 'Pinned crossing status'),
+  ) as unknown as CrossingStatusRecord;
+}
+
+function requireAdaptedBundle(value: Record<string, unknown>): AdaptedCrossingBundle {
+  const reference = requireRecord(
+    value.reference,
+    'adapted reference',
+  ) as unknown as CrossingReference;
+
+  const authority = requireRecord(
+    value.authority,
+    'adapted authority',
+  ) as unknown as CrossingAuthority;
+
+  const hasInitialReference = Object.prototype.hasOwnProperty.call(value, 'initial_reference');
+
+  const hasInitialAuthority = Object.prototype.hasOwnProperty.call(value, 'initial_authority');
+
+  if (hasInitialReference !== hasInitialAuthority) {
+    throw new Error('Adapted crossing bundle must preserve paired initial stage evidence.');
+  }
+
+  if (!hasInitialReference) {
+    return {
+      reference,
+      authority,
+    };
+  }
+
+  return {
+    reference,
+    authority,
+    initial_reference: requireRecord(
+      value.initial_reference,
+      'adapted initial_reference',
+    ) as unknown as CrossingReference,
+    initial_authority: requireRecord(
+      value.initial_authority,
+      'adapted initial_authority',
+    ) as unknown as CrossingAuthority,
+  };
+}
+
+function requireAdaptedStatus(value: Record<string, unknown>): CrossingStatusRecord {
+  return requireRecord(value, 'adapted status') as unknown as CrossingStatusRecord;
+}
+
+function requireCorpusCase(corpus: LoadedCrossingCorpus, caseId: string): CrossingCorpusCase {
+  const matches = corpus.cases.cases.filter((corpusCase) => corpusCase.id === caseId);
+
+  if (matches.length !== 1 || matches[0] === undefined) {
+    throw new Error('Expected exactly one crossing corpus case: ' + caseId);
+  }
+
+  return matches[0];
+}
+
+function runtimeMutationForCase(
+  corpusCase: CrossingCorpusCase,
+): RuntimeObservedMutation | undefined {
+  if (corpusCase.id === 'valid_crossing') {
+    if (
+      corpusCase.kind !== 'valid_control' ||
+      corpusCase.attempts !== 1 ||
+      corpusCase.mutations.length !== 0
+    ) {
+      throw new Error('valid_crossing must be the unmutated one-attempt valid control.');
+    }
+  }
+
+  const mutations = normalizeCrossingCaseMutations(corpusCase);
+
+  const observedMutations = mutations.filter((mutation) => mutation.target === 'observed');
+
+  if (observedMutations.length === 0) {
+    return undefined;
+  }
+
+  const expectedField = runtimeMutationFields[corpusCase.id as keyof typeof runtimeMutationFields];
+
+  if (expectedField === undefined) {
+    throw new Error(
+      'Crossing corpus case requires a runtime observed seam that is not implemented yet: ' +
+        corpusCase.id,
+    );
+  }
+
+  if (observedMutations.length !== 1 || observedMutations[0] === undefined) {
+    throw new Error(corpusCase.id + ' must contain exactly one supported runtime mutation.');
+  }
+
+  const mutation = observedMutations[0];
+
+  const expectedPath =
+    expectedField === 'mcp_audience.value' ? ['mcp_audience', 'value'] : [expectedField];
+
+  if (
+    mutation.path.length !== expectedPath.length ||
+    mutation.path.some((segment, index) => segment !== expectedPath[index])
+  ) {
+    throw new Error(corpusCase.id + ' targets the wrong runtime observed field.');
+  }
+
+  if (expectedField === 'arguments') {
+    if (mutation.op !== 'set' || !isRecord(mutation.value)) {
+      throw new Error(corpusCase.id + ' must set arguments to an object.');
+    }
+
+    return {
+      op: 'set',
+      field: 'arguments',
+      value: structuredClone(mutation.value),
+    };
+  }
+
+  if (mutation.op === 'delete') {
+    if (!isA2aRuntimeObservedField(expectedField)) {
+      throw new Error(corpusCase.id + ' cannot delete this runtime field.');
+    }
+
+    return {
+      op: 'delete',
+      field: expectedField,
+    };
+  }
+
+  if (mutation.op === 'set' && typeof mutation.value === 'string') {
+    return {
+      op: 'set',
+      field: expectedField,
+      value: mutation.value,
+    };
+  }
+
+  throw new Error(corpusCase.id + ' contains an unsupported runtime observed mutation.');
+}
+
+function runtimeOverridesForCase(corpusCase: CrossingCorpusCase): CrossingRuntimeOverrides {
+  const mutation = runtimeMutationForCase(corpusCase);
+
+  if (mutation === undefined) {
+    return {};
+  }
+
+  if (mutation.op === 'delete') {
+    return {
+      crossingObservedOmissions: [mutation.field],
+    };
+  }
+
+  if (mutation.field === 'caller_id') {
+    return {
+      crossingCallerOverride: mutation.value,
+    };
+  }
+
+  if (mutation.field === 'message_id') {
+    return {
+      crossingMessageIdOverride: mutation.value,
+    };
+  }
+
+  if (mutation.field === 'task_id') {
+    return {
+      crossingTaskIdOverride: mutation.value,
+    };
+  }
+
+  if (mutation.field === 'context_id') {
+    return {
+      crossingContextIdOverride: mutation.value,
+    };
+  }
+
+  if (mutation.field === 'mcp_audience.value') {
+    return {
+      crossingMcpRuntimeOverride: {
+        audience: mutation.value,
+      },
+    };
+  }
+
+  if (mutation.field === 'tool') {
+    return {
+      crossingMcpRuntimeOverride: {
+        tool: mutation.value,
+      },
+    };
+  }
+
+  if (mutation.field === 'arguments') {
+    return {
+      crossingMcpRuntimeOverride: {
+        arguments: structuredClone(mutation.value),
+      },
+    };
+  }
+
+  throw new Error(corpusCase.id + ' has no runtime override mapping.');
+}
+
+function assertRuntimeMutation(
+  corpusCase: CrossingCorpusCase,
+  observed: ExternalCrossingObservedShape,
+): void {
+  const mutation = runtimeMutationForCase(corpusCase);
+
+  if (mutation === undefined) {
+    return;
+  }
+
+  if (mutation.op === 'delete') {
+    if (observed[mutation.field] !== null) {
+      throw new Error(corpusCase.id + ' runtime observation did not omit the declared field.');
+    }
+
+    return;
+  }
+
+  if (mutation.field === 'mcp_audience.value') {
+    if (observed.mcp_audience.value !== mutation.value) {
+      throw new Error(
+        corpusCase.id + ' runtime observation does not contain the declared MCP audience mutation.',
+      );
+    }
+
+    return;
+  }
+
+  if (mutation.field === 'arguments') {
+    if (digestCrossingJson(observed.arguments) !== digestCrossingJson(mutation.value)) {
+      throw new Error(
+        corpusCase.id + ' runtime observation does not contain the declared arguments mutation.',
+      );
+    }
+
+    return;
+  }
+
+  if (observed[mutation.field] !== mutation.value) {
+    throw new Error(
+      corpusCase.id + ' runtime observation does not contain the declared corpus mutation.',
+    );
+  }
+}
+
+function assertObservedMatchesExpected(
+  corpusCase: CrossingCorpusCase,
+  actual: ExternalCrossingObservedShape,
+  expected: ExternalCrossingObservedShape,
+): void {
+  const mutation = runtimeMutationForCase(corpusCase);
+
+  if (mutation?.op === 'delete') {
+    const expectedRecord = expected as unknown as Record<string, unknown>;
+
+    if (Object.prototype.hasOwnProperty.call(expectedRecord, mutation.field)) {
+      throw new Error(corpusCase.id + ' declarative observed row did not delete the field.');
+    }
+
+    const normalizedActual = structuredClone(actual) as unknown as Record<string, unknown>;
+
+    delete normalizedActual[mutation.field];
+
+    if (digestCrossingJson(normalizedActual) !== digestCrossingJson(expected)) {
+      throw new Error(
+        corpusCase.id + ' runtime omission does not match the declarative observed row.',
+      );
+    }
+
+    return;
+  }
+
+  if (digestCrossingJson(actual) !== digestCrossingJson(expected)) {
+    throw new Error(
+      corpusCase.id + ' declarative observed row does not match HandoffProbe runtime observation.',
+    );
+  }
+}
+
+function createAttempt(
+  attempt: number,
+  outcome: CrossingExecutionOutcome,
+  reason: string,
+  effect: CrossingEffectDelta,
+): CrossingExecutionAttempt {
+  const row: CrossingExecutionAttempt = {
+    attempt,
+    outcome,
+    reason,
+    effect_before: effect.before,
+    effect_after: effect.after,
+    effect_delta: effect.delta,
+  };
+
+  const valid =
+    (row.outcome === 'succeed' && row.reason === 'accepted' && row.effect_delta === 1) ||
+    (row.outcome === 'reject' && row.effect_delta === 0) ||
+    (row.outcome === 'non_comparable' &&
+      row.reason === 'adapter_non_comparable' &&
+      row.effect_delta === 0);
+
+  if (!valid) {
+    throw new Error('Crossing execution produced an inconsistent outcome/reason/effect row.');
+  }
+
+  return row;
+}
+
+function fixtureRunId(
+  corpusCase: CrossingCorpusCase,
+  lane: 'native' | 'bound',
+  attempt: number,
+): string {
+  return [
+    'hp-phase9',
+    corpusCase.id.replaceAll('_', '-'),
+    lane,
+    String(attempt).padStart(3, '0'),
+  ].join('-');
+}
+
+async function executeNativeLane(
+  corpusCase: CrossingCorpusCase,
+  overrides: CrossingRuntimeOverrides,
+  capture?: CrossingAttemptEvidenceRecord[],
+): Promise<CrossingExecutionLane> {
+  const effects = new CrossingEffectRecorder();
+  const attempts: CrossingExecutionAttempt[] = [];
+
+  for (let attempt = 1; attempt <= corpusCase.attempts; attempt += 1) {
+    const before = effects.snapshot();
+    const runId = fixtureRunId(corpusCase, 'native', attempt);
+
+    const options: ProtocolFixtureOptions = {
+      runId,
+      crossingObservation: true,
+      crossingEffectRecorder: effects,
+      ...overrides,
+    };
+
+    const result = await runProtocolFixture('secure', options);
+    const observation = result.crossingObservation;
+
+    if (observation === undefined) {
+      throw new Error(corpusCase.id + ' native lane produced no crossing observation.');
+    }
+
+    if (result.crossingVerification !== undefined) {
+      throw new Error(corpusCase.id + ' native lane unexpectedly executed the bound verifier.');
+    }
+
+    const observationSnapshot = snapshotCrossingObservation(observation);
+    const observed = toExternalCrossingObservedShape(observationSnapshot);
+
+    assertRuntimeMutation(corpusCase, observed);
+
+    const effect = effects.deltaSince(before);
+    const row = createAttempt(attempt, 'succeed', 'accepted', effect);
+
+    attempts.push(row);
+
+    capture?.push({
+      case: corpusCase.id,
+      lane: 'native',
+      attempt,
+      run_id: runId,
+      observation: observationSnapshot,
+      authority_observation: null,
+      observation_ready: evaluateCrossingObservationReadiness(observationSnapshot).complete,
+      provenance: null,
+      provenance_readiness: null,
+      decision: {
+        outcome: row.outcome,
+        reason: row.reason,
+      },
+      effect: {
+        before: effect.before,
+        after: effect.after,
+        delta: effect.delta,
+      },
+    });
+  }
+
+  return {
+    measurement: 'externally_observed',
+    attempts,
+  };
+}
+
+async function executeBoundLane(
+  corpusCase: CrossingCorpusCase,
+  pinnedBundle: CrossingAuthorityBundle,
+  pinnedStatus: CrossingStatusRecord,
+  overrides: CrossingRuntimeOverrides,
+  capture?: CrossingAttemptEvidenceRecord[],
+): Promise<CrossingExecutionLane> {
+  const effects = new CrossingEffectRecorder();
+  const attempts: CrossingExecutionAttempt[] = [];
+
+  const replayStore = new SharedCrossingReplayStore('phase9-corpus-' + corpusCase.id + '-bound');
+
+  for (let attempt = 1; attempt <= corpusCase.attempts; attempt += 1) {
+    const before = effects.snapshot();
+    const provenance = createCrossingProvenanceState();
+    const runId = fixtureRunId(corpusCase, 'bound', attempt);
+
+    let gateCalls = 0;
+    let capturedObservation: CrossingObservationState | undefined;
+    let capturedAuthorityObservation: CrossingObservationState | undefined;
+    let capturedProvenance: CrossingProvenanceState | undefined;
+    let capturedProvenanceReadiness: CrossingFullProvenanceReadiness | undefined;
+
+    const gate: CrossingPreDispatchGate = (observation, authorityObservation) => {
+      gateCalls += 1;
+
+      if (authorityObservation === undefined) {
+        throw new Error(corpusCase.id + ' requires a pre-mutation authority observation.');
+      }
+
+      const rebound = rebindCrossingCorpusBase(pinnedBundle, pinnedStatus, authorityObservation);
+
+      const mutated = applyCrossingCaseMutations(rebound, corpusCase);
+
+      const liveObserved = toExternalCrossingObservedShape(observation);
+
+      assertRuntimeMutation(corpusCase, liveObserved);
+
+      assertObservedMatchesExpected(corpusCase, liveObserved, mutated.observed);
+
+      const bundle = requireAdaptedBundle(mutated.bundle);
+      const status = requireAdaptedStatus(mutated.status);
+
+      const stageEvidence =
+        bundle.initial_reference !== undefined && bundle.initial_authority !== undefined
+          ? {
+              initialReference: bundle.initial_reference,
+              initialAuthority: bundle.initial_authority,
+            }
+          : {};
+
+      const verificationResult = verifyObservedCrossing(
+        observation,
+        {
+          reference: bundle.reference,
+          authority: bundle.authority,
+          status,
+          ...stageEvidence,
+          now: NOW,
+          attempt,
+        },
+        replayStore,
+        provenance,
+      );
+
+      capturedObservation = snapshotCrossingObservation(observation);
+      capturedAuthorityObservation = snapshotCrossingObservation(authorityObservation);
+      capturedProvenance = snapshotCrossingProvenance(provenance);
+      capturedProvenanceReadiness = {
+        complete: verificationResult.provenanceReadiness.complete,
+        missing: [...verificationResult.provenanceReadiness.missing],
+      };
+
+      return verificationResult;
+    };
+
+    let verification: BoundCrossingVerificationResult;
+
+    try {
+      const result = await runProtocolFixture('secure', {
+        runId,
+        crossingObservation: true,
+        crossingEffectRecorder: effects,
+        crossingPreDispatchGate: gate,
+        ...overrides,
+      });
+
+      if (result.crossingVerification === undefined) {
+        throw new Error(corpusCase.id + ' bound lane produced no verification result.');
+      }
+
+      verification = result.crossingVerification;
+    } catch (error) {
+      if (!(error instanceof CrossingPreDispatchRejectedError)) {
+        throw error;
+      }
+
+      verification = error.verification;
+    }
+
+    if (gateCalls !== 1) {
+      throw new Error(corpusCase.id + ' bound attempt must invoke the gate exactly once.');
+    }
+
+    const runtimeMutation = runtimeMutationForCase(corpusCase);
+    const expectsIncompleteObservation = runtimeMutation?.op === 'delete';
+
+    if (expectsIncompleteObservation && verification.observationReady) {
+      throw new Error(corpusCase.id + ' omission unexpectedly produced a complete observation.');
+    }
+
+    if (!expectsIncompleteObservation && !verification.observationReady) {
+      throw new Error(corpusCase.id + ' bound attempt has incomplete runtime observation.');
+    }
+
+    const effect = effects.deltaSince(before);
+
+    const row = createAttempt(
+      attempt,
+      verification.decision.outcome,
+      verification.decision.reason,
+      effect,
+    );
+
+    attempts.push(row);
+
+    if (capture !== undefined) {
+      if (
+        capturedObservation === undefined ||
+        capturedAuthorityObservation === undefined ||
+        capturedProvenance === undefined ||
+        capturedProvenanceReadiness === undefined
+      ) {
+        throw new Error(corpusCase.id + ' bound attempt produced no evidence capture.');
+      }
+
+      capture.push({
+        case: corpusCase.id,
+        lane: 'bound',
+        attempt,
+        run_id: runId,
+        observation: capturedObservation,
+        authority_observation: capturedAuthorityObservation,
+        observation_ready: verification.observationReady,
+        provenance: capturedProvenance,
+        provenance_readiness: capturedProvenanceReadiness,
+        decision: {
+          outcome: row.outcome,
+          reason: row.reason,
+        },
+        effect: {
+          before: effect.before,
+          after: effect.after,
+          delta: effect.delta,
+        },
+      });
+    }
+  }
+
+  return {
+    measurement: 'externally_observed',
+    attempts,
+  };
+}
+
+export async function executePinnedCrossingCorpusCases(
+  caseIds: readonly string[],
+  capture?: CrossingAttemptEvidenceRecord[],
+): Promise<readonly CrossingCaseExecutionResult[]> {
+  if (new Set(caseIds).size !== caseIds.length) {
+    throw new Error('Crossing corpus execution case IDs must be unique.');
+  }
+
+  const corpus = loadPinnedCrossingCorpus();
+
+  const pinnedBundle = loadPinnedAuthorityBundle(resolve(corpus.root, corpus.cases.base_vector));
+
+  const results: CrossingCaseExecutionResult[] = [];
+
+  for (const caseId of caseIds) {
+    const corpusCase = requireCorpusCase(corpus, caseId);
+
+    const overrides = runtimeOverridesForCase(corpusCase);
+
+    const pinnedStatus = loadPinnedStatus(resolve(corpus.root, corpusCase.status_vector));
+
+    results.push({
+      case: corpusCase.id,
+      native: await executeNativeLane(corpusCase, overrides, capture),
+      bound: await executeBoundLane(corpusCase, pinnedBundle, pinnedStatus, overrides, capture),
+    });
+  }
+
+  return results;
+}
+
+export async function executeFirstCrossingCorpusSlice(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(FIRST_CROSSING_EXECUTION_SLICE);
+}
+
+export async function executeCrossingCorpusWithoutNewRuntimeSeams(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS);
+}
+
+export async function executeCrossingCorpusWithA2aOmissions(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITH_A2A_OMISSIONS);
+}
+
+export async function executeFullPinnedCrossingCorpus(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(FULL_PINNED_CROSSING_CORPUS);
+}
+
+export async function executeFullPinnedCrossingCorpusWithEvidence(): Promise<CrossingCorpusExecutionCapture> {
+  const attempts: CrossingAttemptEvidenceRecord[] = [];
+
+  const results = await executePinnedCrossingCorpusCases(FULL_PINNED_CROSSING_CORPUS, attempts);
+
+  return {
+    results,
+    attempts,
+  };
+}

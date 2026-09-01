@@ -1,0 +1,6 @@
+{
+  "claimed_grade": "implementation_independent",
+  "implementation_operator": "Heaviside479 / HandoffProbe",
+  "adapter_operator": "Heaviside479 / HandoffProbe",
+  "relationship": "The HandoffProbe implementation, verifier, runtime observation, and effect recording are independent of the frozen Python reference implementation. Adapter operation and execution use the same HandoffProbe operator, so operator_independent is not claimed. Intake reviewer confirmation is not asserted by this submission."
+}

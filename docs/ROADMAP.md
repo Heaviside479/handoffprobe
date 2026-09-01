@@ -500,7 +500,7 @@ Phase 7 exit gate is satisfied.
 
 # Phase 8 — Adoption and research loop
 
-Status: active
+Status: completed 2026-08-31
 
 Implementation contract: `docs/PHASE8_ADOPTION_RESEARCH_SPECIFICATION.md`
 
@@ -716,6 +716,8 @@ Detailnachweis: `docs/PHASE8_REVIEW_20260831.md`.
 
 # Phase 9 — Framework and adapter expansion
 
+Status: active
+
 Possible integration targets should be chosen from real demand.
 
 ## Evidence-selected first target
@@ -738,9 +740,125 @@ Detailed decision: `docs/PHASE8_REVIEW_20260831.md`.
 - [x] 9.1A — lock the crossing-corpus integration contract
 - [x] 9.1B — implement the offline pinned-corpus loader and digest verification
 - [x] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations
-- [ ] 9.1D — add an external effect recorder and execute the complete 28-case corpus
-- [ ] 9.1E — produce and validate reviewable external submission artifacts
+- [x] 9.1D — add an external effect recorder and execute the complete 28-case corpus
+- [x] 9.1E — produce and validate reviewable external submission artifacts
 - [ ] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand
+
+## Phase 9.1D / 9.1E completion record — 2026-09-01
+
+Status: **completed**
+
+Detailed evidence record:
+
+`docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md`
+
+### Frozen external input
+
+- upstream repository: `Silentpartnercoding/minority-prophet-border`;
+- frozen upstream commit: `09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a`;
+- frozen corpus SHA-256: `f7a72b5c1c0473080aff468d1af6b0500d035d6a00ebbfce1d2499a0897534fb`;
+- A2A Protocol 1.0;
+- MCP Protocol 2026-07-28;
+- exactly `28` corpus cases.
+
+### Phase 9.1D execution result
+
+The complete pinned corpus now executes through the HandoffProbe-owned
+A2A-to-MCP runtime, observation path and effect recorder.
+
+Verified:
+
+- `28 / 28` frozen cases execute in exact corpus order;
+- native and bound lanes are measured for every case;
+- both lanes use the frozen-contract measurement `externally_observed`;
+- `58` attempt-level runtime evidence records are captured;
+- caller identity comes from the A2A transport-authentication seam;
+- message identity comes from the actual A2A request;
+- task and context identity come from the server-resolved crossing context;
+- MCP audience comes from the actual transport URL;
+- exact tool and arguments are observed immediately before dispatch;
+- the authority basis is preserved before runtime mutation;
+- the verifier evaluates the actual post-mutation runtime observation;
+- replay state is shared across the attempts that require it;
+- the effect recorder remains outside the verifier;
+- the synthetic MCP receiver contains exactly one productive effect-recording point;
+- reference-fixture observed rows never fill HandoffProbe observation gaps.
+
+The bound outcome and reason match the frozen expectation for every case.
+
+The negative cases are expected to discriminate. Successful conformance does
+not mean that every bound attempt succeeds. It means that each observed
+native/bound result matches the frozen expected behavior.
+
+### Phase 9.1E submission result
+
+The measured implementation and submission generator are bound to:
+
+`a91110245c3932fd98b3156b2595836927566ede`
+
+The exact generated evidence is archived at:
+
+`artifacts/phase9/a2a-mcp-crossing-v2/handoffprobe-a91110245c3932fd98b3156b2595836927566ede/`
+
+The archived execution contains:
+
+- exactly `12` SHA-256-bound required submission artifacts;
+- exactly `28` result rows;
+- exactly `58` raw attempt-evidence rows;
+- submitted grade `implementation_independent`;
+- explicit `identified_transformation` adapter evidence;
+- caller, audience, authority, status and replay evidence;
+- `outside_verifier: true`;
+- `production_world_effect: false`.
+
+The recorded effect scope is:
+
+`local_synthetic_mcp_receiver_execution`
+
+It represents HandoffProbe-owned observation of execution in the local
+synthetic MCP receiver. It does not claim a production-world or third-party
+side effect.
+
+### Frozen intake result
+
+The exact frozen upstream `runner/verify_submission.py` accepted the archived
+submission with exit code `0` without `--confirmed-grade`.
+
+Derived summary:
+
+- `submitted_grade = implementation_independent`;
+- `confirmed_grade = null`;
+- `valid_both = true`;
+- `observed_discrimination = true`;
+- discriminating cases = `26`;
+- `complete_bound_external = true`;
+- `complete_external_execution = true`;
+- `bound_expectations_match = true`;
+- `unmeasured_bound_cases = []`;
+- `expectation_mismatches = []`;
+- `green_eligible = false`.
+
+`green_eligible = false` is the correct local state. The frozen intake contract
+reserves grade confirmation for an external reviewer.
+
+HandoffProbe does not self-assert `confirmed_grade` and does not claim
+`operator_independent`.
+
+### Reproducibility checkpoints
+
+- complete 28-case execution:
+  `931a0868e4effcb0768169880656b870173f2ffb`;
+- attempt-level execution-evidence capture:
+  `0ccf24e6387812b324148d03f4bef15a66ad5d1a`;
+- submission generator and measured implementation:
+  `a91110245c3932fd98b3156b2595836927566ede`;
+- archived intake-valid evidence:
+  `f5e73c7b194ba0d53a94c85ae79d6338939f63e6`.
+
+Phase 9.1D and Phase 9.1E are complete.
+
+Phase 9.1F remains open. Publishing the evidence and responding to Issue `#20`
+are separate follow-up actions.
 
 Phase 9.1A contract: `docs/PHASE9_CROSSING_CORPUS_INTEGRATION_SPEC_20260831.md`.
 

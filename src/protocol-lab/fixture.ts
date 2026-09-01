@@ -1,5 +1,10 @@
 import { cloneSecurityContext } from '../core/index.js';
 import type { HandoffAdapter } from '../core/index.js';
+import type { CrossingEffectRecorder } from '../phase9/crossing-corpus/effects.js';
+import {
+  CrossingPreDispatchRejectedError,
+  type CrossingPreDispatchGate,
+} from '../phase9/crossing-corpus/gate.js';
 import {
   createCrossingObservationState,
   snapshotCrossingObservation,
@@ -7,7 +12,14 @@ import {
 import { executeA2aFixture } from './a2a/harness.js';
 import { EvidenceRecorder } from './evidence.js';
 import { ProtocolLabHandoffAdapter } from './handoff/adapter.js';
-import type { FixtureMode, LabRunState, ProtocolLabResult, SecurityContext } from './models.js';
+import type {
+  CrossingMcpRuntimeOverride,
+  CrossingObservedOmissionField,
+  FixtureMode,
+  LabRunState,
+  ProtocolLabResult,
+  SecurityContext,
+} from './models.js';
 
 export const REFERENCE_CONTEXT: SecurityContext = {
   principal: 'user:alice',
@@ -24,6 +36,14 @@ export interface ProtocolFixtureOptions {
   context?: SecurityContext;
   handoffAdapter?: HandoffAdapter;
   crossingObservation?: boolean;
+  crossingEffectRecorder?: CrossingEffectRecorder;
+  crossingPreDispatchGate?: CrossingPreDispatchGate;
+  crossingCallerOverride?: string;
+  crossingMessageIdOverride?: string;
+  crossingTaskIdOverride?: string;
+  crossingContextIdOverride?: string;
+  crossingObservedOmissions?: readonly CrossingObservedOmissionField[];
+  crossingMcpRuntimeOverride?: CrossingMcpRuntimeOverride;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -42,22 +62,112 @@ export async function runProtocolFixture(
 
   const recorder = new EvidenceRecorder(runId, fixture, correlationId);
 
-  const state: LabRunState =
-    options.crossingObservation === true
-      ? {
-          crossingObservation: createCrossingObservationState(),
-        }
-      : {};
+  const state: LabRunState = {};
+
+  if (options.crossingObservation === true) {
+    state.crossingObservation = createCrossingObservationState();
+    state.crossingAuthorityObservation = createCrossingObservationState();
+  }
+
+  if (options.crossingCallerOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing caller override requires crossing observation.');
+    }
+
+    state.crossingCallerOverride = options.crossingCallerOverride;
+  }
+
+  if (options.crossingMessageIdOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing message ID override requires crossing observation.');
+    }
+
+    state.crossingMessageIdOverride = options.crossingMessageIdOverride;
+  }
+
+  if (options.crossingTaskIdOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing task ID override requires crossing observation.');
+    }
+
+    state.crossingTaskIdOverride = options.crossingTaskIdOverride;
+  }
+
+  if (options.crossingContextIdOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing context ID override requires crossing observation.');
+    }
+
+    state.crossingContextIdOverride = options.crossingContextIdOverride;
+  }
+
+  if (options.crossingObservedOmissions !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing observed omissions require crossing observation.');
+    }
+
+    const omissions = new Set(options.crossingObservedOmissions);
+
+    if (omissions.size !== options.crossingObservedOmissions.length) {
+      throw new Error('Crossing observed omissions must be unique.');
+    }
+
+    state.crossingObservedOmissions = omissions;
+  }
+
+  if (options.crossingMcpRuntimeOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing MCP runtime override requires crossing observation.');
+    }
+
+    state.crossingMcpRuntimeOverride = {
+      ...(options.crossingMcpRuntimeOverride.audience === undefined
+        ? {}
+        : { audience: options.crossingMcpRuntimeOverride.audience }),
+      ...(options.crossingMcpRuntimeOverride.tool === undefined
+        ? {}
+        : { tool: options.crossingMcpRuntimeOverride.tool }),
+      ...(options.crossingMcpRuntimeOverride.arguments === undefined
+        ? {}
+        : {
+            arguments: structuredClone(options.crossingMcpRuntimeOverride.arguments),
+          }),
+    };
+  }
+
+  if (options.crossingEffectRecorder !== undefined) {
+    state.crossingEffectRecorder = options.crossingEffectRecorder;
+  }
+
+  if (options.crossingPreDispatchGate !== undefined) {
+    const configuredGate = options.crossingPreDispatchGate;
+
+    state.crossingPreDispatchGate = (observation, authorityObservation) => {
+      const verification = configuredGate(observation, authorityObservation);
+      state.crossingVerification = verification;
+      return verification;
+    };
+  }
 
   const handoffAdapter = options.handoffAdapter ?? new ProtocolLabHandoffAdapter(fixture);
 
-  const responseText = await executeA2aFixture({
-    fixture,
-    recorder,
-    state,
-    context,
-    handoffAdapter,
-  });
+  let responseText: string;
+
+  try {
+    responseText = await executeA2aFixture({
+      fixture,
+      recorder,
+      state,
+      context,
+      handoffAdapter,
+    });
+  } catch (error) {
+    if (state.crossingVerification?.decision.outcome === 'reject') {
+      throw new CrossingPreDispatchRejectedError(state.crossingVerification);
+    }
+
+    throw error;
+  }
 
   const translatedContext = state.translatedContext;
 
@@ -89,9 +199,18 @@ export async function runProtocolFixture(
       return result;
     }
 
-    return {
+    const crossingResult: ProtocolLabResult = {
       ...result,
       crossingObservation: snapshotCrossingObservation(state.crossingObservation),
+    };
+
+    if (state.crossingVerification === undefined) {
+      return crossingResult;
+    }
+
+    return {
+      ...crossingResult,
+      crossingVerification: state.crossingVerification,
     };
   }
 

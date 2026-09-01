@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "name": "handoffprobe-protocol-lab",
+      "repository": "https://github.com/Heaviside479/handoffprobe",
+      "commit": "a91110245c3932fd98b3156b2595836927566ede"
+    },
+    {
+      "name": "handoffprobe-crossing-verifier",
+      "repository": "https://github.com/Heaviside479/handoffprobe",
+      "commit": "a91110245c3932fd98b3156b2595836927566ede"
+    },
+    {
+      "name": "handoffprobe-crossing-effect-recorder",
+      "repository": "https://github.com/Heaviside479/handoffprobe",
+      "commit": "a91110245c3932fd98b3156b2595836927566ede"
+    },
+    {
+      "name": "minority-prophet-border-frozen-corpus",
+      "repository": "https://github.com/Silentpartnercoding/minority-prophet-border",
+      "commit": "09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a"
+    }
+  ]
+}

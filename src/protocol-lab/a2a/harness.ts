@@ -152,10 +152,18 @@ export async function executeA2aFixture(input: {
   const userBuilder = crossingObservationEnabled
     ? (request: ExpressRequest) => {
         const authenticated = request.headers.authorization === localAuthorization;
+        const authorityCaller = authenticated ? input.context.caller : '';
+        const callerOmitted = input.state.crossingObservedOmissions?.has('caller_id') === true;
+
+        input.state.a2aAuthorityCaller = authorityCaller;
 
         return Promise.resolve({
           isAuthenticated: authenticated,
-          userName: authenticated ? input.context.caller : '',
+          userName: authenticated
+            ? callerOmitted
+              ? ''
+              : (input.state.crossingCallerOverride ?? authorityCaller)
+            : '',
         });
       }
     : UserBuilder.noAuthentication;
@@ -188,9 +196,21 @@ export async function executeA2aFixture(input: {
     const request = createRequest(input.recorder.runId, input.context, crossingObservationEnabled);
 
     if (crossingObservationEnabled) {
+      const requestMessage = request.message;
+
+      if (requestMessage === undefined) {
+        throw new Error('A2A crossing request is missing its user message.');
+      }
+
+      input.state.a2aAuthorityMessageId = requestMessage.messageId;
+
+      if (input.state.crossingMessageIdOverride !== undefined) {
+        requestMessage.messageId = input.state.crossingMessageIdOverride;
+      }
+
       input.state.a2aRequestIdentity = {
-        taskIdSuppliedByClient: (request.message?.taskId.trim().length ?? 0) > 0,
-        contextIdSuppliedByClient: (request.message?.contextId.trim().length ?? 0) > 0,
+        taskIdSuppliedByClient: requestMessage.taskId.trim().length > 0,
+        contextIdSuppliedByClient: requestMessage.contextId.trim().length > 0,
       };
     }
 

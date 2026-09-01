@@ -1,12 +1,18 @@
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { createMcpHandler } from '@modelcontextprotocol/server';
 
+import type { BoundCrossingVerificationResult } from '../../phase9/crossing-corpus/binding.js';
+import type { CrossingEffectRecorder } from '../../phase9/crossing-corpus/effects.js';
+import {
+  CrossingPreDispatchRejectedError,
+  type CrossingPreDispatchGate,
+} from '../../phase9/crossing-corpus/gate.js';
 import {
   recordMcpCrossingObservation,
   type CrossingObservationState,
 } from '../../phase9/crossing-corpus/observation.js';
 import type { EvidenceRecorder } from '../evidence.js';
-import type { FakeInvoiceResult, SecurityContext } from '../models.js';
+import type { CrossingMcpRuntimeOverride, FakeInvoiceResult, SecurityContext } from '../models.js';
 import { createFakeToolServer } from './fake-tools.js';
 
 type McpContentBlock =
@@ -30,17 +36,57 @@ export async function callReadInvoiceThroughMcp(
   context: SecurityContext,
   recorder: EvidenceRecorder,
   crossingObservation?: CrossingObservationState,
+  crossingEffectRecorder?: CrossingEffectRecorder,
+  crossingPreDispatchGate?: CrossingPreDispatchGate,
+  crossingAuthorityObservation?: CrossingObservationState,
+  crossingMcpRuntimeOverride?: CrossingMcpRuntimeOverride,
 ): Promise<{
   era: 'modern';
   result: FakeInvoiceResult;
+  crossingVerification?: BoundCrossingVerificationResult;
 }> {
-  const handler = createMcpHandler(({ era }) => createFakeToolServer(recorder, context, era), {
-    legacy: 'reject',
-  });
+  const capability = context.capabilities[0];
 
-  const mcpAudience = new URL('http://handoffprobe.local/mcp');
+  if (capability === undefined) {
+    throw new Error('Translated context has no capability.');
+  }
 
-  const transport = new StreamableHTTPClientTransport(mcpAudience, {
+  const authorityAudience = new URL('http://handoffprobe.local/mcp');
+
+  const runtimeAudience = new URL(
+    crossingMcpRuntimeOverride?.audience ?? authorityAudience.toString(),
+  );
+
+  const authorityTool = 'read_invoice';
+
+  const authorityArguments = {
+    principal: context.principal,
+    caller: context.caller,
+    downstream: context.downstream,
+    tenant: context.tenant,
+    resource: context.resource,
+    capability,
+  };
+
+  const runtimeTool = crossingMcpRuntimeOverride?.tool ?? authorityTool;
+
+  const runtimeArguments =
+    crossingMcpRuntimeOverride?.arguments === undefined
+      ? structuredClone(authorityArguments)
+      : structuredClone(crossingMcpRuntimeOverride.arguments);
+
+  const handler = createMcpHandler(
+    ({ era }) =>
+      createFakeToolServer(recorder, context, era, crossingEffectRecorder, {
+        ...(runtimeTool === authorityTool ? {} : { runtimeToolName: runtimeTool }),
+        allowArbitraryArguments: crossingMcpRuntimeOverride?.arguments !== undefined,
+      }),
+    {
+      legacy: 'reject',
+    },
+  );
+
+  const transport = new StreamableHTTPClientTransport(runtimeAudience, {
     fetch: (input, init) => handler.fetch(new Request(input, init)),
   });
 
@@ -75,24 +121,43 @@ export async function callReadInvoiceThroughMcp(
         },
       });
     } else {
-      throw new Error(`Expected MCP modern era but received ${String(era)}.`);
+      throw new Error('Expected MCP modern era but received ' + String(era) + '.');
     }
 
-    const capability = context.capabilities[0];
+    let crossingVerification: BoundCrossingVerificationResult | undefined;
 
-    if (capability === undefined) {
-      throw new Error('Translated context has no capability.');
+    if (crossingObservation !== undefined) {
+      recordMcpCrossingObservation(crossingObservation, {
+        audience: runtimeAudience.toString(),
+        audienceDerivationSource: 'pinned_configuration',
+        tool: runtimeTool,
+        arguments: runtimeArguments,
+      });
     }
 
-    const toolName = 'read_invoice';
-    const toolArguments = {
-      principal: context.principal,
-      caller: context.caller,
-      downstream: context.downstream,
-      tenant: context.tenant,
-      resource: context.resource,
-      capability,
-    };
+    if (crossingAuthorityObservation !== undefined) {
+      recordMcpCrossingObservation(crossingAuthorityObservation, {
+        audience: authorityAudience.toString(),
+        audienceDerivationSource: 'pinned_configuration',
+        tool: authorityTool,
+        arguments: authorityArguments,
+      });
+    }
+
+    if (crossingPreDispatchGate !== undefined) {
+      if (crossingObservation === undefined) {
+        throw new Error('Crossing pre-dispatch gate requires a crossing observation.');
+      }
+
+      crossingVerification = crossingPreDispatchGate(
+        crossingObservation,
+        crossingAuthorityObservation ?? crossingObservation,
+      );
+
+      if (crossingVerification.decision.outcome === 'reject') {
+        throw new CrossingPreDispatchRejectedError(crossingVerification);
+      }
+    }
 
     recorder.record({
       protocol: 'MCP',
@@ -101,28 +166,18 @@ export async function callReadInvoiceThroughMcp(
       event: 'mcp.tool.call',
       context,
       details: {
-        tool: toolName,
+        tool: runtimeTool,
         capability,
         resource: context.resource,
       },
     });
 
-    if (crossingObservation !== undefined) {
-      recordMcpCrossingObservation(crossingObservation, {
-        audience: mcpAudience.toString(),
-        audienceDerivationSource: 'pinned_configuration',
-        tool: toolName,
-        arguments: toolArguments,
-      });
-    }
-
     const result = await client.callTool({
-      name: toolName,
-      arguments: toolArguments,
+      name: runtimeTool,
+      arguments: runtimeArguments,
     });
 
     const text = readTextContent(result.content);
-
     const parsed = JSON.parse(text) as FakeInvoiceResult;
 
     recorder.record({
@@ -132,7 +187,7 @@ export async function callReadInvoiceThroughMcp(
       event: 'mcp.tool.result',
       context,
       details: {
-        tool: 'read_invoice',
+        tool: runtimeTool,
         invoiceId: parsed.invoiceId,
       },
     });
@@ -140,6 +195,7 @@ export async function callReadInvoiceThroughMcp(
     return {
       era,
       result: parsed,
+      ...(crossingVerification === undefined ? {} : { crossingVerification }),
     };
   } finally {
     await client.close();

@@ -1,0 +1,7 @@
+{
+  "source": "HandoffProbe CrossingEffectRecorder at src/phase9/crossing-corpus/effects.ts, incremented from the productive synthetic MCP receiver path in src/protocol-lab/mcp/fake-tools.ts",
+  "outside_verifier": true,
+  "effect_semantics": "local_synthetic_mcp_receiver_execution",
+  "production_world_effect": false,
+  "recording_policy": "Exactly one effect increment occurs only on a productive synthetic receiver execution after the bound pre-dispatch gate accepts; rejected attempts retain delta zero."
+}

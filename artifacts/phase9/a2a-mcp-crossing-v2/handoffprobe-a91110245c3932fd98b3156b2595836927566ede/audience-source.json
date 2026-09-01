@@ -1,0 +1,7 @@
+{
+  "source": "pinned_configuration",
+  "transport_bound": true,
+  "observation_point": "The actual StreamableHTTPClientTransport URL is observed immediately before MCP dispatch.",
+  "local_endpoint": "http://handoffprobe.local/mcp",
+  "network_semantics": "The transport URL is exercised through the MCP client with a local intercepted fetch handler; no production or third-party endpoint is contacted."
+}

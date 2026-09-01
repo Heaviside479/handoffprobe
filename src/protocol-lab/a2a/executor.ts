@@ -1,9 +1,9 @@
 import { Role, type Message } from '@a2a-js/sdk';
 import {
   AgentEvent,
+  RequestContext,
   type AgentExecutor,
   type ExecutionEventBus,
-  type RequestContext,
 } from '@a2a-js/sdk/server';
 
 import type { HandoffAdapter } from '../../core/index.js';
@@ -71,6 +71,57 @@ function createTextMessage(messageId: string, contextId: string, text: string): 
   };
 }
 
+function createCrossingRuntimeRequestContext(
+  requestContext: RequestContext,
+  state: LabRunState,
+): RequestContext {
+  const omissions = state.crossingObservedOmissions;
+
+  const messageId =
+    omissions?.has('message_id') === true ? '' : requestContext.userMessage.messageId;
+
+  const taskId =
+    omissions?.has('task_id') === true
+      ? ''
+      : (state.crossingTaskIdOverride ?? requestContext.taskId);
+
+  const contextId =
+    omissions?.has('context_id') === true
+      ? ''
+      : (state.crossingContextIdOverride ?? requestContext.contextId);
+
+  if (
+    messageId === requestContext.userMessage.messageId &&
+    taskId === requestContext.taskId &&
+    contextId === requestContext.contextId
+  ) {
+    return requestContext;
+  }
+
+  const runtimeRequest = structuredClone(requestContext.request);
+  const runtimeMessage = runtimeRequest.message;
+
+  if (runtimeMessage === undefined) {
+    throw new Error('Crossing runtime RequestContext requires request.message.');
+  }
+
+  runtimeMessage.messageId = messageId;
+  runtimeMessage.taskId = taskId;
+  runtimeMessage.contextId = contextId;
+
+  // The A2A SDK has already resolved message/task/context and bound its
+  // EventBus to the server task. Only the downstream executor view is
+  // perturbed, so SDK lifecycle identity remains untouched.
+  return new RequestContext(
+    runtimeRequest,
+    taskId,
+    contextId,
+    requestContext.context,
+    requestContext.task,
+    requestContext.referenceTasks,
+  );
+}
+
 export class HandoffLabExecutor implements AgentExecutor {
   constructor(
     private readonly handoffAdapter: HandoffAdapter,
@@ -79,17 +130,37 @@ export class HandoffLabExecutor implements AgentExecutor {
   ) {}
 
   async execute(requestContext: RequestContext, eventBus: ExecutionEventBus): Promise<void> {
-    const original = readContext(requestContext.request.metadata?.handoffprobeContext);
+    const authorityRequestContext = requestContext;
+
+    const runtimeRequestContext =
+      this.state.crossingObservation === undefined
+        ? requestContext
+        : createCrossingRuntimeRequestContext(requestContext, this.state);
+
+    const original = readContext(runtimeRequestContext.request.metadata?.handoffprobeContext);
 
     if (this.state.crossingObservation !== undefined) {
       const requestIdentity = this.state.a2aRequestIdentity;
-      const user = requestContext.context.user;
+      const user = runtimeRequestContext.context.user;
+      const authorityObservation = this.state.crossingAuthorityObservation;
+
+      if (authorityObservation !== undefined) {
+        recordA2aCrossingObservation(authorityObservation, {
+          caller: this.state.a2aAuthorityCaller,
+          messageId: this.state.a2aAuthorityMessageId,
+          taskId: authorityRequestContext.taskId,
+          contextId: authorityRequestContext.contextId,
+          transportAuthenticated: user?.isAuthenticated === true,
+          taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
+          contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
+        });
+      }
 
       recordA2aCrossingObservation(this.state.crossingObservation, {
         caller: user?.userName,
-        messageId: requestContext.userMessage.messageId,
-        taskId: requestContext.taskId,
-        contextId: requestContext.contextId,
+        messageId: runtimeRequestContext.userMessage.messageId,
+        taskId: runtimeRequestContext.taskId,
+        contextId: runtimeRequestContext.contextId,
         transportAuthenticated: user?.isAuthenticated === true,
         taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
         contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
@@ -103,7 +174,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       event: 'a2a.receiver.receive',
       context: original,
       details: {
-        messageId: requestContext.userMessage.messageId,
+        messageId: runtimeRequestContext.userMessage.messageId,
       },
     });
 
@@ -129,10 +200,18 @@ export class HandoffLabExecutor implements AgentExecutor {
       translated,
       this.recorder,
       this.state.crossingObservation,
+      this.state.crossingEffectRecorder,
+      this.state.crossingPreDispatchGate,
+      this.state.crossingAuthorityObservation,
+      this.state.crossingMcpRuntimeOverride,
     );
 
     this.state.mcpEra = mcp.era;
     this.state.toolResult = mcp.result;
+
+    if (mcp.crossingVerification !== undefined) {
+      this.state.crossingVerification = mcp.crossingVerification;
+    }
 
     const responseText = JSON.stringify(mcp.result);
 

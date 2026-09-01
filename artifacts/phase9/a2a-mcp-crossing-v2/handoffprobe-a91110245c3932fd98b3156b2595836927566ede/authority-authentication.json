@@ -1,0 +1,14 @@
+{
+  "initial": {
+    "issuer_id": "https://issuer.example",
+    "mechanism": "Digest-bound conformance authority artifact authentication",
+    "policy": "For the valid-control authority path, HandoffProbe verifies the pinned issuer identity, initial authority digest/reference, initial stage, and staged reissue preconditions before effect.",
+    "verified": true
+  },
+  "resolved": {
+    "issuer_id": "https://issuer.example",
+    "mechanism": "Digest-bound conformance authority artifact authentication",
+    "policy": "For the valid-control authority path, HandoffProbe verifies resolved authority digest/reference, immutable reissue fields, previous-stage digest linkage, stage message linkage, and resolved task/context binding before effect.",
+    "verified": true
+  }
+}
