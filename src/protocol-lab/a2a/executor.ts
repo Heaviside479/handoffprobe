@@ -1,9 +1,9 @@
 import { Role, type Message } from '@a2a-js/sdk';
 import {
   AgentEvent,
+  RequestContext,
   type AgentExecutor,
   type ExecutionEventBus,
-  type RequestContext,
 } from '@a2a-js/sdk/server';
 
 import type { HandoffAdapter } from '../../core/index.js';
@@ -71,6 +71,40 @@ function createTextMessage(messageId: string, contextId: string, text: string): 
   };
 }
 
+function createCrossingRuntimeRequestContext(
+  requestContext: RequestContext,
+  state: LabRunState,
+): RequestContext {
+  const taskId = state.crossingTaskIdOverride ?? requestContext.taskId;
+  const contextId = state.crossingContextIdOverride ?? requestContext.contextId;
+
+  if (taskId === requestContext.taskId && contextId === requestContext.contextId) {
+    return requestContext;
+  }
+
+  const runtimeRequest = structuredClone(requestContext.request);
+  const runtimeMessage = runtimeRequest.message;
+
+  if (runtimeMessage === undefined) {
+    throw new Error('Crossing runtime RequestContext requires request.message.');
+  }
+
+  runtimeMessage.taskId = taskId;
+  runtimeMessage.contextId = contextId;
+
+  // The A2A SDK has already bound its EventBus to the server-resolved task.
+  // Clone only the downstream executor view so corpus perturbations cannot
+  // rewrite SDK lifecycle state.
+  return new RequestContext(
+    runtimeRequest,
+    taskId,
+    contextId,
+    requestContext.context,
+    requestContext.task,
+    requestContext.referenceTasks,
+  );
+}
+
 export class HandoffLabExecutor implements AgentExecutor {
   constructor(
     private readonly handoffAdapter: HandoffAdapter,
@@ -79,19 +113,26 @@ export class HandoffLabExecutor implements AgentExecutor {
   ) {}
 
   async execute(requestContext: RequestContext, eventBus: ExecutionEventBus): Promise<void> {
-    const original = readContext(requestContext.request.metadata?.handoffprobeContext);
+    const authorityRequestContext = requestContext;
+
+    const runtimeRequestContext =
+      this.state.crossingObservation === undefined
+        ? requestContext
+        : createCrossingRuntimeRequestContext(requestContext, this.state);
+
+    const original = readContext(runtimeRequestContext.request.metadata?.handoffprobeContext);
 
     if (this.state.crossingObservation !== undefined) {
       const requestIdentity = this.state.a2aRequestIdentity;
-      const user = requestContext.context.user;
+      const user = runtimeRequestContext.context.user;
       const authorityObservation = this.state.crossingAuthorityObservation;
 
       if (authorityObservation !== undefined) {
         recordA2aCrossingObservation(authorityObservation, {
           caller: this.state.a2aAuthorityCaller,
           messageId: this.state.a2aAuthorityMessageId,
-          taskId: requestContext.taskId,
-          contextId: requestContext.contextId,
+          taskId: authorityRequestContext.taskId,
+          contextId: authorityRequestContext.contextId,
           transportAuthenticated: user?.isAuthenticated === true,
           taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
           contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
@@ -100,9 +141,9 @@ export class HandoffLabExecutor implements AgentExecutor {
 
       recordA2aCrossingObservation(this.state.crossingObservation, {
         caller: user?.userName,
-        messageId: requestContext.userMessage.messageId,
-        taskId: requestContext.taskId,
-        contextId: requestContext.contextId,
+        messageId: runtimeRequestContext.userMessage.messageId,
+        taskId: runtimeRequestContext.taskId,
+        contextId: runtimeRequestContext.contextId,
         transportAuthenticated: user?.isAuthenticated === true,
         taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
         contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
@@ -116,7 +157,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       event: 'a2a.receiver.receive',
       context: original,
       details: {
-        messageId: requestContext.userMessage.messageId,
+        messageId: runtimeRequestContext.userMessage.messageId,
       },
     });
 

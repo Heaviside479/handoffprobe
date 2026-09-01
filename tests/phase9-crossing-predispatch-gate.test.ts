@@ -184,6 +184,65 @@ describe('Phase 9 crossing pre-dispatch gate', () => {
     });
   });
 
+  it('keeps server-resolved task and context authority separate from downstream runtime overrides', async () => {
+    const effects = new CrossingEffectRecorder();
+    const before = effects.snapshot();
+
+    let authorityTaskId: string | null | undefined;
+    let authorityContextId: string | null | undefined;
+
+    const gate: CrossingPreDispatchGate = (observation, authorityObservation) => {
+      expect(authorityObservation).toBeDefined();
+
+      authorityTaskId = authorityObservation?.taskId.value;
+      authorityContextId = authorityObservation?.contextId.value;
+
+      expect(authorityObservation?.taskId.serverResolved).toBe(true);
+      expect(authorityObservation?.contextId.serverResolved).toBe(true);
+
+      expect(authorityTaskId).not.toBe('task-999');
+      expect(authorityContextId).not.toBe('context-999');
+
+      expect(observation.taskId.value).toBe('task-999');
+      expect(observation.contextId.value).toBe('context-999');
+
+      expect(observation.taskId.serverResolved).toBe(true);
+      expect(observation.contextId.serverResolved).toBe(true);
+
+      expect(observation.taskId.value).not.toBe(authorityTaskId);
+      expect(observation.contextId.value).not.toBe(authorityContextId);
+
+      return decisionGate('succeed')(observation);
+    };
+
+    const result = await runProtocolFixture('secure', {
+      runId: 'hp-server-resolved-runtime-seam-001',
+      crossingObservation: true,
+      crossingEffectRecorder: effects,
+      crossingTaskIdOverride: 'task-999',
+      crossingContextIdOverride: 'context-999',
+      crossingPreDispatchGate: gate,
+    });
+
+    expect(typeof authorityTaskId).toBe('string');
+    expect(typeof authorityContextId).toBe('string');
+
+    expect(authorityTaskId).not.toBe('');
+    expect(authorityContextId).not.toBe('');
+
+    expect(result.crossingObservation?.taskId.value).toBe('task-999');
+    expect(result.crossingObservation?.contextId.value).toBe('context-999');
+
+    expect(result.crossingObservation?.taskId.serverResolved).toBe(true);
+    expect(result.crossingObservation?.contextId.serverResolved).toBe(true);
+
+    expect(effects.deltaSince(before)).toEqual({
+      before: 0,
+      after: 1,
+      delta: 1,
+    });
+  });
+
   it('uses a typed rejection error that preserves the verification result', () => {
     const observation = createObservation();
     const verification = decisionGate('reject')(observation);

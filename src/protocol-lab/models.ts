@@ -30,6 +30,8 @@ export interface LabRunState {
   crossingVerification?: BoundCrossingVerificationResult;
   crossingCallerOverride?: string;
   crossingMessageIdOverride?: string;
+  crossingTaskIdOverride?: string;
+  crossingContextIdOverride?: string;
   a2aAuthorityCaller?: string;
   a2aAuthorityMessageId?: string;
   a2aRequestIdentity?: {
