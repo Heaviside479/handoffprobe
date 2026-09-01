@@ -32,6 +32,7 @@ export interface ProtocolFixtureOptions {
   crossingEffectRecorder?: CrossingEffectRecorder;
   crossingPreDispatchGate?: CrossingPreDispatchGate;
   crossingCallerOverride?: string;
+  crossingMessageIdOverride?: string;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -63,6 +64,14 @@ export async function runProtocolFixture(
     }
 
     state.crossingCallerOverride = options.crossingCallerOverride;
+  }
+
+  if (options.crossingMessageIdOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing message ID override requires crossing observation.');
+    }
+
+    state.crossingMessageIdOverride = options.crossingMessageIdOverride;
   }
 
   if (options.crossingEffectRecorder !== undefined) {

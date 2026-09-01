@@ -29,7 +29,9 @@ export interface LabRunState {
   crossingPreDispatchGate?: CrossingPreDispatchGate;
   crossingVerification?: BoundCrossingVerificationResult;
   crossingCallerOverride?: string;
+  crossingMessageIdOverride?: string;
   a2aAuthorityCaller?: string;
+  a2aAuthorityMessageId?: string;
   a2aRequestIdentity?: {
     taskIdSuppliedByClient: boolean;
     contextIdSuppliedByClient: boolean;

@@ -149,6 +149,41 @@ describe('Phase 9 crossing pre-dispatch gate', () => {
     });
   });
 
+  it('keeps the pre-mutation message basis separate from a runtime message override', async () => {
+    const effects = new CrossingEffectRecorder();
+    const before = effects.snapshot();
+
+    let authorityMessageId: string | null | undefined;
+
+    const gate: CrossingPreDispatchGate = (observation, authorityObservation) => {
+      expect(authorityObservation).toBeDefined();
+
+      authorityMessageId = authorityObservation?.messageId.value;
+
+      expect(observation.messageId.value).toBe('message-999');
+      expect(observation.messageId.value).not.toBe(authorityObservation?.messageId.value);
+
+      return decisionGate('succeed')(observation);
+    };
+
+    const result = await runProtocolFixture('secure', {
+      runId: 'hp-message-runtime-seam-001',
+      crossingObservation: true,
+      crossingEffectRecorder: effects,
+      crossingMessageIdOverride: 'message-999',
+      crossingPreDispatchGate: gate,
+    });
+
+    expect(authorityMessageId).toBe('hp-message-runtime-seam-001-request');
+    expect(result.crossingObservation?.messageId.value).toBe('message-999');
+
+    expect(effects.deltaSince(before)).toEqual({
+      before: 0,
+      after: 1,
+      delta: 1,
+    });
+  });
+
   it('uses a typed rejection error that preserves the verification result', () => {
     const observation = createObservation();
     const verification = decisionGate('reject')(observation);

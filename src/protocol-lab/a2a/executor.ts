@@ -89,7 +89,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       if (authorityObservation !== undefined) {
         recordA2aCrossingObservation(authorityObservation, {
           caller: this.state.a2aAuthorityCaller,
-          messageId: requestContext.userMessage.messageId,
+          messageId: this.state.a2aAuthorityMessageId,
           taskId: requestContext.taskId,
           contextId: requestContext.contextId,
           transportAuthenticated: user?.isAuthenticated === true,
