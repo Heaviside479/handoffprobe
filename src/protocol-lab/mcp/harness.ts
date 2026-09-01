@@ -12,7 +12,7 @@ import {
   type CrossingObservationState,
 } from '../../phase9/crossing-corpus/observation.js';
 import type { EvidenceRecorder } from '../evidence.js';
-import type { FakeInvoiceResult, SecurityContext } from '../models.js';
+import type { CrossingMcpRuntimeOverride, FakeInvoiceResult, SecurityContext } from '../models.js';
 import { createFakeToolServer } from './fake-tools.js';
 
 type McpContentBlock =
@@ -39,21 +39,54 @@ export async function callReadInvoiceThroughMcp(
   crossingEffectRecorder?: CrossingEffectRecorder,
   crossingPreDispatchGate?: CrossingPreDispatchGate,
   crossingAuthorityObservation?: CrossingObservationState,
+  crossingMcpRuntimeOverride?: CrossingMcpRuntimeOverride,
 ): Promise<{
   era: 'modern';
   result: FakeInvoiceResult;
   crossingVerification?: BoundCrossingVerificationResult;
 }> {
+  const capability = context.capabilities[0];
+
+  if (capability === undefined) {
+    throw new Error('Translated context has no capability.');
+  }
+
+  const authorityAudience = new URL('http://handoffprobe.local/mcp');
+
+  const runtimeAudience = new URL(
+    crossingMcpRuntimeOverride?.audience ?? authorityAudience.toString(),
+  );
+
+  const authorityTool = 'read_invoice';
+
+  const authorityArguments = {
+    principal: context.principal,
+    caller: context.caller,
+    downstream: context.downstream,
+    tenant: context.tenant,
+    resource: context.resource,
+    capability,
+  };
+
+  const runtimeTool = crossingMcpRuntimeOverride?.tool ?? authorityTool;
+
+  const runtimeArguments =
+    crossingMcpRuntimeOverride?.arguments === undefined
+      ? structuredClone(authorityArguments)
+      : structuredClone(crossingMcpRuntimeOverride.arguments);
+
   const handler = createMcpHandler(
-    ({ era }) => createFakeToolServer(recorder, context, era, crossingEffectRecorder),
+    ({ era }) =>
+      createFakeToolServer(recorder, context, era, crossingEffectRecorder, {
+        ...(runtimeTool === authorityTool ? {} : { runtimeToolName: runtimeTool }),
+        allowArbitraryArguments: crossingMcpRuntimeOverride?.arguments !== undefined,
+      }),
     {
       legacy: 'reject',
     },
   );
 
-  const mcpAudience = new URL('http://handoffprobe.local/mcp');
-
-  const transport = new StreamableHTTPClientTransport(mcpAudience, {
+  const transport = new StreamableHTTPClientTransport(runtimeAudience, {
     fetch: (input, init) => handler.fetch(new Request(input, init)),
   });
 
@@ -88,42 +121,26 @@ export async function callReadInvoiceThroughMcp(
         },
       });
     } else {
-      throw new Error(`Expected MCP modern era but received ${String(era)}.`);
+      throw new Error('Expected MCP modern era but received ' + String(era) + '.');
     }
-
-    const capability = context.capabilities[0];
-
-    if (capability === undefined) {
-      throw new Error('Translated context has no capability.');
-    }
-
-    const toolName = 'read_invoice';
-    const toolArguments = {
-      principal: context.principal,
-      caller: context.caller,
-      downstream: context.downstream,
-      tenant: context.tenant,
-      resource: context.resource,
-      capability,
-    };
 
     let crossingVerification: BoundCrossingVerificationResult | undefined;
 
     if (crossingObservation !== undefined) {
       recordMcpCrossingObservation(crossingObservation, {
-        audience: mcpAudience.toString(),
+        audience: runtimeAudience.toString(),
         audienceDerivationSource: 'pinned_configuration',
-        tool: toolName,
-        arguments: toolArguments,
+        tool: runtimeTool,
+        arguments: runtimeArguments,
       });
     }
 
     if (crossingAuthorityObservation !== undefined) {
       recordMcpCrossingObservation(crossingAuthorityObservation, {
-        audience: mcpAudience.toString(),
+        audience: authorityAudience.toString(),
         audienceDerivationSource: 'pinned_configuration',
-        tool: toolName,
-        arguments: toolArguments,
+        tool: authorityTool,
+        arguments: authorityArguments,
       });
     }
 
@@ -149,19 +166,18 @@ export async function callReadInvoiceThroughMcp(
       event: 'mcp.tool.call',
       context,
       details: {
-        tool: toolName,
+        tool: runtimeTool,
         capability,
         resource: context.resource,
       },
     });
 
     const result = await client.callTool({
-      name: toolName,
-      arguments: toolArguments,
+      name: runtimeTool,
+      arguments: runtimeArguments,
     });
 
     const text = readTextContent(result.content);
-
     const parsed = JSON.parse(text) as FakeInvoiceResult;
 
     recorder.record({
@@ -171,7 +187,7 @@ export async function callReadInvoiceThroughMcp(
       event: 'mcp.tool.result',
       context,
       details: {
-        tool: 'read_invoice',
+        tool: runtimeTool,
         invoiceId: parsed.invoiceId,
       },
     });

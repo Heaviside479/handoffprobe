@@ -10,6 +10,12 @@ export type FixtureMode = 'secure' | 'vulnerable';
 
 export type CrossingObservedOmissionField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
 
+export interface CrossingMcpRuntimeOverride {
+  audience?: string;
+  tool?: string;
+  arguments?: Record<string, unknown>;
+}
+
 export interface FakeInvoiceResult {
   invoiceId: string;
   tenant: string;
@@ -35,6 +41,7 @@ export interface LabRunState {
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
   crossingObservedOmissions?: ReadonlySet<CrossingObservedOmissionField>;
+  crossingMcpRuntimeOverride?: CrossingMcpRuntimeOverride;
   a2aAuthorityCaller?: string;
   a2aAuthorityMessageId?: string;
   a2aRequestIdentity?: {

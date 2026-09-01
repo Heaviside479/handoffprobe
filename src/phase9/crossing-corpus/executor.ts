@@ -90,6 +90,37 @@ export const CROSSING_EXECUTION_WITH_A2A_OMISSIONS = [
   'stage_evidence_omitted',
 ] as const;
 
+export const FULL_PINNED_CROSSING_CORPUS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'requester_omitted_both',
+  'message_omitted_both',
+  'task_omitted_both',
+  'context_omitted_both',
+  'audience_swap',
+  'tool_swap',
+  'arguments_swap',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
 export type CrossingExecutionOutcome = 'succeed' | 'reject' | 'non_comparable';
 
 export interface CrossingExecutionAttempt {
@@ -119,17 +150,24 @@ interface AdaptedCrossingBundle {
   readonly initial_authority?: CrossingAuthority;
 }
 
-type RuntimeObservedField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
+type A2aRuntimeObservedField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
+
+type RuntimeObservedField = A2aRuntimeObservedField | 'mcp_audience.value' | 'tool' | 'arguments';
 
 type RuntimeObservedMutation =
   | {
       readonly op: 'set';
-      readonly field: RuntimeObservedField;
+      readonly field: A2aRuntimeObservedField | 'mcp_audience.value' | 'tool';
       readonly value: string;
     }
   | {
+      readonly op: 'set';
+      readonly field: 'arguments';
+      readonly value: Record<string, unknown>;
+    }
+  | {
       readonly op: 'delete';
-      readonly field: RuntimeObservedField;
+      readonly field: A2aRuntimeObservedField;
     };
 
 interface CrossingRuntimeOverrides {
@@ -137,7 +175,12 @@ interface CrossingRuntimeOverrides {
   crossingMessageIdOverride?: string;
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
-  crossingObservedOmissions?: readonly RuntimeObservedField[];
+  crossingObservedOmissions?: readonly A2aRuntimeObservedField[];
+  crossingMcpRuntimeOverride?: {
+    audience?: string;
+    tool?: string;
+    arguments?: Record<string, unknown>;
+  };
 }
 
 const runtimeMutationFields = {
@@ -149,7 +192,16 @@ const runtimeMutationFields = {
   message_omitted_both: 'message_id',
   task_omitted_both: 'task_id',
   context_omitted_both: 'context_id',
+  audience_swap: 'mcp_audience.value',
+  tool_swap: 'tool',
+  arguments_swap: 'arguments',
 } as const;
+
+function isA2aRuntimeObservedField(field: RuntimeObservedField): field is A2aRuntimeObservedField {
+  return (
+    field === 'caller_id' || field === 'message_id' || field === 'task_id' || field === 'context_id'
+  );
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -282,11 +334,33 @@ function runtimeMutationForCase(
 
   const mutation = observedMutations[0];
 
-  if (mutation.path.length !== 1 || mutation.path[0] !== expectedField) {
+  const expectedPath =
+    expectedField === 'mcp_audience.value' ? ['mcp_audience', 'value'] : [expectedField];
+
+  if (
+    mutation.path.length !== expectedPath.length ||
+    mutation.path.some((segment, index) => segment !== expectedPath[index])
+  ) {
     throw new Error(corpusCase.id + ' targets the wrong runtime observed field.');
   }
 
+  if (expectedField === 'arguments') {
+    if (mutation.op !== 'set' || !isRecord(mutation.value)) {
+      throw new Error(corpusCase.id + ' must set arguments to an object.');
+    }
+
+    return {
+      op: 'set',
+      field: 'arguments',
+      value: structuredClone(mutation.value),
+    };
+  }
+
   if (mutation.op === 'delete') {
+    if (!isA2aRuntimeObservedField(expectedField)) {
+      throw new Error(corpusCase.id + ' cannot delete this runtime field.');
+    }
+
     return {
       op: 'delete',
       field: expectedField,
@@ -335,9 +409,37 @@ function runtimeOverridesForCase(corpusCase: CrossingCorpusCase): CrossingRuntim
     };
   }
 
-  return {
-    crossingContextIdOverride: mutation.value,
-  };
+  if (mutation.field === 'context_id') {
+    return {
+      crossingContextIdOverride: mutation.value,
+    };
+  }
+
+  if (mutation.field === 'mcp_audience.value') {
+    return {
+      crossingMcpRuntimeOverride: {
+        audience: mutation.value,
+      },
+    };
+  }
+
+  if (mutation.field === 'tool') {
+    return {
+      crossingMcpRuntimeOverride: {
+        tool: mutation.value,
+      },
+    };
+  }
+
+  if (mutation.field === 'arguments') {
+    return {
+      crossingMcpRuntimeOverride: {
+        arguments: structuredClone(mutation.value),
+      },
+    };
+  }
+
+  throw new Error(corpusCase.id + ' has no runtime override mapping.');
 }
 
 function assertRuntimeMutation(
@@ -353,6 +455,26 @@ function assertRuntimeMutation(
   if (mutation.op === 'delete') {
     if (observed[mutation.field] !== null) {
       throw new Error(corpusCase.id + ' runtime observation did not omit the declared field.');
+    }
+
+    return;
+  }
+
+  if (mutation.field === 'mcp_audience.value') {
+    if (observed.mcp_audience.value !== mutation.value) {
+      throw new Error(
+        corpusCase.id + ' runtime observation does not contain the declared MCP audience mutation.',
+      );
+    }
+
+    return;
+  }
+
+  if (mutation.field === 'arguments') {
+    if (digestCrossingJson(observed.arguments) !== digestCrossingJson(mutation.value)) {
+      throw new Error(
+        corpusCase.id + ' runtime observation does not contain the declared arguments mutation.',
+      );
     }
 
     return;
@@ -642,4 +764,10 @@ export async function executeCrossingCorpusWithA2aOmissions(): Promise<
   readonly CrossingCaseExecutionResult[]
 > {
   return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITH_A2A_OMISSIONS);
+}
+
+export async function executeFullPinnedCrossingCorpus(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(FULL_PINNED_CROSSING_CORPUS);
 }

@@ -13,6 +13,7 @@ import { executeA2aFixture } from './a2a/harness.js';
 import { EvidenceRecorder } from './evidence.js';
 import { ProtocolLabHandoffAdapter } from './handoff/adapter.js';
 import type {
+  CrossingMcpRuntimeOverride,
   CrossingObservedOmissionField,
   FixtureMode,
   LabRunState,
@@ -42,6 +43,7 @@ export interface ProtocolFixtureOptions {
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
   crossingObservedOmissions?: readonly CrossingObservedOmissionField[];
+  crossingMcpRuntimeOverride?: CrossingMcpRuntimeOverride;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -111,6 +113,26 @@ export async function runProtocolFixture(
     }
 
     state.crossingObservedOmissions = omissions;
+  }
+
+  if (options.crossingMcpRuntimeOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing MCP runtime override requires crossing observation.');
+    }
+
+    state.crossingMcpRuntimeOverride = {
+      ...(options.crossingMcpRuntimeOverride.audience === undefined
+        ? {}
+        : { audience: options.crossingMcpRuntimeOverride.audience }),
+      ...(options.crossingMcpRuntimeOverride.tool === undefined
+        ? {}
+        : { tool: options.crossingMcpRuntimeOverride.tool }),
+      ...(options.crossingMcpRuntimeOverride.arguments === undefined
+        ? {}
+        : {
+            arguments: structuredClone(options.crossingMcpRuntimeOverride.arguments),
+          }),
+    };
   }
 
   if (options.crossingEffectRecorder !== undefined) {

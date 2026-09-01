@@ -203,6 +203,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       this.state.crossingEffectRecorder,
       this.state.crossingPreDispatchGate,
       this.state.crossingAuthorityObservation,
+      this.state.crossingMcpRuntimeOverride,
     );
 
     this.state.mcpEra = mcp.era;

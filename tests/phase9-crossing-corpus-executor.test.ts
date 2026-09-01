@@ -1,12 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  CROSSING_EXECUTION_WITH_A2A_OMISSIONS,
-  executeCrossingCorpusWithA2aOmissions,
+  FULL_PINNED_CROSSING_CORPUS,
+  executeFullPinnedCrossingCorpus,
 } from '../src/phase9/crossing-corpus/executor.js';
 import { loadPinnedCrossingCorpus } from '../src/phase9/crossing-corpus/loader.js';
-
-const REMAINING_RUNTIME_SEAM_CASES = ['audience_swap', 'tool_swap', 'arguments_swap'] as const;
 
 const OMISSION_CASES = [
   'requester_omitted_both',
@@ -15,21 +13,36 @@ const OMISSION_CASES = [
   'context_omitted_both',
 ] as const;
 
+const MCP_RUNTIME_CASES = [
+  {
+    id: 'audience_swap',
+    reason: 'audience_mismatch',
+  },
+  {
+    id: 'tool_swap',
+    reason: 'action_digest_mismatch',
+  },
+  {
+    id: 'arguments_swap',
+    reason: 'action_digest_mismatch',
+  },
+] as const;
+
 describe('Phase 9 crossing corpus data-driven executor', () => {
-  it('executes 25 cases including paired A2A runtime omissions', async () => {
+  it('executes all 28 pinned cases in exact corpus order', async () => {
     const corpus = loadPinnedCrossingCorpus();
 
-    const results = await executeCrossingCorpusWithA2aOmissions();
+    expect(corpus.caseIds).toEqual([...FULL_PINNED_CROSSING_CORPUS]);
 
-    expect(results.map((row) => row.case)).toEqual([...CROSSING_EXECUTION_WITH_A2A_OMISSIONS]);
+    const results = await executeFullPinnedCrossingCorpus();
 
-    expect(results).toHaveLength(25);
+    expect(results.map((row) => row.case)).toEqual([...FULL_PINNED_CROSSING_CORPUS]);
+
+    expect(results).toHaveLength(28);
 
     const executed = new Set(results.map((row) => row.case));
 
-    expect(corpus.caseIds.filter((caseId) => !executed.has(caseId))).toEqual([
-      ...REMAINING_RUNTIME_SEAM_CASES,
-    ]);
+    expect(corpus.caseIds.filter((caseId) => !executed.has(caseId))).toEqual([]);
 
     const casesById = new Map(corpus.cases.cases.map((corpusCase) => [corpusCase.id, corpusCase]));
 
@@ -75,6 +88,7 @@ describe('Phase 9 crossing corpus data-driven executor', () => {
         }
 
         expect(bound.attempt).toBe(index + 1);
+
         expect(bound.effect_before).toBe(previousBoundAfter);
 
         expect(bound.effect_after - bound.effect_before).toBe(bound.effect_delta);
@@ -122,6 +136,34 @@ describe('Phase 9 crossing corpus data-driven executor', () => {
           attempt: 1,
           outcome: 'reject',
           reason: 'input_contract_invalid',
+          effect_before: 0,
+          effect_after: 0,
+          effect_delta: 0,
+        },
+      ]);
+    }
+
+    for (const expected of MCP_RUNTIME_CASES) {
+      const row = results.find((candidate) => candidate.case === expected.id);
+
+      expect(row).toBeDefined();
+
+      expect(row?.native.attempts).toEqual([
+        {
+          attempt: 1,
+          outcome: 'succeed',
+          reason: 'accepted',
+          effect_before: 0,
+          effect_after: 1,
+          effect_delta: 1,
+        },
+      ]);
+
+      expect(row?.bound.attempts).toEqual([
+        {
+          attempt: 1,
+          outcome: 'reject',
+          reason: expected.reason,
           effect_before: 0,
           effect_after: 0,
           effect_delta: 0,
