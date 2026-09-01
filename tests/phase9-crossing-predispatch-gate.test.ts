@@ -115,6 +115,40 @@ describe('Phase 9 crossing pre-dispatch gate', () => {
     expect(observation.action.tool).toBe('read_invoice');
   });
 
+  it('keeps the pre-mutation caller basis separate from a runtime caller override', async () => {
+    const effects = new CrossingEffectRecorder();
+    const before = effects.snapshot();
+    let authorityCaller: string | null | undefined;
+
+    const gate: CrossingPreDispatchGate = (observation, authorityObservation) => {
+      expect(authorityObservation).toBeDefined();
+
+      authorityCaller = authorityObservation?.caller.value;
+
+      expect(observation.caller.value).toBe('agent-c');
+      expect(observation.caller.transportAuthenticated).toBe(true);
+
+      return decisionGate('succeed')(observation);
+    };
+
+    const result = await runProtocolFixture('secure', {
+      runId: 'hp-caller-runtime-seam-001',
+      crossingObservation: true,
+      crossingEffectRecorder: effects,
+      crossingCallerOverride: 'agent-c',
+      crossingPreDispatchGate: gate,
+    });
+
+    expect(authorityCaller).toBe(CONTEXT.caller);
+    expect(result.crossingObservation?.caller.value).toBe('agent-c');
+    expect(result.crossingObservation?.caller.transportAuthenticated).toBe(true);
+    expect(effects.deltaSince(before)).toEqual({
+      before: 0,
+      after: 1,
+      delta: 1,
+    });
+  });
+
   it('uses a typed rejection error that preserves the verification result', () => {
     const observation = createObservation();
     const verification = decisionGate('reject')(observation);

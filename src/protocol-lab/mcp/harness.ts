@@ -38,6 +38,7 @@ export async function callReadInvoiceThroughMcp(
   crossingObservation?: CrossingObservationState,
   crossingEffectRecorder?: CrossingEffectRecorder,
   crossingPreDispatchGate?: CrossingPreDispatchGate,
+  crossingAuthorityObservation?: CrossingObservationState,
 ): Promise<{
   era: 'modern';
   result: FakeInvoiceResult;
@@ -117,12 +118,24 @@ export async function callReadInvoiceThroughMcp(
       });
     }
 
+    if (crossingAuthorityObservation !== undefined) {
+      recordMcpCrossingObservation(crossingAuthorityObservation, {
+        audience: mcpAudience.toString(),
+        audienceDerivationSource: 'pinned_configuration',
+        tool: toolName,
+        arguments: toolArguments,
+      });
+    }
+
     if (crossingPreDispatchGate !== undefined) {
       if (crossingObservation === undefined) {
         throw new Error('Crossing pre-dispatch gate requires a crossing observation.');
       }
 
-      crossingVerification = crossingPreDispatchGate(crossingObservation);
+      crossingVerification = crossingPreDispatchGate(
+        crossingObservation,
+        crossingAuthorityObservation ?? crossingObservation,
+      );
 
       if (crossingVerification.decision.outcome === 'reject') {
         throw new CrossingPreDispatchRejectedError(crossingVerification);

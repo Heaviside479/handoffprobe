@@ -24,9 +24,12 @@ export interface LabRunState {
   toolResult?: FakeInvoiceResult;
   mcpEra?: string;
   crossingObservation?: CrossingObservationState;
+  crossingAuthorityObservation?: CrossingObservationState;
   crossingEffectRecorder?: CrossingEffectRecorder;
   crossingPreDispatchGate?: CrossingPreDispatchGate;
   crossingVerification?: BoundCrossingVerificationResult;
+  crossingCallerOverride?: string;
+  a2aAuthorityCaller?: string;
   a2aRequestIdentity?: {
     taskIdSuppliedByClient: boolean;
     contextIdSuppliedByClient: boolean;

@@ -31,6 +31,7 @@ export interface ProtocolFixtureOptions {
   crossingObservation?: boolean;
   crossingEffectRecorder?: CrossingEffectRecorder;
   crossingPreDispatchGate?: CrossingPreDispatchGate;
+  crossingCallerOverride?: string;
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -53,6 +54,15 @@ export async function runProtocolFixture(
 
   if (options.crossingObservation === true) {
     state.crossingObservation = createCrossingObservationState();
+    state.crossingAuthorityObservation = createCrossingObservationState();
+  }
+
+  if (options.crossingCallerOverride !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing caller override requires crossing observation.');
+    }
+
+    state.crossingCallerOverride = options.crossingCallerOverride;
   }
 
   if (options.crossingEffectRecorder !== undefined) {
@@ -62,8 +72,8 @@ export async function runProtocolFixture(
   if (options.crossingPreDispatchGate !== undefined) {
     const configuredGate = options.crossingPreDispatchGate;
 
-    state.crossingPreDispatchGate = (observation) => {
-      const verification = configuredGate(observation);
+    state.crossingPreDispatchGate = (observation, authorityObservation) => {
+      const verification = configuredGate(observation, authorityObservation);
       state.crossingVerification = verification;
       return verification;
     };

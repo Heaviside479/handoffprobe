@@ -152,10 +152,13 @@ export async function executeA2aFixture(input: {
   const userBuilder = crossingObservationEnabled
     ? (request: ExpressRequest) => {
         const authenticated = request.headers.authorization === localAuthorization;
+        const authorityCaller = authenticated ? input.context.caller : '';
+
+        input.state.a2aAuthorityCaller = authorityCaller;
 
         return Promise.resolve({
           isAuthenticated: authenticated,
-          userName: authenticated ? input.context.caller : '',
+          userName: authenticated ? (input.state.crossingCallerOverride ?? authorityCaller) : '',
         });
       }
     : UserBuilder.noAuthentication;

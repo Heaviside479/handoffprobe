@@ -3,6 +3,7 @@ import type { CrossingObservationState } from './observation.js';
 
 export type CrossingPreDispatchGate = (
   observation: CrossingObservationState,
+  authorityObservation?: CrossingObservationState,
 ) => BoundCrossingVerificationResult;
 
 export class CrossingPreDispatchRejectedError extends Error {

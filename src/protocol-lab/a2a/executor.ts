@@ -84,6 +84,19 @@ export class HandoffLabExecutor implements AgentExecutor {
     if (this.state.crossingObservation !== undefined) {
       const requestIdentity = this.state.a2aRequestIdentity;
       const user = requestContext.context.user;
+      const authorityObservation = this.state.crossingAuthorityObservation;
+
+      if (authorityObservation !== undefined) {
+        recordA2aCrossingObservation(authorityObservation, {
+          caller: this.state.a2aAuthorityCaller,
+          messageId: requestContext.userMessage.messageId,
+          taskId: requestContext.taskId,
+          contextId: requestContext.contextId,
+          transportAuthenticated: user?.isAuthenticated === true,
+          taskServerResolved: requestIdentity?.taskIdSuppliedByClient === false,
+          contextServerResolved: requestIdentity?.contextIdSuppliedByClient === false,
+        });
+      }
 
       recordA2aCrossingObservation(this.state.crossingObservation, {
         caller: user?.userName,
@@ -131,6 +144,7 @@ export class HandoffLabExecutor implements AgentExecutor {
       this.state.crossingObservation,
       this.state.crossingEffectRecorder,
       this.state.crossingPreDispatchGate,
+      this.state.crossingAuthorityObservation,
     );
 
     this.state.mcpEra = mcp.era;
