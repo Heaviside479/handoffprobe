@@ -21,11 +21,13 @@ The integration is bound to:
 
 Later upstream changes require a new pin and review. They must not silently change this integration.
 
-## Current HandoffProbe gaps
+## Baseline HandoffProbe gaps at contract lock
 
-The current protocol lab is a useful local baseline but is not yet a valid implementation-independent execution of the external corpus.
+When this contract was locked, the protocol lab was a useful local baseline but
+was not yet a valid implementation-independent execution of the external
+corpus.
 
-Known gaps include:
+The baseline gaps were:
 
 - the A2A harness currently uses `UserBuilder.noAuthentication`;
 - the request currently uses an empty `taskId`;
@@ -35,7 +37,11 @@ Known gaps include:
 - MCP audience provenance is not yet recorded;
 - externally observed before/after effects are not yet produced.
 
-These are integration gaps, not vulnerability findings.
+These were integration gaps, not vulnerability findings.
+
+Phase 9.1D and Phase 9.1E later closed these runtime and evidence gaps. The
+completed execution and intake record is documented in
+`docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md`.
 
 ## Integration boundaries
 
