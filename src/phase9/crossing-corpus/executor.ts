@@ -62,6 +62,34 @@ export const CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS = [
   'stage_evidence_omitted',
 ] as const;
 
+export const CROSSING_EXECUTION_WITH_A2A_OMISSIONS = [
+  'valid_crossing',
+  'existing_task_valid',
+  'existing_task_stage_evidence_present',
+  'existing_task_previous_stage_present',
+  'caller_swap',
+  'message_swap',
+  'task_swap',
+  'context_swap',
+  'requester_omitted_both',
+  'message_omitted_both',
+  'task_omitted_both',
+  'context_omitted_both',
+  'nonce_substitution',
+  'authority_id_swap',
+  'authority_digest_swap',
+  'not_yet_valid',
+  'expired',
+  'status_ref_swap',
+  'revoked',
+  'stale_status',
+  'replay',
+  'initial_authority_digest_swap',
+  'previous_stage_digest_swap',
+  'stage_message_swap',
+  'stage_evidence_omitted',
+] as const;
+
 export type CrossingExecutionOutcome = 'succeed' | 'reject' | 'non_comparable';
 
 export interface CrossingExecutionAttempt {
@@ -93,16 +121,23 @@ interface AdaptedCrossingBundle {
 
 type RuntimeObservedField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
 
-interface RuntimeObservedMutation {
-  readonly field: RuntimeObservedField;
-  readonly value: string;
-}
+type RuntimeObservedMutation =
+  | {
+      readonly op: 'set';
+      readonly field: RuntimeObservedField;
+      readonly value: string;
+    }
+  | {
+      readonly op: 'delete';
+      readonly field: RuntimeObservedField;
+    };
 
 interface CrossingRuntimeOverrides {
   crossingCallerOverride?: string;
   crossingMessageIdOverride?: string;
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
+  crossingObservedOmissions?: readonly RuntimeObservedField[];
 }
 
 const runtimeMutationFields = {
@@ -110,6 +145,10 @@ const runtimeMutationFields = {
   message_swap: 'message_id',
   task_swap: 'task_id',
   context_swap: 'context_id',
+  requester_omitted_both: 'caller_id',
+  message_omitted_both: 'message_id',
+  task_omitted_both: 'task_id',
+  context_omitted_both: 'context_id',
 } as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -243,19 +282,26 @@ function runtimeMutationForCase(
 
   const mutation = observedMutations[0];
 
-  if (
-    mutation.op !== 'set' ||
-    mutation.path.length !== 1 ||
-    mutation.path[0] !== expectedField ||
-    typeof mutation.value !== 'string'
-  ) {
-    throw new Error(corpusCase.id + ' does not contain the expected observed runtime mutation.');
+  if (mutation.path.length !== 1 || mutation.path[0] !== expectedField) {
+    throw new Error(corpusCase.id + ' targets the wrong runtime observed field.');
   }
 
-  return {
-    field: expectedField,
-    value: mutation.value,
-  };
+  if (mutation.op === 'delete') {
+    return {
+      op: 'delete',
+      field: expectedField,
+    };
+  }
+
+  if (mutation.op === 'set' && typeof mutation.value === 'string') {
+    return {
+      op: 'set',
+      field: expectedField,
+      value: mutation.value,
+    };
+  }
+
+  throw new Error(corpusCase.id + ' contains an unsupported runtime observed mutation.');
 }
 
 function runtimeOverridesForCase(corpusCase: CrossingCorpusCase): CrossingRuntimeOverrides {
@@ -263,6 +309,12 @@ function runtimeOverridesForCase(corpusCase: CrossingCorpusCase): CrossingRuntim
 
   if (mutation === undefined) {
     return {};
+  }
+
+  if (mutation.op === 'delete') {
+    return {
+      crossingObservedOmissions: [mutation.field],
+    };
   }
 
   if (mutation.field === 'caller_id') {
@@ -298,6 +350,14 @@ function assertRuntimeMutation(
     return;
   }
 
+  if (mutation.op === 'delete') {
+    if (observed[mutation.field] !== null) {
+      throw new Error(corpusCase.id + ' runtime observation did not omit the declared field.');
+    }
+
+    return;
+  }
+
   if (observed[mutation.field] !== mutation.value) {
     throw new Error(
       corpusCase.id + ' runtime observation does not contain the declared corpus mutation.',
@@ -310,6 +370,28 @@ function assertObservedMatchesExpected(
   actual: ExternalCrossingObservedShape,
   expected: ExternalCrossingObservedShape,
 ): void {
+  const mutation = runtimeMutationForCase(corpusCase);
+
+  if (mutation?.op === 'delete') {
+    const expectedRecord = expected as unknown as Record<string, unknown>;
+
+    if (Object.prototype.hasOwnProperty.call(expectedRecord, mutation.field)) {
+      throw new Error(corpusCase.id + ' declarative observed row did not delete the field.');
+    }
+
+    const normalizedActual = structuredClone(actual) as unknown as Record<string, unknown>;
+
+    delete normalizedActual[mutation.field];
+
+    if (digestCrossingJson(normalizedActual) !== digestCrossingJson(expected)) {
+      throw new Error(
+        corpusCase.id + ' runtime omission does not match the declarative observed row.',
+      );
+    }
+
+    return;
+  }
+
   if (digestCrossingJson(actual) !== digestCrossingJson(expected)) {
     throw new Error(
       corpusCase.id + ' declarative observed row does not match HandoffProbe runtime observation.',
@@ -490,7 +572,14 @@ async function executeBoundLane(
       throw new Error(corpusCase.id + ' bound attempt must invoke the gate exactly once.');
     }
 
-    if (!verification.observationReady) {
+    const runtimeMutation = runtimeMutationForCase(corpusCase);
+    const expectsIncompleteObservation = runtimeMutation?.op === 'delete';
+
+    if (expectsIncompleteObservation && verification.observationReady) {
+      throw new Error(corpusCase.id + ' omission unexpectedly produced a complete observation.');
+    }
+
+    if (!expectsIncompleteObservation && !verification.observationReady) {
       throw new Error(corpusCase.id + ' bound attempt has incomplete runtime observation.');
     }
 
@@ -547,4 +636,10 @@ export async function executeCrossingCorpusWithoutNewRuntimeSeams(): Promise<
   readonly CrossingCaseExecutionResult[]
 > {
   return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS);
+}
+
+export async function executeCrossingCorpusWithA2aOmissions(): Promise<
+  readonly CrossingCaseExecutionResult[]
+> {
+  return executePinnedCrossingCorpusCases(CROSSING_EXECUTION_WITH_A2A_OMISSIONS);
 }

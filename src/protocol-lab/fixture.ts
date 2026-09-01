@@ -12,7 +12,13 @@ import {
 import { executeA2aFixture } from './a2a/harness.js';
 import { EvidenceRecorder } from './evidence.js';
 import { ProtocolLabHandoffAdapter } from './handoff/adapter.js';
-import type { FixtureMode, LabRunState, ProtocolLabResult, SecurityContext } from './models.js';
+import type {
+  CrossingObservedOmissionField,
+  FixtureMode,
+  LabRunState,
+  ProtocolLabResult,
+  SecurityContext,
+} from './models.js';
 
 export const REFERENCE_CONTEXT: SecurityContext = {
   principal: 'user:alice',
@@ -35,6 +41,7 @@ export interface ProtocolFixtureOptions {
   crossingMessageIdOverride?: string;
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
+  crossingObservedOmissions?: readonly CrossingObservedOmissionField[];
 }
 
 function defaultRunId(fixture: FixtureMode): string {
@@ -90,6 +97,20 @@ export async function runProtocolFixture(
     }
 
     state.crossingContextIdOverride = options.crossingContextIdOverride;
+  }
+
+  if (options.crossingObservedOmissions !== undefined) {
+    if (state.crossingObservation === undefined) {
+      throw new Error('Crossing observed omissions require crossing observation.');
+    }
+
+    const omissions = new Set(options.crossingObservedOmissions);
+
+    if (omissions.size !== options.crossingObservedOmissions.length) {
+      throw new Error('Crossing observed omissions must be unique.');
+    }
+
+    state.crossingObservedOmissions = omissions;
   }
 
   if (options.crossingEffectRecorder !== undefined) {

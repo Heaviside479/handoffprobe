@@ -1,32 +1,29 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS,
-  executeCrossingCorpusWithoutNewRuntimeSeams,
+  CROSSING_EXECUTION_WITH_A2A_OMISSIONS,
+  executeCrossingCorpusWithA2aOmissions,
 } from '../src/phase9/crossing-corpus/executor.js';
 import { loadPinnedCrossingCorpus } from '../src/phase9/crossing-corpus/loader.js';
 
-const REMAINING_RUNTIME_SEAM_CASES = [
+const REMAINING_RUNTIME_SEAM_CASES = ['audience_swap', 'tool_swap', 'arguments_swap'] as const;
+
+const OMISSION_CASES = [
   'requester_omitted_both',
   'message_omitted_both',
   'task_omitted_both',
   'context_omitted_both',
-  'audience_swap',
-  'tool_swap',
-  'arguments_swap',
 ] as const;
 
 describe('Phase 9 crossing corpus data-driven executor', () => {
-  it('executes every case that needs no additional runtime seam', async () => {
+  it('executes 25 cases including paired A2A runtime omissions', async () => {
     const corpus = loadPinnedCrossingCorpus();
 
-    const results = await executeCrossingCorpusWithoutNewRuntimeSeams();
+    const results = await executeCrossingCorpusWithA2aOmissions();
 
-    expect(results.map((row) => row.case)).toEqual([
-      ...CROSSING_EXECUTION_WITHOUT_NEW_RUNTIME_SEAMS,
-    ]);
+    expect(results.map((row) => row.case)).toEqual([...CROSSING_EXECUTION_WITH_A2A_OMISSIONS]);
 
-    expect(results).toHaveLength(21);
+    expect(results).toHaveLength(25);
 
     const executed = new Set(results.map((row) => row.case));
 
@@ -104,28 +101,35 @@ describe('Phase 9 crossing corpus data-driven executor', () => {
       expect(finalBound.reason).toBe(corpusCase.expected_reason);
     }
 
+    for (const caseId of OMISSION_CASES) {
+      const row = results.find((candidate) => candidate.case === caseId);
+
+      expect(row).toBeDefined();
+
+      expect(row?.native.attempts).toEqual([
+        {
+          attempt: 1,
+          outcome: 'succeed',
+          reason: 'accepted',
+          effect_before: 0,
+          effect_after: 1,
+          effect_delta: 1,
+        },
+      ]);
+
+      expect(row?.bound.attempts).toEqual([
+        {
+          attempt: 1,
+          outcome: 'reject',
+          reason: 'input_contract_invalid',
+          effect_before: 0,
+          effect_after: 0,
+          effect_delta: 0,
+        },
+      ]);
+    }
+
     const replay = results.find((row) => row.case === 'replay');
-
-    expect(replay).toBeDefined();
-
-    expect(replay?.native.attempts).toEqual([
-      {
-        attempt: 1,
-        outcome: 'succeed',
-        reason: 'accepted',
-        effect_before: 0,
-        effect_after: 1,
-        effect_delta: 1,
-      },
-      {
-        attempt: 2,
-        outcome: 'succeed',
-        reason: 'accepted',
-        effect_before: 1,
-        effect_after: 2,
-        effect_delta: 1,
-      },
-    ]);
 
     expect(replay?.bound.attempts).toEqual([
       {

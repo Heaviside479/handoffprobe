@@ -75,10 +75,26 @@ function createCrossingRuntimeRequestContext(
   requestContext: RequestContext,
   state: LabRunState,
 ): RequestContext {
-  const taskId = state.crossingTaskIdOverride ?? requestContext.taskId;
-  const contextId = state.crossingContextIdOverride ?? requestContext.contextId;
+  const omissions = state.crossingObservedOmissions;
 
-  if (taskId === requestContext.taskId && contextId === requestContext.contextId) {
+  const messageId =
+    omissions?.has('message_id') === true ? '' : requestContext.userMessage.messageId;
+
+  const taskId =
+    omissions?.has('task_id') === true
+      ? ''
+      : (state.crossingTaskIdOverride ?? requestContext.taskId);
+
+  const contextId =
+    omissions?.has('context_id') === true
+      ? ''
+      : (state.crossingContextIdOverride ?? requestContext.contextId);
+
+  if (
+    messageId === requestContext.userMessage.messageId &&
+    taskId === requestContext.taskId &&
+    contextId === requestContext.contextId
+  ) {
     return requestContext;
   }
 
@@ -89,12 +105,13 @@ function createCrossingRuntimeRequestContext(
     throw new Error('Crossing runtime RequestContext requires request.message.');
   }
 
+  runtimeMessage.messageId = messageId;
   runtimeMessage.taskId = taskId;
   runtimeMessage.contextId = contextId;
 
-  // The A2A SDK has already bound its EventBus to the server-resolved task.
-  // Clone only the downstream executor view so corpus perturbations cannot
-  // rewrite SDK lifecycle state.
+  // The A2A SDK has already resolved message/task/context and bound its
+  // EventBus to the server task. Only the downstream executor view is
+  // perturbed, so SDK lifecycle identity remains untouched.
   return new RequestContext(
     runtimeRequest,
     taskId,

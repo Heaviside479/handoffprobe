@@ -8,6 +8,8 @@ export type { EvidenceEvent, SecurityContext } from '../core/index.js';
 
 export type FixtureMode = 'secure' | 'vulnerable';
 
+export type CrossingObservedOmissionField = 'caller_id' | 'message_id' | 'task_id' | 'context_id';
+
 export interface FakeInvoiceResult {
   invoiceId: string;
   tenant: string;
@@ -32,6 +34,7 @@ export interface LabRunState {
   crossingMessageIdOverride?: string;
   crossingTaskIdOverride?: string;
   crossingContextIdOverride?: string;
+  crossingObservedOmissions?: ReadonlySet<CrossingObservedOmissionField>;
   a2aAuthorityCaller?: string;
   a2aAuthorityMessageId?: string;
   a2aRequestIdentity?: {
