@@ -1,0 +1,5 @@
+{
+  "source": "HandoffProbe local A2A protocol-lab transport authentication observation (a2a.transport_auth)",
+  "transport_authenticated": true,
+  "observation_point": "Caller identity is recorded from the A2A transport-authentication seam before translation and before MCP dispatch."
+}

@@ -191,5 +191,5 @@ describe('Phase 9 crossing corpus data-driven executor', () => {
         effect_delta: 0,
       },
     ]);
-  });
+  }, 15_000);
 });

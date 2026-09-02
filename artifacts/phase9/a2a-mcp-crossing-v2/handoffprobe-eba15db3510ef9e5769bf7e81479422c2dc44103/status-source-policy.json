@@ -1,0 +1,5 @@
+{
+  "source": "Frozen corpus status vector selected by each case status_vector",
+  "verification_policy": "HandoffProbe verifies status_ref and authority_id binding, status=current, and observed_at freshness against the fixed conformance clock before replay consumption and effect.",
+  "max_age_seconds": 300
+}

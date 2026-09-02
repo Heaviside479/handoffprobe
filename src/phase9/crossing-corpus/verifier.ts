@@ -46,6 +46,8 @@ export type CrossingDecisionReason =
   | 'status_reference_mismatch'
   | 'status_stale'
   | 'authority_not_current'
+  | 'initial_issuer_authentication_failed'
+  | 'resolved_issuer_authentication_failed'
   | 'nonce_replay';
 
 export interface CrossingDecision {
@@ -100,6 +102,10 @@ export interface CrossingVerificationInput {
   observed: ExternalCrossingObservedShape;
   initialReference?: CrossingReference;
   initialAuthority?: CrossingAuthority;
+  issuerAuthentication: {
+    initial?: boolean;
+    resolved: boolean;
+  };
   now: string;
   attempt: number;
 }
@@ -336,6 +342,17 @@ function validateInput(input: CrossingVerificationInput): void {
   validateAuthority(input.authority, false);
   validateStatus(input.status);
   validateObserved(input.observed);
+
+  if (typeof input.issuerAuthentication.resolved !== 'boolean') {
+    throw new Error('Resolved issuer authentication verdict must be boolean.');
+  }
+
+  if (
+    input.issuerAuthentication.initial !== undefined &&
+    typeof input.issuerAuthentication.initial !== 'boolean'
+  ) {
+    throw new Error('Initial issuer authentication verdict must be boolean.');
+  }
 
   if (input.initialReference !== undefined) {
     assertJsonValue(input.initialReference);
@@ -585,6 +602,14 @@ export function verifyCrossingAuthority(
 
   if (!statusCurrent) {
     return reject('authority_not_current');
+  }
+
+  if (firstTurn && input.issuerAuthentication.initial !== true) {
+    return reject('initial_issuer_authentication_failed');
+  }
+
+  if (input.issuerAuthentication.resolved !== true) {
+    return reject('resolved_issuer_authentication_failed');
   }
 
   const replay = replayStore.consume(replayKey(input.authority));

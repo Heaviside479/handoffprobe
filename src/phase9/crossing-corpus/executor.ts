@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { applyCrossingCaseMutations, normalizeCrossingCaseMutations } from './case-builder.js';
 import { verifyObservedCrossing, type BoundCrossingVerificationResult } from './binding.js';
 import { CrossingEffectRecorder, type CrossingEffectDelta } from './effects.js';
+import { createSyntheticCrossingIssuerVerificationContext } from './issuer-authentication.js';
 import { CrossingPreDispatchRejectedError, type CrossingPreDispatchGate } from './gate.js';
 import {
   loadPinnedCrossingCorpus,
@@ -704,6 +705,11 @@ async function executeBoundLane(
       const bundle = requireAdaptedBundle(mutated.bundle);
       const status = requireAdaptedStatus(mutated.status);
 
+      const issuerVerification = createSyntheticCrossingIssuerVerificationContext(
+        bundle.authority,
+        bundle.initial_authority,
+      );
+
       const stageEvidence =
         bundle.initial_reference !== undefined && bundle.initial_authority !== undefined
           ? {
@@ -724,6 +730,7 @@ async function executeBoundLane(
         },
         replayStore,
         provenance,
+        issuerVerification,
       );
 
       capturedObservation = snapshotCrossingObservation(observation);

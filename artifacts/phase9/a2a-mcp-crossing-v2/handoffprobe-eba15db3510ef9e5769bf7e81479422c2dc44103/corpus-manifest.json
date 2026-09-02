@@ -1,0 +1,20 @@
+{
+  "profile":"https://minorityprophet.org/conformance/a2a-mcp-crossing/v2",
+  "identity":"complete executable corpus and intake contract",
+  "files":[
+    {"path":"cases-v2.json","sha256":"6d22c3bc2ab7528c5a08984901d1d940ff355c912f5b1596752a0f9a299205b5"},
+    {"path":"vectors/base.json","sha256":"b0c7d9b46316ef5b7f33b694ec0d9a861194e9f31df062fb510ef83cea6d946a"},
+    {"path":"vectors/status-current.json","sha256":"4e004e8eb9658eaa5e78d18fb1d4a1a9ac3565e0435142137fad780edd7f2a30"},
+    {"path":"vectors/status-revoked.json","sha256":"5c6728bcc446fbc08f48b2dcd03388bfabedb3b33358f65f0cc27bc6649c96c2"},
+    {"path":"vectors/status-stale.json","sha256":"115d5efedfa310c938cd562c99d4a08bf4d5b882216878d2da38d40d51b41164"},
+    {"path":"vectors/canonicalization.json","sha256":"6d95b4634ff53cdd181324829318d772a946d8dd7ee2a92ae1994a5895849d40"},
+    {"path":"vectors/invalid-json.json","sha256":"b5dba09039d8f853f9ec3badbc7dc7b48bc70305728ead7f888c656cde17c9d7"},
+    {"path":"runner/reference.py","sha256":"4109f21893ac5acb075977ee81e28ed0abb7d98cfb16b2fe0b85876a1a997531"},
+    {"path":"runner/run.py","sha256":"deb32075f924e0eaf2ff563ed2e4bb23c0a8f108a15c4a3864ecbfcc706e25cc"},
+    {"path":"runner/canonicalize.mjs","sha256":"04bc813a41ec2a9efd2b2323dd394a9e42a9616af80863a910e56f6e1a9f5ac2"},
+    {"path":"runner/verify_submission.py","sha256":"a7c3944ec42a6d7d4172be8684e0d48beae438c5dbd752ca7d83c76d2a4e9f89"},
+    {"path":"schemas/result.schema.json","sha256":"099bedb61faec5718648aab1ac9b5f5b6f92f19f98eae9638324108552f41806"},
+    {"path":"schemas/submission-manifest.schema.json","sha256":"d9fbc87fd0c77d7c815dc32cf0e49ac8107a23521ab92144fa4a3b240c16b201"},
+    {"path":"schemas/submission-evidence.schema.json","sha256":"ff9b9a04d9012668ac9c86753ead512d287230bc2801ec6411f11efb70dbc025"}
+  ]
+}

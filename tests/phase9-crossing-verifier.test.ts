@@ -44,6 +44,10 @@ function createValidInput() {
       observed: structuredClone(base.observed),
       initialReference: structuredClone(base.initial_reference),
       initialAuthority: structuredClone(base.initial_authority),
+      issuerAuthentication: {
+        initial: true,
+        resolved: true,
+      },
       now: '2026-08-23T12:00:00Z',
       attempt: 1,
     },
@@ -163,6 +167,38 @@ describe('Phase 9.1C local crossing verifier', () => {
       sharedAcrossAttempts: true,
       source: 'replay.store',
     });
+  });
+
+  it('rejects failed initial issuer authentication before consuming the replay nonce', () => {
+    const { input } = createValidInput();
+
+    input.issuerAuthentication.initial = false;
+
+    const provenance = createCrossingProvenanceState();
+    const store = new SharedCrossingReplayStore();
+
+    expect(verifyCrossingAuthority(input, store, provenance)).toEqual({
+      outcome: 'reject',
+      reason: 'initial_issuer_authentication_failed',
+    });
+
+    expect(provenance.replay.source).toBe('not_observed');
+  });
+
+  it('rejects failed resolved issuer authentication before consuming the replay nonce', () => {
+    const { input } = createValidInput();
+
+    input.issuerAuthentication.resolved = false;
+
+    const provenance = createCrossingProvenanceState();
+    const store = new SharedCrossingReplayStore();
+
+    expect(verifyCrossingAuthority(input, store, provenance)).toEqual({
+      outcome: 'reject',
+      reason: 'resolved_issuer_authentication_failed',
+    });
+
+    expect(provenance.replay.source).toBe('not_observed');
   });
 
   it('rejects an exact-action substitution after recomputing no authority digest', () => {

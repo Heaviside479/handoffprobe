@@ -64,10 +64,14 @@ interface GradeEvidence {
 interface AuthorityAuthenticationEvidence {
   readonly initial: {
     readonly issuer_id: string;
+    readonly mechanism: string;
+    readonly policy: string;
     readonly verified: boolean;
   };
   readonly resolved: {
     readonly issuer_id: string;
+    readonly mechanism: string;
+    readonly policy: string;
     readonly verified: boolean;
   };
 }
@@ -92,7 +96,7 @@ afterEach(() => {
 });
 
 describe('Phase 9 crossing submission generator', () => {
-  it('generates a digest-bound 12-artifact submission from HandoffProbe runtime evidence', async () => {
+  it('generates an issuer-authenticated 12-artifact submission from HandoffProbe runtime evidence', async () => {
     const root = mkdtempSync(join(tmpdir(), 'handoffprobe-phase9-submission-'));
 
     roots.push(root);
@@ -187,16 +191,25 @@ describe('Phase 9 crossing submission generator', () => {
     expect(authority.initial).toEqual(
       expect.objectContaining({
         issuer_id: 'https://issuer.example',
+        mechanism: 'Ed25519 signature verification against a pinned synthetic issuer public key',
         verified: true,
       }),
     );
+    expect(authority.initial.policy).toContain('domain-separated digest');
+    expect(authority.initial.policy).toContain('pinned trusted issuer public key');
+    expect(authority.initial.policy).toContain('before replay consumption and effect');
+    expect(authority.initial.policy).toContain('public non-production conformance material');
 
     expect(authority.resolved).toEqual(
       expect.objectContaining({
         issuer_id: 'https://issuer.example',
+        mechanism: 'Ed25519 signature verification against a pinned synthetic issuer public key',
         verified: true,
       }),
     );
+    expect(authority.resolved.policy).toContain('domain-separated digest');
+    expect(authority.resolved.policy).toContain('pinned trusted issuer public key');
+    expect(authority.resolved.policy).toContain('before replay consumption and effect');
 
     const grade = readJson<GradeEvidence>(resolve(output, 'grade-evidence.json'));
 

@@ -1,0 +1,841 @@
+{
+  "profile": "https://minorityprophet.org/conformance/a2a-mcp-crossing/v2",
+  "grade": "implementation_independent",
+  "corpus_sha256": "f7a72b5c1c0473080aff468d1af6b0500d035d6a00ebbfce1d2499a0897534fb",
+  "implementation": {
+    "a2a": "HandoffProbe protocol-lab using @a2a-js/sdk 1.1.0 with transport-authenticated caller observation and server-resolved task/context",
+    "mcp": "HandoffProbe protocol-lab using MCP TypeScript SDK 2.0.0 with transport audience and exact pre-dispatch tool/arguments observation",
+    "verifier": "HandoffProbe crossing authority verifier at commit eba15db3510ef9e5769bf7e81479422c2dc44103",
+    "operator": "Heaviside479 / HandoffProbe"
+  },
+  "results": [
+    {
+      "case": "valid_crossing",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case": "existing_task_valid",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case": "existing_task_stage_evidence_present",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "stage_evidence_unexpected",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "existing_task_previous_stage_present",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "input_contract_invalid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "caller_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "caller_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "message_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "message_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "task_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "task_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "context_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "context_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "requester_omitted_both",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "input_contract_invalid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "message_omitted_both",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "input_contract_invalid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "task_omitted_both",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "input_contract_invalid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "context_omitted_both",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "input_contract_invalid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "audience_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "audience_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "tool_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "action_digest_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "arguments_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "action_digest_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "nonce_substitution",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "authority_digest_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "authority_id_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "authority_id_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "authority_digest_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "authority_digest_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "not_yet_valid",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "not_yet_valid",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "expired",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "expired",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "status_ref_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "status_reference_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "revoked",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "authority_not_current",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "stale_status",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "status_stale",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "replay",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          },
+          {
+            "attempt": 2,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 1,
+            "effect_after": 2,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          },
+          {
+            "attempt": 2,
+            "outcome": "reject",
+            "reason": "nonce_replay",
+            "effect_before": 1,
+            "effect_after": 1,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "initial_authority_digest_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "initial_authority_digest_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "previous_stage_digest_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "stage_link_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "stage_message_swap",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "stage_message_mismatch",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case": "stage_evidence_omitted",
+      "native": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "succeed",
+            "reason": "accepted",
+            "effect_before": 0,
+            "effect_after": 1,
+            "effect_delta": 1
+          }
+        ]
+      },
+      "bound": {
+        "measurement": "externally_observed",
+        "attempts": [
+          {
+            "attempt": 1,
+            "outcome": "reject",
+            "reason": "stage_evidence_missing",
+            "effect_before": 0,
+            "effect_after": 0,
+            "effect_delta": 0
+          }
+        ]
+      }
+    }
+  ]
+}

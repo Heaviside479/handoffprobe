@@ -1,0 +1,53 @@
+{
+  "profile": "https://minorityprophet.org/conformance/a2a-mcp-crossing/v2",
+  "artifacts": {
+    "corpus_manifest": {
+      "path": "corpus-manifest.json",
+      "sha256": "f7a72b5c1c0473080aff468d1af6b0500d035d6a00ebbfce1d2499a0897534fb"
+    },
+    "result": {
+      "path": "result.json",
+      "sha256": "3b659196081f5948461bd023129326f02fcec423d2ef32f35f71fc7352227b2a"
+    },
+    "raw_log": {
+      "path": "raw-log.jsonl",
+      "sha256": "e85a0ac9b875e691a12090abebdde26481e914b0b6e40361e2373e03fc7a38ab"
+    },
+    "adapter_config": {
+      "path": "adapter-config.json",
+      "sha256": "ba4b012589dea17b59d1b1186df73fb1ec266448b7f5cc9a8a086545fb63d8c2"
+    },
+    "implementation": {
+      "path": "implementation.json",
+      "sha256": "7733dcf642e08c1a82b81906376c882579bfc8d16d089cf6aff836cc6822f08d"
+    },
+    "effect_recorder": {
+      "path": "effect-recorder.json",
+      "sha256": "c703284341a91df35f2e996a882d3a42917af33f90420849ee9c6596c682873d"
+    },
+    "replay_store": {
+      "path": "replay-store.json",
+      "sha256": "0365e3c98e65b6dcfcf4cd45bc3dc74b1e44a24be9501149150c2938b05b71ef"
+    },
+    "caller_source": {
+      "path": "caller-source.json",
+      "sha256": "13a48fa096cf6424072281a7be0759b8b65f4a8ffc1111fe06a52d73d76d81ef"
+    },
+    "audience_source": {
+      "path": "audience-source.json",
+      "sha256": "3f7e8192c0879f2f4f9fa2e2d73c12b63d5bbe6c04dfc93783788a42ee5e11d4"
+    },
+    "status_source_policy": {
+      "path": "status-source-policy.json",
+      "sha256": "ef50a70b980d6a2a6c804ce40d380299e6f2046850c78104171a34b8da84669d"
+    },
+    "authority_authentication": {
+      "path": "authority-authentication.json",
+      "sha256": "d6e7b046cdcbdb423548d32f700325933644b1ae4de10ee3336638d4db48d852"
+    },
+    "grade_evidence": {
+      "path": "grade-evidence.json",
+      "sha256": "9b65be97615d85f90cf06c93b945c0aff86172ae154475ff9e6607fff8dbb82a"
+    }
+  }
+}
