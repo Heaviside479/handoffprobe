@@ -8,6 +8,8 @@ const completion = readFileSync('docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.
 
 const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 
+const readme = readFileSync('README.md', 'utf8');
+
 describe('Phase 9 crossing-corpus documentation', () => {
   it('pins the selected external corpus and protocol tuple', () => {
     expect(spec).toContain('09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a');
@@ -61,6 +63,22 @@ describe('Phase 9 crossing-corpus documentation', () => {
     expect(completion).toContain('`implementation_independent`');
     expect(completion).toContain('`green_eligible: true`');
     expect(completion).toContain('`initial_issuer_authentication_failed`');
+  });
+
+  it('publishes the externally reviewed Phase 9 evidence without overclaiming', () => {
+    expect(readme).toContain('## Externally reviewed crossing-corpus evidence');
+    expect(readme).toContain('https://github.com/Heaviside479/handoffprobe/issues/20');
+    expect(readme).toContain(
+      'https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138',
+    );
+    expect(readme).toContain(
+      '[Detailed Phase 9 evidence record](docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md)',
+    );
+    expect(readme).toContain('`implementation_independent`');
+    expect(readme).toContain('`green_eligible: true`');
+    expect(readme).toContain('profile-scoped evidence, not a general certification');
+    expect(readme).toContain('does not claim `operator_independent`');
+    expect(readme).toContain('local synthetic MCP receiver');
   });
 
   it('records the full HandoffProbe-owned execution', () => {

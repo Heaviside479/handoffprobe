@@ -60,6 +60,17 @@ The npm package is publicly available as **`handoffprobe@0.1.0`**.
 
 The current public package version is `0.1.0`. Exact-version npm commands below are verified against the public registry.
 
+## Externally reviewed crossing-corpus evidence
+
+HandoffProbe has one externally reviewed Phase 9 conformance result for the frozen A2A 1.0 → MCP 2026-07-28 crossing corpus from [Issue #20](https://github.com/Heaviside479/handoffprobe/issues/20).
+
+An external reviewer independently reran the final measured implementation and exact frozen intake and confirmed the submitted `implementation_independent` grade. With that narrow reviewer confirmation supplied to the frozen intake, this profile derives `green_eligible: true`.
+
+- [External reviewer confirmation](https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138)
+- [Detailed Phase 9 evidence record](docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md)
+
+This is profile-scoped evidence, not a general certification. It does not claim `operator_independent`, a production-world effect, restart-durable or multi-process replay protection, or production key management. The recorded effect scope remains a local synthetic MCP receiver.
+
 ## Requirements
 
 - Node.js `>=24 <25`
