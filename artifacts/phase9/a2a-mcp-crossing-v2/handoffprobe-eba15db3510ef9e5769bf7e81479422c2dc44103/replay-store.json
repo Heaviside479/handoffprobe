@@ -1,0 +1,6 @@
+{
+  "backend": "HandoffProbe SharedCrossingReplayStore in-memory Set",
+  "shared_scope": "One bound replay-store instance per corpus case, shared continuously across every attempt in that case.",
+  "durability": "Process-local state retained for the deterministic corpus execution; not persisted across process restart.",
+  "replay_case_policy": "The replay case uses the same store for attempt 1 and attempt 2, producing accepted/delta=1 followed by nonce_replay/delta=0."
+}

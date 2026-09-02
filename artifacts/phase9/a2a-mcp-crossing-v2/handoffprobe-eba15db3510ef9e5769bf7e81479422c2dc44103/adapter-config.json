@@ -1,0 +1,11 @@
+{
+  "adapter": "HandoffProbe protocol-lab A2A 1.0 to MCP 2026-07-28 crossing adapter",
+  "version": "phase9-1e-v2@eba15db3510ef9e5769bf7e81479422c2dc44103",
+  "corpus_consumption": "identified_transformation",
+  "transformations": [
+    "Rebind frozen requester, message, task, and context authority/observed values to the HandoffProbe transport-authenticated caller and server-resolved A2A runtime identifiers before applying each frozen case mutation.",
+    "Rebind the frozen MCP audience and action baseline to the HandoffProbe pinned local MCP transport URL and read_invoice synthetic receiver before applying each frozen case mutation.",
+    "Recompute action and authority digest references after runtime rebinding while preserving frozen mutation order and the expected bound outcome/reason.",
+    "Map frozen observed set/delete mutations onto HandoffProbe runtime seams; paired omissions remain actual null runtime observations and are never filled from reference-fixture rows."
+  ]
+}
