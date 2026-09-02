@@ -210,6 +210,70 @@ Phase 9.1E is complete because a reviewable hash-bound submission was generated,
 archived and accepted by the frozen intake verifier without self-confirming the
 reviewer grade.
 
-Phase 9.1F remains open.
+## Phase 9.1F external review completion — 2026-09-02
 
-Publication and any response to Issue `#20` are separate follow-up actions.
+Phase 9.1F is complete.
+
+After the initial external review identified one remaining issuer-authentication
+gap, HandoffProbe added a narrow Ed25519 authentication path for both the
+initial and resolved authority artifacts plus the requested non-issuer forgery
+negative control.
+
+The final measured implementation is:
+
+`eba15db3510ef9e5769bf7e81479422c2dc44103`
+
+The corresponding evidence archive is:
+
+`artifacts/phase9/a2a-mcp-crossing-v2/handoffprobe-eba15db3510ef9e5769bf7e81479422c2dc44103/`
+
+The archive was committed at:
+
+`284a8af66b6dc5923e8e3e48b45558832fe794ec`
+
+The follow-up merged through PR `#32` at:
+
+`9fb05a6d07ca5b8efaa6371c30cb8efc759a2ce6`
+
+The external reviewer independently reran the measured implementation,
+generator and exact frozen intake and reported:
+
+- `67` test files / `352` tests passing;
+- formatting, lint, typecheck, secret scan and build passing;
+- `28` result rows and `58` attempt records;
+- byte-for-byte reproduction of `result.json`;
+- byte-for-byte reproduction of `authority-authentication.json`;
+- all `12` archived and freshly generated artifacts accepted;
+- no unmeasured bound cases;
+- no expectation mismatches;
+- issuer authentication verified before replay consumption and effect;
+- the non-issuer recomputed-digest forgery rejected with
+  `initial_issuer_authentication_failed` and effect delta `0`.
+
+Reviewer confirmation:
+
+`https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138`
+
+The reviewer explicitly confirmed the submitted grade:
+
+`implementation_independent`
+
+Running the frozen intake with that narrow reviewer confirmation derives:
+
+`green_eligible: true`
+
+The earlier `confirmed_grade: null` / `green_eligible: false` record remains
+historically correct for the self-unconfirmed submission. HandoffProbe did not
+self-award the reviewer grade.
+
+The confirmation is limited to implementation independence and the local
+synthetic receiver evidence. It does not claim `operator_independent`,
+production-world effect, restart-durable or multi-process replay protection,
+or production key management.
+
+Issue `#20` has therefore produced externally reviewed, reproducible
+conformance evidence for the current A2A 1.0 → MCP 2026-07-28 target.
+
+A completion review found no additional concrete open adapter/framework
+integration request that currently justifies broader scanner expansion.
+Future adapter work remains evidence-gated.

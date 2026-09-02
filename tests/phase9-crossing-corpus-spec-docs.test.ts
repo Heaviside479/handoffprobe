@@ -42,7 +42,7 @@ describe('Phase 9 crossing-corpus documentation', () => {
     expect(spec).toContain('Reference-fixture rows cannot be copied into HandoffProbe output');
   });
 
-  it('records 9.1D and 9.1E complete while 9.1F remains open', () => {
+  it('records 9.1D, 9.1E, and externally confirmed 9.1F completion', () => {
     expect(roadmap).toContain(
       '- [x] 9.1D — add an external effect recorder and execute the complete 28-case corpus',
     );
@@ -50,9 +50,17 @@ describe('Phase 9 crossing-corpus documentation', () => {
       '- [x] 9.1E — produce and validate reviewable external submission artifacts',
     );
     expect(roadmap).toContain(
-      '- [ ] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand',
+      '- [x] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand',
     );
     expect(roadmap).toContain('Phase 9.1D / 9.1E completion record — 2026-09-01');
+    expect(roadmap).toContain('Phase 9.1F completion record — 2026-09-02');
+    expect(completion).toContain('Phase 9.1F external review completion — 2026-09-02');
+    expect(completion).toContain('eba15db3510ef9e5769bf7e81479422c2dc44103');
+    expect(completion).toContain('284a8af66b6dc5923e8e3e48b45558832fe794ec');
+    expect(completion).toContain('5516189138');
+    expect(completion).toContain('`implementation_independent`');
+    expect(completion).toContain('`green_eligible: true`');
+    expect(completion).toContain('`initial_issuer_authentication_failed`');
   });
 
   it('records the full HandoffProbe-owned execution', () => {

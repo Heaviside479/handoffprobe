@@ -742,7 +742,7 @@ Detailed decision: `docs/PHASE8_REVIEW_20260831.md`.
 - [x] 9.1C — map external crossing fields and provenance into HandoffProbe-owned observations
 - [x] 9.1D — add an external effect recorder and execute the complete 28-case corpus
 - [x] 9.1E — produce and validate reviewable external submission artifacts
-- [ ] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand
+- [x] 9.1F — publish the evidence outcome, update Issue #20 and review broader adapter demand
 
 ## Phase 9.1D / 9.1E completion record — 2026-09-01
 
@@ -857,8 +857,69 @@ HandoffProbe does not self-assert `confirmed_grade` and does not claim
 
 Phase 9.1D and Phase 9.1E are complete.
 
-Phase 9.1F remains open. Publishing the evidence and responding to Issue `#20`
-are separate follow-up actions.
+## Phase 9.1F completion record — 2026-09-02
+
+Status: **completed**
+
+The evidence outcome was published back to Issue `#20` after the narrow
+issuer-authentication follow-up merged through PR `#32`.
+
+Final implementation/evidence checkpoints:
+
+- measured implementation commit:
+  `eba15db3510ef9e5769bf7e81479422c2dc44103`;
+- evidence archive commit:
+  `284a8af66b6dc5923e8e3e48b45558832fe794ec`;
+- PR `#32` merge commit:
+  `9fb05a6d07ca5b8efaa6371c30cb8efc759a2ce6`;
+- external reviewer confirmation:
+  `https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138`.
+
+The follow-up adds issuer authentication for both authority stages using
+Ed25519 over a domain-separated authority digest and a pinned synthetic issuer
+identity, key ID and public key before replay consumption and effect.
+
+The reviewer-requested non-issuer negative control rewrites the authority
+chain, recomputes the unkeyed action/authority digests and references, and signs
+with a different key while claiming the trusted issuer. The digest-only chain
+is internally consistent, but the authenticated path rejects it with
+`initial_issuer_authentication_failed` before replay consumption and with
+effect delta `0`.
+
+The external reviewer independently reran the measured implementation,
+generator and frozen intake, confirmed `67` test files / `352` tests plus
+formatting, lint, typecheck, secret scan and build, reproduced `result.json`
+and `authority-authentication.json` byte-for-byte, and accepted all `12`
+hash-bound artifacts with no unmeasured bound cases or expectation mismatches.
+
+The reviewer explicitly confirmed:
+
+`implementation_independent`
+
+With that narrow external confirmation supplied to the frozen intake, the
+profile derives:
+
+`green_eligible = true`
+
+This does not rewrite the earlier self-unconfirmed submission record above.
+The archived submission intentionally retained `confirmed_grade = null` and
+`green_eligible = false` until an external reviewer supplied the grade
+confirmation.
+
+Scope boundaries remain unchanged:
+
+- `operator_independent` is not claimed;
+- production-world effect is not claimed;
+- restart-durable or multi-process replay protection is not claimed;
+- production key management is not claimed;
+- the fixed RFC 8032 keys remain non-production test-fixture material.
+
+Broader adapter demand was reviewed again at completion. No additional concrete
+open adapter/framework integration request currently justifies expanding the
+scanner beyond this evidence-selected A2A 1.0 → MCP 2026-07-28 target.
+Additional adapters therefore remain evidence-gated.
+
+Phase 9.1F is complete.
 
 Phase 9.1A contract: `docs/PHASE9_CROSSING_CORPUS_INTEGRATION_SPEC_20260831.md`.
 
