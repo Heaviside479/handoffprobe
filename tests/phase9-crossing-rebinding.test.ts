@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { verifyObservedCrossing } from '../src/phase9/crossing-corpus/binding.js';
+import { createSyntheticCrossingIssuerVerificationContext } from '../src/phase9/crossing-corpus/issuer-authentication.js';
 import {
   createCrossingObservationState,
   type CrossingObservationState,
@@ -157,6 +158,10 @@ describe('Phase 9 crossing runtime authority rebinding', () => {
       },
       new SharedCrossingReplayStore(),
       createCrossingProvenanceState(),
+      createSyntheticCrossingIssuerVerificationContext(
+        rebound.bundle.authority,
+        rebound.bundle.initial_authority,
+      ),
     );
 
     expect(verification.decision).toEqual({

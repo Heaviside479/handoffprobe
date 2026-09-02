@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { applyCrossingCaseMutations } from '../src/phase9/crossing-corpus/case-builder.js';
 import { verifyObservedCrossing } from '../src/phase9/crossing-corpus/binding.js';
 import { CrossingEffectRecorder } from '../src/phase9/crossing-corpus/effects.js';
+import { createSyntheticCrossingIssuerVerificationContext } from '../src/phase9/crossing-corpus/issuer-authentication.js';
 import type { CrossingPreDispatchGate } from '../src/phase9/crossing-corpus/gate.js';
 import {
   loadPinnedCrossingCorpus,
@@ -165,6 +166,10 @@ describe('Phase 9 crossing corpus valid-control execution', () => {
         },
         replayStore,
         provenance,
+        createSyntheticCrossingIssuerVerificationContext(
+          bundle.authority,
+          bundle.initial_authority,
+        ),
       );
     };
 

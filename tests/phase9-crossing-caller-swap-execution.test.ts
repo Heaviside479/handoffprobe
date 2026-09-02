@@ -8,6 +8,7 @@ import {
 } from '../src/phase9/crossing-corpus/case-builder.js';
 import { verifyObservedCrossing } from '../src/phase9/crossing-corpus/binding.js';
 import { CrossingEffectRecorder } from '../src/phase9/crossing-corpus/effects.js';
+import { createSyntheticCrossingIssuerVerificationContext } from '../src/phase9/crossing-corpus/issuer-authentication.js';
 import {
   CrossingPreDispatchRejectedError,
   type CrossingPreDispatchGate,
@@ -196,6 +197,10 @@ describe('Phase 9 crossing corpus caller-swap execution', () => {
         },
         replayStore,
         provenance,
+        createSyntheticCrossingIssuerVerificationContext(
+          rebound.bundle.authority,
+          rebound.bundle.initial_authority,
+        ),
       );
     };
 

@@ -7,7 +7,15 @@ import {
   type ExternalCrossingObservedShape,
 } from '../src/phase9/crossing-corpus/observation.js';
 import { createCrossingProvenanceState } from '../src/phase9/crossing-corpus/provenance.js';
-import { verifyObservedCrossing } from '../src/phase9/crossing-corpus/binding.js';
+import {
+  verifyObservedCrossing,
+  type CrossingIssuerVerificationContext,
+  type CrossingVerificationTemplate,
+} from '../src/phase9/crossing-corpus/binding.js';
+import {
+  createSyntheticCrossingIssuerFixture,
+  signCrossingAuthority,
+} from '../src/phase9/crossing-corpus/issuer-authentication.js';
 import {
   CROSSING_PROFILE,
   SharedCrossingReplayStore,
@@ -15,7 +23,6 @@ import {
   type CrossingAuthority,
   type CrossingReference,
   type CrossingStatus,
-  type CrossingVerificationInput,
 } from '../src/phase9/crossing-corpus/verifier.js';
 
 function requireCompleteObserved(
@@ -64,7 +71,7 @@ function requireCompleteObserved(
 function createVerificationTemplate(
   observed: ReturnType<typeof requireCompleteObserved>,
   attempt: number,
-): Omit<CrossingVerificationInput, 'observed'> {
+): CrossingVerificationTemplate {
   const actionDigest = digestCrossingJson({
     arguments: observed.arguments,
     mcp_audience: observed.mcp_audience,
@@ -129,6 +136,27 @@ function createVerificationTemplate(
   };
 }
 
+function createIssuerVerificationContext(
+  input: CrossingVerificationTemplate,
+): CrossingIssuerVerificationContext {
+  const fixture = createSyntheticCrossingIssuerFixture(input.authority.issuer_id);
+
+  const resolved = signCrossingAuthority(input.authority, fixture.identity, fixture.privateKey);
+
+  if (input.initialAuthority === undefined) {
+    return {
+      resolved,
+      trustedIssuer: fixture.trustedIssuer,
+    };
+  }
+
+  return {
+    initial: signCrossingAuthority(input.initialAuthority, fixture.identity, fixture.privateKey),
+    resolved,
+    trustedIssuer: fixture.trustedIssuer,
+  };
+}
+
 describe('Phase 9.1C observed-crossing verifier binding', () => {
   it('verifies the HandoffProbe-owned observation instead of accepting an external observed row', async () => {
     const result = await runProtocolFixture('secure', {
@@ -154,11 +182,14 @@ describe('Phase 9.1C observed-crossing verifier binding', () => {
     const provenance = createCrossingProvenanceState();
     const replayStore = new SharedCrossingReplayStore();
 
+    const verificationTemplate = createVerificationTemplate(observed, 1);
+
     const verification = verifyObservedCrossing(
       observation,
-      createVerificationTemplate(observed, 1),
+      verificationTemplate,
       replayStore,
       provenance,
+      createIssuerVerificationContext(verificationTemplate),
     );
 
     expect(verification.decision).toEqual({
@@ -198,11 +229,14 @@ describe('Phase 9.1C observed-crossing verifier binding', () => {
 
     const firstProvenance = createCrossingProvenanceState();
 
+    const firstTemplate = createVerificationTemplate(observed, 1);
+
     const first = verifyObservedCrossing(
       observation,
-      createVerificationTemplate(observed, 1),
+      firstTemplate,
       replayStore,
       firstProvenance,
+      createIssuerVerificationContext(firstTemplate),
     );
 
     expect(first.decision).toEqual({
@@ -212,11 +246,14 @@ describe('Phase 9.1C observed-crossing verifier binding', () => {
 
     const secondProvenance = createCrossingProvenanceState();
 
+    const secondTemplate = createVerificationTemplate(observed, 2);
+
     const second = verifyObservedCrossing(
       observation,
-      createVerificationTemplate(observed, 2),
+      secondTemplate,
       replayStore,
       secondProvenance,
+      createIssuerVerificationContext(secondTemplate),
     );
 
     expect(second.decision).toEqual({
