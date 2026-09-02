@@ -253,16 +253,16 @@ export async function generateCrossingCorpusSubmission(
   const authorityAuthentication = {
     initial: {
       issuer_id: 'https://issuer.example',
-      mechanism: 'Digest-bound conformance authority artifact authentication',
+      mechanism: 'Ed25519 signature verification against a pinned synthetic issuer public key',
       policy:
-        'For the valid-control authority path, HandoffProbe verifies the pinned issuer identity, initial authority digest/reference, initial stage, and staged reissue preconditions before effect.',
+        'For the valid-control initial authority, HandoffProbe recomputes the authority digest and verifies an Ed25519 signature over the domain-separated digest with the pinned trusted issuer public key before replay consumption and effect. The fixed RFC 8032 fixture key is public non-production conformance material.',
       verified: true,
     },
     resolved: {
       issuer_id: 'https://issuer.example',
-      mechanism: 'Digest-bound conformance authority artifact authentication',
+      mechanism: 'Ed25519 signature verification against a pinned synthetic issuer public key',
       policy:
-        'For the valid-control authority path, HandoffProbe verifies resolved authority digest/reference, immutable reissue fields, previous-stage digest linkage, stage message linkage, and resolved task/context binding before effect.',
+        'For the valid-control resolved authority, HandoffProbe recomputes the authority digest and verifies an Ed25519 signature over the domain-separated digest with the pinned trusted issuer public key after the existing binding/status checks and before replay consumption and effect.',
       verified: true,
     },
   };
