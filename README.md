@@ -56,9 +56,9 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-The npm package is publicly available as **`handoffprobe@0.1.0`**.
+The npm package is publicly available as **`handoffprobe@0.1.1`**.
 
-The current public package version is `0.1.0`. Exact-version npm commands below are verified against the public registry.
+The current public package version is `0.1.1`. Exact-version npm commands below are verified against the public registry.
 
 ## Externally reviewed crossing-corpus evidence
 
@@ -86,8 +86,8 @@ Use the public exact-version commands below for the released package, or use the
 The canonical public exact-version checks are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe test
 ```
 
 ## Quick start from source
@@ -132,11 +132,11 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-For the public `handoffprobe@0.1.0` release, the canonical exact-version commands are:
+For the public `handoffprobe@0.1.1` release, the canonical exact-version commands are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe test
 ```
 
 The shorter convenience command is:
@@ -189,15 +189,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f
+      - uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable commit for HandoffProbe v0.1.0.
-Review the release notes before changing this revision; the human-readable `v0.1.0` tag remains useful for discovery while the commit SHA is the stronger supply-chain pin.
+The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
+Review the release notes before changing this revision; the human-readable `v0.1.1` tag remains useful for discovery while the commit SHA is the stronger supply-chain pin.
 
 Supported inputs:
 

@@ -47,6 +47,12 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
+## 0.1.1 — 2026-09-08
+
+### Security
+
+- updated the transitive `qs` dependency to a patched release (`>= 6.16.0`) without changing the HandoffProbe CLI, attack corpus, report schema, protocol baseline or GitHub Action behavior.
+
 ## 0.0.0 — Project foundation
 
 - established product definition and v0.1 scope
