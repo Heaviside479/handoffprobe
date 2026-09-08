@@ -1,6 +1,7 @@
 # HandoffProbe Roadmap
 
-Status: active
+Status: active  
+Current checkpoint: 2026-09-08
 
 Strategy:
 
@@ -9,6 +10,28 @@ Strategy:
 - near-zero infrastructure cost
 - evidence before UI
 - adoption before SaaS
+
+## Current release sequence — authoritative from 2026-09-08
+
+The immediate release train is now intentionally split into two steps:
+
+1. **v0.1.1 — security maintenance release (CURRENT / BLOCKING)**
+   - branch from the immutable `v0.1.0` release line, not from current `main`;
+   - update the affected `qs` dependency from the `v0.1.0` lockfile to a patched version (`>= 6.16.0` for the currently known advisory);
+   - keep behavior and scope as close to `v0.1.0` as possible;
+   - run the complete release-quality verification;
+   - publish npm + GitHub release + GitHub Marketplace-compatible release metadata;
+   - never move, rewrite or republish the existing `v0.1.0` tag.
+2. **v0.2.0 — next minor release (NEXT / BLOCKED BY v0.1.1)**
+   - return to the current `main` development line only after `v0.1.1` is public and verified;
+   - audit all post-`v0.1.0` work and freeze a coherent public scope;
+   - treat Phase 8/9 work already on `main` as release candidates, not as automatically shipped public features;
+   - verify public API, CLI, Action, report/config compatibility, package contents, docs and upgrade behavior;
+   - publish `v0.2.0` only when it has a clear, tested user-facing value proposition.
+
+**Release-order rule:** do not use `v0.2.0` as a shortcut around the `v0.1.0` maintenance issue. The patch line is closed first; the minor line is then prepared independently and deliberately.
+
+Detailed execution gates for both releases are defined after Phase 9 below under **Release Track R1** and **Release Track R2**.
 
 ---
 
@@ -496,6 +519,19 @@ Verified release:
 
 Phase 7 exit gate is satisfied.
 
+## Post-release maintenance note — 2026-09-08
+
+A later dependency review established that the immutable `v0.1.0` lockfile contains `qs 6.15.3`, which is inside the affected version range of the currently known `qs` array-limit bypass advisory. This does **not** retroactively change the Phase 7 completion record and does not by itself assert exploitability of HandoffProbe; it creates a maintenance obligation for the published release line.
+
+Policy:
+
+- `v0.1.0` remains immutable;
+- no tag movement or silent republishing;
+- a minimal `v0.1.1` maintenance release must supersede it;
+- current `main` already carries a patched `qs` resolution, but `main` is not an acceptable substitute for repairing the public `v0.1.x` release line because it contains substantial later Phase 8/9 work.
+
+Execution is defined under **Release Track R1** below.
+
 ---
 
 # Phase 8 — Adoption and research loop
@@ -716,7 +752,7 @@ Detailnachweis: `docs/PHASE8_REVIEW_20260831.md`.
 
 # Phase 9 — Framework and adapter expansion
 
-Status: active
+Status: active — Phase 9.1 completed 2026-09-02; further expansion remains evidence-gated
 
 Possible integration targets should be chosen from real demand.
 
@@ -931,7 +967,200 @@ Do not create independent scanners for every framework.
 
 ---
 
+# Release Track R1 — v0.1.1 security maintenance release
+
+Status: **CURRENT / BLOCKING NEW RELEASE PROMOTION**
+
+## Goal
+
+Publish the smallest trustworthy maintenance release that supersedes `v0.1.0` without importing unrelated Phase 8/9 work from `main`.
+
+## Source line
+
+Start from the immutable `v0.1.0` release commit:
+
+`90fdd691b390c420e3288383ad7efa7e0fb69e6f`
+
+Create a dedicated maintenance branch from that release line. Do **not** create `v0.1.1` from current `main`.
+
+## Required scope
+
+- [ ] update the `v0.1.0` dependency graph so `qs` resolves to a patched version (`>= 6.16.0` for the currently known advisory)
+- [ ] bump package version from `0.1.0` to `0.1.1`
+- [ ] update lockfile consistently through npm tooling; no hand-edited fake integrity values
+- [ ] add a concise `CHANGELOG.md` entry for `0.1.1`
+- [ ] update release metadata/docs only where required for the new patch version
+- [ ] preserve the 22-attack corpus and existing CLI/report behavior unless a release-blocking defect requires a separately documented fix
+- [ ] preserve A2A 1.0 → MCP 2026-07-28 baseline
+- [ ] preserve report schema `1`
+- [ ] preserve deterministic exit-code contract
+- [ ] preserve source-backed GitHub Action behavior
+
+## Verification gate
+
+Before publication, all of the following must pass on the maintenance branch:
+
+- [ ] dependency tree verifies that the affected `qs` version is absent
+- [ ] `npm ci`
+- [ ] full repository `npm run check`
+- [ ] `npm run package:check`
+- [ ] exact tarball inspection
+- [ ] fresh local install/run from the packed `0.1.1` tarball
+- [ ] secure target: expected 22 PASS / 0 FAIL / 0 ERROR
+- [ ] vulnerable representative case: expected security exit `1`
+- [ ] `--version` reports `0.1.1`
+- [ ] no secret-safety regression
+- [ ] no unintended package payload expansion
+- [ ] PR required checks are green
+
+## Publication gate
+
+- [ ] merge only after required PR checks succeed
+- [ ] create immutable annotated tag `v0.1.1`
+- [ ] publish npm `handoffprobe@0.1.1`
+- [ ] verify npm metadata and tarball after publication
+- [ ] create GitHub release `HandoffProbe v0.1.1`
+- [ ] verify release asset/provenance checks used by the project
+- [ ] verify the GitHub Marketplace listing resolves to / presents the patched release as intended
+- [ ] verify a clean external `npx --yes --package=handoffprobe@0.1.1 handoffprobe test` path
+- [ ] verify the reusable GitHub Action from the immutable `v0.1.1` release commit in a consumer workflow
+- [ ] mark `v0.1.1` as the supported `0.1.x` release in public docs where appropriate
+
+## Explicit non-goals
+
+Do not include in `v0.1.1` merely because it exists on current `main`:
+
+- Phase 8 adoption forms/research-loop additions
+- Phase 9 crossing-corpus implementation
+- new framework adapters
+- new attack IDs
+- new report/config schema
+- new CLI features
+- broad documentation rewrites unrelated to the patch
+- release-marketing features
+
+## Exit gate
+
+`v0.1.1` is publicly installable, reproducibly verified, uses a patched dependency graph, and the existing `v0.1.0` tag remains untouched.
+
+Only after this exit gate is satisfied does Release Track R2 become active.
+
+---
+
+# Release Track R2 — v0.2.0 next minor release
+
+Status: **NEXT / BLOCKED BY R1**
+
+## Goal
+
+Turn the substantial post-`v0.1.0` development already present on `main` into a coherent, supportable public minor release rather than publishing `main` merely because it is newer.
+
+At the 2026-09-08 checkpoint, `main` is 44 commits ahead of `v0.1.0`. That work contains meaningful Phase 8/9 changes and therefore deserves an explicit minor-release audit and scope freeze.
+
+## Source line
+
+After `v0.1.1` is released and verified:
+
+1. return to current `main` as the `v0.2.0` development line;
+2. verify `main` still resolves `qs` to a patched version or newer safe replacement;
+3. reconcile `v0.1.1` release/changelog history into `main` where needed without introducing a package-version regression;
+4. set the package version to `0.2.0` only during the controlled release-preparation work.
+
+Do not mechanically merge a maintenance-branch version bump if it would overwrite newer `main` state. Release history and security fix equivalence must be reconciled deliberately.
+
+## Candidate v0.2.0 value
+
+The strongest current candidate is the evidence-backed post-v0.1 work already developed on `main`, including:
+
+- Phase 8 first-run and GitHub Action adoption improvements;
+- opt-in adoption/adapter feedback paths without hidden telemetry;
+- reproducible research/contributor improvements;
+- the Phase 9 pinned external A2A 1.0 → MCP 2026-07-28 crossing-corpus integration;
+- complete 28-case deterministic crossing execution and reviewable evidence;
+- issuer authentication and the reviewer-requested non-issuer negative control;
+- externally confirmed `implementation_independent` evidence for the narrow Phase 9 integration.
+
+These are **release candidates**, not automatic public claims. The release must distinguish:
+
+- stable HandoffProbe attack corpus (currently 22 stable attacks),
+- research/conformance tooling,
+- packaged fixtures/artifacts,
+- public CLI/API surface.
+
+Phase 9 conformance cases must not be marketed as additional stable attack IDs unless they are explicitly admitted into the attack catalog under the normal attack-definition process.
+
+## R2 work packages
+
+### R2.1 — scope and diff audit
+
+- [ ] audit every public/package-relevant change from `v0.1.0`/`v0.1.1` to current `main`
+- [ ] classify each change as `PUBLIC FEATURE / INTERNAL / RESEARCH / DOCS / FIX / PACKAGE PAYLOAD`
+- [ ] identify accidental or unnecessary package payload
+- [ ] confirm all vendored/external fixture licenses and notices remain correct
+- [ ] freeze the exact `v0.2.0` feature list
+- [ ] explicitly defer anything that lacks a stable user story
+
+### R2.2 — public contract audit
+
+- [ ] CLI commands/options compatibility review
+- [ ] package-root export compatibility review
+- [ ] config-schema compatibility review
+- [ ] report-schema compatibility review
+- [ ] GitHub Action input/output compatibility review
+- [ ] exit-code compatibility review
+- [ ] Node/runtime requirement review
+- [ ] protocol-version baseline review
+- [ ] redaction/secret-safety review
+
+Any intentional breaking change requires explicit documentation and must be justified for a `0.x` minor release; accidental breaking changes are blockers.
+
+### R2.3 — productize Phase 9 only where justified
+
+- [ ] decide whether crossing-corpus functionality is public CLI/API, packaged research tooling, or maintained internal validation
+- [ ] expose only a user-facing surface with a clear reason to exist
+- [ ] document exact scope and limitations
+- [ ] retain deterministic offline/no-paid execution
+- [ ] preserve the distinction between conformance evidence and vulnerability claims
+- [ ] do not claim `operator_independent`, production-world effect, production key management or restart-durable replay protection without new evidence
+
+### R2.4 — release quality
+
+- [ ] all normal CI and dependency review green
+- [ ] dependency audit contains no known unaddressed Critical/High release blocker
+- [ ] full deterministic test suite green
+- [ ] package dry-run and exact tarball inspection green
+- [ ] clean-clone install/build/run verification
+- [ ] clean `npx` verification from a local release candidate tarball
+- [ ] reusable Action consumer verification
+- [ ] README/INSTALLATION/USAGE/SECURITY/CONTRIBUTING consistent with `0.2.0`
+- [ ] `CHANGELOG.md` includes `0.1.1` and `0.2.0` accurately
+- [ ] release notes distinguish fixes, user-facing features, research assets and limitations
+
+### R2.5 — release candidate and publication
+
+- [ ] freeze release candidate commit
+- [ ] run full release checklist against that exact commit
+- [ ] create/publish `v0.2.0` only after all gates pass
+- [ ] verify npm package and GitHub release after publication
+- [ ] verify Marketplace/Action references where applicable
+- [ ] verify exact external install/run path
+- [ ] collect immediate post-release adoption/error signals without hidden telemetry
+
+## v0.2.0 exit gate
+
+A developer can understand in a few minutes what changed from `v0.1.x`, install the exact release, reproduce its primary value, and rely on the documented CLI/report/Action contracts without reading Phase 8/9 implementation history.
+
+`v0.2.0` must represent a coherent public product increment, not merely a snapshot of `main`.
+
+## Versioning after v0.2.0
+
+Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numbers. Use SemVer according to the next evidence-backed scope. The Phase 10 `v0.5` label remains a reliability milestone, not an instruction to skip or force intermediate releases.
+
+---
+
 # Phase 10 — v0.5 reliability hardening
+
+Status: future — begins only after the v0.1.1 maintenance obligation is closed and the v0.2.x line has a deliberate public baseline
 
 ## Deliverables
 
