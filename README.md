@@ -56,9 +56,9 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-The npm package is **not publicly released yet**.
+The supported 0.1.x npm release is **`handoffprobe@0.1.1`**.
 
-The release-candidate package version is `0.1.0`. Public npm commands remain documentation-only until registry verification succeeds during Phase 7.
+The `0.1.1` maintenance release supersedes `0.1.0` with a patched dependency graph while preserving the existing 22-attack CLI and report contract.
 
 ## Requirements
 
@@ -70,13 +70,13 @@ The release-candidate package version is `0.1.0`. Public npm commands remain doc
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-Until the npm publication gate succeeds, use the source checkout or locally packed tarball below.
+For reproducible use, prefer the exact `0.1.1` package version or a locally packed tarball when validating the release artifact.
 
-After `handoffprobe@0.1.0` is verified on npm, the canonical exact-version checks are:
+The canonical exact-version checks are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe test
 ```
 
 ## Quick start from source
@@ -109,7 +109,7 @@ Security gate: PASS
 
 ## Packaged-artifact demo
 
-Before the public npm release, create the npm tarball locally:
+To verify the exact package artifact locally, create the npm tarball:
 
 ```bash
 PACKAGE_TARBALL="$(npm pack --silent)"
@@ -121,11 +121,11 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-After `handoffprobe@0.1.0` is verified on the public npm registry, the canonical exact-version commands are:
+The canonical exact-version commands are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe test
 ```
 
 The shorter convenience command is:
@@ -157,8 +157,7 @@ The repository self-test uses:
     artifact-name: handoffprobe-report
 ```
 
-For another repository, pin HandoffProbe to a reviewed commit SHA until a
-versioned public release exists:
+For another repository, pin HandoffProbe to a reviewed immutable commit SHA:
 
 ```yaml
 name: HandoffProbe

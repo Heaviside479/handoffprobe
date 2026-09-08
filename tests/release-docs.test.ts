@@ -7,29 +7,29 @@ async function read(path: string): Promise<string> {
 }
 
 describe('v0.1 installation and usage documentation', () => {
-  it('keeps README honest about the release-candidate state', async () => {
+  it('keeps README aligned with the supported maintenance release', async () => {
     const readme = await read('README.md');
 
-    expect(readme).toContain('The npm package is **not publicly released yet**.');
-    expect(readme).toContain('release-candidate package version is `0.1.0`');
+    expect(readme).toContain('The supported 0.1.x npm release is **`handoffprobe@0.1.1`**.');
+    expect(readme).toContain('`0.1.1` maintenance release supersedes `0.1.0`');
     expect(readme).toContain('docs/INSTALLATION.md');
     expect(readme).toContain('docs/USAGE.md');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.0 handoffprobe --version');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.0 handoffprobe test');
+    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.1 handoffprobe --version');
+    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.1 handoffprobe test');
   });
 
-  it('documents source, tarball and future public npm installation', async () => {
+  it('documents source, tarball and public npm installation', async () => {
     const installation = await read('docs/INSTALLATION.md');
 
     for (const text of [
       'Node.js `>=24 <25`',
-      'The npm package is **not publicly released yet**.',
+      'The supported 0.1.x release is `handoffprobe@0.1.1`.',
       'npm ci',
       'npm run build',
       'PACKAGE_TARBALL="$(npm pack --silent)"',
       'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
-      'npx --yes --package=handoffprobe@0.1.0 handoffprobe --version',
-      'npm install --save-dev handoffprobe@0.1.0',
+      'npx --yes --package=handoffprobe@0.1.1 handoffprobe --version',
+      'npm install --save-dev handoffprobe@0.1.1',
       'owned, synthetic or explicitly authorized target',
     ]) {
       expect(installation).toContain(text);

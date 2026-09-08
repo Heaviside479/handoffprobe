@@ -79,14 +79,14 @@ describe('v0.1 research and launch documentation', () => {
     expect(checklist).not.toContain('- [x] GitHub release `v0.1.0` created');
   });
 
-  it('links launch docs from README without a public-release claim', async () => {
+  it('links historical launch docs from the supported release README', async () => {
     const readme = await read('README.md');
 
     for (const text of [
       'docs/RESEARCH_ARTICLE.md',
       'docs/LAUNCH_EXAMPLES.md',
       'docs/RELEASE_CHECKLIST.md',
-      'The npm package is **not publicly released yet**.',
+      'The supported 0.1.x npm release is **`handoffprobe@0.1.1`**.',
     ]) {
       expect(readme).toContain(text);
     }
