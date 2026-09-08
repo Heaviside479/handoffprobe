@@ -4,9 +4,9 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe `0.1.0` is the current public release.
+HandoffProbe `0.1.1` is the current public release.
 
-The npm package is publicly available as `handoffprobe@0.1.0`. The public registry, exact package integrity and clean-install smoke tests were verified during the Phase 7 release gate.
+The npm package is publicly available as `handoffprobe@0.1.1`. The public registry, exact package integrity and clean-install smoke tests were re-verified during the v0.1.1 maintenance release gate.
 
 ## Requirements
 
@@ -29,19 +29,19 @@ npm --version
 The recommended one-shot public version check is:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
 ```
 
 Run the secure bundled corpus:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe test
+npx --yes --package=handoffprobe@0.1.1 handoffprobe test
 ```
 
 Expected release version:
 
 ```text
-HandoffProbe 0.1.0
+HandoffProbe 0.1.1
 ```
 
 Using the exact version keeps first-run and CI reproduction deterministic.
@@ -51,7 +51,7 @@ Using the exact version keeps first-run and CI reproduction deterministic.
 Install the exact public release:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.1.0
+npm install --save-dev --save-exact handoffprobe@0.1.1
 ```
 
 Then run:
@@ -116,16 +116,16 @@ HandoffProbe also ships a source-backed composite GitHub Action.
 For external repositories, immutable commit-SHA pinning is the strongest default:
 
 ```yaml
-- uses: Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f
+- uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
   with:
     target: secure
     fail-on: high
     artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable commit for HandoffProbe v0.1.0.
+The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
 
-The `v0.1.0` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
+The `v0.1.1` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
 
 ## Updating
 
@@ -134,7 +134,7 @@ Before v1.0, HandoffProbe follows pre-1.0 compatibility expectations. Read relea
 For an exact npm version after publication:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.1.0
+npm install --save-dev --save-exact handoffprobe@0.1.1
 ```
 
 Do not assume report, configuration or protocol compatibility across future pre-1.0 versions unless the release notes state it.
@@ -146,12 +146,12 @@ Do not assume report, configuration or protocol compatibility across future pre-
 Verify the exact public version:
 
 ```bash
-npm view handoffprobe@0.1.0
+npm view handoffprobe@0.1.1
 ```
 
 ### Unsupported Node version
 
-HandoffProbe v0.1.0 requires Node `>=24 <25`.
+HandoffProbe v0.1.1 requires Node `>=24 <25`.
 
 Check:
 
@@ -164,7 +164,7 @@ node --version
 Use the exact package selector:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
 ```
 
 ### Build or install failure from source

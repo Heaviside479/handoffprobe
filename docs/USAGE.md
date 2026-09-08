@@ -1,6 +1,6 @@
 # Usage
 
-HandoffProbe v0.1.0 is a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs.
+HandoffProbe v0.1.1 is a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs.
 
 The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
@@ -62,7 +62,7 @@ The bundled target is intentionally vulnerable synthetic test code. A failure he
 handoffprobe list
 ```
 
-v0.1.0 contains exactly 22 stable attacks: 12 P0 and 10 P1.
+v0.1.1 contains exactly 22 stable attacks: 12 P0 and 10 P1.
 
 ## Explain an attack
 
@@ -275,14 +275,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@90fdd691b390c420e3288383ad7efa7e0fb69e6f
+      - uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The revision above is the reviewed immutable commit for HandoffProbe v0.1.0 and preserves the strongest supply-chain pinning model.
+The revision above is the reviewed immutable commit for HandoffProbe v0.1.1 and preserves the strongest supply-chain pinning model.
 
 ## Reproducible public demo
 
@@ -314,7 +314,7 @@ Use HandoffProbe only against:
 - staging/test environments you control;
 - targets for which you have explicit authorization.
 
-HandoffProbe v0.1.0 is not a generic internet scanner, runtime firewall or authorization provider.
+HandoffProbe v0.1.1 is not a generic internet scanner, runtime firewall or authorization provider.
 
 ## More documentation
 

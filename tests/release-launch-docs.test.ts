@@ -90,7 +90,7 @@ describe('v0.1 research and launch documentation', () => {
       'docs/RESEARCH_ARTICLE.md',
       'docs/LAUNCH_EXAMPLES.md',
       'docs/RELEASE_CHECKLIST.md',
-      'The npm package is publicly available as **`handoffprobe@0.1.0`**.',
+      'The npm package is publicly available as **`handoffprobe@0.1.1`**.',
     ]) {
       expect(readme).toContain(text);
     }

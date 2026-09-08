@@ -78,6 +78,6 @@ describe('Phase 5 README developer experience gate', () => {
     expect(readme).toContain(`npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test`);
 
     expect(readme).toContain('npx handoffprobe test');
-    expect(readme).toContain('publicly available as **`handoffprobe@0.1.0`**');
+    expect(readme).toContain('publicly available as **`handoffprobe@0.1.1`**');
   });
 });
