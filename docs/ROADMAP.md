@@ -1107,12 +1107,14 @@ Phase 9 conformance cases must not be marketed as additional stable attack IDs u
 
 ### R2.1 — scope and diff audit
 
-- [ ] audit every public/package-relevant change from `v0.1.0`/`v0.1.1` to current `main`
-- [ ] classify each change as `PUBLIC FEATURE / INTERNAL / RESEARCH / DOCS / FIX / PACKAGE PAYLOAD`
-- [ ] identify accidental or unnecessary package payload
-- [ ] confirm all vendored/external fixture licenses and notices remain correct
-- [ ] freeze the exact `v0.2.0` feature list
-- [ ] explicitly defer anything that lacks a stable user story
+- [x] audit every public/package-relevant change from `v0.1.0`/`v0.1.1` to current `main`
+- [x] classify each change as `PUBLIC FEATURE / INTERNAL / RESEARCH / DOCS / FIX / PACKAGE PAYLOAD`
+- [x] identify accidental or unnecessary package payload
+- [x] confirm all vendored/external fixture licenses and notices remain correct
+- [x] freeze the exact `v0.2.0` feature list
+- [x] explicitly defer anything that lacks a stable user story
+
+R2.1 completed 2026-09-09. Evidence and frozen scope: `docs/R2_V0_2_0_SCOPE_DIFF_AUDIT_20260909.md`.
 
 ### R2.2 — public contract audit
 
