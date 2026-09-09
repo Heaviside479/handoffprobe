@@ -13,7 +13,7 @@ describe('v0.2.0 final release documentation', () => {
   const changelog = read('CHANGELOG.md');
   const releaseNotes = read('docs/V0_2_0_RELEASE_NOTES.md');
 
-  it('documents the finalized v0.2.0 release target without claiming publication', () => {
+  it('documents the published v0.2.0 release target', () => {
     expect(readme).toContain('The release package version is `0.2.0`.');
     expect(readme).toContain(
       'Source and package metadata for this release are finalized at `0.2.0`',
@@ -21,6 +21,10 @@ describe('v0.2.0 final release documentation', () => {
     expect(installation).toContain('HandoffProbe `0.2.0` is the release version');
     expect(installation).toContain('source checkout reports');
     expect(releaseNotes).toContain('Status: final release notes for v0.2.0.');
+    expect(readme).toContain(
+      'HandoffProbe v0.2.0 is publicly available on npm and as a GitHub Release.',
+    );
+    expect(releaseNotes).toContain('Publication status: completed 2026-09-09.');
   });
 
   it('preserves the stable v0.2.0 public runtime contract', () => {
@@ -59,6 +63,6 @@ describe('v0.2.0 final release documentation', () => {
       '\n',
     );
     expect(publicDocs).not.toContain('current public package version is `0.1.1`');
-    expect(publicDocs).not.toContain('handoffprobe@0.2.0 is publicly available');
+    expect(publicDocs).toContain('handoffprobe@0.2.0');
   });
 });

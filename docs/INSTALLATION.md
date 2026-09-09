@@ -31,13 +31,13 @@ npm --version
 The recommended one-shot public version check is:
 
 ```bash
-npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
 ```
 
 Run the secure bundled corpus:
 
 ```bash
-npx --yes --package=handoffprobe@0.2.0 handoffprobe test
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
 ```
 
 Expected release version:
@@ -118,18 +118,18 @@ HandoffProbe also ships a source-backed composite GitHub Action.
 For external repositories, immutable commit-SHA pinning is the strongest default:
 
 ```yaml
-- uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
+- uses: Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77
   with:
     target: secure
     fail-on: high
     artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
+The pin above is the reviewed immutable release commit for HandoffProbe v0.2.0.
 
-The `v0.1.1` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
+The `v0.2.0` tag is available for discoverability, while the reviewed immutable commit SHA remains stronger for supply-chain pinning.
 
-The v0.1.1 immutable Action pin remains the public recommendation until the final v0.2.0 Action/tag reference is verified after publication.
+Both the `v0.2.0` Action reference and the immutable v0.2.0 release SHA were verified after publication from a separate consumer repository.
 
 ## Updating
 
@@ -168,7 +168,7 @@ node --version
 Use the exact package selector:
 
 ```bash
-npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
 ```
 
 ### Build or install failure from source
