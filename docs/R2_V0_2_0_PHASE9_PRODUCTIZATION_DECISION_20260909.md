@@ -16,7 +16,7 @@ The v0.2.0 release package ships only `dist`.
 
 The pinned external crossing corpus under `fixtures/phase9/a2a-mcp-crossing-v2` remains in the repository for reproducible research and conformance validation but is not part of the npm payload.
 
-The release build is rooted at `src/index.ts` and `src/cli.ts` and removes the previous `dist` directory before compilation so stale build output cannot leak into a package.
+The release build is rooted at `src/index.ts`, `src/cli.ts` and `src/github-action/run-action.ts` and removes the previous `dist` directory before compilation so stale build output cannot leak into a package. The third entrypoint preserves the existing GitHub Action runtime while keeping Phase 9 research-only modules outside the release closure.
 
 Seven Phase 9 modules remain in the TypeScript compilation closure:
 

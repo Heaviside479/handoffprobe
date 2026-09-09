@@ -9,5 +9,5 @@
   },
   "include": [],
   "exclude": ["tests"],
-  "files": ["src/index.ts", "src/cli.ts"]
+  "files": ["src/index.ts", "src/cli.ts", "src/github-action/run-action.ts"]
 }
