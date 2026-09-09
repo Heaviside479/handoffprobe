@@ -1161,13 +1161,15 @@ R2.4 completed 2026-09-09. All ten release-quality gates are evidenced. The reus
 
 ### R2.5 — release candidate and publication
 
-- [ ] freeze release candidate commit
-- [ ] run full release checklist against that exact commit
+- [x] freeze release candidate commit
+- [x] run full release checklist against that exact commit
 - [ ] create/publish `v0.2.0` only after all gates pass
 - [ ] verify npm package and GitHub release after publication
 - [ ] verify Marketplace/Action references where applicable
 - [ ] verify exact external install/run path
 - [ ] collect immediate post-release adoption/error signals without hidden telemetry
+
+R2.5 pre-publication status verified 2026-09-09. Exact release-candidate commit `f2483bacd4fac78d09e6322c0823e08a2078260f` is frozen and the complete release checklist passed against that exact commit. PR #46 merged it to `main` as `d93177d57ba81c3386271c17d622a3d5e323be02` with an identical tree. The separate reusable-Action consumer audit also passed against the exact RC. Publication, post-publication verification and adoption-signal gates remain open.
 
 ## v0.2.0 exit gate
 

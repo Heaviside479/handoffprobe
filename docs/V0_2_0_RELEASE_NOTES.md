@@ -55,7 +55,7 @@ Seven Phase 9 compiler/declaration-closure modules may remain in `dist`, but the
 - stable attack count remains 22
 - report schema remains `1`
 - CLI exit semantics remain `0 / 1 / 2 / 3`
-- the v0.1.1 immutable Action pin remains the public recommendation until the v0.2.0 candidate/release commit is frozen and verified
+- the v0.1.1 immutable Action pin remains the public recommendation until v0.2.0 is published; the exact v0.2.0 release candidate has been frozen and verified
 
 ## Explicit limitations
 
@@ -81,10 +81,14 @@ The technical baseline has already demonstrated full deterministic tests, High/C
 
 Reusable Action consumer verification completed successfully from a separate consumer repository against immutable R2.4 candidate commit `f38f340f4dcf96464cc8053d67cf5f15563b409a`, with `exit-code=0`, `result=pass` and report/summary files verified.
 
+The final R2.5 release candidate is immutable commit `f2483bacd4fac78d09e6322c0823e08a2078260f`. Its exact release checklist passed with 68 of 68 test files and 358 of 358 tests, zero dependency-audit vulnerabilities, clean-clone execution, clean local-tarball `npx` execution and exactly 22 stable attacks. The exact candidate tarball is `handoffprobe-0.2.0.tgz`, 287 files, package size 127236 bytes, unpacked size 624501 bytes, npm shasum `e2ddad64f113f3aaca83c0592cca274872d72df2`, integrity `sha512-2Hbg9n91ZDiil0l78EnYe3Gl/9yn3Sm+ytilKCMAmtPUGaUMoBnDYbiMxo0ZC1hkWggSaGnJXH5KvISK/0gpOg==` and SHA-256 `8f5b4438269292a9fe5f1be3ed9451df4db976f38759517dc8a55c5f513fa57d`.
+
+A second external consumer audit verified the reusable Action against that exact R2.5 candidate. Workflow run `34376135286` completed successfully; the Action invocation and output-verification steps passed, and artifact `handoffprobe-report` was produced. Consumer PR #4 was closed unmerged after verification.
+
 ## Publication status
 
-During R2.5 release-candidate preparation, `package.json` and `src/index.ts` are set to `0.2.0`. The final release-candidate commit has not yet been frozen.
+The exact v0.2.0 release-candidate commit is `f2483bacd4fac78d09e6322c0823e08a2078260f`. PR #46 merged that candidate to `main` as `d93177d57ba81c3386271c17d622a3d5e323be02`; both commits have an identical tree.
 
-R2.5 owns the release-candidate freeze, exact release checklist, tag, npm publication, GitHub Release and post-publication verification.
+The release-candidate freeze and exact release checklist are complete. R2.5 still owns the tag, npm publication, GitHub Release and post-publication verification.
 
 Until those gates complete, do not treat `handoffprobe@0.2.0`, tag `v0.2.0` or any v0.2.0 GitHub Release as published.
