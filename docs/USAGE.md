@@ -275,14 +275,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
+      - uses: Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The revision above remains the reviewed immutable commit for HandoffProbe v0.1.1 and preserves the strongest currently verified supply-chain pinning model. A v0.2.0 Action pin will be documented after the final release tag/reference is published and verified.
+The revision above is the reviewed immutable release commit for HandoffProbe v0.2.0 and preserves the strongest verified supply-chain pinning model. The human-readable `v0.2.0` reference and immutable release SHA were both verified after publication from a separate consumer repository.
 
 ## Reproducible public demo
 

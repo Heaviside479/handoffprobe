@@ -19,10 +19,10 @@ describe('GitHub Action README contract', () => {
     const contents = await readFile('README.md', 'utf8');
 
     expect(contents).toContain(
-      'Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177',
+      'Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77',
     );
     expect(contents).toContain(
-      'The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.',
+      'The pin above is the reviewed immutable release commit for HandoffProbe v0.2.0.',
     );
     expect(contents).not.toContain('uses: Heaviside479/handoffprobe@main');
   });

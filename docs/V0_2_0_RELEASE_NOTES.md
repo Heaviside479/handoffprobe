@@ -55,7 +55,7 @@ Seven Phase 9 compiler/declaration-closure modules may remain in `dist`, but the
 - stable attack count remains 22
 - report schema remains `1`
 - CLI exit semantics remain `0 / 1 / 2 / 3`
-- the v0.1.1 immutable Action pin remains the public recommendation until v0.2.0 is published; the exact v0.2.0 release candidate has been frozen and verified
+- the reviewed immutable v0.2.0 Action pin is `b0fc2a8abe1df36e526536d714418a9842be2f77`; both that SHA and the human-readable `v0.2.0` Action reference were verified after publication from a separate consumer repository
 
 ## Explicit limitations
 
@@ -87,8 +87,42 @@ A second external consumer audit verified the reusable Action against that exact
 
 ## Publication status
 
-The exact v0.2.0 release-candidate commit is `f2483bacd4fac78d09e6322c0823e08a2078260f`. PR #46 merged that candidate to `main` as `d93177d57ba81c3386271c17d622a3d5e323be02`; both commits have an identical tree.
+Publication status: completed 2026-09-09.
 
-The release-candidate freeze and exact release checklist are complete. R2.5 still owns the tag, npm publication, GitHub Release and post-publication verification.
+Final release commit:
 
-The annotated `v0.2.0` tag is created only from the final verified release commit. npm-registry and GitHub Release verification remain explicit R2.5 release gates.
+`b0fc2a8abe1df36e526536d714418a9842be2f77`
+
+The annotated `v0.2.0` tag resolves to that exact commit. Its annotated tag object is:
+
+`8c33fbfdd1c67df3e4db9a49ee8ad1082fda7915`
+
+The public npm package is `handoffprobe@0.2.0`, and npm `latest` resolves to `0.2.0`.
+
+Verified public package fingerprint:
+
+- files: `287`
+- package size: `127167` bytes
+- unpacked size: `624318` bytes
+- npm shasum: `dcc638b0b8542306f112fe1c4375df632eb12db5`
+- npm integrity: `sha512-7Yt9XEfsR+hPY4nCfvc3WH7tHkLE/7p6+HSMmo9cg7mxY6Q2JZWSPUXVJ2hOQ9peADFORmBBvSiOqAYlNzqA7w==`
+- SHA-256: `1d6e438182a4ecbf3c0dae00df7ad92ead40ad8fca8c6a99e7374048c04391d4`
+
+The GitHub Release is published as `HandoffProbe v0.2.0`:
+
+`https://github.com/Heaviside479/handoffprobe/releases/tag/v0.2.0`
+
+A clean external installation verified the installed CLI binary, version `0.2.0`, exactly 22 stable attacks and a secure run with 22 PASS / 0 FAIL / 0 ERROR.
+
+The final public package was compared with frozen R2.5 candidate `f2483bacd4fac78d09e6322c0823e08a2078260f`. Package membership remained identical at 287 files; the only packaged-file content change was `package/README.md`.
+
+Post-publication consumer workflow run `34401248620` verified both:
+
+- `Heaviside479/handoffprobe@v0.2.0`
+- `Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77`
+
+Both Action jobs and output-verification steps passed. Consumer PR #5 was closed unmerged after the evidence run.
+
+The GitHub Marketplace listing was manually verified after publication to present v0.2.0 as the published release.
+
+No npm provenance or attestation claim is made for this release.

@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active  
-Current checkpoint: 2026-09-08
+Current checkpoint: 2026-09-09
 
 Strategy:
 
@@ -11,25 +11,22 @@ Strategy:
 - evidence before UI
 - adoption before SaaS
 
-## Current release sequence — authoritative from 2026-09-08
+## Current release sequence — authoritative from 2026-09-09
 
-The immediate release train is now intentionally split into two steps:
+The maintenance and minor-release sequence is complete:
 
-1. **v0.1.1 — security maintenance release (CURRENT / BLOCKING)**
-   - branch from the immutable `v0.1.0` release line, not from current `main`;
-   - update the affected `qs` dependency from the `v0.1.0` lockfile to a patched version (`>= 6.16.0` for the currently known advisory);
-   - keep behavior and scope as close to `v0.1.0` as possible;
-   - run the complete release-quality verification;
-   - publish npm + GitHub release + GitHub Marketplace-compatible release metadata;
-   - never move, rewrite or republish the existing `v0.1.0` tag.
-2. **v0.2.0 — next minor release (NEXT / BLOCKED BY v0.1.1)**
-   - return to the current `main` development line only after `v0.1.1` is public and verified;
-   - audit all post-`v0.1.0` work and freeze a coherent public scope;
-   - treat Phase 8/9 work already on `main` as release candidates, not as automatically shipped public features;
-   - verify public API, CLI, Action, report/config compatibility, package contents, docs and upgrade behavior;
-   - publish `v0.2.0` only when it has a clear, tested user-facing value proposition.
+1. **v0.1.1 — security maintenance release (COMPLETED 2026-09-09)**
+   - published from the immutable `v0.1.0` release line;
+   - patched the affected dependency graph;
+   - npm, GitHub Release and external Action verification completed;
+   - the existing `v0.1.0` tag remained untouched.
+2. **v0.2.0 — next minor release (COMPLETED 2026-09-09)**
+   - audited and froze a coherent public scope from the `main` development line;
+   - preserved exactly 22 stable attacks and the A2A 1.0 → MCP 2026-07-28 public contract;
+   - published the npm package, annotated tag and GitHub Release;
+   - verified the public package and both version-tag and immutable-SHA GitHub Action references externally.
 
-**Release-order rule:** do not use `v0.2.0` as a shortcut around the `v0.1.0` maintenance issue. The patch line is closed first; the minor line is then prepared independently and deliberately.
+**Release-order result:** v0.1.1 was completed before v0.2.0 publication. Neither immutable release tag was moved or rewritten.
 
 Detailed execution gates for both releases are defined after Phase 9 below under **Release Track R1** and **Release Track R2**.
 
@@ -1063,7 +1060,7 @@ Only after this exit gate is satisfied does Release Track R2 become active.
 
 # Release Track R2 — v0.2.0 next minor release
 
-Status: **CURRENT / ACTIVE**
+Status: **COMPLETED 2026-09-09**
 
 ## Goal
 
@@ -1163,19 +1160,31 @@ R2.4 completed 2026-09-09. All ten release-quality gates are evidenced. The reus
 
 - [x] freeze release candidate commit
 - [x] run full release checklist against that exact commit
-- [ ] create/publish `v0.2.0` only after all gates pass
-- [ ] verify npm package and GitHub release after publication
-- [ ] verify Marketplace/Action references where applicable
-- [ ] verify exact external install/run path
-- [ ] collect immediate post-release adoption/error signals without hidden telemetry
+- [x] create/publish `v0.2.0` only after all gates pass
+- [x] verify npm package and GitHub release after publication
+- [x] verify GitHub Marketplace listing and public GitHub Action references after publication
+- [x] verify exact external install/run path
+- [x] collect immediate post-release adoption/error signals without hidden telemetry
 
-R2.5 pre-publication status verified 2026-09-09. Exact release-candidate commit `f2483bacd4fac78d09e6322c0823e08a2078260f` is frozen and the complete release checklist passed against that exact commit. PR #46 merged it to `main` as `d93177d57ba81c3386271c17d622a3d5e323be02` with an identical tree. The separate reusable-Action consumer audit also passed against the exact RC. Publication, post-publication verification and adoption-signal gates remain open.
+R2.5 completed 2026-09-09. The frozen release candidate and exact release checklist passed before publication. Final release commit `b0fc2a8abe1df36e526536d714418a9842be2f77` is the immutable `v0.2.0` release target.
+
+`handoffprobe@0.2.0` is publicly available and verified from the npm registry. The GitHub Release is published and verified. Clean external package installation/run verification passed with exactly 22 stable attacks.
+
+A separate post-publication consumer audit verified both `Heaviside479/handoffprobe@v0.2.0` and immutable release SHA `b0fc2a8abe1df36e526536d714418a9842be2f77`; workflow run `34401248620` succeeded and evidence-only consumer PR #5 was closed unmerged.
+
+The GitHub Marketplace listing was manually verified after publication to present v0.2.0 as the published release.
+
+The immediate telemetry-free signal check found no new GitHub issue or error report after publication. Existing opt-in adoption and adapter-feedback paths remain the signal mechanism. A Peerlist launch is scheduled for 2026-09-14.
+
+Full post-publication evidence: `docs/R2_V0_2_0_POSTPUBLICATION_CLOSEOUT_20260909.md`.
 
 ## v0.2.0 exit gate
 
 A developer can understand in a few minutes what changed from `v0.1.x`, install the exact release, reproduce its primary value, and rely on the documented CLI/report/Action contracts without reading Phase 8/9 implementation history.
 
 `v0.2.0` must represent a coherent public product increment, not merely a snapshot of `main`.
+
+Exit gate satisfied 2026-09-09.
 
 ## Versioning after v0.2.0
 

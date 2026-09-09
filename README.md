@@ -58,6 +58,8 @@ The developer CLI currently includes:
 
 The npm package for this release is **`handoffprobe@0.2.0`**.
 
+HandoffProbe v0.2.0 is publicly available on npm and as a GitHub Release.
+
 The release package version is `0.2.0`. Exact-version npm commands below use that version.
 
 Source and package metadata for this release are finalized at `0.2.0`.
@@ -90,8 +92,8 @@ Use the public exact-version commands below for the released package, or use the
 The canonical public exact-version checks are:
 
 ```bash
-npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.2.0 handoffprobe test
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
 ```
 
 ## Quick start from source
@@ -139,8 +141,8 @@ npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 For the finalized `handoffprobe@0.2.0` release, the canonical exact-version commands are:
 
 ```bash
-npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
-npx --yes --package=handoffprobe@0.2.0 handoffprobe test
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
 ```
 
 The shorter convenience command is:
@@ -193,15 +195,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
+      - uses: Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
-Review the release notes before changing this revision; the human-readable `v0.1.1` tag remains useful for discovery while the commit SHA is the stronger supply-chain pin.
+The pin above is the reviewed immutable release commit for HandoffProbe v0.2.0.
+The human-readable `v0.2.0` tag remains useful for discovery while the immutable commit SHA is the stronger supply-chain pin. Both references were verified after publication from a separate consumer repository.
 
 Supported inputs:
 

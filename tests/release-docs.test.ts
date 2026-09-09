@@ -14,8 +14,10 @@ describe('release installation and usage documentation', () => {
     expect(readme).toContain('The release package version is `0.2.0`.');
     expect(readme).toContain('docs/INSTALLATION.md');
     expect(readme).toContain('docs/USAGE.md');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.2.0 handoffprobe --version');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.2.0 handoffprobe test');
+    expect(readme).toContain(
+      'npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version',
+    );
+    expect(readme).toContain('npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test');
   });
 
   it('documents source, tarball and public npm installation', async () => {
@@ -28,7 +30,7 @@ describe('release installation and usage documentation', () => {
       'npm run build',
       'PACKAGE_TARBALL="$(npm pack --silent)"',
       'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
-      'npx --yes --package=handoffprobe@0.2.0 handoffprobe --version',
+      'npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version',
       'npm install --save-dev --save-exact handoffprobe@0.2.0',
       'owned, synthetic or explicitly authorized target',
     ]) {
