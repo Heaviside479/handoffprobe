@@ -1145,16 +1145,19 @@ R2.3 completed 2026-09-09. Phase 9 is frozen as repository research and conforma
 
 ### R2.4 — release quality
 
-- [ ] all normal CI and dependency review green
-- [ ] dependency audit contains no known unaddressed Critical/High release blocker
-- [ ] full deterministic test suite green
-- [ ] package dry-run and exact tarball inspection green
-- [ ] clean-clone install/build/run verification
-- [ ] clean `npx` verification from a local release candidate tarball
-- [ ] reusable Action consumer verification
-- [ ] README/INSTALLATION/USAGE/SECURITY/CONTRIBUTING consistent with `0.2.0`
-- [ ] `CHANGELOG.md` includes `0.1.1` and `0.2.0` accurately
-- [ ] release notes distinguish fixes, user-facing features, research assets and limitations
+- [x] all normal CI and dependency review green
+- [x] dependency audit contains no known unaddressed Critical/High release blocker
+- [x] full deterministic test suite green
+- [x] package dry-run and exact tarball inspection green
+- [x] clean-clone install/build/run verification
+- [x] clean `npx` verification from a local release candidate tarball
+- [x] reusable Action consumer verification
+- [x] README/INSTALLATION/USAGE/SECURITY/CONTRIBUTING consistent with `0.2.0`
+- [x] `CHANGELOG.md` includes `0.1.1` and `0.2.0` accurately
+- [x] release notes distinguish fixes, user-facing features, research assets and limitations
+
+
+R2.4 completed 2026-09-09. All ten release-quality gates are evidenced. The reusable GitHub Action was successfully verified from a separate consumer repository against immutable candidate commit `f38f340f4dcf96464cc8053d67cf5f15563b409a`; consumer PR #3 was closed unmerged after the successful audit. R2.5 — release candidate and publication — is now active. Evidence: `docs/R2_V0_2_0_RELEASE_QUALITY_20260909.md`.
 
 ### R2.5 — release candidate and publication
 

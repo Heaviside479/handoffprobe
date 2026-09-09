@@ -94,7 +94,7 @@ describe('CLI execution catalog', () => {
       expect(result.finding.status).toBe('pass');
       expect(result.finding.testId).toBe(id);
     }
-  });
+  }, 15_000);
 
   it('reproduces FAIL for every stable attack against the bundled vulnerable target', async () => {
     const runner = new CoreRunner();

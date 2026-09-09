@@ -8,6 +8,8 @@ HandoffProbe `0.1.1` is the current public release.
 
 The npm package is publicly available as `handoffprobe@0.1.1`. The public registry, exact package integrity and clean-install smoke tests were re-verified during the v0.1.1 maintenance release gate.
 
+The repository is preparing v0.2.0. Until v0.2.0 is actually published, public registry installation remains pinned to `handoffprobe@0.1.1`. Source and locally packed release-candidate validation use the repository checkout, and the controlled version bump to `0.2.0` happens only in R2.5.
+
 ## Requirements
 
 - Node.js `>=24 <25`
@@ -86,7 +88,7 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-The v0.1.0 source checkout should report:
+During R2.4, the unreleased v0.2.0 source candidate intentionally still reports the development version:
 
 ```text
 HandoffProbe 0.1.0
@@ -126,6 +128,8 @@ For external repositories, immutable commit-SHA pinning is the strongest default
 The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
 
 The `v0.1.1` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
+
+The v0.2.0 Action revision will not replace this public recommendation until an immutable v0.2.0 candidate/release commit has completed the remaining release gates.
 
 ## Updating
 

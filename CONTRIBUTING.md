@@ -4,7 +4,7 @@ HandoffProbe welcomes contributions that improve defensive testing of security-s
 
 ## Before contributing
 
-Read `PROJECT_CONTEXT.md` and the documents under `docs/`. The v0.1 scope is deliberately narrow: A2A 1.0 -> MCP 2026-07-28.
+Read `PROJECT_CONTEXT.md` and the documents under `docs/`. The v0.2.0 public product scope remains deliberately narrow: A2A 1.0 -> MCP 2026-07-28. Phase 9 crossing-corpus functionality remains repository research/conformance tooling unless a later evidence-backed release explicitly promotes a public runtime surface.
 
 ## Good early contributions
 

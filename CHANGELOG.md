@@ -47,6 +47,34 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
+## 0.2.0 — unreleased
+
+### User-facing product contract
+
+- preserves the existing `test`, `list`, `explain`, `--version` and `--help` CLI surface
+- preserves exactly 22 stable attacks, the A2A 1.0 → MCP 2026-07-28 protocol baseline, report schema `1` and deterministic exit semantics `0 / 1 / 2 / 3`
+- preserves the reusable source-backed GitHub Action without adding a Phase 9 Action input, output or command
+- narrows the npm payload to the stable release build closure while keeping package-root exports unchanged
+
+### Security and maintenance
+
+- carries forward the v0.1.1 transitive `qs` security maintenance fix with the patched dependency resolution
+- removes stale `dist` before release compilation so old build output cannot leak into the npm package
+- preserves the GitHub Action runtime entrypoint in the narrowed release build
+
+### Research and developer experience
+
+- carries forward Phase 8 adoption, contributor, review and research documentation
+- retains the pinned Phase 9 A2A → MCP crossing corpus and reproducible conformance workflow in the repository
+- records externally reviewed Phase 9 `implementation_independent` conformance evidence without promoting those cases into stable HandoffProbe attacks
+- excludes pinned Phase 9 fixture files and research-only Phase 9 modules from the npm payload
+
+### Limitations
+
+- Phase 9 evidence remains conformance evidence rather than additional vulnerability findings or a general security certification
+- no `operator_independent`, production-world effect, production key management, restart-durable replay protection or multi-process replay protection claim is made without new evidence
+- v0.2.0 does not add a generic internet scanner, runtime firewall, authorization provider or new public Phase 9 runtime API
+
 ## 0.1.1 — 2026-09-08
 
 ### Security

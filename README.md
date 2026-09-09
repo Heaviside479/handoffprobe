@@ -60,6 +60,10 @@ The npm package is publicly available as **`handoffprobe@0.1.1`**.
 
 The current public package version is `0.1.1`. Exact-version npm commands below are verified against the public registry.
 
+The repository is preparing the v0.2.0 release candidate. Until publication, public registry commands remain pinned to `handoffprobe@0.1.1`; the source and package metadata intentionally remain on development version `0.1.0` until the controlled R2.5 version transition.
+
+The v0.2.0 release-candidate contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
+
 ## Externally reviewed crossing-corpus evidence
 
 HandoffProbe has one externally reviewed Phase 9 conformance result for the frozen A2A 1.0 → MCP 2026-07-28 crossing corpus from [Issue #20](https://github.com/Heaviside479/handoffprobe/issues/20).
@@ -551,6 +555,7 @@ The core admission rule remains:
 - [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
 - [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
 - [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
+- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — draft v0.2.0 release notes, compatibility boundary and limitations
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog
