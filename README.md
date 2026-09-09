@@ -56,13 +56,13 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-The npm package is publicly available as **`handoffprobe@0.1.1`**.
+The npm package for this release is **`handoffprobe@0.2.0`**.
 
-The current public package version is `0.1.1`. Exact-version npm commands below are verified against the public registry.
+The release package version is `0.2.0`. Exact-version npm commands below use that version.
 
-The repository is now in R2.5 release-candidate preparation. Source and package metadata are set to `0.2.0`, but until publication public registry commands remain pinned to `handoffprobe@0.1.1`.
+Source and package metadata for this release are finalized at `0.2.0`.
 
-The v0.2.0 release-candidate contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
+The v0.2.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
 ## Externally reviewed crossing-corpus evidence
 
@@ -90,8 +90,8 @@ Use the public exact-version commands below for the released package, or use the
 The canonical public exact-version checks are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.1 handoffprobe test
+npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.2.0 handoffprobe test
 ```
 
 ## Quick start from source
@@ -136,11 +136,11 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-For the public `handoffprobe@0.1.1` release, the canonical exact-version commands are:
+For the finalized `handoffprobe@0.2.0` release, the canonical exact-version commands are:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
-npx --yes --package=handoffprobe@0.1.1 handoffprobe test
+npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
+npx --yes --package=handoffprobe@0.2.0 handoffprobe test
 ```
 
 The shorter convenience command is:
@@ -550,12 +550,12 @@ The core admission rule remains:
 - [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical project context
 - [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
-- [`docs/INSTALLATION.md`](docs/INSTALLATION.md) — installation and release-candidate execution
+- [`docs/INSTALLATION.md`](docs/INSTALLATION.md) — installation and release execution
 - [`docs/USAGE.md`](docs/USAGE.md) — CLI commands, reporters, configuration and exit codes
 - [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
 - [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
 - [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
-- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — draft v0.2.0 release notes, compatibility boundary and limitations
+- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — v0.2.0 release notes, compatibility boundary and limitations
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog

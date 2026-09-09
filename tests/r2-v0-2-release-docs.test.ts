@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 const read = (path: string): string => readFileSync(path, 'utf8');
 
-describe('v0.2.0 release-candidate documentation', () => {
+describe('v0.2.0 final release documentation', () => {
   const readme = read('README.md');
   const installation = read('docs/INSTALLATION.md');
   const usage = read('docs/USAGE.md');
@@ -13,12 +13,14 @@ describe('v0.2.0 release-candidate documentation', () => {
   const changelog = read('CHANGELOG.md');
   const releaseNotes = read('docs/V0_2_0_RELEASE_NOTES.md');
 
-  it('keeps v0.1.1 as the published package while framing v0.2.0 as unreleased', () => {
-    expect(readme).toContain('The current public package version is `0.1.1`.');
-    expect(readme).toContain('R2.5 release-candidate preparation');
-    expect(installation).toContain('The repository is now in R2.5 release-candidate preparation');
+  it('documents the finalized v0.2.0 release target without claiming publication', () => {
+    expect(readme).toContain('The release package version is `0.2.0`.');
+    expect(readme).toContain(
+      'Source and package metadata for this release are finalized at `0.2.0`',
+    );
+    expect(installation).toContain('HandoffProbe `0.2.0` is the release version');
     expect(installation).toContain('source checkout reports');
-    expect(releaseNotes).toContain('v0.2.0 is not published yet');
+    expect(releaseNotes).toContain('Status: final release notes for v0.2.0.');
   });
 
   it('preserves the stable v0.2.0 public runtime contract', () => {
@@ -41,7 +43,7 @@ describe('v0.2.0 release-candidate documentation', () => {
   });
 
   it('records the v0.2.0 changelog and explicit release-note limitations', () => {
-    expect(changelog).toContain('## 0.2.0 — unreleased');
+    expect(changelog).toContain('## 0.2.0 — 2026-09-09');
     expect(changelog).toContain('### User-facing product contract');
     expect(changelog).toContain('### Security and maintenance');
     expect(changelog).toContain('### Research and developer experience');
@@ -51,12 +53,12 @@ describe('v0.2.0 release-candidate documentation', () => {
   });
 
   it('reconciles security and contributor guidance without claiming publication', () => {
-    expect(security).toContain('v0.2.0 release-candidate safety boundary');
+    expect(security).toContain('v0.2.0 release safety boundary');
     expect(contributing).toContain('v0.2.0 public product scope remains deliberately narrow');
     const publicDocs = [readme, installation, usage, security, contributing, releaseNotes].join(
       '\n',
     );
-    expect(publicDocs).not.toContain('current public package version is `0.2.0`');
+    expect(publicDocs).not.toContain('current public package version is `0.1.1`');
     expect(publicDocs).not.toContain('handoffprobe@0.2.0 is publicly available');
   });
 });

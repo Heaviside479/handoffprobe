@@ -11,10 +11,10 @@ const normalizeWhitespace = (value: string): string => value.replace(/\s+/g, ' '
 
 describe('Phase 8.1 first-run friction regression', () => {
   it('keeps exact project installation deterministic', () => {
-    const exactInstall = 'npm install --save-dev --save-exact handoffprobe@0.1.1';
+    const exactInstall = 'npm install --save-dev --save-exact handoffprobe@0.2.0';
 
     expect(installation.split(exactInstall).length - 1).toBe(2);
-    expect(installation).not.toContain('npm install --save-dev handoffprobe@0.1.1');
+    expect(installation).not.toContain('npm install --save-dev handoffprobe@0.2.0');
   });
 
   it('does not regress to pre-release public documentation', () => {
