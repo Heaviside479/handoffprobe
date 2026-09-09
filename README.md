@@ -66,6 +66,21 @@ Source and package metadata for this release are finalized at `0.2.0`.
 
 The v0.2.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
+## Commercial support
+
+HandoffProbe remains free and open source under Apache-2.0.
+
+Teams that need help applying HandoffProbe to a real agent system can work with Heaviside Solutions on:
+
+- authorized Handoff Security Assessments;
+- custom adapters and integrations;
+- private organization-specific test packs;
+- technical onboarding and enterprise support.
+
+Need help testing a real agent handoff? [Contact Heaviside Solutions](https://heaviside-solutions.com/kontakt).
+
+Commercial work is limited to systems you own or are authorized to assess. Security-sensitive disclosures should follow [`SECURITY.md`](SECURITY.md).
+
 ## Externally reviewed crossing-corpus evidence
 
 HandoffProbe has one externally reviewed Phase 9 conformance result for the frozen A2A 1.0 → MCP 2026-07-28 crossing corpus from [Issue #20](https://github.com/Heaviside479/handoffprobe/issues/20).
