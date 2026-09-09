@@ -1,6 +1,6 @@
 # Usage
 
-The v0.2.0 release-candidate contract for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. The current published npm package remains `handoffprobe@0.1.1` until v0.2.0 publication.
+The v0.2.0 release contract for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. The exact npm package for this release is `handoffprobe@0.2.0`.
 
 The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
@@ -214,7 +214,7 @@ Exit `1` is a security finding, not a scanner crash.
 handoffprobe test   --target secure   --reporter json   --output handoffprobe-report.json
 ```
 
-The v0.2.0 release-candidate contract preserves report schema version `1`.
+The v0.2.0 release contract preserves report schema version `1`.
 
 The report contains:
 
@@ -282,11 +282,11 @@ jobs:
           artifact-name: handoffprobe-report
 ```
 
-The revision above is the reviewed immutable commit for HandoffProbe v0.1.1 and preserves the strongest supply-chain pinning model. A v0.2.0 Action pin will be documented only after the candidate/release commit is frozen and verified.
+The revision above remains the reviewed immutable commit for HandoffProbe v0.1.1 and preserves the strongest currently verified supply-chain pinning model. A v0.2.0 Action pin will be documented after the final release tag/reference is published and verified.
 
 ## Reproducible public demo
 
-The primary v0.2.0 release-candidate demonstration remains the same stable public-product scenario:
+The primary v0.2.0 release demonstration remains the same stable public-product scenario:
 
 ```bash
 handoffprobe test --target vulnerable --test HP-AUTH-001
@@ -314,7 +314,7 @@ Use HandoffProbe only against:
 - staging/test environments you control;
 - targets for which you have explicit authorization.
 
-The v0.2.0 release-candidate scope is not a generic internet scanner, runtime firewall or authorization provider.
+The v0.2.0 release scope is not a generic internet scanner, runtime firewall or authorization provider.
 
 ## More documentation
 

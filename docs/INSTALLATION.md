@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe `0.1.1` is the current public release.
+HandoffProbe `0.2.0` is the release version.
 
-The npm package is publicly available as `handoffprobe@0.1.1`. The public registry, exact package integrity and clean-install smoke tests were re-verified during the v0.1.1 maintenance release gate.
+The exact npm package for this release is `handoffprobe@0.2.0`. Public-registry integrity and clean-install verification are part of the release verification process.
 
-The repository is now in R2.5 release-candidate preparation with source and package metadata set to `0.2.0`. Until v0.2.0 is actually published, public registry installation remains pinned to `handoffprobe@0.1.1`.
+Source and package metadata are finalized at `0.2.0`. Registry commands below use the exact package version `handoffprobe@0.2.0`.
 
 ## Requirements
 
@@ -31,19 +31,19 @@ npm --version
 The recommended one-shot public version check is:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
 ```
 
 Run the secure bundled corpus:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.1 handoffprobe test
+npx --yes --package=handoffprobe@0.2.0 handoffprobe test
 ```
 
 Expected release version:
 
 ```text
-HandoffProbe 0.1.1
+HandoffProbe 0.2.0
 ```
 
 Using the exact version keeps first-run and CI reproduction deterministic.
@@ -53,7 +53,7 @@ Using the exact version keeps first-run and CI reproduction deterministic.
 Install the exact public release:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.1.1
+npm install --save-dev --save-exact handoffprobe@0.2.0
 ```
 
 Then run:
@@ -88,7 +88,7 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-During R2.5 release-candidate preparation, the source checkout reports:
+The finalized v0.2.0 source checkout reports:
 
 ```text
 HandoffProbe 0.2.0
@@ -129,16 +129,16 @@ The pin above is the reviewed immutable commit for HandoffProbe v0.1.1.
 
 The `v0.1.1` tag is available for discoverability, but a reviewed immutable commit SHA remains stronger for supply-chain pinning.
 
-The v0.2.0 Action revision will not replace this public recommendation until an immutable v0.2.0 candidate/release commit has completed the remaining release gates.
+The v0.1.1 immutable Action pin remains the public recommendation until the final v0.2.0 Action/tag reference is verified after publication.
 
 ## Updating
 
 Before v1.0, HandoffProbe follows pre-1.0 compatibility expectations. Read release notes before changing versions.
 
-For an exact npm version after publication:
+For the exact npm version:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.1.1
+npm install --save-dev --save-exact handoffprobe@0.2.0
 ```
 
 Do not assume report, configuration or protocol compatibility across future pre-1.0 versions unless the release notes state it.
@@ -150,12 +150,12 @@ Do not assume report, configuration or protocol compatibility across future pre-
 Verify the exact public version:
 
 ```bash
-npm view handoffprobe@0.1.1
+npm view handoffprobe@0.2.0
 ```
 
 ### Unsupported Node version
 
-HandoffProbe v0.1.1 requires Node `>=24 <25`.
+HandoffProbe v0.2.0 requires Node `>=24 <25`.
 
 Check:
 
@@ -168,7 +168,7 @@ node --version
 Use the exact package selector:
 
 ```bash
-npx --yes --package=handoffprobe@0.1.1 handoffprobe --version
+npx --yes --package=handoffprobe@0.2.0 handoffprobe --version
 ```
 
 ### Build or install failure from source

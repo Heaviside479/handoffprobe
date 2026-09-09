@@ -47,7 +47,7 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
-## 0.2.0 — unreleased
+## 0.2.0 — 2026-09-09
 
 ### User-facing product contract
 

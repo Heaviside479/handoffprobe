@@ -1,14 +1,14 @@
 # HandoffProbe v0.2.0 release notes
 
-Status: R2.5 release-candidate notes. v0.2.0 is not published yet.
+Status: final release notes for v0.2.0.
 
 ## Summary
 
 HandoffProbe v0.2.0 is a release-quality and product-coherence increment built on the existing stable defensive A2A 1.0 → MCP 2026-07-28 handoff-security product.
 
-The release candidate deliberately preserves the stable runtime contract rather than expanding the public attack surface without evidence.
+The finalized v0.2.0 scope deliberately preserves the stable runtime contract rather than expanding the public attack surface without evidence.
 
-The current public npm package remains `handoffprobe@0.1.1` until the R2.5 publication gate completes.
+The exact npm package for this release is `handoffprobe@0.2.0`.
 
 ## User-facing features and product contract
 
@@ -73,7 +73,7 @@ HandoffProbe v0.2.0 does not claim:
 
 The measured Phase 9 effect scope remains a local synthetic MCP receiver.
 
-## Release-candidate validation boundary
+## Release validation boundary
 
 R2.4 validates the repository and locally packed candidate without publishing v0.2.0.
 
@@ -91,4 +91,4 @@ The exact v0.2.0 release-candidate commit is `f2483bacd4fac78d09e6322c0823e08a20
 
 The release-candidate freeze and exact release checklist are complete. R2.5 still owns the tag, npm publication, GitHub Release and post-publication verification.
 
-Until those gates complete, do not treat `handoffprobe@0.2.0`, tag `v0.2.0` or any v0.2.0 GitHub Release as published.
+The annotated `v0.2.0` tag is created only from the final verified release commit. npm-registry and GitHub Release verification remain explicit R2.5 release gates.
