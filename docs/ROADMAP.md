@@ -969,7 +969,7 @@ Do not create independent scanners for every framework.
 
 # Release Track R1 — v0.1.1 security maintenance release
 
-Status: **CURRENT / BLOCKING NEW RELEASE PROMOTION**
+Status: **COMPLETED 2026-09-09**
 
 ## Goal
 
@@ -985,46 +985,46 @@ Create a dedicated maintenance branch from that release line. Do **not** create 
 
 ## Required scope
 
-- [ ] update the `v0.1.0` dependency graph so `qs` resolves to a patched version (`>= 6.16.0` for the currently known advisory)
-- [ ] bump package version from `0.1.0` to `0.1.1`
-- [ ] update lockfile consistently through npm tooling; no hand-edited fake integrity values
-- [ ] add a concise `CHANGELOG.md` entry for `0.1.1`
-- [ ] update release metadata/docs only where required for the new patch version
-- [ ] preserve the 22-attack corpus and existing CLI/report behavior unless a release-blocking defect requires a separately documented fix
-- [ ] preserve A2A 1.0 → MCP 2026-07-28 baseline
-- [ ] preserve report schema `1`
-- [ ] preserve deterministic exit-code contract
-- [ ] preserve source-backed GitHub Action behavior
+- [x] update the `v0.1.0` dependency graph so `qs` resolves to a patched version (`>= 6.16.0` for the currently known advisory)
+- [x] bump package version from `0.1.0` to `0.1.1`
+- [x] update lockfile consistently through npm tooling; no hand-edited fake integrity values
+- [x] add a concise `CHANGELOG.md` entry for `0.1.1`
+- [x] update release metadata/docs only where required for the new patch version
+- [x] preserve the 22-attack corpus and existing CLI/report behavior unless a release-blocking defect requires a separately documented fix
+- [x] preserve A2A 1.0 → MCP 2026-07-28 baseline
+- [x] preserve report schema `1`
+- [x] preserve deterministic exit-code contract
+- [x] preserve source-backed GitHub Action behavior
 
 ## Verification gate
 
 Before publication, all of the following must pass on the maintenance branch:
 
-- [ ] dependency tree verifies that the affected `qs` version is absent
-- [ ] `npm ci`
-- [ ] full repository `npm run check`
-- [ ] `npm run package:check`
-- [ ] exact tarball inspection
-- [ ] fresh local install/run from the packed `0.1.1` tarball
-- [ ] secure target: expected 22 PASS / 0 FAIL / 0 ERROR
-- [ ] vulnerable representative case: expected security exit `1`
-- [ ] `--version` reports `0.1.1`
-- [ ] no secret-safety regression
-- [ ] no unintended package payload expansion
-- [ ] PR required checks are green
+- [x] dependency tree verifies that the affected `qs` version is absent
+- [x] `npm ci`
+- [x] full repository `npm run check`
+- [x] `npm run package:check`
+- [x] exact tarball inspection
+- [x] fresh local install/run from the packed `0.1.1` tarball
+- [x] secure target: expected 22 PASS / 0 FAIL / 0 ERROR
+- [x] vulnerable representative case: expected security exit `1`
+- [x] `--version` reports `0.1.1`
+- [x] no secret-safety regression
+- [x] no unintended package payload expansion
+- [x] PR required checks are green
 
 ## Publication gate
 
-- [ ] merge only after required PR checks succeed
-- [ ] create immutable annotated tag `v0.1.1`
-- [ ] publish npm `handoffprobe@0.1.1`
-- [ ] verify npm metadata and tarball after publication
-- [ ] create GitHub release `HandoffProbe v0.1.1`
-- [ ] verify release asset/provenance checks used by the project
-- [ ] verify the GitHub Marketplace listing resolves to / presents the patched release as intended
-- [ ] verify a clean external `npx --yes --package=handoffprobe@0.1.1 handoffprobe test` path
-- [ ] verify the reusable GitHub Action from the immutable `v0.1.1` release commit in a consumer workflow
-- [ ] mark `v0.1.1` as the supported `0.1.x` release in public docs where appropriate
+- [x] merge only after required PR checks succeed
+- [x] create immutable annotated tag `v0.1.1`
+- [x] publish npm `handoffprobe@0.1.1`
+- [x] verify npm metadata and tarball after publication
+- [x] create GitHub release `HandoffProbe v0.1.1`
+- [x] verify release asset/provenance checks used by the project
+- [x] verify the GitHub Marketplace listing resolves to / presents the patched release as intended
+- [x] verify a clean external `npx --yes --package=handoffprobe@0.1.1 handoffprobe test` path
+- [x] verify the reusable GitHub Action from the immutable `v0.1.1` release commit in a consumer workflow
+- [x] mark `v0.1.1` as the supported `0.1.x` release in public docs where appropriate
 
 ## Explicit non-goals
 
@@ -1045,11 +1045,25 @@ Do not include in `v0.1.1` merely because it exists on current `main`:
 
 Only after this exit gate is satisfied does Release Track R2 become active.
 
+## Completion record — 2026-09-09
+
+- the maintenance release was prepared from the immutable `v0.1.0` release line rather than current `main`;
+- `handoffprobe@0.1.1` is publicly available from npm with the patched `qs 6.16.0` dependency resolution;
+- the canonical publication tarball, npm registry tarball and GitHub release asset were verified against the recorded package integrity and SHA-256 evidence;
+- the GitHub release is published as `HandoffProbe v0.1.1`;
+- clean external exact-version `npx` version, secure-control and vulnerable-control checks passed;
+- the reusable GitHub Action passed in a separate consumer repository using immutable release commit `8e58c2f6553c735bec3857945ca5afde8c8a3177`, with result `pass`, exit code `0` and uploaded report artifact;
+- the GitHub Marketplace listing presents `v0.1.1` as Latest, shows the public `handoffprobe@0.1.1` commands and uses the immutable v0.1.1 Action pin;
+- public documentation on `main` was reconciled through PR `#40`, merged as `6a3e99aad3f8af0993b8a5291d9070ca9e9d225c`;
+- the immutable `v0.1.0` tag and artifact remain untouched;
+- release-asset digest and byte-identity checks are recorded; no npm provenance-attestation claim is made;
+- `package.json` and `src/index.ts` on the development `main` line intentionally remain at `0.1.0` until controlled v0.2.0 release preparation.
+
 ---
 
 # Release Track R2 — v0.2.0 next minor release
 
-Status: **NEXT / BLOCKED BY R1**
+Status: **CURRENT / ACTIVE**
 
 ## Goal
 
