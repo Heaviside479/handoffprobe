@@ -1118,17 +1118,19 @@ R2.1 completed 2026-09-09. Evidence and frozen scope: `docs/R2_V0_2_0_SCOPE_DIFF
 
 ### R2.2 — public contract audit
 
-- [ ] CLI commands/options compatibility review
-- [ ] package-root export compatibility review
-- [ ] config-schema compatibility review
-- [ ] report-schema compatibility review
-- [ ] GitHub Action input/output compatibility review
-- [ ] exit-code compatibility review
-- [ ] Node/runtime requirement review
-- [ ] protocol-version baseline review
-- [ ] redaction/secret-safety review
+- [x] CLI commands/options compatibility review
+- [x] package-root export compatibility review
+- [x] config-schema compatibility review
+- [x] report-schema compatibility review
+- [x] GitHub Action input/output compatibility review
+- [x] exit-code compatibility review
+- [x] Node/runtime requirement review
+- [x] protocol-version baseline review
+- [x] redaction/secret-safety review
 
 Any intentional breaking change requires explicit documentation and must be justified for a `0.x` minor release; accidental breaking changes are blockers.
+
+R2.2 completed 2026-09-09. All nine reviewed contracts are compatible; evidence: `docs/R2_V0_2_0_PUBLIC_CONTRACT_AUDIT_20260909.md`.
 
 ### R2.3 — productize Phase 9 only where justified
 
