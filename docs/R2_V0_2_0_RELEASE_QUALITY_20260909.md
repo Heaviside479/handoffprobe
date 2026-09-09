@@ -1,6 +1,6 @@
 # v0.2.0 R2.4 release-quality evidence — 2026-09-09
 
-Status: R2.4 in progress — nine of ten release-quality gates verified
+Status: R2.4 completed — ten of ten release-quality gates verified
 
 ## Baseline
 
@@ -113,11 +113,40 @@ Verified outcomes:
 
 After these documentation changes, the full repository quality gate passed with 68 of 68 test files and 358 of 358 tests passing.
 
-## Remaining R2.4 gates
+## External reusable Action consumer verification
 
-Only one R2.4 gate remains before release quality can be closed:
+The final R2.4 gate was verified from a separate consumer repository against the immutable HandoffProbe candidate commit:
 
-1. verify the reusable GitHub Action from a separate consumer repository against an immutable candidate commit.
+- HandoffProbe candidate: `f38f340f4dcf96464cc8053d67cf5f15563b409a`
+- consumer repository: `Heaviside479/handoffprobe-action-audit-20260830-134434`
+- consumer pull request: `#3`
+- consumer branch: `audit/r2-4-f38f340`
+- consumer commit: `94818245a2d999dead56cf7f670603835d779d31`
+- workflow: `HandoffProbe External Consumer Audit`
+- workflow run: `34357641875`
+- workflow job: `102486266117`
+- workflow conclusion: `success`
+- immutable Action invocation `Heaviside479/handoffprobe@f38f340f4dcf96464cc8053d67cf5f15563b409a`: `success`
+- output verification step: `success`
+- verified Action result: `pass`
+- verified Action exit code: `0`
+- report path: present and points to a file
+- summary path: present and points to a file
+- uploaded artifact: `handoffprobe-report`
+- artifact id: `10106426104`
+- artifact SHA-256 digest: `d43faeb51860682c45261c7619e8563fb352fe7a6dd315ef290c5b90ead3880d`
+
+Consumer PR #3 was closed without merge after successful verification. The audit repository therefore remains a consumer-test harness rather than receiving the candidate workflow change on its default branch.
+
+This closes the tenth and final R2.4 release-quality gate.
+
+## R2.4 completion
+
+R2.4 completed on 2026-09-09 with all ten gates verified.
+
+The immutable runtime candidate exercised by the external consumer was `f38f340f4dcf96464cc8053d67cf5f15563b409a`. The subsequent R2.4 completion record changes documentation only and does not alter the tested Action runtime.
+
+R2.5 — release candidate and publication — is now the active roadmap stage.
 
 ## Deterministic-suite timeout hardening
 
@@ -144,4 +173,4 @@ Post-hardening full quality gate: passed successfully.
 
 R2.4 does not perform the final `0.2.0` version bump, create a release tag, publish npm, create a GitHub Release or change immutable v0.1.0/v0.1.1 release history.
 
-The final version transition and publication remain R2.5 work after all R2.4 gates are closed.
+All R2.4 gates are now closed. The controlled `0.2.0` version transition, final release-candidate freeze and publication remain R2.5 work.
