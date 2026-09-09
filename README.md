@@ -60,7 +60,7 @@ The npm package is publicly available as **`handoffprobe@0.1.1`**.
 
 The current public package version is `0.1.1`. Exact-version npm commands below are verified against the public registry.
 
-The repository is preparing the v0.2.0 release candidate. Until publication, public registry commands remain pinned to `handoffprobe@0.1.1`; the source and package metadata intentionally remain on development version `0.1.0` until the controlled R2.5 version transition.
+The repository is now in R2.5 release-candidate preparation. Source and package metadata are set to `0.2.0`, but until publication public registry commands remain pinned to `handoffprobe@0.1.1`.
 
 The v0.2.0 release-candidate contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
