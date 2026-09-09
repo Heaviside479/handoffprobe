@@ -1,6 +1,6 @@
 # HandoffProbe v0.2.0 release notes
 
-Status: draft release notes for R2.4. v0.2.0 is not published yet.
+Status: R2.5 release-candidate notes. v0.2.0 is not published yet.
 
 ## Summary
 
@@ -79,12 +79,12 @@ R2.4 validates the repository and locally packed candidate without publishing v0
 
 The technical baseline has already demonstrated full deterministic tests, High/Critical dependency-audit clearance, package inspection, clean-clone execution, local-tarball `npx` execution and local Action runtime execution.
 
-The final reusable Action consumer verification must still be completed from a separate consumer repository against an immutable candidate commit.
+Reusable Action consumer verification completed successfully from a separate consumer repository against immutable R2.4 candidate commit `f38f340f4dcf96464cc8053d67cf5f15563b409a`, with `exit-code=0`, `result=pass` and report/summary files verified.
 
 ## Publication status
 
-During R2.4, `package.json` and `src/index.ts` intentionally remain at development version `0.1.0`.
+During R2.5 release-candidate preparation, `package.json` and `src/index.ts` are set to `0.2.0`. The final release-candidate commit has not yet been frozen.
 
-R2.5 owns the controlled transition to `0.2.0`, release-candidate freeze, exact release checklist, tag, npm publication, GitHub Release and post-publication verification.
+R2.5 owns the release-candidate freeze, exact release checklist, tag, npm publication, GitHub Release and post-publication verification.
 
 Until those gates complete, do not treat `handoffprobe@0.2.0`, tag `v0.2.0` or any v0.2.0 GitHub Release as published.

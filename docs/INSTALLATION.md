@@ -8,7 +8,7 @@ HandoffProbe `0.1.1` is the current public release.
 
 The npm package is publicly available as `handoffprobe@0.1.1`. The public registry, exact package integrity and clean-install smoke tests were re-verified during the v0.1.1 maintenance release gate.
 
-The repository is preparing v0.2.0. Until v0.2.0 is actually published, public registry installation remains pinned to `handoffprobe@0.1.1`. Source and locally packed release-candidate validation use the repository checkout, and the controlled version bump to `0.2.0` happens only in R2.5.
+The repository is now in R2.5 release-candidate preparation with source and package metadata set to `0.2.0`. Until v0.2.0 is actually published, public registry installation remains pinned to `handoffprobe@0.1.1`.
 
 ## Requirements
 
@@ -88,10 +88,10 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-During R2.4, the unreleased v0.2.0 source candidate intentionally still reports the development version:
+During R2.5 release-candidate preparation, the source checkout reports:
 
 ```text
-HandoffProbe 0.1.0
+HandoffProbe 0.2.0
 ```
 
 ## Run the locally packed package

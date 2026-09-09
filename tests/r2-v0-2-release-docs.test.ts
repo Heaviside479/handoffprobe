@@ -15,9 +15,9 @@ describe('v0.2.0 release-candidate documentation', () => {
 
   it('keeps v0.1.1 as the published package while framing v0.2.0 as unreleased', () => {
     expect(readme).toContain('The current public package version is `0.1.1`.');
-    expect(readme).toContain('preparing the v0.2.0 release candidate');
-    expect(installation).toContain('The repository is preparing v0.2.0.');
-    expect(installation).toContain('controlled version bump to `0.2.0` happens only in R2.5');
+    expect(readme).toContain('R2.5 release-candidate preparation');
+    expect(installation).toContain('The repository is now in R2.5 release-candidate preparation');
+    expect(installation).toContain('source checkout reports');
     expect(releaseNotes).toContain('v0.2.0 is not published yet');
   });
 
