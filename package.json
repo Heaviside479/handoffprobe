@@ -18,11 +18,10 @@
     }
   },
   "files": [
-    "dist",
-    "fixtures/phase9/a2a-mcp-crossing-v2"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run secret:check && npm test && npm run build",
     "dev": "tsx src/cli.ts",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",

@@ -1134,12 +1134,14 @@ R2.2 completed 2026-09-09. All nine reviewed contracts are compatible; evidence:
 
 ### R2.3 — productize Phase 9 only where justified
 
-- [ ] decide whether crossing-corpus functionality is public CLI/API, packaged research tooling, or maintained internal validation
-- [ ] expose only a user-facing surface with a clear reason to exist
-- [ ] document exact scope and limitations
-- [ ] retain deterministic offline/no-paid execution
-- [ ] preserve the distinction between conformance evidence and vulnerability claims
-- [ ] do not claim `operator_independent`, production-world effect, production key management or restart-durable replay protection without new evidence
+- [x] decide whether crossing-corpus functionality is public CLI/API, packaged research tooling, or maintained internal validation
+- [x] expose only a user-facing surface with a clear reason to exist
+- [x] document exact scope and limitations
+- [x] retain deterministic offline/no-paid execution
+- [x] preserve the distinction between conformance evidence and vulnerability claims
+- [x] do not claim `operator_independent`, production-world effect, production key management or restart-durable replay protection without new evidence
+
+R2.3 completed 2026-09-09. Phase 9 is frozen as repository research and conformance validation tooling with no new public CLI/API/Action surface; the npm payload is narrowed to the stable release build closure. Evidence: `docs/R2_V0_2_0_PHASE9_PRODUCTIZATION_DECISION_20260909.md`.
 
 ### R2.4 — release quality
 
