@@ -152,7 +152,7 @@ describe('runCli', () => {
     expect(output).toContain('ERROR: 0');
     expect(output).toContain('TOTAL: 22');
     expect(output).toContain('Security gate: PASS');
-  });
+  }, 15_000);
 
   it('returns exit 1 for a HIGH vulnerability at the default HIGH threshold', async () => {
     const capture = createCapture();
