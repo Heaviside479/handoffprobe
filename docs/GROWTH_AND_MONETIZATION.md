@@ -1,13 +1,14 @@
 # HandoffProbe – Growth and Monetization Strategy
 
 **Status:** MOVED  
-**Moved:** 01.09.2026
+**Moved:** 01.09.2026  
+**Central repository updated:** 10.09.2026
 
-Die operative Growth-, Launch-, Distribution-, Content-/Research- und Early-Commercial-Strategie von HandoffProbe wird ab sofort zentral im Heaviside-Solutions-Marketing-Hub gepflegt.
+Die operative Growth-, Launch-, Distribution-, Content-/Research- und Early-Commercial-Strategie von HandoffProbe wird ab sofort zentral im eigenständigen Marketing-Repository gepflegt.
 
 ## Verbindliche neue Quelle
 
-`Heaviside479/heaviside-solutions` → `docs/marketing/projects/HANDOFFPROBE.md`
+`Heaviside479/Marketing` → `projects/HANDOFFPROBE.md`
 
 Dort stehen zentral:
 
