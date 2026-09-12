@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active  
-Current checkpoint: 2026-09-09
+Current checkpoint: 2026-09-12
 
 Strategy:
 
@@ -10,6 +10,8 @@ Strategy:
 - near-zero infrastructure cost
 - evidence before UI
 - adoption before SaaS
+- service-first commercial validation may run in parallel with open-source maturation
+- no hosted SaaS before repeated organization-level demand
 
 ## Current release sequence — authoritative from 2026-09-09
 
@@ -1277,38 +1279,211 @@ Ship when external users can reasonably depend on the tool.
 
 # Phase 13 — Commercial validation
 
-Before building SaaS, sell high-value work around Core.
+Status: **ACTIVE from 2026-09-12** — runs in parallel with continued open-source adoption and technical maturation; it does not require waiting for v1.0 GA.
 
-## Offers
+Implementation contract:
 
-### Handoff Security Assessment
+`docs/COMMERCIAL_VALIDATION_SPEC_20260912.md`
 
-Authorized architecture/security assessment using HandoffProbe plus manual
-analysis.
+## Goal
 
-### Custom Adapter
+Validate willingness to pay around the free open-source Core without creating a paid CLI tier or speculative SaaS product.
 
-Integration with proprietary agent infrastructure.
+The first revenue path is a tightly scoped, authorized professional service applying HandoffProbe to a real agent-handoff boundary.
 
-### Private Test Pack
+## Commercial surface
 
-Organization-specific handoff invariants.
+- product/commercial subdomain: `https://handoffprobe.heaviside-solutions.com`;
+- primary conversion page: `https://handoffprobe.heaviside-solutions.com/security-assessment`;
+- GitHub remains the canonical source repository;
+- npm remains the canonical package/install surface;
+- the open-source Core remains free under Apache-2.0.
 
-### Enterprise Support
+## Primary launch offer
 
-Onboarding, integration support and maintenance.
+### HandoffProbe Founding Security Assessment
+
+Launch price hypothesis:
+
+**EUR 1,490 for each of the first 3 accepted assessments.**
+
+Standard scope:
+
+- one clearly defined authorized agent/tool handoff boundary;
+- architecture/handoff review;
+- relevant deterministic HandoffProbe testing;
+- manual handoff/composition analysis;
+- evidence-backed findings and severity;
+- technical remediation guidance;
+- detailed written report;
+- one remediation retest;
+- asynchronous communication by email.
+
+Default result delivery is written rather than meeting-based:
+
+- PDF report;
+- Markdown report;
+- optional safe machine-readable HandoffProbe JSON where appropriate.
+
+There is no mandatory sales call and no mandatory results call.
+
+Initial working delivery target: within 5 business days after payment and after all agreed test prerequisites are available. Treat this as a validation target until measured delivery data exists.
+
+## Conversion flow
+
+```text
+GitHub / npm / Peerlist / AlternativeTo / technical discussions
+                         |
+                         v
+        handoffprobe.heaviside-solutions.com
+                         |
+                         v
+             Security Assessment page
+                         |
+                         v
+                  Request form
+                         |
+                         v
+              Qualified written scope
+                         |
+                         v
+               Stripe payment link
+                         |
+                         v
+                  Paid assessment
+                         |
+                         v
+              Written report + retest
+                         |
+                         v
+     Adapter / private pack / extended work if needed
+```
+
+Payment is requested only after the scope has been reviewed and accepted. Standard Founding Assessments are paid 100% before assessment work begins.
+
+## Authorization and safety gate
+
+- testing is limited to systems the customer owns or is explicitly authorized to test;
+- intake must include explicit authorization confirmation;
+- the public request form must not solicit passwords, API keys, tokens, private keys or undisclosed vulnerabilities;
+- sensitive disclosures continue through the repository security policy;
+- the service is not a certification, a universal AI-security audit or a guarantee that the full system is secure;
+- scanner/runtime `ERROR` must never be represented as a vulnerability finding.
+
+## Follow-on offers
+
+Evidence-backed follow-on work may include:
+
+- Custom Adapter — working anchor from EUR 1,500;
+- Private Test Pack — working anchor from EUR 1,500;
+- Extended Assessment — custom quote for multiple boundaries or materially larger scope;
+- later pricing hypotheses after standard-scope validation: approximately + EUR 750 per additional agreed boundary and + EUR 390 per additional retest.
+
+These are validation hypotheses, not permanent commitments.
+
+## Work packages
+
+### CV-0 — commercial contract freeze
+
+- [x] service-first monetization selected;
+- [x] open-source Core remains free;
+- [x] subdomain selected;
+- [x] asynchronous written-results model selected;
+- [x] EUR 1,490 / first 3 accepted assessments selected as founding price hypothesis;
+- [x] one included retest selected;
+- [x] no mandatory calls;
+- [x] no SaaS required for launch.
+
+### CV-1 — commercial web launch
+
+- [ ] decide safe deployment/repository placement for the commercial site without contaminating the npm/Core release surface;
+- [ ] configure Vercel and `handoffprobe.heaviside-solutions.com` DNS;
+- [ ] build `/`;
+- [ ] build `/security-assessment`;
+- [ ] build `/security-assessment/received`;
+- [ ] add legal/privacy links and verify responsive/accessibility baseline;
+- [ ] verify production SSL and canonical URLs.
+
+### CV-2 — intake and email path
+
+- [ ] implement the short assessment request form;
+- [ ] require explicit authorization confirmation;
+- [ ] add no-secrets warning;
+- [ ] route requests to a controlled Heaviside Solutions inbox/backend;
+- [ ] send customer confirmation email;
+- [ ] verify failure handling and spam/abuse controls.
+
+### CV-3 — payment path
+
+- [ ] prepare Stripe payment mechanism for the Founding Assessment;
+- [ ] send a secure payment link only after written scope acceptance;
+- [ ] collect 100% before standard assessment work begins;
+- [ ] document payment/refund/cancellation handling before first payment;
+- [ ] no subscription billing in this phase.
+
+### CV-4 — report delivery system
+
+- [ ] create reusable written report template;
+- [ ] support PDF + Markdown delivery;
+- [ ] define optional safe JSON attachment rules;
+- [ ] include scope/out-of-scope, findings, severity, evidence, remediation, limitations and retest state;
+- [ ] validate the workflow with a synthetic end-to-end assessment before customer delivery.
+
+### CV-5 — distribution conversion
+
+Only after CV-1 through CV-3 are live and verified:
+
+- [ ] update GitHub README commercial CTA to the assessment page;
+- [ ] update HandoffProbe portfolio/product links where appropriate;
+- [ ] update future npm/release-visible commercial links through normal release discipline;
+- [ ] use the subdomain as the product website in future directories where allowed;
+- [ ] keep technical-community promotion value-first and non-spammy.
+
+### CV-6 — first revenue validation
+
+Target: first **3 paid accepted assessments**.
+
+Measure acquisition source, qualification rate, scope quality, objections, price acceptance, testing/report/retest effort and follow-on demand.
+
+After three paid assessments, explicitly decide whether:
+
+- standard price should move toward EUR 2,490;
+- standard scope should change;
+- Custom Adapter / Private Test Pack demand is real;
+- repeated delivery work should become productized.
+
+## Success sequence
+
+1. first qualified assessment request;
+2. first accepted written scope;
+3. first paid assessment;
+4. first completed written report and retest;
+5. three paid assessments;
+6. repeat/follow-on paid work;
+7. repeated organization-level demand for a productized commercial layer.
+
+## Cloud / SaaS gate
+
+Do not build HandoffProbe Cloud just because commercial validation is active.
+
+Treat Cloud as a serious product-development candidate only when either:
+
+- **3 independent organizations** request materially the same centralized capability; or
+- **2 paying customers** request the same centralized capability with a credible ongoing use case.
+
+Qualifying demand can include centralized scan history, scheduled scans, organization policies, GitHub organization integration, evidence retention, SSO/RBAC or audit/compliance exports.
 
 ## Exit gate
 
-Real organizations demonstrate willingness to pay.
+Phase 13 proves that real organizations will pay for value around HandoffProbe Core. The immediate milestone is the first completed paid assessment; the validation batch target is three paid accepted assessments. Pricing and scope are then updated from measured delivery evidence rather than assumptions.
 
 ---
 
 # Phase 14 — HandoffProbe Cloud beta
 
-Conditional.
+Conditional. **Do not begin until the Phase 13 Cloud / SaaS gate is met.**
 
-Build only if centralized usage is repeatedly requested.
+Build only if centralized usage is repeatedly requested by real organizations.
 
 Possible features:
 
