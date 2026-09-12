@@ -407,19 +407,37 @@ Completion evidence:
 - production HTTPS, SSL/HSTS behavior, `robots.txt`, sitemap and product icons were verified;
 - production deployment was verified from `handoffprobe-site` main commit `a1d7fa0fa4109f9099721a271314f40c7969bce4`;
 - public product claims remain aligned with HandoffProbe v0.2.0 release truth, including 22 stable attacks, Apache-2.0 and the A2A 1.0 → MCP 2026-07-28 public baseline;
-- legal and privacy links are present. Before the CV-2 public form is activated, the privacy notice must be reviewed and updated as necessary for the actual intake implementation.
+- legal and privacy links are present; the privacy notice was subsequently reviewed, updated and verified live before the CV-2 public form was activated.
 
-CV-1 is complete. CV-2 has not started and no public assessment form is live yet.
+CV-1 is complete. CV-2 was completed separately on 2026-09-12.
 
 ### CV-2 — intake and email path
 
-- [ ] implement assessment request form;
-- [ ] enforce required authorization confirmation;
-- [ ] add no-secrets warning;
-- [ ] route submissions to a controlled Heaviside Solutions inbox or approved backend;
-- [ ] send customer confirmation email;
-- [ ] test failure handling and spam/abuse controls;
-- [ ] ensure sensitive disclosure is redirected to the existing security policy rather than ordinary intake.
+Status: **COMPLETED 2026-09-12**
+
+- [x] implement assessment request form;
+- [x] enforce required authorization confirmation;
+- [x] add no-secrets warning;
+- [x] route submissions to a controlled Heaviside Solutions inbox or approved backend;
+- [x] send customer confirmation email;
+- [x] test failure handling and spam/abuse controls;
+- [x] ensure sensitive disclosure is redirected to the existing security policy rather than ordinary intake.
+
+Completion evidence:
+
+- the bilingual English/German assessment request form is live at `/security-assessment` and `/de/security-assessment`;
+- the form collects the required qualification fields, requires explicit authorization confirmation and does not require a phone number or calendar booking;
+- the public flow warns against submitting passwords, API keys, tokens, private keys or other secrets;
+- ordinary assessment requests and replies are routed through `support@heaviside-solutions.com`, while security-sensitive disclosures continue to point to the Core `SECURITY.md` policy;
+- the server-side `/api/security-assessment` endpoint enforces same-origin requests, JSON input, body-size limits, field validation, authorization confirmation, safe public-link validation and likely-secret rejection;
+- abuse controls include a honeypot plus best-effort in-memory rate limiting; the rate limit is intentionally not described as a globally durable distributed control;
+- local failure-path verification covered invalid origin, invalid payload, likely-secret rejection, missing mail-service configuration and honeypot handling;
+- transactional delivery uses Resend through a production `RESEND_API_KEY` secret in the Vercel `handoffprobe-site` project;
+- a real production submission on 2026-09-12 returned HTTP 200 with the expected German confirmation redirect, and both the internal request email and customer confirmation email were independently verified as delivered;
+- the Heaviside Solutions privacy notice was updated and verified live before the public intake was activated, documenting the HandoffProbe assessment form, Vercel, Resend, the data categories, purpose and no-secrets guidance;
+- the final verified commercial-site production commit for CV-2 is `1084980e85d10e2ada0a6b5ce5fe0e4913db196c`.
+
+CV-2 is complete. CV-3 remains separate and has not started.
 
 ### CV-3 — payment path
 
