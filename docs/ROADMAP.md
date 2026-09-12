@@ -1155,7 +1155,6 @@ R2.3 completed 2026-09-09. Phase 9 is frozen as repository research and conforma
 - [x] `CHANGELOG.md` includes `0.1.1` and `0.2.0` accurately
 - [x] release notes distinguish fixes, user-facing features, research assets and limitations
 
-
 R2.4 completed 2026-09-09. All ten release-quality gates are evidenced. The reusable GitHub Action was successfully verified from a separate consumer repository against immutable candidate commit `f38f340f4dcf96464cc8053d67cf5f15563b409a`; consumer PR #3 was closed unmerged after the successful audit. R2.5 — release candidate and publication — is now active. Evidence: `docs/R2_V0_2_0_RELEASE_QUALITY_20260909.md`.
 
 ### R2.5 — release candidate and publication
@@ -1438,6 +1437,50 @@ Only after CV-1 through CV-3 are live and verified:
 - [ ] update future npm/release-visible commercial links through normal release discipline;
 - [ ] use the subdomain as the product website in future directories where allowed;
 - [ ] keep technical-community promotion value-first and non-spammy.
+
+### T-1 — semantic authority widening follow-up
+
+Status: **QUEUED** — starts only after the CV-1 through CV-5 commercial-launch baseline is live and verified. CV-6 revenue validation may continue in parallel once T-1 begins.
+
+Implementation contract:
+
+`docs/SEMANTIC_AUTHORITY_WIDENING_FOLLOWUP_20260912.md`
+
+External evidence:
+
+- A2A Discussion `#2181`: `Runnable A2A→MCP fixture for testing delegated-authority attenuation`;
+- external repository: `arjun2075/a2a-mcp-authority-conformance`;
+- merged external PR `#1`: `Add semantic authority-widening fixture for lossy A2A→MCP translation`;
+- external merge commit: `c365a7fef4b96f2b5ceae65cfec9deeae5db5bae`;
+- external failure class: `SEMANTIC_AUTHORITY_WIDENING`;
+- external fixture-scoped invariant: `effective_authority(downstream) ⊆ delegated_authority(upstream)`.
+
+This external result is a qualified technical signal, not an automatic new HandoffProbe attack and not proof of adoption, partnership or endorsement.
+
+Required sequence:
+
+- [ ] freeze exact external references, provenance and license context;
+- [ ] compare the case against all relevant existing HandoffProbe authority / identity / binding attacks and Phase 9 evidence;
+- [ ] produce a written overlap matrix showing what is already covered and what is genuinely distinct;
+- [ ] formalize a HandoffProbe-owned candidate invariant only if the case remains distinct after overlap review;
+- [ ] independently reproduce the smallest deterministic local/synthetic PASS/FAIL/control set inside HandoffProbe;
+- [ ] keep representation loss alone non-failing when equivalent trusted downstream enforcement preserves effective authority;
+- [ ] distinguish semantic widening from identity/binding failure and explicit attenuation/escalation failure;
+- [ ] make an explicit admission decision: existing attack already covers it, existing attack should be refined, or a distinct invariant merits a new candidate attack;
+- [ ] do **not** assign a new stable attack ID before that evidence-backed admission decision;
+- [ ] if admitted, add deterministic fixtures, regression coverage, severity/property class, provenance and documentation through normal release discipline;
+- [ ] if not admitted, record the no-add decision and preserve any useful fixture/evidence improvements without inflating public attack-count claims.
+
+Guardrails:
+
+- no interruption of CV-1 through CV-5 for this research signal;
+- no claim that A2A or MCP normatively defines the external fixture's authorization model without protocol evidence;
+- no copying of external implementation without license/provenance review;
+- no production-world or unauthorized third-party testing;
+- no public claim of coordination, endorsement or compatibility certification;
+- no public attack-count change until normal attack-admission and release gates are satisfied.
+
+T-1 exit gate: HandoffProbe has an evidence-backed written decision that the semantic-authority case is already covered, is an existing-attack refinement, or is a distinct admitted handoff-security invariant.
 
 ### CV-6 — first revenue validation
 
