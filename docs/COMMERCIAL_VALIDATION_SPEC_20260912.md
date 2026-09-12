@@ -235,6 +235,29 @@ The initial sales flow is intentionally human-reviewed and low-infrastructure:
 
 Do not build automated quoting, subscription billing or customer accounts for the first validation customers.
 
+### Payment, cancellation and refund handling
+
+The Founding Security Assessment uses a one-time Stripe payment only after the exact assessment scope has been accepted in writing.
+
+Operational rules for the validation phase:
+
+- the standard Founding Assessment price is EUR 1,490 for each of the first 3 accepted assessments;
+- payment is requested only after written scope acceptance;
+- the agreed assessment fee is paid 100% before assessment work begins;
+- no subscription, recurring billing or automatic renewal is used;
+- do not save a payment method for automatic follow-on charges;
+- no standing public HandoffProbe payment link is created in advance;
+- when the first suitable customer has accepted the exact scope in writing, create a customer-specific Stripe Payment Link just in time;
+- that link should be limited to one completed payment and must not be published on the public website or sent before scope acceptance;
+- if the customer cancels before assessment work begins, the assessment payment is refunded in full;
+- after assessment work has begun, there is no automatic full-refund entitlement for customer-requested cancellation; any refund is limited to agreed work that has not been delivered;
+- if Heaviside Solutions cannot deliver an agreed part of the paid assessment, the undelivered portion must be refunded or otherwise resolved with the customer in writing;
+- payment is for performing the agreed assessment work and written deliverables, not for producing a particular number, severity or type of finding;
+- scope extensions, additional boundaries or additional retests require separate written agreement before any additional payment is requested;
+- refunds and cancellations must be recorded alongside the assessment's commercial validation record.
+
+For the first validation customers, keep payment handling human-reviewed. Do not automate refunds, upsells, renewals or post-assessment charges.
+
 ## 8. Secondary paid offers
 
 These are valid follow-on offers, but the Founding Security Assessment remains the primary conversion product at launch.
@@ -441,11 +464,20 @@ CV-2 is complete. CV-3 remains separate and has not started.
 
 ### CV-3 — payment path
 
-- [ ] create the Founding Assessment product/payment mechanism in Stripe after the scope flow is ready;
-- [ ] use a manual secure payment link after written scope acceptance;
+Status: **PREPARED — live Stripe link deferred until first accepted customer**
+
+- [ ] create the Founding Assessment product/payment mechanism in Stripe when the first accepted scope is ready for payment;
+- [ ] create and send a manual secure payment link only after written scope acceptance;
 - [ ] collect 100% before standard assessment work begins;
-- [ ] document payment/refund/cancellation handling before the first payment;
-- [ ] do not add subscriptions or automatic recurring billing in this phase.
+- [x] document payment/refund/cancellation handling before the first payment;
+- [x] do not add subscriptions or automatic recurring billing in this phase.
+
+Operational decision:
+
+- do not create a standing public payment link in advance;
+- Stripe setup is intentionally just-in-time because payment is only valid after human scope review and written acceptance;
+- the first real accepted assessment is the trigger to create the one-time EUR 1,490 payment mechanism and verify the live payment path;
+- CV-3 remains open until that first live payment mechanism has been created and verified.
 
 ### CV-4 — report delivery system
 
