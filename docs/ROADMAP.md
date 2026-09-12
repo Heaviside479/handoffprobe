@@ -1441,15 +1441,24 @@ Completion record:
 - both resulting transactional emails were independently verified as delivered through Resend;
 - the Heaviside Solutions privacy notice was updated and verified live before form activation.
 
-CV-3 remains unstarted and separate from this completion.
+CV-3 remains separate from CV-2 and is now prepared for just-in-time activation with the first accepted customer.
 
 ### CV-3 — payment path
 
-- [ ] prepare Stripe payment mechanism for the Founding Assessment;
-- [ ] send a secure payment link only after written scope acceptance;
+Status: **PREPARED — live Stripe link deferred until first accepted customer**
+
+- [ ] create the Founding Assessment payment mechanism when the first accepted scope is ready for payment;
+- [ ] create and send a secure Stripe payment link only after written scope acceptance;
 - [ ] collect 100% before standard assessment work begins;
-- [ ] document payment/refund/cancellation handling before first payment;
-- [ ] no subscription billing in this phase.
+- [x] document payment/refund/cancellation handling before first payment;
+- [x] no subscription billing in this phase.
+
+Operational decision:
+
+- no standing public HandoffProbe payment link is created in advance;
+- Stripe setup is intentionally just-in-time after human scope review and written acceptance;
+- the first accepted assessment triggers creation and verification of the one-time EUR 1,490 payment path;
+- CV-3 remains open until that live payment mechanism has been created and verified.
 
 ### CV-4 — report delivery system
 
