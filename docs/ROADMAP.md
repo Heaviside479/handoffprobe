@@ -1413,17 +1413,35 @@ Completion record:
 - canonical / hreflang metadata, sitemap, robots and received-page `noindex` behavior were verified in production;
 - SSL/HSTS and production routing were verified;
 - final verified commercial-site production commit: `a1d7fa0fa4109f9099721a271314f40c7969bce4`;
-- CV-2 remains separate: no public assessment form or submission backend is live yet;
-- privacy handling must be reviewed again before the CV-2 intake form is activated.
+- CV-2 was completed separately on 2026-09-12 after the privacy notice was updated and verified live before intake activation.
 
 ### CV-2 — intake and email path
 
-- [ ] implement the short assessment request form;
-- [ ] require explicit authorization confirmation;
-- [ ] add no-secrets warning;
-- [ ] route requests to a controlled Heaviside Solutions inbox/backend;
-- [ ] send customer confirmation email;
-- [ ] verify failure handling and spam/abuse controls.
+Status: **COMPLETED 2026-09-12**
+
+- [x] implement the short assessment request form;
+- [x] require explicit authorization confirmation;
+- [x] add no-secrets warning;
+- [x] route requests to a controlled Heaviside Solutions inbox/backend;
+- [x] send customer confirmation email;
+- [x] verify failure handling and spam/abuse controls.
+
+Completion record:
+
+- English and German assessment forms are live on the commercial subdomain;
+- required authorization and no-secrets guidance are enforced in the public flow;
+- assessment requests and confirmations use `support@heaviside-solutions.com`;
+- security-sensitive disclosures remain routed to the existing Core `SECURITY.md`;
+- the server endpoint implements same-origin validation, request-size and field validation, likely-secret rejection, honeypot handling and best-effort in-memory rate limiting;
+- local failure-path tests passed for invalid origin, invalid payload, likely-secret detection, missing Resend configuration and honeypot handling;
+- the production Vercel project has `RESEND_API_KEY` configured as a secret;
+- production commit `1084980e85d10e2ada0a6b5ce5fe0e4913db196c` is live;
+- all English/German assessment and received routes returned HTTP 200 in production;
+- a real synthetic production submission returned HTTP 200 with the expected confirmation redirect;
+- both resulting transactional emails were independently verified as delivered through Resend;
+- the Heaviside Solutions privacy notice was updated and verified live before form activation.
+
+CV-3 remains unstarted and separate from this completion.
 
 ### CV-3 — payment path
 
