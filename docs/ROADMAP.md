@@ -1395,13 +1395,26 @@ These are validation hypotheses, not permanent commitments.
 
 ### CV-1 — commercial web launch
 
-- [ ] decide safe deployment/repository placement for the commercial site without contaminating the npm/Core release surface;
-- [ ] configure Vercel and `handoffprobe.heaviside-solutions.com` DNS;
-- [ ] build `/`;
-- [ ] build `/security-assessment`;
-- [ ] build `/security-assessment/received`;
-- [ ] add legal/privacy links and verify responsive/accessibility baseline;
-- [ ] verify production SSL and canonical URLs.
+Status: **COMPLETED 2026-09-12**
+
+- [x] decide safe deployment/repository placement for the commercial site without contaminating the npm/Core release surface;
+- [x] configure Vercel and `handoffprobe.heaviside-solutions.com` DNS;
+- [x] build `/`;
+- [x] build `/security-assessment`;
+- [x] build `/security-assessment/received`;
+- [x] add legal/privacy links and verify responsive/accessibility baseline;
+- [x] verify production SSL and canonical URLs.
+
+Completion record:
+
+- commercial web code is isolated in private repository `Heaviside479/handoffprobe-site`;
+- production domain is `https://handoffprobe.heaviside-solutions.com`;
+- English and German product, assessment and confirmation routes are live;
+- canonical / hreflang metadata, sitemap, robots and received-page `noindex` behavior were verified in production;
+- SSL/HSTS and production routing were verified;
+- final verified commercial-site production commit: `a1d7fa0fa4109f9099721a271314f40c7969bce4`;
+- CV-2 remains separate: no public assessment form or submission backend is live yet;
+- privacy handling must be reviewed again before the CV-2 intake form is activated.
 
 ### CV-2 — intake and email path
 

@@ -385,15 +385,31 @@ npm downloads, GitHub stars and directory views remain discovery/adoption signal
 
 ### CV-1 — commercial web launch
 
-- [ ] decide the safest deployment/repository placement for the commercial site without contaminating the published npm/Core surface;
-- [ ] configure Vercel project and `handoffprobe.heaviside-solutions.com` DNS;
-- [ ] build `/`;
-- [ ] build `/security-assessment`;
-- [ ] build `/security-assessment/received`;
-- [ ] implement responsive, accessible design;
-- [ ] show current release truth only;
-- [ ] include legal / privacy links appropriate for the intake flow;
-- [ ] verify production SSL and canonical URLs.
+Status: **COMPLETED 2026-09-12**
+
+- [x] decide the safest deployment/repository placement for the commercial site without contaminating the published npm/Core surface;
+- [x] configure Vercel project and `handoffprobe.heaviside-solutions.com` DNS;
+- [x] build `/`;
+- [x] build `/security-assessment`;
+- [x] build `/security-assessment/received`;
+- [x] implement responsive, accessible design;
+- [x] show current release truth only;
+- [x] include legal / privacy links appropriate for the intake flow;
+- [x] verify production SSL and canonical URLs.
+
+Completion evidence:
+
+- the commercial site is isolated in the separate private `Heaviside479/handoffprobe-site` repository, with no npm/Core build, dependency or release coupling;
+- Vercel and DNS are live at `https://handoffprobe.heaviside-solutions.com`;
+- the English launch routes `/`, `/security-assessment` and `/security-assessment/received` are live;
+- German equivalents are live at `/de`, `/de/security-assessment` and `/de/security-assessment/received`;
+- English/German canonical and `hreflang` metadata are live, while the received pages remain `noindex` and are excluded from the sitemap;
+- production HTTPS, SSL/HSTS behavior, `robots.txt`, sitemap and product icons were verified;
+- production deployment was verified from `handoffprobe-site` main commit `a1d7fa0fa4109f9099721a271314f40c7969bce4`;
+- public product claims remain aligned with HandoffProbe v0.2.0 release truth, including 22 stable attacks, Apache-2.0 and the A2A 1.0 → MCP 2026-07-28 public baseline;
+- legal and privacy links are present. Before the CV-2 public form is activated, the privacy notice must be reviewed and updated as necessary for the actual intake implementation.
+
+CV-1 is complete. CV-2 has not started and no public assessment form is live yet.
 
 ### CV-2 — intake and email path
 
