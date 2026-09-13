@@ -1484,7 +1484,14 @@ The live CV-3 Stripe mechanism remains intentionally deferred until the first su
 
 - [x] update GitHub README commercial CTA to the assessment page;
 - [x] update HandoffProbe portfolio/product links where appropriate;
-- [ ] update future npm/release-visible commercial links through normal release discipline;
+- [x] update future npm/release-visible commercial links through normal release discipline;
+
+Npm/release verification:
+- published `handoffprobe@0.2.0` remains unchanged;
+- the current repository README contains the assessment CTA and URL;
+- `npm pack --dry-run` includes `README.md`, so the CTA will become npm-visible with the next normal release;
+- commercial assessment scripts, fixtures, tests and customer working data are excluded from the package;
+- no npm version is republished solely for this commercial-link update.
 - [ ] use the subdomain as the product website in future directories where allowed;
 - [ ] keep technical-community promotion value-first and non-spammy.
 
