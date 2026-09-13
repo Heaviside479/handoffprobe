@@ -1,8 +1,8 @@
 # Semantic Authority Widening Follow-up
 
-Status: queued  
-Decision date: 2026-09-12  
-Execution order: **after the current Phase 13 commercial-launch baseline (CV-1 through CV-5) is live and verified; CV-6 revenue validation may continue in parallel once this work begins.**
+Status: ACTIVE — started 2026-09-13 by explicit project-owner sequencing decision
+Decision date: 2026-09-12
+Execution order update: **T-1 may proceed in parallel while CV-5 directory/product-website item 4 remains deferred to the marketing workflow. CV-5 remains open until that item is completed and verified.**
 
 ## 1. Why this follow-up exists
 
@@ -36,20 +36,15 @@ The external fixture keeps this case separate from explicit attenuation failure 
 
 ## 2. Priority and sequencing
 
-Do **not** interrupt the current commercial launch to implement this immediately.
+T-1 became active on 2026-09-13 through an explicit project-owner sequencing decision.
 
-Current priority remains the Phase 13 launch path:
+CV-5 item 4 remains open and is deferred to the marketing workflow. This exception does not mark CV-5 complete and does not change its exit gate.
 
-1. CV-1 — commercial web launch;
-2. CV-2 — intake and email path;
-3. CV-3 — payment path;
-4. CV-4 — report delivery system;
-5. CV-5 — distribution conversion.
+T-1 may proceed in parallel because the remaining CV-5 work is distribution/marketing execution rather than a technical prerequisite for this research.
 
-Only after that launch baseline is live and verified should this technical follow-up become active. CV-6 first-revenue validation can then continue in parallel while the research decision is made.
+If T-1 work conflicts with a real customer, assessment, payment, delivery or other revenue-validation task, the customer/revenue task takes priority.
 
-This sequencing exists so a promising external technical signal strengthens the product without delaying the newly activated revenue path.
-
+CV-6 first-revenue validation may continue in parallel with T-1.
 ## 3. Research question
 
 Determine whether semantic authority widening caused by lossy handoff translation is:
@@ -63,6 +58,8 @@ Do not assume outcome 3 in advance.
 ## 4. Required work
 
 ### T1.1 — freeze external evidence
+
+Status: **COMPLETE 2026-09-13** — frozen in `docs/T1_SEMANTIC_AUTHORITY_EVIDENCE_20260913.md`.
 
 - record the exact A2A Discussion reference;
 - record the merged external pull request and merge commit;
@@ -135,13 +132,13 @@ Requirements:
 
 After the independent reproduction, make one explicit decision:
 
-**A. Existing attack already covers it**  
+**A. Existing attack already covers it**
 Improve fixtures/evidence/docs if useful, but do not create a duplicate attack ID.
 
-**B. Existing attack needs a refinement**  
+**B. Existing attack needs a refinement**
 Extend the existing invariant/test shape under normal compatibility and release discipline.
 
-**C. Distinct invariant is justified**  
+**C. Distinct invariant is justified**
 Only then draft a new attack specification and candidate ID through the normal attack-admission process.
 
 No new stable attack ID may be created solely because an external fixture uses a distinct failure name.
@@ -184,7 +181,7 @@ It is evidence that the problem framing can generate concrete independent techni
 - no copying of external implementation without license/provenance review;
 - no production-world or unauthorized third-party testing;
 - no new public attack count until normal admission and release gates are satisfied;
-- no interruption of CV-1 through CV-5 to chase this research signal.
+- no blocking or displacement of the remaining CV-5 distribution work; T-1 proceeds in parallel.
 
 ## 7. Exit gate
 

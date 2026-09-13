@@ -1,6 +1,6 @@
 # HandoffProbe Roadmap
 
-Status: active  
+Status: active
 Current checkpoint: 2026-09-12
 
 Strategy:
@@ -1504,7 +1504,7 @@ Community-promotion guardrail:
 
 ### T-1 — semantic authority widening follow-up
 
-Status: **QUEUED** — starts only after the CV-1 through CV-5 commercial-launch baseline is live and verified. CV-6 revenue validation may continue in parallel once T-1 begins.
+Status: **ACTIVE — started 2026-09-13 by explicit project-owner sequencing decision.** CV-5 directory/product-website item 4 remains open and deferred to the marketing workflow; CV-5 is not marked complete. T-1 research may proceed in parallel.
 
 Implementation contract:
 
@@ -1523,7 +1523,7 @@ This external result is a qualified technical signal, not an automatic new Hando
 
 Required sequence:
 
-- [ ] freeze exact external references, provenance and license context;
+- [x] freeze exact external references, provenance and license context;
 - [ ] compare the case against all relevant existing HandoffProbe authority / identity / binding attacks and Phase 9 evidence;
 - [ ] produce a written overlap matrix showing what is already covered and what is genuinely distinct;
 - [ ] formalize a HandoffProbe-owned candidate invariant only if the case remains distinct after overlap review;
@@ -1537,7 +1537,7 @@ Required sequence:
 
 Guardrails:
 
-- no interruption of CV-1 through CV-5 for this research signal;
+- no blocking or displacement of the remaining CV-5 distribution work; T-1 proceeds in parallel;
 - no claim that A2A or MCP normatively defines the external fixture's authorization model without protocol evidence;
 - no copying of external implementation without license/provenance review;
 - no production-world or unauthorized third-party testing;
