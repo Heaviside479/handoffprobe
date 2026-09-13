@@ -1524,8 +1524,8 @@ This external result is a qualified technical signal, not an automatic new Hando
 Required sequence:
 
 - [x] freeze exact external references, provenance and license context;
-- [ ] compare the case against all relevant existing HandoffProbe authority / identity / binding attacks and Phase 9 evidence;
-- [ ] produce a written overlap matrix showing what is already covered and what is genuinely distinct;
+- [x] compare the case against all relevant existing HandoffProbe authority / identity / binding attacks and Phase 9 evidence;
+- [x] produce a written overlap matrix showing what is already covered and what is genuinely distinct;
 - [ ] formalize a HandoffProbe-owned candidate invariant only if the case remains distinct after overlap review;
 - [ ] independently reproduce the smallest deterministic local/synthetic PASS/FAIL/control set inside HandoffProbe;
 - [ ] keep representation loss alone non-failing when equivalent trusted downstream enforcement preserves effective authority;
