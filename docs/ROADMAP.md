@@ -1493,7 +1493,14 @@ Npm/release verification:
 - commercial assessment scripts, fixtures, tests and customer working data are excluded from the package;
 - no npm version is republished solely for this commercial-link update.
 - [ ] use the subdomain as the product website in future directories where allowed;
-- [ ] keep technical-community promotion value-first and non-spammy.
+- [x] keep technical-community promotion value-first and non-spammy.
+
+Community-promotion guardrail:
+- the HandoffProbe marketing plan now requires technical value before promotion;
+- GitHub/npm/CLI remain the default destination when someone only wants to try the scanner;
+- the commercial assessment page is used only when a real authorized assessment need is relevant;
+- no copy-paste assessment pitching, fear marketing, fake customer stories or unrelated commercial links;
+- CV-5 remains open until the directory/product-website item above is actually completed and verified.
 
 ### T-1 — semantic authority widening follow-up
 
