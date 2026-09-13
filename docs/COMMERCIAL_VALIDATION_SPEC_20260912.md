@@ -504,7 +504,7 @@ Start CV-5 once CV-1 and CV-2 are live and verified, the CV-3 just-in-time payme
 The live CV-3 Stripe mechanism remains intentionally deferred until the first suitable customer accepts the exact assessment scope in writing. That just-in-time trigger does not block pre-revenue distribution work:
 
 - [x] update GitHub README commercial CTA;
-- [ ] update HandoffProbe project / portfolio links where appropriate;
+- [x] update HandoffProbe project / portfolio links where appropriate;
 - [ ] update future npm/release-visible commercial link through normal release discipline;
 - [ ] use the subdomain as the product website in future directories where allowed;
 - [ ] keep technical-community promotion value-first and non-spammy.
