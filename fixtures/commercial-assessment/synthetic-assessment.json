@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1",
+  "reportId": "HP-ASMT-SYNTH-001",
+  "subject": {
+    "organization": "Synthetic Example Organization",
+    "system": "Synthetic A2A to MCP handoff fixture"
+  },
+  "issueDate": "2026-09-12",
+  "handoffProbeVersion": "0.2.0",
+  "protocols": {
+    "a2a": "1.0",
+    "mcp": "2026-07-28"
+  },
+  "authorization": "Synthetic fixture only. No third-party or production system is tested.",
+  "scope": {
+    "boundary": "Synthetic upstream agent to synthetic downstream MCP tool boundary",
+    "inScope": [
+      "synthetic delegated-authority propagation",
+      "synthetic target binding",
+      "synthetic scanner error handling"
+    ],
+    "outOfScope": [
+      "production infrastructure",
+      "real customer data",
+      "third-party systems",
+      "credential harvesting",
+      "general application penetration testing"
+    ],
+    "prerequisites": [
+      "local synthetic fixtures",
+      "HandoffProbe Core v0.2.0",
+      "no external credentials"
+    ],
+    "limitations": [
+      "synthetic evidence only",
+      "one modeled handoff boundary",
+      "not a certification",
+      "untested surfaces are not implicitly secure"
+    ]
+  },
+  "executiveSummary": "Synthetic CV-4 fixture demonstrating one security failure, one expected pass and one scanner or environment error without any real customer data.",
+  "methodology": [
+    "confirm synthetic authorization and scope",
+    "exercise the synthetic handoff boundary",
+    "review redacted evidence references",
+    "separate security failures from expected behavior and execution errors",
+    "record remediation and retest state"
+  ],
+  "summary": {
+    "pass": 1,
+    "fail": 1,
+    "notApplicable": 0,
+    "inconclusive": 0,
+    "error": 1,
+    "total": 3
+  },
+  "findings": [
+    {
+      "id": "HP-ASMT-F001",
+      "sourceTestId": "HP-AUTH-001",
+      "title": "Synthetic delegated authority exceeds the expected boundary",
+      "status": "fail",
+      "severity": "high",
+      "propertyClass": "composition_responsibility",
+      "affectedBoundary": "Synthetic A2A caller to synthetic MCP tool",
+      "expectedInvariant": "Delegated authority remains constrained to the authorized synthetic action.",
+      "observedBehavior": "The vulnerable synthetic fixture permits a broader protected action than the modeled authorization allows.",
+      "evidenceSummary": "Deterministic synthetic evidence demonstrates the modeled authority expansion.",
+      "evidenceRefs": [
+        "sequence:3",
+        "sequence:6",
+        "sequence:9"
+      ],
+      "reproduction": "Run only against the bundled synthetic vulnerable fixture using the documented local HandoffProbe test flow.",
+      "impact": "Within the synthetic scope, the modeled downstream action can exceed the authority represented by the upstream handoff.",
+      "remediation": "Bind downstream authorization to the delegated caller, target and permitted action before tool execution.",
+      "retest": {
+        "state": "pending_customer_fix",
+        "date": null,
+        "evidenceSummary": null,
+        "notes": "Synthetic remediation has not yet been applied."
+      }
+    },
+    {
+      "id": "HP-ASMT-F002",
+      "sourceTestId": "HP-AUTH-001",
+      "title": "Synthetic secure control preserves the expected authority boundary",
+      "status": "pass",
+      "severity": "info",
+      "propertyClass": "composition_responsibility",
+      "affectedBoundary": "Synthetic A2A caller to synthetic MCP tool",
+      "expectedInvariant": "Delegated authority remains constrained to the authorized synthetic action.",
+      "observedBehavior": "The secure synthetic fixture preserves the modeled authorization boundary.",
+      "evidenceSummary": "Deterministic synthetic control evidence shows the protected action remains constrained.",
+      "evidenceRefs": [
+        "sequence:3",
+        "sequence:6"
+      ],
+      "reproduction": "Run only against the bundled synthetic secure fixture.",
+      "impact": "No security invariant failure is demonstrated in this synthetic control.",
+      "remediation": null,
+      "retest": {
+        "state": "not_applicable",
+        "date": null,
+        "evidenceSummary": null,
+        "notes": "No remediation retest is required for this PASS observation."
+      }
+    },
+    {
+      "id": "HP-ASMT-F003",
+      "sourceTestId": null,
+      "title": "Synthetic observation unavailable",
+      "status": "error",
+      "severity": "info",
+      "propertyClass": "hardening",
+      "affectedBoundary": "Synthetic observation path",
+      "expectedInvariant": "The synthetic test completes with trustworthy observation evidence.",
+      "observedBehavior": "The synthetic environment intentionally simulates an observation failure.",
+      "evidenceSummary": "No vulnerability conclusion is drawn because trustworthy completion evidence is unavailable.",
+      "evidenceRefs": [],
+      "reproduction": "Use the synthetic error fixture only.",
+      "impact": "Assessment coverage is incomplete for this modeled check. This is not a vulnerability finding.",
+      "remediation": "Restore the observation path and rerun the affected check before drawing a security conclusion.",
+      "retest": {
+        "state": "not_started",
+        "date": null,
+        "evidenceSummary": null,
+        "notes": "Rerun is required after the synthetic observation path is restored."
+      }
+    }
+  ],
+  "remediationPriorities": [
+    "address the synthetic high-severity authority-boundary failure first",
+    "restore the synthetic observation path",
+    "perform the included synthetic retest"
+  ]
+}

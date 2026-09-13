@@ -34,13 +34,16 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lab:protocol": "tsx src/protocol-lab/run.ts",
     "secret:check": "tsx scripts/secret-safety.ts",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "assessment:report": "tsx scripts/commercial-assessment-delivery.ts"
   },
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/express": "5.0.6",
     "@types/node": "24.13.3",
+    "@types/pdfkit": "0.17.6",
     "eslint": "10.9.0",
+    "pdfkit": "0.20.2",
     "prettier": "3.9.6",
     "tsx": "4.23.12",
     "typescript": "6.0.3",

@@ -1462,15 +1462,25 @@ Operational decision:
 
 ### CV-4 — report delivery system
 
-- [ ] create reusable written report template;
-- [ ] support PDF + Markdown delivery;
-- [ ] define optional safe JSON attachment rules;
-- [ ] include scope/out-of-scope, findings, severity, evidence, remediation, limitations and retest state;
-- [ ] validate the workflow with a synthetic end-to-end assessment before customer delivery.
+Status: **COMPLETE — synthetic end-to-end delivery verified 2026-09-13.**
+
+- [x] create reusable written report template;
+- [x] support PDF + Markdown delivery;
+- [x] define optional safe JSON attachment rules;
+- [x] include scope/out-of-scope, findings, severity, evidence, remediation, limitations and retest state;
+- [x] validate the workflow with a synthetic end-to-end assessment before customer delivery.
+
+Verification:
+- `npm run check` passes the full repository gate;
+- `npm run assessment:report -- <assessment.json>` generates Markdown, PDF and allowlisted safe JSON;
+- `.handoffprobe-assessments/` keeps real customer working data outside the public repository;
+- the synthetic PDF delivery was manually reviewed for readable layout and page flow.
 
 ### CV-5 — distribution conversion
 
-Only after CV-1 through CV-3 are live and verified:
+Start CV-5 once CV-1 and CV-2 are live and verified, the CV-3 just-in-time payment path is documented and prepared, and CV-4 is complete.
+
+The live CV-3 Stripe mechanism remains intentionally deferred until the first suitable customer accepts the exact assessment scope in writing. That just-in-time trigger does not block pre-revenue distribution work:
 
 - [ ] update GitHub README commercial CTA to the assessment page;
 - [ ] update HandoffProbe portfolio/product links where appropriate;
