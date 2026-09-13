@@ -513,7 +513,13 @@ Npm/release verification:
 - the verified package dry run includes that README while excluding commercial assessment internals;
 - the updated commercial link will therefore reach npm through the next normal package release.
 - [ ] use the subdomain as the product website in future directories where allowed;
-- [ ] keep technical-community promotion value-first and non-spammy.
+- [x] keep technical-community promotion value-first and non-spammy.
+
+Community-promotion verification:
+- value-first technical-community rules are documented in the central Marketing repository;
+- commercial CTAs are context-dependent rather than inserted into unrelated technical discussions;
+- OSS discovery remains separate from paid assessment intent;
+- CV-5 is not considered complete until the remaining directory/product-website item is verified.
 
 ### CV-6 — first revenue validation
 
