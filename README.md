@@ -70,14 +70,13 @@ The v0.2.0 release contract preserves the existing public CLI, package-root API,
 
 HandoffProbe remains free and open source under Apache-2.0.
 
-Teams that need help applying HandoffProbe to a real agent system can work with Heaviside Solutions on:
+Teams that want HandoffProbe applied to a real authorized agent/tool handoff can request a **Founding Security Assessment** from Heaviside Solutions.
 
-- authorized Handoff Security Assessments;
-- custom adapters and integrations;
-- private organization-specific test packs;
-- technical onboarding and enterprise support.
+The assessment covers one clearly agreed handoff boundary and includes human review of HandoffProbe evidence, written findings and remediation guidance, plus one retest after fixes.
 
-Need help testing a real agent handoff? [Contact Heaviside Solutions](https://heaviside-solutions.com/kontakt).
+[Request a Founding Security Assessment](https://handoffprobe.heaviside-solutions.com/security-assessment)
+
+Other commercial work may include custom adapters, integrations, private organization-specific test packs, technical onboarding and enterprise support.
 
 Commercial work is limited to systems you own or are authorized to assess. Security-sensitive disclosures should follow [`SECURITY.md`](SECURITY.md).
 
