@@ -116,7 +116,7 @@ export const commercialAssessmentSchema = z
       total: assessment.findings.length,
     };
 
-    for (const key of Object.keys(expected) as Array<keyof typeof expected>) {
+    for (const key of Object.keys(expected) as (keyof typeof expected)[]) {
       if (assessment.summary[key] !== expected[key]) {
         context.addIssue({
           code: 'custom',

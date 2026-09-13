@@ -56,7 +56,7 @@ describe('commercial assessment report', () => {
       'findings',
     ]);
 
-    const findings = safe.findings as Array<Record<string, unknown>>;
+    const findings = safe.findings as Record<string, unknown>[];
 
     expect(findings).toHaveLength(3);
     expect(Object.keys(findings[0] ?? {})).toEqual([
