@@ -34,8 +34,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lab:protocol": "tsx src/protocol-lab/run.ts",
     "secret:check": "tsx scripts/secret-safety.ts",
-    "prepack": "npm run build",
-    "assessment:report": "tsx scripts/commercial-assessment-delivery.ts"
+    "prepack": "npm run build"
   },
   "license": "Apache-2.0",
   "devDependencies": {

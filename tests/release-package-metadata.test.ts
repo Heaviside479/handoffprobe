@@ -101,6 +101,7 @@ describe('v0.2 package release metadata', () => {
     });
     expect(manifest.files).toEqual(['dist']);
     expect(manifest.scripts?.prepack).toBe('npm run build');
+    expect(manifest.scripts?.['assessment:report']).toBeUndefined();
   });
 
   it('keeps package-lock release identity synchronized', async () => {
