@@ -1551,7 +1551,7 @@ Community-promotion guardrail:
 
 ### T-1 — semantic authority widening follow-up
 
-Status: **ACTIVE — started 2026-09-13 by explicit project-owner sequencing decision.** CV-5 directory/product-website item 4 remains open and deferred to the marketing workflow; CV-5 is not marked complete. T-1 research may proceed in parallel.
+Status: **COMPLETE 2026-09-14.** Outcome B was implemented as a semantic-authority refinement of `HP-AUTH-001`; no new stable attack ID was created and the public corpus remains 22 attacks. CV-5 directory/product-website item 4 remains separate and open in the marketing workflow.
 
 Implementation contract:
 
@@ -1579,8 +1579,8 @@ Required sequence:
 - [x] distinguish semantic widening from identity/binding failure and explicit attenuation/escalation failure;
 - [x] make an explicit admission decision: **refine HP-AUTH-001; no distinct new attack is justified by current evidence**;
 - [x] do **not** assign a new stable attack ID before that evidence-backed admission decision;
-- [ ] if admitted, add deterministic fixtures, regression coverage, severity/property class, provenance and documentation through normal release discipline;
-- [ ] if not admitted, record the no-add decision and preserve any useful fixture/evidence improvements without inflating public attack-count claims.
+- [x] complete T1.6 product follow-through under stable ID `HP-AUTH-001` with deterministic semantic authority evaluation and concrete widening-witness evidence;
+- [x] preserve the no-new-ID decision, keep the stable public corpus at **22 attacks**, and defer any version bump to the coordinated R3 release track.
 
 Guardrails:
 
@@ -1591,7 +1591,9 @@ Guardrails:
 - no public claim of coordination, endorsement or compatibility certification;
 - no public attack-count change until normal attack-admission and release gates are satisfied.
 
-T-1 exit gate: HandoffProbe has an evidence-backed written decision that the semantic-authority case is already covered, is an existing-attack refinement, or is a distinct admitted handoff-security invariant.
+T-1 exit gate: **SATISFIED 2026-09-14.** The evidence-backed decision is an existing-attack refinement, and T1.6 implemented the productive `HP-AUTH-001` semantic-authority evidence path without changing the stable attack count.
+
+Closeout: `docs/T1_HP_AUTH_001_SEMANTIC_REFINEMENT_CLOSEOUT_20260914.md`.
 
 ### T-2 — protocol-neutral Handoff Contract review
 

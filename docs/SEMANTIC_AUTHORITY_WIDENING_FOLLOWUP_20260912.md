@@ -1,6 +1,6 @@
 # Semantic Authority Widening Follow-up
 
-Status: ACTIVE — started 2026-09-13 by explicit project-owner sequencing decision
+Status: **COMPLETE 2026-09-14** — Outcome B implemented as an HP-AUTH-001 refinement; stable attack count remains 22.
 Decision date: 2026-09-12
 Execution order update: **T-1 may proceed in parallel while CV-5 directory/product-website item 4 remains deferred to the marketing workflow. CV-5 remains open until that item is completed and verified.**
 
@@ -90,6 +90,8 @@ Produce a written overlap matrix answering:
 
 ### T1.3 — formalize the candidate invariant
 
+Status: **NOT TRIGGERED** — T1.2 established that the case is an HP-AUTH-001 refinement rather than a distinct invariant requiring separate formalization.
+
 If the case remains distinct after overlap review, define a HandoffProbe-owned candidate invariant using semantic effect rather than field-name equality.
 
 Working formulation:
@@ -155,20 +157,29 @@ No new stable attack ID may be created solely because an external fixture uses a
 
 ### T1.6 — product and research follow-through
 
-If a distinct HandoffProbe attack is admitted:
+Status: **COMPLETE 2026-09-14**
 
-- add secure and intentionally vulnerable deterministic fixtures;
-- add regression coverage;
-- define severity and property class;
-- document protocol applicability and provenance;
-- update attack catalog and user-facing docs through normal release discipline;
-- decide whether the change belongs in the next evidence-backed SemVer release rather than forcing a version number.
+Outcome B was implemented under the existing stable ID `HP-AUTH-001`.
 
-If no new attack is admitted:
+Closeout evidence:
 
-- record the no-add decision and why;
-- retain any useful fixture/evidence improvements;
-- preserve the external signal as research evidence without inflating public attack-count claims.
+`docs/T1_HP_AUTH_001_SEMANTIC_REFINEMENT_CLOSEOUT_20260914.md`
+
+The productive refinement:
+
+- preserves the existing direct `invoice.read` -> `invoice.update` regression;
+- adds a deterministic finite protected-operation evaluator for upstream, translated and effective downstream authority;
+- models trusted downstream restriction explicitly where applicable;
+- requires a concrete newly permitted operation witness before semantic widening is classified as `FAIL`;
+- preserves representation loss / translation change as non-failing when effective downstream authority remains equal or narrower;
+- keeps evaluator/model `ERROR` separate from security `FAIL`;
+- preserves `HP-AUTH-001`, severity, property class and protocol applicability;
+- keeps the stable public corpus at **22 attacks**;
+- leaves the package-root API, GitHub Action contract and package version unchanged during T1.6.
+
+No distinct attack was admitted. T1.3 therefore remained not triggered.
+
+The next public version is not bumped as part of T1.6. The merged R3 roadmap records `v0.3.0` as the expected candidate only after this refinement is merged and the release scope is frozen, with npm/GitHub/tag/Action/Marketplace/documentation verification performed as one coordinated release.
 
 ## 5. External-signal interpretation
 

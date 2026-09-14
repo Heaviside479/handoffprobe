@@ -157,11 +157,13 @@ An ERROR must never be reported as a vulnerability.
 
 ## Objective
 
-Detect authority becoming broader during A2A → MCP translation.
+Detect effective downstream authority becoming broader during A2A → MCP translation.
 
 ## Invariant
 
 Downstream effective authority must not exceed upstream delegated authority.
+
+The semantic comparison is evaluated over the same concrete protected operation universe. Representation loss or translation change is not itself a failure. Equivalent trusted downstream enforcement may preserve or narrow effective authority.
 
 ## Baseline
 
@@ -183,25 +185,34 @@ or the MCP tool:
 
 `update_invoice`
 
+The existing direct read-to-update mutation remains the stable regression anchor.
+
 ## PASS
 
-The mutation is rejected.
+The protected mutation is rejected, or trusted downstream enforcement otherwise keeps effective downstream operations equal to or narrower than the upstream delegated operation set.
 
 The invoice remains unchanged.
 
 ## FAIL
 
-The downstream system performs a protected mutation without receiving a new
-valid grant.
+The downstream system performs a protected mutation without receiving a new valid upstream grant, and the semantic evaluator identifies at least one concrete effective downstream operation that was not permitted upstream.
 
 ## Evidence
 
 - upstream authority
 - translated authority
+- upstream permitted operation set
+- translated permitted operation set
+- effective downstream operation set
+- trusted downstream enforcement state
+- authority relation (`equal`, `narrower` or `broader`)
+- concrete semantic-widening witness operations
 - selected MCP tool
 - authorization result
 - resource state before
 - resource state after
+
+Evaluator/model `ERROR` remains distinct from security `FAIL`.
 
 ## Default severity
 
