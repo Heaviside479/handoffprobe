@@ -110,6 +110,8 @@ The external finite-operation-universe model is evidence for the research questi
 
 ### T1.4 — reproduce independently in HandoffProbe
 
+Status: **COMPLETE 2026-09-14** — independent deterministic reproduction recorded in `docs/T1_SEMANTIC_AUTHORITY_REPRODUCTION_20260914.md`.
+
 Build the smallest deterministic HandoffProbe-owned synthetic reproduction needed to answer the research question.
 
 Minimum controls should include:
@@ -131,6 +133,12 @@ Requirements:
 - no secret-bearing evidence.
 
 ### T1.5 — admission decision
+
+Status: **COMPLETE 2026-09-14**
+
+Decision: **B — refine HP-AUTH-001; do not create a new stable attack ID.**
+
+Evidence: `docs/T1_SEMANTIC_AUTHORITY_ADMISSION_DECISION_20260914.md`.
 
 After the independent reproduction, make one explicit decision:
 
