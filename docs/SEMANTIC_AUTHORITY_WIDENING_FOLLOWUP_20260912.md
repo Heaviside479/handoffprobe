@@ -70,6 +70,8 @@ Status: **COMPLETE 2026-09-13** — frozen in `docs/T1_SEMANTIC_AUTHORITY_EVIDEN
 
 ### T1.2 — map against the current HandoffProbe corpus
 
+Status: **COMPLETE 2026-09-13** — 22/22 stable attacks reviewed in `docs/T1_SEMANTIC_AUTHORITY_OVERLAP_MATRIX_20260913.md`; working conclusion favors refinement of HP-AUTH-001 pending independent reproduction.
+
 Review the current 22 stable attacks and explicitly compare the external case against at least:
 
 - delegated-authority amplification / attenuation behavior;
