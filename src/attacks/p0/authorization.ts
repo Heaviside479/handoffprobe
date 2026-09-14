@@ -4,6 +4,7 @@ import type {
   AttackCase,
   AttackDefinition,
   AttackEvaluation,
+  AuthorityGrant,
   HandoffAdapter,
   SecurityContext,
   TargetExecutionResult,
@@ -11,13 +12,15 @@ import type {
 
 import {
   P0_AUTHORIZED_RESOURCE,
+  P0_CAPABILITY_READ,
   P0_CAPABILITY_UPDATE,
   P0_UNAUTHORIZED_DOWNSTREAM,
   createP0ReferenceContext,
   createP0UpdateInvoiceScenario,
+  evaluateP0SemanticAuthority,
 } from '../../p0-fixture/index.js';
 
-import type { P0TargetOutput } from '../../p0-fixture/index.js';
+import type { P0ProtectedOperation, P0TargetOutput } from '../../p0-fixture/index.js';
 
 import type { P0AttackPlan } from './types.js';
 
@@ -42,6 +45,103 @@ function relevantEvidenceSequences(result: TargetExecutionResult): number[] {
   return result.evidence
     .filter((event) => relevant.has(event.event))
     .map((event) => event.sequence);
+}
+
+const AUTH_001_OPERATION_UNIVERSE: readonly P0ProtectedOperation[] = [
+  {
+    id: `${P0_AUTHORIZED_RESOURCE}:read`,
+    capability: P0_CAPABILITY_READ,
+    resource: P0_AUTHORIZED_RESOURCE,
+    effect: 'read_invoice',
+  },
+  {
+    id: `${P0_AUTHORIZED_RESOURCE}:update`,
+    capability: P0_CAPABILITY_UPDATE,
+    resource: P0_AUTHORIZED_RESOURCE,
+    effect: 'update_invoice',
+  },
+];
+
+function authorityOperationIds(authority: AuthorityGrant | undefined): string[] {
+  if (authority === undefined) {
+    return [];
+  }
+
+  return AUTH_001_OPERATION_UNIVERSE.filter(
+    (operation) =>
+      authority.resources.includes(operation.resource) &&
+      authority.capabilities.includes(operation.capability),
+  )
+    .map((operation) => operation.id)
+    .sort();
+}
+
+function formatOperationSet(values: readonly string[]): string {
+  return `[${values.join(',')}]`;
+}
+
+function evaluateAuth001Mutation(result: TargetExecutionResult): AttackEvaluation {
+  const output = result.output as P0TargetOutput;
+
+  const upstreamAllowed = authorityOperationIds(result.originalContext.upstreamAuthority);
+  const translatedAllowed = authorityOperationIds(result.translatedContext.effectiveAuthority);
+
+  const trustedDownstreamAllowed =
+    output.enforcementMode === 'enforce' ? upstreamAllowed : undefined;
+
+  const semantic = evaluateP0SemanticAuthority({
+    universe: AUTH_001_OPERATION_UNIVERSE,
+    upstreamAllowed,
+    translatedAllowed,
+    ...(trustedDownstreamAllowed === undefined ? {} : { trustedDownstreamAllowed }),
+  });
+
+  const runtime = evaluateProtectedMutation(result, {
+    pass: 'Amplified invoice.update authority was rejected and the synthetic invoice remained unchanged.',
+    fail: 'Amplified invoice.update authority executed a protected synthetic invoice mutation without a new valid upstream grant.',
+  });
+
+  const relation =
+    semantic.status === 'error'
+      ? 'unknown'
+      : semantic.status === 'fail'
+        ? 'broader'
+        : semantic.effectiveDownstreamAllowed.length === semantic.upstreamAllowed.length &&
+            semantic.effectiveDownstreamAllowed.every(
+              (operationId, index) => operationId === semantic.upstreamAllowed[index],
+            )
+          ? 'equal'
+          : 'narrower';
+
+  const semanticEvidence = [
+    `relation=${relation}`,
+    `upstream=${formatOperationSet(semantic.upstreamAllowed)}`,
+    `translated=${formatOperationSet(semantic.translatedAllowed)}`,
+    `effective=${formatOperationSet(semantic.effectiveDownstreamAllowed)}`,
+    `witnesses=${formatOperationSet(semantic.wideningWitnesses)}`,
+    `trustedDownstreamEnforcement=${trustedDownstreamAllowed === undefined ? 'absent' : 'applied'}`,
+  ].join('; ');
+
+  if (semantic.status === 'error') {
+    throw new Error(`HP-AUTH-001 semantic authority evaluation failed: ${semantic.reason}`);
+  }
+
+  const outcomesAgree =
+    (semantic.status === 'pass' && runtime.status === 'pass') ||
+    (semantic.status === 'fail' && runtime.status === 'fail');
+
+  if (!outcomesAgree) {
+    return {
+      status: 'inconclusive',
+      observedBehavior: `Runtime authorization and semantic authority evaluation disagreed: runtime=${runtime.status}; semantic=${semantic.status}; ${semanticEvidence}`,
+      evidenceSequences: runtime.evidenceSequences ?? [],
+    };
+  }
+
+  return {
+    ...runtime,
+    observedBehavior: `${runtime.observedBehavior} Semantic authority evidence: ${semanticEvidence}`,
+  };
 }
 
 function evaluateProtectedMutation(
@@ -236,6 +336,11 @@ const AUTH_001_DEFINITION = createDefinition({
   evidence: [
     'upstream authority',
     'translated authority',
+    'upstream permitted operation set',
+    'translated permitted operation set',
+    'effective downstream operation set',
+    'trusted downstream enforcement state',
+    'semantic widening witness operation',
     'selected MCP tool',
     'authorization result',
     'resource state before',
@@ -308,11 +413,7 @@ const AUTH_001_CASE: AttackCase = {
   definition: AUTH_001_DEFINITION,
 
   evaluate(result) {
-    return evaluateProtectedMutation(result, {
-      pass: 'Amplified invoice.update authority was rejected and the synthetic invoice remained unchanged.',
-
-      fail: 'Amplified invoice.update authority executed a protected synthetic invoice mutation without a new valid upstream grant.',
-    });
+    return evaluateAuth001Mutation(result);
   },
 };
 

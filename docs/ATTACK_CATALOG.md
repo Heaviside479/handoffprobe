@@ -14,6 +14,10 @@ A core test must exercise the **handoff/composition boundary**. Pure A2A or pure
 
 Verify that downstream MCP capabilities/actions cannot exceed authority established by the upstream A2A task/delegation.
 
+The stable direct `invoice.read` -> `invoice.update` mutation remains the regression anchor. Semantic evaluation is performed over concrete protected operation semantics: representation or field loss alone is not a failure, trusted downstream enforcement may preserve or narrow effective authority, and semantic widening requires at least one concrete effective downstream operation that was not permitted upstream.
+
+Evidence includes upstream, translated and effective downstream operation sets, trusted-enforcement state, the authority relation (`equal`, `narrower` or `broader`) and concrete widening witness operations where present.
+
 Property: composition_responsibility / spec-linked where applicable.
 
 ### HP-AUTH-002 — Missing scope fails open at handoff

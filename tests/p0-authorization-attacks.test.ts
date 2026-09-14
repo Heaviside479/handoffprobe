@@ -145,6 +145,29 @@ describe('productive P0 authorization attacks', () => {
     });
   });
 
+  it('HP-AUTH-001 reports effective semantic authority and a concrete widening witness', async () => {
+    const secure = await runPlan(HP_AUTH_001, 'secure');
+
+    expect(secure.finding.status).toBe('pass');
+
+    expect(secure.finding.observedBehavior).toContain('relation=narrower');
+    expect(secure.finding.observedBehavior).toContain('upstream=[invoice:INV-1001:read]');
+    expect(secure.finding.observedBehavior).toContain('translated=[invoice:INV-1001:update]');
+    expect(secure.finding.observedBehavior).toContain('effective=[]');
+    expect(secure.finding.observedBehavior).toContain('witnesses=[]');
+    expect(secure.finding.observedBehavior).toContain('trustedDownstreamEnforcement=applied');
+
+    const vulnerable = await runPlan(HP_AUTH_001, 'vulnerable');
+
+    expect(vulnerable.finding.status).toBe('fail');
+
+    expect(vulnerable.finding.observedBehavior).toContain('relation=broader');
+    expect(vulnerable.finding.observedBehavior).toContain('upstream=[invoice:INV-1001:read]');
+    expect(vulnerable.finding.observedBehavior).toContain('effective=[invoice:INV-1001:update]');
+    expect(vulnerable.finding.observedBehavior).toContain('witnesses=[invoice:INV-1001:update]');
+    expect(vulnerable.finding.observedBehavior).toContain('trustedDownstreamEnforcement=absent');
+  });
+
   it('HP-AUTH-002 proves missing authority plus broader fallback', async () => {
     const result = await runPlan(HP_AUTH_002, 'secure');
 

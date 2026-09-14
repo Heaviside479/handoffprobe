@@ -3,6 +3,7 @@ export * from './constants.js';
 export * from './payload-hash.js';
 export * from './reference.js';
 export * from './scenario.js';
+export * from './semantic-authority.js';
 export * from './state.js';
 export * from './target-adapter.js';
 
