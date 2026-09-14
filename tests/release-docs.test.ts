@@ -7,12 +7,16 @@ async function read(path: string): Promise<string> {
 }
 
 describe('v0.3.0 release-candidate documentation', () => {
-  it('keeps candidate and currently published package status distinct', async () => {
+  it('keeps the packaged README release-safe across coordinated publication', async () => {
     const readme = await read('README.md');
 
-    expect(readme).toContain('Release-candidate source metadata is **`handoffprobe@0.3.0`**.');
-    expect(readme).toContain('currently published npm and GitHub release remains `v0.2.0`');
-    expect(readme).toContain('The candidate package version is `0.3.0`.');
+    expect(readme).toContain('Package release metadata is **`handoffprobe@0.3.0`**.');
+    expect(readme).toContain(
+      'verify registry availability with `npm view handoffprobe@0.3.0 version`',
+    );
+    expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
+    expect(readme).toContain('https://handoffprobe.heaviside-solutions.com/security-assessment');
+    expect(readme).not.toContain('currently published npm and GitHub release remains `v0.2.0`');
     expect(readme).not.toContain(
       'HandoffProbe v0.3.0 is publicly available on npm and as a GitHub Release.',
     );

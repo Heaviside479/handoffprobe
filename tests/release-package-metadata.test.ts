@@ -76,7 +76,7 @@ describe('v0.3 package release metadata', () => {
     expect(manifest.bugs).toEqual({
       url: 'https://github.com/Heaviside479/handoffprobe/issues',
     });
-    expect(manifest.homepage).toBe('https://github.com/Heaviside479/handoffprobe#readme');
+    expect(manifest.homepage).toBe('https://handoffprobe.heaviside-solutions.com');
     expect(manifest.keywords).toEqual(EXPECTED_KEYWORDS);
     expect(manifest.publishConfig).toEqual({
       access: 'public',

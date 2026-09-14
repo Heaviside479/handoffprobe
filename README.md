@@ -56,13 +56,11 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-Release-candidate source metadata is **`handoffprobe@0.3.0`**.
+Package release metadata is **`handoffprobe@0.3.0`**.
 
-The currently published npm and GitHub release remains `v0.2.0` until the v0.3.0 pre-publication gates and coordinated publication sequence complete.
+This README documents the v0.3.0 release artifact. During coordinated publication, npm, the GitHub tag and the GitHub Release can become visible at slightly different moments. Verify registry availability with `npm view handoffprobe@0.3.0 version` before relying on the exact-version registry commands below.
 
-The candidate package version is `0.3.0`. Do not treat it as a public registry release yet.
-
-The v0.3.0 release-candidate contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
+The v0.3.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
 ## Commercial support
 
@@ -71,6 +69,8 @@ HandoffProbe remains free and open source under Apache-2.0.
 Teams that want HandoffProbe applied to a real authorized agent/tool handoff can request a **Founding Security Assessment** from Heaviside Solutions.
 
 The assessment covers one clearly agreed handoff boundary and includes human review of HandoffProbe evidence, written findings and remediation guidance, plus one retest after fixes.
+
+[HandoffProbe product website](https://handoffprobe.heaviside-solutions.com)
 
 [Request a Founding Security Assessment](https://handoffprobe.heaviside-solutions.com/security-assessment)
 
@@ -99,13 +99,13 @@ This is profile-scoped evidence, not a general certification. It does not claim 
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-Use the public exact-version commands below for the currently published v0.2.0 package. The v0.3.0 candidate must be exercised from this source checkout or a locally packed candidate tarball until publication.
+For the v0.3.0 release, first verify registry availability with `npm view handoffprobe@0.3.0 version`. During coordinated publication, use the local candidate tarball until that registry check succeeds.
 
-The canonical public exact-version checks are:
+Once available, the exact-version checks are:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
-npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
+npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe test
 ```
 
 ## Quick start from source
@@ -150,11 +150,11 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-Until v0.3.0 is published, the currently published registry baseline remains `handoffprobe@0.2.0`:
+The registry commands for this release are:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
-npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
+npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe test
 ```
 
 The shorter convenience command is:
