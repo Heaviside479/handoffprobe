@@ -1546,6 +1546,32 @@ Guardrails:
 
 T-1 exit gate: HandoffProbe has an evidence-backed written decision that the semantic-authority case is already covered, is an existing-attack refinement, or is a distinct admitted handoff-security invariant.
 
+### T-2 — protocol-neutral Handoff Contract review
+
+Status: **QUEUED research / validation track.** T-1 remains authoritative for semantic authority widening; T-2 must reuse the T-1 overlap/admission result and must not duplicate or pre-empt that work.
+
+Implementation contract:
+
+`docs/HANDOFF_CONTRACT_REVIEW_SPEC_20260914.md`
+
+Required sequence:
+
+- [ ] draft a minimal protocol-neutral Handoff Contract with explicit separation of **Contract Semantics**, **Attestation / Binding**, and **Runtime Enforcement**;
+- [ ] map every proposed invariant against the **22 stable attacks**, **Phase 9**, and **T-1** before creating new research cases;
+- [ ] treat semantic authority widening as T-1-owned and reuse its HP-AUTH-001 refinement/admission result rather than creating parallel authority work;
+- [ ] add only evidence-gated, deterministic local/synthetic research cases that remain justified after the overlap review;
+- [ ] complete the internal public draft, concrete cases, reproducible evidence and review gate before asking `bayu` for external technical review in the existing Indie Hackers thread;
+- [ ] record external feedback and use normal attack-admission discipline only for genuinely distinct evidence-backed invariants.
+
+Guardrails:
+
+- no automatic new stable attack ID;
+- the public stable attack count remains **22** unless a separate normal admission and release decision changes it;
+- no partnership, endorsement, certification or compatibility claim from external reviewer participation;
+- no external review request before the concrete public draft and cases are internally ready.
+
+T-2 exit gate: the protocol-neutral contract and justified deterministic cases are publicly reviewable, overlap with the existing corpus / Phase 9 / T-1 is documented, and external review is requested only after the internal evidence gate is satisfied.
+
 ### CV-6 — first revenue validation
 
 Target: first **3 paid accepted assessments**.
