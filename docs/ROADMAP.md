@@ -1194,7 +1194,7 @@ Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numb
 
 ### Release Track R3 — candidate v0.3.0 semantic-authority release
 
-Status: **PLANNED — candidate version only; no version bump yet.**
+Status: **ACTIVE — R3.1 scope/SemVer audit complete 2026-09-14; candidate `v0.3.0` confirmed; no version bump yet. R3.2 package-metadata cleanup is next.**
 
 The current expected next public release is **v0.3.0** if the T-1 / T1.6 HP-AUTH-001 semantic-authority refinement lands as a backward-compatible shipped security capability.
 
@@ -1207,6 +1207,10 @@ This does not override the general SemVer rule above:
 - `v0.3.1` is reserved for a later patch after `v0.3.0`, not as the first release of this capability.
 
 R3 begins only after the HP-AUTH-001 refinement is merged, the public scope is frozen and the release classification is confirmed.
+
+R3.1 evidence: `docs/R3_V0_3_0_SCOPE_SEMVER_AUDIT_20260914.md`.
+
+R3.2 must remove the broken published-package `assessment:report` metadata reference while keeping commercial assessment delivery repository-only, then rerun package/release-surface verification before any version bump.
 
 #### Required release coordination
 
