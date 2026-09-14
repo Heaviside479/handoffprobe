@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe `0.2.0` is the release version.
+HandoffProbe `0.3.0` is the current release candidate in source.
 
-The exact npm package for this release is `handoffprobe@0.2.0`. Public-registry integrity and clean-install verification are part of the release verification process.
+The current public npm package remains `handoffprobe@0.2.0` until the v0.3.0 publication gates complete.
 
-Source and package metadata are finalized at `0.2.0`. Registry commands below use the exact package version `handoffprobe@0.2.0`.
+Source, lockfile and exported CLI metadata are synchronized at `0.3.0`. Public-registry commands below deliberately remain pinned to the actually published `handoffprobe@0.2.0` until publication.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ npm --version
 
 ## Public npm execution
 
-The recommended one-shot public version check is:
+Until v0.3.0 is published, the current public npm package remains `handoffprobe@0.2.0`. The recommended public version check is:
 
 ```bash
 npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
@@ -40,7 +40,7 @@ Run the secure bundled corpus:
 npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test
 ```
 
-Expected release version:
+Expected current public version:
 
 ```text
 HandoffProbe 0.2.0
@@ -88,10 +88,10 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-The finalized v0.2.0 source checkout reports:
+The current v0.3.0 release-candidate source checkout reports:
 
 ```text
-HandoffProbe 0.2.0
+HandoffProbe 0.3.0
 ```
 
 ## Run the locally packed package
@@ -125,7 +125,7 @@ For external repositories, immutable commit-SHA pinning is the strongest default
     artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable release commit for HandoffProbe v0.2.0.
+The pin above remains the reviewed immutable commit for the currently published HandoffProbe v0.2.0 Action. The v0.3.0 candidate will receive its own external consumer verification against the exact frozen candidate commit before publication.
 
 The `v0.2.0` tag is available for discoverability, while the reviewed immutable commit SHA remains stronger for supply-chain pinning.
 
@@ -155,7 +155,7 @@ npm view handoffprobe@0.2.0
 
 ### Unsupported Node version
 
-HandoffProbe v0.2.0 requires Node `>=24 <25`.
+Both the currently published v0.2.0 release and the v0.3.0 release candidate require Node `>=24 <25`.
 
 Check:
 
