@@ -303,7 +303,9 @@ async function run(): Promise<number> {
   const [inputPath, requestedOutputDirectory] = process.argv.slice(2);
 
   if (inputPath === undefined) {
-    console.error('Usage: npm run assessment:report -- <assessment.json> [output-directory]');
+    console.error(
+      'Usage: npx tsx scripts/commercial-assessment-delivery.ts <assessment.json> [output-directory]',
+    );
     return 2;
   }
 

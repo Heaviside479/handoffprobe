@@ -1194,7 +1194,7 @@ Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numb
 
 ### Release Track R3 — candidate v0.3.0 semantic-authority release
 
-Status: **ACTIVE — R3.1 scope/SemVer audit complete 2026-09-14; candidate `v0.3.0` confirmed; no version bump yet. R3.2 package-metadata cleanup is next.**
+Status: **ACTIVE — R3.1 scope/SemVer audit and R3.2 package-metadata cleanup complete 2026-09-14; candidate `v0.3.0` confirmed; release-candidate preparation is next. No version bump yet.**
 
 The current expected next public release is **v0.3.0** if the T-1 / T1.6 HP-AUTH-001 semantic-authority refinement lands as a backward-compatible shipped security capability.
 
@@ -1210,7 +1210,9 @@ R3 begins only after the HP-AUTH-001 refinement is merged, the public scope is f
 
 R3.1 evidence: `docs/R3_V0_3_0_SCOPE_SEMVER_AUDIT_20260914.md`.
 
-R3.2 must remove the broken published-package `assessment:report` metadata reference while keeping commercial assessment delivery repository-only, then rerun package/release-surface verification before any version bump.
+R3.2 completed 2026-09-14: the broken published-package `assessment:report` metadata reference was removed while commercial assessment delivery remained repository-only. Package, tarball, test and public-surface verification passed with the development version still at `0.2.0`.
+
+R3.2 evidence: `docs/R3_V0_3_0_PACKAGE_METADATA_CLEANUP_CLOSEOUT_20260914.md`.
 
 #### Required release coordination
 
@@ -1523,7 +1525,7 @@ Status: **COMPLETE — synthetic end-to-end delivery verified 2026-09-13.**
 
 Verification:
 - `npm run check` passes the full repository gate;
-- `npm run assessment:report -- <assessment.json>` generates Markdown, PDF and allowlisted safe JSON;
+- repository-local `npx tsx scripts/commercial-assessment-delivery.ts <assessment.json>` generates Markdown, PDF and allowlisted safe JSON;
 - `.handoffprobe-assessments/` keeps real customer working data outside the public repository;
 - the synthetic PDF delivery was manually reviewed for readable layout and page flow.
 
