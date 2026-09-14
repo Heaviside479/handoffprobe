@@ -1191,6 +1191,53 @@ Exit gate satisfied 2026-09-09.
 
 Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numbers. Use SemVer according to the next evidence-backed scope. The Phase 10 `v0.5` label remains a reliability milestone, not an instruction to skip or force intermediate releases.
 
+
+### Release Track R3 — candidate v0.3.0 semantic-authority release
+
+Status: **PLANNED — candidate version only; no version bump yet.**
+
+The current expected next public release is **v0.3.0** if the T-1 / T1.6 HP-AUTH-001 semantic-authority refinement lands as a backward-compatible shipped security capability.
+
+This does not override the general SemVer rule above:
+
+- do not publish `v0.3.0` merely to advance the version number;
+- keep the stable corpus at **22 attacks** unless a separate normal attack-admission decision changes it;
+- preserve `HP-AUTH-001` as the stable ID for the semantic-authority refinement;
+- if the completed scope proves documentation-only or internal-only, do not force a `v0.3.0` release;
+- `v0.3.1` is reserved for a later patch after `v0.3.0`, not as the first release of this capability.
+
+R3 begins only after the HP-AUTH-001 refinement is merged, the public scope is frozen and the release classification is confirmed.
+
+#### Required release coordination
+
+A version bump must be treated as one controlled public release, not as an isolated `package.json` edit.
+
+Before publication:
+
+- [ ] freeze the exact R3 public scope and release commit;
+- [ ] update `package.json`, `package-lock.json` and any other deliberate version-bearing release metadata consistently;
+- [ ] update `CHANGELOG.md` and release-facing README / installation / usage documentation where the shipped behavior requires it;
+- [ ] audit CLI, package-root API, config/report schema, GitHub Action, Node/runtime and protocol-baseline compatibility;
+- [ ] confirm the stable public attack count and IDs;
+- [ ] run the full repository checks and dependency/security gates;
+- [ ] run `npm run package:check` and inspect the exact npm tarball payload;
+- [ ] verify a fresh local install and exact-version `npx` execution from the release candidate;
+- [ ] verify the reusable GitHub Action from an external consumer against the exact candidate commit.
+
+Publication must then stay synchronized across all public surfaces:
+
+- [ ] create the immutable annotated `v0.3.0` tag only after release gates pass;
+- [ ] publish `handoffprobe@0.3.0` to npm;
+- [ ] verify npm metadata, integrity and the published tarball;
+- [ ] create and verify the GitHub Release `HandoffProbe v0.3.0`;
+- [ ] verify GitHub Marketplace / reusable Action presentation and release references;
+- [ ] verify a clean external `npx --yes --package=handoffprobe@0.3.0 handoffprobe test` path;
+- [ ] verify the reusable GitHub Action from both the immutable release tag and release commit/SHA in a consumer workflow;
+- [ ] reconcile all public release documentation and supported-version references;
+- [ ] record post-publication verification evidence before R3 is considered complete.
+
+R3 exit gate: npm, GitHub Release, immutable tag, Action/Marketplace presentation, documentation and external exact-version verification all describe and execute the same released HandoffProbe version. No half-published release state is accepted.
+
 ---
 
 # Phase 10 — v0.5 reliability hardening
