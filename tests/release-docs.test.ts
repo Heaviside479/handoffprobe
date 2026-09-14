@@ -6,76 +6,62 @@ async function read(path: string): Promise<string> {
   return readFile(path, 'utf8');
 }
 
-describe('release installation and usage documentation', () => {
-  it('keeps README accurate after the public release', async () => {
+describe('v0.3.0 release-candidate documentation', () => {
+  it('keeps candidate and currently published package status distinct', async () => {
     const readme = await read('README.md');
 
-    expect(readme).toContain('The npm package for this release is **`handoffprobe@0.2.0`**.');
-    expect(readme).toContain('The release package version is `0.2.0`.');
-    expect(readme).toContain('docs/INSTALLATION.md');
-    expect(readme).toContain('docs/USAGE.md');
-    expect(readme).toContain(
-      'npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version',
+    expect(readme).toContain('Release-candidate source metadata is **`handoffprobe@0.3.0`**.');
+    expect(readme).toContain('currently published npm and GitHub release remains `v0.2.0`');
+    expect(readme).toContain('The candidate package version is `0.3.0`.');
+    expect(readme).not.toContain(
+      'HandoffProbe v0.3.0 is publicly available on npm and as a GitHub Release.',
     );
-    expect(readme).toContain('npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe test');
   });
 
-  it('documents source, tarball and public npm installation', async () => {
+  it('documents public v0.2.0 execution and local v0.3.0 candidate execution separately', async () => {
     const installation = await read('docs/INSTALLATION.md');
 
     for (const text of [
       'Node.js `>=24 <25`',
-      'The exact npm package for this release is `handoffprobe@0.2.0`.',
-      'npm ci',
-      'npm run build',
-      'PACKAGE_TARBALL="$(npm pack --silent)"',
-      'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
+      'current public npm package remains `handoffprobe@0.2.0`',
       'npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version',
       'npm install --save-dev --save-exact handoffprobe@0.2.0',
+      'HandoffProbe 0.3.0',
+      'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
       'owned, synthetic or explicitly authorized target',
     ]) {
       expect(installation).toContain(text);
     }
   });
 
-  it('documents the complete stable CLI and automation surface', async () => {
+  it('documents the preserved stable CLI and v0.3.0 semantic-authority behavior', async () => {
     const usage = await read('docs/USAGE.md');
 
     for (const text of [
+      'v0.3.0 release-candidate contract',
+      '22 stable attacks: 12 P0 and 10 P1',
+      'HP-AUTH-001',
+      'effective downstream authority',
+      'schema version `1`',
       'handoffprobe test [options]',
       'handoffprobe list',
       'handoffprobe explain <HP-ID>',
-      '--target vulnerable',
-      '--test HP-AUTH-001',
-      '--fail-on medium',
-      '--reporter terminal',
       '--reporter json',
-      '--reporter markdown',
       '--output handoffprobe-report.json',
-      'handoffprobe.config.json',
-      'CLI flags override configuration values.',
-      'schema version `1`',
-      '22 stable attacks: 12 P0 and 10 P1',
     ]) {
       expect(usage).toContain(text);
     }
   });
 
-  it('documents exit semantics, redaction and the composition-safety demo', async () => {
-    const usage = await read('docs/USAGE.md');
+  it('keeps candidate safety, research and publication boundaries explicit', async () => {
+    const security = await read('SECURITY.md');
+    const contributing = await read('CONTRIBUTING.md');
+    const releaseNotes = await read('docs/V0_3_0_RELEASE_NOTES.md');
 
-    for (const exitCode of ['0', '1', '2', '3']) {
-      expect(usage).toMatch(new RegExp('\\|\\s+`' + exitCode + '`\\s+\\|', 'u'));
-    }
-
-    expect(usage).toContain('Exit `1` is a security finding, not a scanner crash.');
-    expect(usage).toContain('safe evidence counts and deterministic sequence references');
-    expect(usage).toContain('upstream A2A authority can be individually valid');
-    expect(usage).toContain(
-      'downstream MCP tool behavior can be individually valid under correct authority',
-    );
-    expect(usage).toContain(
-      'translation/handoff can still broaden the effective authority incorrectly',
-    );
+    expect(security).toContain('v0.3.0 release-candidate safety boundary');
+    expect(contributing).toContain('v0.3.0 release-candidate product scope');
+    expect(releaseNotes).toContain('release candidate — not yet published');
+    expect(releaseNotes).toContain('No new stable attack ID is introduced');
+    expect(releaseNotes).toContain('T2 Handoff Contract implementation as a shipped capability');
   });
 });

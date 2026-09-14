@@ -78,6 +78,6 @@ describe('Phase 5 README developer experience gate', () => {
     expect(readme).toContain(`npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test`);
 
     expect(readme).toContain('npx handoffprobe test');
-    expect(readme).toContain('The npm package for this release is **`handoffprobe@0.2.0`**.');
+    expect(readme).toContain('Release-candidate source metadata is **`handoffprobe@0.3.0`**.');
   });
 });

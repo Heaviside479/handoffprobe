@@ -47,6 +47,34 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
+## 0.3.0 — release candidate (2026-09-14)
+
+### Security capability
+
+- refines stable `HP-AUTH-001` to evaluate upstream delegated, translated and effective downstream authority over deterministic protected-operation semantics
+- reports concrete widening witness operations when effective downstream authority exceeds upstream delegation
+- treats representation loss as non-failing when trusted downstream enforcement keeps effective authority within the upstream delegation
+- preserves the existing `invoice.read` → `invoice.update` direct regression anchor and stable `HP-AUTH-001` identity
+
+### Compatibility
+
+- preserves exactly 22 stable attacks: 12 P0 and 10 P1
+- preserves the existing `test`, `list`, `explain`, `--version` and `--help` CLI surface
+- preserves report schema `1`, exit semantics `0 / 1 / 2 / 3`, package-root exports and GitHub Action inputs/outputs
+- preserves Node `>=24 <25` and the A2A 1.0 → MCP 2026-07-28 protocol baseline
+
+### Packaging and distribution
+
+- removes the repository-only commercial assessment delivery command from published npm package metadata while keeping the assessment tooling available to repository maintainers
+- keeps the npm payload restricted to the stable `dist` build closure
+- carries the Security Assessment CTA in release-visible README content without creating a paid CLI tier or changing the Apache-2.0 Core license
+- keeps commercial assessment templates, report generation, synthetic assessment fixtures and T2 review work outside the public Core runtime surface
+
+### Release status
+
+- package, lockfile and exported CLI version are synchronized at `0.3.0`
+- this entry describes the release candidate; npm publication, the immutable `v0.3.0` tag and the GitHub Release remain gated on the full pre-publication checklist
+
 ## 0.2.0 — 2026-09-09
 
 ### User-facing product contract

@@ -56,15 +56,13 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-The npm package for this release is **`handoffprobe@0.2.0`**.
+Release-candidate source metadata is **`handoffprobe@0.3.0`**.
 
-HandoffProbe v0.2.0 is publicly available on npm and as a GitHub Release.
+The currently published npm and GitHub release remains `v0.2.0` until the v0.3.0 pre-publication gates and coordinated publication sequence complete.
 
-The release package version is `0.2.0`. Exact-version npm commands below use that version.
+The candidate package version is `0.3.0`. Do not treat it as a public registry release yet.
 
-Source and package metadata for this release are finalized at `0.2.0`.
-
-The v0.2.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
+The v0.3.0 release-candidate contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
 ## Commercial support
 
@@ -101,7 +99,7 @@ This is profile-scoped evidence, not a general certification. It does not claim 
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-Use the public exact-version commands below for the released package, or use the source checkout or locally packed tarball for development.
+Use the public exact-version commands below for the currently published v0.2.0 package. The v0.3.0 candidate must be exercised from this source checkout or a locally packed candidate tarball until publication.
 
 The canonical public exact-version checks are:
 
@@ -152,7 +150,7 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-For the finalized `handoffprobe@0.2.0` release, the canonical exact-version commands are:
+Until v0.3.0 is published, the currently published registry baseline remains `handoffprobe@0.2.0`:
 
 ```bash
 npm exec --yes --package=handoffprobe@0.2.0 -- handoffprobe --version
@@ -571,7 +569,8 @@ The core admission rule remains:
 - [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
 - [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
 - [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
-- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — v0.2.0 release notes, compatibility boundary and limitations
+- [`docs/V0_3_0_RELEASE_NOTES.md`](docs/V0_3_0_RELEASE_NOTES.md) — v0.3.0 release-candidate scope, compatibility boundary and publication gates
+- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — historical v0.2.0 release notes, compatibility boundary and limitations
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
 - [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog
