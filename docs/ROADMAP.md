@@ -1526,12 +1526,12 @@ Required sequence:
 - [x] freeze exact external references, provenance and license context;
 - [x] compare the case against all relevant existing HandoffProbe authority / identity / binding attacks and Phase 9 evidence;
 - [x] produce a written overlap matrix showing what is already covered and what is genuinely distinct;
-- [ ] formalize a HandoffProbe-owned candidate invariant only if the case remains distinct after overlap review;
-- [ ] independently reproduce the smallest deterministic local/synthetic PASS/FAIL/control set inside HandoffProbe;
-- [ ] keep representation loss alone non-failing when equivalent trusted downstream enforcement preserves effective authority;
-- [ ] distinguish semantic widening from identity/binding failure and explicit attenuation/escalation failure;
-- [ ] make an explicit admission decision: existing attack already covers it, existing attack should be refined, or a distinct invariant merits a new candidate attack;
-- [ ] do **not** assign a new stable attack ID before that evidence-backed admission decision;
+- [x] determine that separate candidate-invariant formalization is not required because the case did not remain distinct after overlap review;
+- [x] independently reproduce the smallest deterministic local/synthetic PASS/FAIL/control set inside HandoffProbe;
+- [x] keep representation loss alone non-failing when equivalent trusted downstream enforcement preserves effective authority;
+- [x] distinguish semantic widening from identity/binding failure and explicit attenuation/escalation failure;
+- [x] make an explicit admission decision: **refine HP-AUTH-001; no distinct new attack is justified by current evidence**;
+- [x] do **not** assign a new stable attack ID before that evidence-backed admission decision;
 - [ ] if admitted, add deterministic fixtures, regression coverage, severity/property class, provenance and documentation through normal release discipline;
 - [ ] if not admitted, record the no-add decision and preserve any useful fixture/evidence improvements without inflating public attack-count claims.
 
