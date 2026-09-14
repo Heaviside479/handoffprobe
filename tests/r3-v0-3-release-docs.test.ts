@@ -16,7 +16,7 @@ describe('v0.3.0 release-candidate contract', () => {
   it('records v0.3.0 as a candidate without claiming publication', () => {
     expect(releaseNotes).toContain('Status: **release candidate — not yet published.**');
     expect(changelog).toContain('## 0.3.0 — release candidate (2026-09-14)');
-    expect(readme).toContain('Release-candidate source metadata is **`handoffprobe@0.3.0`**.');
+    expect(readme).toContain('Package release metadata is **`handoffprobe@0.3.0`**.');
     expect(installation).toContain('HandoffProbe `0.3.0` is the current release candidate');
     expect(readme).not.toContain(
       'HandoffProbe v0.3.0 is publicly available on npm and as a GitHub Release.',
@@ -31,10 +31,11 @@ describe('v0.3.0 release-candidate contract', () => {
     expect(usage).toContain('effective downstream authority');
   });
 
-  it('keeps current public registry and Action examples on v0.2.0 until publication', () => {
-    expect(readme).toContain('currently published npm and GitHub release remains `v0.2.0`');
+  it('keeps the npm-facing README release-ready while source docs retain the pre-publication baseline', () => {
+    expect(readme).toContain('handoffprobe@0.3.0');
+    expect(readme).toContain('npm view handoffprobe@0.3.0 version');
+    expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
     expect(installation).toContain('current public npm package remains `handoffprobe@0.2.0`');
-    expect(readme).toContain('handoffprobe@0.2.0');
     expect(installation).toContain('handoffprobe@0.2.0');
     expect(usage).toContain('published `v0.2.0` Action pin');
   });
