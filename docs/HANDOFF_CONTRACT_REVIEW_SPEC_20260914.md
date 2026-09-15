@@ -33,9 +33,9 @@ This is treated as an external technical-review signal only. It is not evidence 
 
 This track is named **T-2** in the roadmap.
 
-- T-1 semantic-authority-widening research remains active and authoritative for the current authority-widening admission decision.
-- T-2 must reuse the T-1 overlap/admission result instead of duplicating or pre-empting it.
-- Documentation-only contract drafting may proceed in parallel with T-1 if it does not block CV-5 distribution work.
+- T-1 semantic-authority-widening research is complete and remains authoritative for the authority-widening admission decision.
+- T-2 must reuse the completed T-1 overlap/admission result instead of duplicating or pre-empting it.
+- Documentation-only contract drafting may proceed now that T-1 is complete, provided it does not block CV-5 distribution work.
 - No new stable attack ID, release claim, CLI/API surface, or package behavior may be introduced until the normal attack-admission and release gates are satisfied.
 
 ## Goal
@@ -65,10 +65,14 @@ A handoff may be schema-valid or representation-preserving while still failing o
 
 ### T-2.1 — freeze the review input
 
-- [ ] preserve the exact Indie Hackers thread URL and a concise factual summary of the exchange;
-- [ ] record the external reviewer handle only as `bayu` unless a stronger public identity is independently verified;
-- [ ] record the proposed review dimensions exactly as external research inputs, not as accepted HandoffProbe requirements;
-- [ ] cross-reference T-1 and the existing P0/P1/Phase-9 evidence before drafting new invariants.
+Status: **COMPLETE — 2026-09-15**
+
+- [x] preserve the exact Indie Hackers thread URL and a concise factual summary of the exchange;
+- [x] record the external reviewer handle only as `bayu` unless a stronger public identity is independently verified;
+- [x] record the proposed review dimensions exactly as external research inputs, not as accepted HandoffProbe requirements;
+- [x] cross-reference T-1 and the existing P0/P1/Phase-9 evidence before drafting new invariants.
+
+Evidence: `docs/T2_1_REVIEW_INPUT_FREEZE_20260915.md`.
 
 ### T-2.2 — draft the minimal Handoff Contract
 
