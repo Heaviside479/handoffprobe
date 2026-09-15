@@ -1194,7 +1194,7 @@ Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numb
 
 ### Release Track R3 — v0.3.0 semantic-authority release
 
-Status: **ACTIVE — v0.3.0 was published on 2026-09-14. npm, the immutable annotated tag, GitHub Release, external exact-version execution, external Action verification and both public website surfaces are synchronized. Marketplace-specific presentation verification remains open before R3 can be marked complete.**
+Status: **COMPLETE — v0.3.0 was published on 2026-09-14 and R3 closed on 2026-09-15 after GitHub Marketplace presentation was re-verified. npm, the immutable annotated tag, GitHub Release, external exact-version execution, external Action verification, both public website surfaces and Marketplace presentation are synchronized.**
 
 The released public version is **v0.3.0**. It ships the T-1 / T1.6 `HP-AUTH-001` semantic-authority refinement as a backward-compatible security-capability improvement.
 
@@ -1241,7 +1241,7 @@ Publication and post-publication synchronization:
 - [x] publish `handoffprobe@0.3.0` to npm;
 - [x] verify npm metadata, integrity and the published tarball;
 - [x] create and verify the GitHub Release `HandoffProbe v0.3.0`;
-- [ ] verify GitHub Marketplace / reusable Action presentation and release references;
+- [x] verify GitHub Marketplace / reusable Action presentation and release references;
 - [x] update the HandoffProbe product/commercial landing page at `https://handoffprobe.heaviside-solutions.com` to the verified v0.3.0 release truth;
 - [x] update the HandoffProbe project page on `https://heaviside-solutions.com` so version, capability claims, stable attack count and release links match the verified v0.3.0 release;
 - [x] verify both production website surfaces after deployment and record that neither still presents stale v0.2.0 release claims;
@@ -1250,7 +1250,7 @@ Publication and post-publication synchronization:
 - [x] reconcile all public release documentation and supported-version references;
 - [x] record post-publication verification evidence before R3 is considered complete.
 
-R3 exit gate remains open only for the explicit GitHub Marketplace / reusable Action presentation check. npm, GitHub Release, immutable tag, external Action execution, the HandoffProbe product landing page, the HandoffProbe project page on heaviside-solutions.com, documentation and external exact-version verification otherwise describe and execute the same released HandoffProbe v0.3.0 version. No half-published release state is accepted.
+R3 exit gate satisfied 2026-09-15. GitHub Marketplace presents HandoffProbe v0.3.0 as Latest and reflects the reconciled published-release README with immutable release SHA `ef54b950b3ee333c406fa81087685d7f952a028d`. npm, GitHub Release, immutable tag, external Action execution, both public website surfaces, Marketplace presentation, documentation and external exact-version verification describe and execute the same released HandoffProbe v0.3.0 version. No half-published release state is accepted.
 
 ---
 

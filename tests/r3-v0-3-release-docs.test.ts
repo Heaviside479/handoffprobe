@@ -44,6 +44,6 @@ describe('v0.3.0 published release contract', () => {
     expect(contributing).toContain('v0.3.0 release product scope');
     expect(releaseNotes).toContain('T2 Handoff Contract implementation as a shipped capability');
     expect(releaseNotes).toContain('Phase 9 crossing-corpus research/conformance cases');
-    expect(releaseNotes).toContain('Marketplace-specific presentation verification remains open');
+    expect(releaseNotes).toContain('GitHub Marketplace presentation was re-verified on 2026-09-15');
   });
 });

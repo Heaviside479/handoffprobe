@@ -71,7 +71,7 @@ The v0.3.0 release completed the R3 publication sequence successfully:
 - the reusable GitHub Action was verified from a separate consumer repository against both the immutable release SHA and the public `v0.3.0` tag;
 - the dedicated HandoffProbe product site and the HandoffProbe project page on Heaviside Solutions were updated to v0.3.0 and deployed successfully.
 
-Marketplace-specific presentation verification remains open as a separate post-publication closeout item. It does not change the published npm artifact, immutable tag or GitHub Release identity.
+GitHub Marketplace presentation was re-verified on 2026-09-15: HandoffProbe v0.3.0 is presented as Latest, the reconciled published-release README and immutable release SHA are visible, and stale v0.2.0 release references are absent. This completed the final R3 post-publication closeout item.
 
 ## Explicit limitations
 

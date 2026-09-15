@@ -53,8 +53,10 @@ Current release-facing Core documentation is reconciled from the pre-publication
 
 Historical v0.2.0 release documentation remains historical and is not rewritten.
 
-## Remaining R3 closeout item
+## R3 closeout
 
-Marketplace-specific presentation check remains open.
+Marketplace-specific presentation verification completed on 2026-09-15.
 
-R3 is therefore not marked complete until GitHub Marketplace / reusable Action presentation and release references are explicitly verified. This open presentation check does not alter the already-published npm artifact, immutable tag, GitHub Release or release commit identity.
+The public GitHub Marketplace page returned HTTP 200 at `https://github.com/marketplace/actions/handoffprobe` and presented the HandoffProbe listing with `v0.3.0` marked as `Latest`. The rendered Marketplace content contained the immutable release SHA `ef54b950b3ee333c406fa81087685d7f952a028d` and the reconciled published-v0.3.0 README wording. The historical v0.2.0 release SHA `b0fc2a8abe1df36e526536d714418a9842be2f77` and stale coordinated-publication wording were absent.
+
+Together with the already completed external consumer verification of both the immutable release SHA and public `v0.3.0` Action tag, this closes the final R3 post-publication item. R3 is complete. This verification does not alter or republish the npm artifact, immutable tag, GitHub Release or release commit identity.
