@@ -58,7 +58,7 @@ The developer CLI currently includes:
 
 Package release metadata is **`handoffprobe@0.3.0`**.
 
-This README documents the v0.3.0 release artifact. During coordinated publication, npm, the GitHub tag and the GitHub Release can become visible at slightly different moments. Verify registry availability with `npm view handoffprobe@0.3.0 version` before relying on the exact-version registry commands below.
+This README documents the published v0.3.0 release. The public npm package is `handoffprobe@0.3.0`, and the immutable annotated `v0.3.0` tag plus GitHub Release resolve to release commit `ef54b950b3ee333c406fa81087685d7f952a028d`.
 
 The v0.3.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
@@ -99,9 +99,8 @@ This is profile-scoped evidence, not a general certification. It does not claim 
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-For the v0.3.0 release, first verify registry availability with `npm view handoffprobe@0.3.0 version`. During coordinated publication, use the local candidate tarball until that registry check succeeds.
+The published exact release is `handoffprobe@0.3.0`. The exact-version checks are:
 
-Once available, the exact-version checks are:
 
 ```bash
 npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
@@ -207,15 +206,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77
+      - uses: Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable release commit for HandoffProbe v0.2.0.
-The human-readable `v0.2.0` tag remains useful for discovery while the immutable commit SHA is the stronger supply-chain pin. Both references were verified after publication from a separate consumer repository.
+The pin above is the reviewed immutable release commit for HandoffProbe v0.3.0.
+The human-readable `v0.3.0` tag remains useful for discovery while the immutable commit SHA is the stronger supply-chain pin. Both `v0.3.0` and `ef54b950b3ee333c406fa81087685d7f952a028d` were verified after publication from a separate consumer repository.
 
 Supported inputs:
 
@@ -569,7 +568,7 @@ The core admission rule remains:
 - [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
 - [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
 - [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
-- [`docs/V0_3_0_RELEASE_NOTES.md`](docs/V0_3_0_RELEASE_NOTES.md) — v0.3.0 release-candidate scope, compatibility boundary and publication gates
+- [`docs/V0_3_0_RELEASE_NOTES.md`](docs/V0_3_0_RELEASE_NOTES.md) — v0.3.0 released scope, compatibility boundary and post-publication verification
 - [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — historical v0.2.0 release notes, compatibility boundary and limitations
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model

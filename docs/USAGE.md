@@ -1,6 +1,6 @@
 # Usage
 
-The v0.3.0 release-candidate contract for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. Candidate source metadata is `0.3.0`; the currently published npm package remains `handoffprobe@0.2.0` until coordinated publication.
+The v0.3.0 release contract for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. Source metadata and the current public npm package are synchronized at `0.3.0`.
 
 The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
@@ -56,7 +56,7 @@ The vulnerable demonstration exits `1` at the default `high` threshold.
 
 The bundled target is intentionally vulnerable synthetic test code. A failure here does not mean A2A or MCP is inherently insecure; it demonstrates a composition/integration invariant that the vulnerable handoff breaks.
 
-In the v0.3.0 candidate, `HP-AUTH-001` evaluates upstream delegated authority, translated authority and effective downstream authority. A concrete widening witness is reported when effective downstream authority exceeds the upstream delegation.
+In v0.3.0, `HP-AUTH-001` evaluates upstream delegated authority, translated authority and effective downstream authority. A concrete widening witness is reported when effective downstream authority exceeds the upstream delegation.
 
 ## List stable attacks
 
@@ -64,7 +64,7 @@ In the v0.3.0 candidate, `HP-AUTH-001` evaluates upstream delegated authority, t
 handoffprobe list
 ```
 
-The v0.3.0 candidate preserves exactly 22 stable attacks: 12 P0 and 10 P1. Phase 9 crossing-corpus cases remain research/conformance cases and do not become additional stable `HP-*` attacks.
+The v0.3.0 release preserves exactly 22 stable attacks: 12 P0 and 10 P1. Phase 9 crossing-corpus cases remain research/conformance cases and do not become additional stable `HP-*` attacks.
 
 ## Explain an attack
 
@@ -216,7 +216,7 @@ Exit `1` is a security finding, not a scanner crash.
 handoffprobe test   --target secure   --reporter json   --output handoffprobe-report.json
 ```
 
-The v0.3.0 release-candidate contract preserves report schema version `1`.
+The v0.3.0 release contract preserves report schema version `1`.
 
 The report contains:
 
@@ -277,18 +277,18 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@b0fc2a8abe1df36e526536d714418a9842be2f77
+      - uses: Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The revision above remains the published `v0.2.0` Action pin and preserves the strongest currently verified supply-chain pinning model. The v0.3.0 release candidate will be verified from a separate consumer repository against its exact frozen candidate commit before publication.
+The revision above is the immutable v0.3.0 release pin and preserves the strongest verified supply-chain pinning model. Both `v0.3.0` and `ef54b950b3ee333c406fa81087685d7f952a028d` were verified after publication from a separate consumer repository.
 
 ## Reproducible public demo
 
-The primary v0.3.0 release-candidate demonstration remains the same stable public-product scenario:
+The primary v0.3.0 demonstration remains the same stable public-product scenario:
 
 ```bash
 handoffprobe test --target vulnerable --test HP-AUTH-001
@@ -316,7 +316,7 @@ Use HandoffProbe only against:
 - staging/test environments you control;
 - targets for which you have explicit authorization.
 
-The v0.3.0 release-candidate scope is not a generic internet scanner, runtime firewall or authorization provider.
+The v0.3.0 release scope is not a generic internet scanner, runtime firewall or authorization provider.
 
 ## More documentation
 

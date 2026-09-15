@@ -47,7 +47,7 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
-## 0.3.0 — release candidate (2026-09-14)
+## 0.3.0 — 2026-09-14
 
 ### Security capability
 
@@ -73,7 +73,8 @@ All notable project changes will be documented here.
 ### Release status
 
 - package, lockfile and exported CLI version are synchronized at `0.3.0`
-- this entry describes the release candidate; npm publication, the immutable `v0.3.0` tag and the GitHub Release remain gated on the full pre-publication checklist
+- published as `handoffprobe@0.3.0` on npm; the immutable annotated `v0.3.0` tag and GitHub Release resolve to release commit `ef54b950b3ee333c406fa81087685d7f952a028d`
+- clean external npm execution and external GitHub Action consumer verification passed after publication
 
 ## 0.2.0 — 2026-09-09
 
