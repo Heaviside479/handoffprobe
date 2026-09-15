@@ -1,12 +1,12 @@
 # HandoffProbe v0.3.0 release notes
 
-Status: **release candidate — not yet published.**
+Status: **published on 2026-09-14.**
 
 ## Summary
 
-HandoffProbe v0.3.0 is a backward-compatible minor release candidate focused on one shipped security-capability improvement: the semantic-authority refinement of stable `HP-AUTH-001`.
+HandoffProbe v0.3.0 is a backward-compatible minor release focused on one shipped security-capability improvement: the semantic-authority refinement of stable `HP-AUTH-001`.
 
-The candidate keeps the public product deliberately narrow: deterministic defensive testing of A2A 1.0 → MCP 2026-07-28 handoffs with exactly 22 stable attacks.
+The release keeps the public product deliberately narrow: deterministic defensive testing of A2A 1.0 → MCP 2026-07-28 handoffs with exactly 22 stable attacks.
 
 ## User-facing security improvement
 
@@ -38,7 +38,7 @@ v0.3.0 preserves:
 - Node `>=24 <25`;
 - A2A `1.0` → MCP `2026-07-28`.
 
-No new stable attack ID is introduced by this release candidate.
+No new stable attack ID is introduced by this release.
 
 ## Package boundary
 
@@ -57,32 +57,21 @@ The following do not become new public Core runtime features in v0.3.0:
 - commercial assessment templates, delivery scripts, synthetic assessment fixtures and PDF/report tooling;
 - Phase 9 crossing-corpus research/conformance cases as additional stable `HP-*` attacks.
 
-## Release-candidate verification status
+## Post-publication verification
 
-Already completed before this release-notes draft:
+The v0.3.0 release completed the R3 publication sequence successfully:
 
-- R3.1 scope/SemVer audit confirmed `v0.3.0` as the backward-compatible minor candidate;
-- R3.2 removed the published-package metadata blocker;
-- package version, package-lock root version and exported CLI version were synchronized to `0.3.0`;
-- the targeted release-metadata test passed;
-- the release-candidate build succeeded;
-- `node dist/cli.js --version` reported `HandoffProbe 0.3.0`;
-- no `v0.3.0` tag existed at version-synchronization time.
+- R3.1 scope/SemVer audit confirmed `v0.3.0` as the backward-compatible minor release;
+- R3.2 removed the published-package metadata blocker before publication;
+- package version, package-lock root version and exported CLI version are synchronized at `0.3.0`;
+- the full release repository checks and package-boundary checks passed before publication;
+- the immutable annotated `v0.3.0` tag and GitHub Release resolve to release commit `ef54b950b3ee333c406fa81087685d7f952a028d`;
+- npm published `handoffprobe@0.3.0` with 291 package files, shasum `54e2349f754d62bb5a4001048c2cfcaf8bc8ce96` and integrity `sha512-f3F8tcVPKmGQ3rmFUQmN4SGFM5KumCIPIRqpLlsg4Q1EEObtszxOC29EswwzZsAlV1FNrIiTpdLux5ZyJy1WXA==`;
+- clean external npm execution reported `HandoffProbe 0.3.0` and the secure bundled corpus completed with 22 PASS, 0 FAIL and 0 ERROR;
+- the reusable GitHub Action was verified from a separate consumer repository against both the immutable release SHA and the public `v0.3.0` tag;
+- the dedicated HandoffProbe product site and the HandoffProbe project page on Heaviside Solutions were updated to v0.3.0 and deployed successfully.
 
-The candidate is **not considered released** until all remaining pre-publication gates pass and publication is synchronized across npm, the immutable annotated tag, GitHub Release, Action/Marketplace presentation, documentation and external exact-version verification.
-
-## Publication gates still required
-
-Before publication:
-
-1. complete release-facing documentation and compatibility review;
-2. run the full repository, dependency and security gates;
-3. inspect the exact npm candidate tarball;
-4. verify clean local install and exact-version execution from the candidate artifact;
-5. verify the reusable GitHub Action from an external consumer against the exact frozen candidate commit;
-6. freeze the exact release commit and record its evidence.
-
-Only then may the coordinated publication sequence create the immutable annotated `v0.3.0` tag, publish `handoffprobe@0.3.0`, create the GitHub Release and perform post-publication verification.
+Marketplace-specific presentation verification remains open as a separate post-publication closeout item. It does not change the published npm artifact, immutable tag or GitHub Release identity.
 
 ## Explicit limitations
 

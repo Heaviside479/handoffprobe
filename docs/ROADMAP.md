@@ -1192,64 +1192,65 @@ Exit gate satisfied 2026-09-09.
 Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numbers. Use SemVer according to the next evidence-backed scope. The Phase 10 `v0.5` label remains a reliability milestone, not an instruction to skip or force intermediate releases.
 
 
-### Release Track R3 — candidate v0.3.0 semantic-authority release
+### Release Track R3 — v0.3.0 semantic-authority release
 
-Status: **ACTIVE — R3.1 scope/SemVer audit and R3.2 package-metadata cleanup complete; R3.3 release-candidate preparation is active 2026-09-14. Version-bearing metadata is synchronized at `0.3.0`; no tag, npm publication or GitHub Release exists yet.**
+Status: **ACTIVE — v0.3.0 was published on 2026-09-14. npm, the immutable annotated tag, GitHub Release, external exact-version execution, external Action verification and both public website surfaces are synchronized. Marketplace-specific presentation verification remains open before R3 can be marked complete.**
 
-The current expected next public release is **v0.3.0** if the T-1 / T1.6 HP-AUTH-001 semantic-authority refinement lands as a backward-compatible shipped security capability.
+The released public version is **v0.3.0**. It ships the T-1 / T1.6 `HP-AUTH-001` semantic-authority refinement as a backward-compatible security-capability improvement.
 
 This does not override the general SemVer rule above:
 
-- do not publish `v0.3.0` merely to advance the version number;
+- do not publish a version merely to advance the version number;
 - keep the stable corpus at **22 attacks** unless a separate normal attack-admission decision changes it;
 - preserve `HP-AUTH-001` as the stable ID for the semantic-authority refinement;
-- if the completed scope proves documentation-only or internal-only, do not force a `v0.3.0` release;
-- `v0.3.1` is reserved for a later patch after `v0.3.0`, not as the first release of this capability.
+- `v0.3.1` is reserved for a later patch only if a real patch-level change is required.
 
-R3 begins only after the HP-AUTH-001 refinement is merged, the public scope is frozen and the release classification is confirmed.
+R3 proceeded only after the HP-AUTH-001 refinement was merged, the public scope was frozen and the release classification was confirmed.
 
 R3.1 evidence: `docs/R3_V0_3_0_SCOPE_SEMVER_AUDIT_20260914.md`.
 
-R3.2 completed 2026-09-14: the broken published-package `assessment:report` metadata reference was removed while commercial assessment delivery remained repository-only. Package, tarball, test and public-surface verification passed with the development version still at `0.2.0`.
+R3.2 completed 2026-09-14: the broken published-package `assessment:report` metadata reference was removed while commercial assessment delivery remained repository-only. Package, tarball, test and public-surface verification passed before the release version was synchronized.
 
 R3.2 evidence: `docs/R3_V0_3_0_PACKAGE_METADATA_CLEANUP_CLOSEOUT_20260914.md`.
 
-R3.3A completed 2026-09-14: `package.json`, `package-lock.json`, exported `VERSION` and release-metadata tests were synchronized to `0.3.0`; build and CLI version verification passed and no `v0.3.0` tag existed.
+R3.3A completed 2026-09-14: `package.json`, `package-lock.json`, exported `VERSION` and release-metadata tests were synchronized to `0.3.0`; build and CLI version verification passed.
 
-R3.3B1 prepared 2026-09-14: the changelog and v0.3.0 release notes now describe the release candidate without claiming npm/GitHub publication. Current public-facing README / installation / usage reconciliation remains next before full pre-publication validation.
+R3.3B completed the release preparation and publication sequence on 2026-09-14. The final immutable release commit is `ef54b950b3ee333c406fa81087685d7f952a028d`.
+
+Post-publication documentation reconciliation and verification evidence are recorded in `docs/R3_V0_3_0_POSTPUBLICATION_VERIFICATION_20260914.md`.
 
 #### Required release coordination
 
 A version bump must be treated as one controlled public release, not as an isolated `package.json` edit.
 
-Before publication:
+Pre-publication gates completed:
 
-- [ ] freeze the exact R3 public scope and release commit;
-- [ ] update `package.json`, `package-lock.json` and any other deliberate version-bearing release metadata consistently;
-- [ ] update `CHANGELOG.md` and release-facing README / installation / usage documentation where the shipped behavior requires it;
-- [ ] audit CLI, package-root API, config/report schema, GitHub Action, Node/runtime and protocol-baseline compatibility;
-- [ ] confirm the stable public attack count and IDs;
-- [ ] run the full repository checks and dependency/security gates;
-- [ ] run `npm run package:check` and inspect the exact npm tarball payload;
-- [ ] verify a fresh local install and exact-version `npx` execution from the release candidate;
-- [ ] verify the reusable GitHub Action from an external consumer against the exact candidate commit.
+- [x] freeze the exact R3 public scope and release commit;
+- [x] update `package.json`, `package-lock.json` and any other deliberate version-bearing release metadata consistently;
+- [x] update `CHANGELOG.md` and release-facing README / installation / usage documentation where the shipped behavior requires it;
+- [x] audit CLI, package-root API, config/report schema, GitHub Action, Node/runtime and protocol-baseline compatibility;
+- [x] confirm the stable public attack count and IDs;
+- [x] run the full repository checks and dependency/security gates;
+- [x] run `npm run package:check` and inspect the exact npm tarball payload;
+- [x] verify a fresh local install and exact-version `npx` execution from the release candidate;
+- [x] verify the reusable GitHub Action from an external consumer against the exact candidate commit.
 
-Publication must then stay synchronized across all public surfaces:
+Publication and post-publication synchronization:
 
-- [ ] create the immutable annotated `v0.3.0` tag only after release gates pass;
-- [ ] publish `handoffprobe@0.3.0` to npm;
-- [ ] verify npm metadata, integrity and the published tarball;
-- [ ] create and verify the GitHub Release `HandoffProbe v0.3.0`;
+- [x] create the immutable annotated `v0.3.0` tag only after release gates pass;
+- [x] publish `handoffprobe@0.3.0` to npm;
+- [x] verify npm metadata, integrity and the published tarball;
+- [x] create and verify the GitHub Release `HandoffProbe v0.3.0`;
 - [ ] verify GitHub Marketplace / reusable Action presentation and release references;
-- [ ] update the HandoffProbe product/commercial landing page at `https://handoffprobe.heaviside-solutions.com` to the verified v0.3.0 release truth only after public publication is confirmed;
-- [ ] update the HandoffProbe project page on `https://heaviside-solutions.com` so version, capability claims, stable attack count and release links match the verified v0.3.0 release;
-- [ ] verify both production website surfaces after deployment and record that neither still presents stale v0.2.0 release claims;
-- [ ] verify a clean external `npx --yes --package=handoffprobe@0.3.0 handoffprobe test` path;
-- [ ] verify the reusable GitHub Action from both the immutable release tag and release commit/SHA in a consumer workflow;
-- [ ] reconcile all public release documentation and supported-version references;
-- [ ] record post-publication verification evidence before R3 is considered complete.
+- [x] update the HandoffProbe product/commercial landing page at `https://handoffprobe.heaviside-solutions.com` to the verified v0.3.0 release truth;
+- [x] update the HandoffProbe project page on `https://heaviside-solutions.com` so version, capability claims, stable attack count and release links match the verified v0.3.0 release;
+- [x] verify both production website surfaces after deployment and record that neither still presents stale v0.2.0 release claims;
+- [x] verify a clean external exact-version `handoffprobe@0.3.0` execution path;
+- [x] verify the reusable GitHub Action from both the immutable release tag and release commit/SHA in a consumer workflow;
+- [x] reconcile all public release documentation and supported-version references;
+- [x] record post-publication verification evidence before R3 is considered complete.
 
-R3 exit gate: npm, GitHub Release, immutable tag, Action/Marketplace presentation, the HandoffProbe product landing page, the HandoffProbe project page on heaviside-solutions.com, documentation and external exact-version verification all describe and execute the same released HandoffProbe version. No half-published release state is accepted.
+R3 exit gate remains open only for the explicit GitHub Marketplace / reusable Action presentation check. npm, GitHub Release, immutable tag, external Action execution, the HandoffProbe product landing page, the HandoffProbe project page on heaviside-solutions.com, documentation and external exact-version verification otherwise describe and execute the same released HandoffProbe v0.3.0 version. No half-published release state is accepted.
 
 ---
 
