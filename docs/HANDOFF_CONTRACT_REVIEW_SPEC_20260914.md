@@ -1,6 +1,6 @@
 # Protocol-neutral Handoff Contract review spec
 
-Status: queued research track
+Status: active research track
 Date: 2026-09-14
 Owner: HandoffProbe
 
@@ -92,11 +92,17 @@ Completion of T-2.2 does not admit a new attack or authorize implementation. T-2
 
 ### T-2.3 — build an overlap matrix before implementation
 
-- [ ] map every proposed contract invariant against all 22 stable attacks;
-- [ ] map against Phase-9 crossing-corpus evidence;
-- [ ] map authority/capability items against the T-1 semantic-authority-widening decision;
-- [ ] classify each row as `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH CANDIDATE / OUT OF SCOPE`;
-- [ ] do not assign new attack IDs during this step.
+Status: **COMPLETE — 2026-09-15**
+
+- [x] map every proposed contract invariant against all 22 stable attacks;
+- [x] map against Phase-9 crossing-corpus evidence;
+- [x] map authority/capability items against the T-1 semantic-authority-widening decision;
+- [x] classify each row as `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH CANDIDATE / OUT OF SCOPE`;
+- [x] do not assign new attack IDs during this step.
+
+Evidence: `docs/T2_3_HANDOFF_CONTRACT_OVERLAP_MATRIX_20260915.md`.
+
+T-2.3 retains exactly two candidates for deterministic T-2.4 research: canonicalization/version interpretation consistency and ambiguous/duplicate-field interpretation. This is research admission only and does not create stable attack IDs.
 
 ### T-2.4 — deterministic research cases
 
