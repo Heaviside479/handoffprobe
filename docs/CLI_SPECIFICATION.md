@@ -140,13 +140,19 @@ Phase 5 introduces `handoffprobe.config.json` in the current working directory.
 
 Absence of the file is valid.
 
-Initial keys:
+Configuration schema version `1` has these exact keys:
 
 - `target`
 - `tests`
 - `failOn`
 - `reporter`
 - `output`
+
+The v0.3.0 configuration file has no in-band `schemaVersion` property. Existing valid
+`handoffprobe.config.json` files are designated **config schema version `1`** by the
+release contract. Adding an in-band schema marker, a new allowed key, a changed value
+type or a changed value meaning requires an explicit compatibility decision before
+release.
 
 Supported reporters:
 
@@ -180,6 +186,9 @@ Color must not be required.
 ### JSON
 
 JSON output contains no prose outside the JSON document.
+
+The current machine-readable report contract is **report schema version `1`**.
+The canonical `schemaVersion` value is the string `"1"`.
 
 Initial top-level fields:
 

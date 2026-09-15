@@ -1291,13 +1291,17 @@ Exit gate satisfied 2026-09-15: the supported compatibility baseline is explicit
 
 ### P10.2 — versioned contracts and compatibility policy
 
-- [ ] formalize the versioned report schema;
-- [ ] formalize the versioned config schema;
-- [ ] define backward-compatibility policy;
-- [ ] define test deprecation policy;
-- [ ] define migration expectations for future schema or CLI changes.
+Status: **COMPLETE — 2026-09-15**
 
-Exit gate: future changes can be classified as compatible, deprecated or breaking before publication.
+- [x] formalize the versioned report schema;
+- [x] formalize the versioned config schema;
+- [x] define backward-compatibility policy;
+- [x] define test deprecation policy;
+- [x] define migration expectations for future schema or CLI changes.
+
+Evidence: `docs/P10_2_VERSIONED_CONTRACTS_POLICY_20260915.md`.
+
+Exit gate satisfied 2026-09-15: future changes can be classified as compatible, deprecated or breaking before publication.
 
 ### P10.3 — determinism, diagnostics and performance
 
