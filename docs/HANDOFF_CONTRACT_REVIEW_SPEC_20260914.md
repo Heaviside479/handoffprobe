@@ -76,28 +76,19 @@ Evidence: `docs/T2_1_REVIEW_INPUT_FREEZE_20260915.md`.
 
 ### T-2.2 — draft the minimal Handoff Contract
 
-Create a protocol-neutral draft under `docs/` that defines a small set of candidate invariants.
+Status: **COMPLETE — 2026-09-15**
 
-At minimum evaluate these candidate classes:
+- [x] draft the protocol-neutral contract with explicit separation of contract semantics, attestation / binding and runtime enforcement;
+- [x] evaluate authority / capability monotonicity;
+- [x] evaluate replay and logical-action uniqueness;
+- [x] evaluate provenance continuity and mutation visibility;
+- [x] evaluate canonicalization / version interpretation consistency;
+- [x] evaluate ambiguity / duplicate-field interpretation;
+- [x] document PASS, FAIL, INCONCLUSIVE / ERROR, overlap and protocol-evidence boundaries for every candidate.
 
-- authority / capability monotonicity across the handoff;
-- replay and logical-action uniqueness;
-- provenance continuity and mutation visibility;
-- canonicalization / version interpretation consistency;
-- ambiguity / duplicate-field handling where representation can change human or runtime interpretation.
+Evidence: `docs/PROTOCOL_NEUTRAL_HANDOFF_CONTRACT_DRAFT_20260915.md`.
 
-For every candidate invariant, document:
-
-- protected property;
-- upstream claim/input;
-- downstream interpretation;
-- binding/attestation evidence;
-- runtime enforcement expectation;
-- PASS condition;
-- FAIL condition;
-- INCONCLUSIVE / ERROR boundary;
-- known overlap with existing HandoffProbe attacks;
-- whether protocol evidence is normative, implementation-specific, or absent.
+Completion of T-2.2 does not admit a new attack or authorize implementation. T-2.3 overlap classification remains mandatory before any new research case.
 
 ### T-2.3 — build an overlap matrix before implementation
 
