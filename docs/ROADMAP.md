@@ -1668,7 +1668,7 @@ Closeout: `docs/T1_HP_AUTH_001_SEMANTIC_REFINEMENT_CLOSEOUT_20260914.md`.
 
 ### T-2 — protocol-neutral Handoff Contract review
 
-Status: **QUEUED research / validation track.** T-1 remains authoritative for semantic authority widening; T-2 must reuse the T-1 overlap/admission result and must not duplicate or pre-empt that work.
+Status: **ACTIVE — started 2026-09-15.** T-1 is complete and remains authoritative for semantic authority widening; T-2 must reuse the T-1 overlap/admission result and must not duplicate or pre-empt that work. T-2.1 review input freeze is complete.
 
 Implementation contract:
 
