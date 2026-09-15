@@ -1305,7 +1305,8 @@ Exit gate satisfied 2026-09-15: future changes can be classified as compatible, 
 
 ### P10.3 — determinism, diagnostics and performance
 
-- [ ] define deterministic seed handling where randomized coverage is introduced;
+- [x] define deterministic seed handling where randomized coverage is introduced;
+  - Evidence: `docs/P10_3_DETERMINISM_BASELINE_20260915.md`.
 - [ ] add reproducible performance benchmarks;
 - [ ] add concurrency tests;
 - [ ] harden structured diagnostic logs;
