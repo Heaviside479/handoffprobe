@@ -128,14 +128,22 @@ T-2.4 admits zero stable attacks, leaves the stable corpus at 22, leaves package
 
 ### T-2.5 — internal review gate
 
+Status: **COMPLETE — 2026-09-15**
+
 Before asking for external review:
 
-- [ ] full repository checks pass for any code/test changes;
-- [ ] the contract draft is understandable without requiring the reviewer to know HandoffProbe internals;
-- [ ] every test claim is bound to reproducible local evidence;
-- [ ] stable attack count remains unchanged unless a separate attack-admission decision has completed;
-- [ ] no partnership, endorsement, compatibility or certification language appears;
-- [ ] public links contain no customer/private data or secrets.
+- [x] full repository checks pass for all code/test changes;
+- [x] the contract draft is understandable without requiring the reviewer to know HandoffProbe internals, with a compact review packet as the entry point;
+- [x] every test claim is bound to reproducible local evidence;
+- [x] the stable attack count remains 22, with the eight backlog candidates counted separately;
+- [x] no unsupported affirmative partnership, endorsement, compatibility, certification, adoption or external-validation claim appears; explicit disclaimer/non-goal language is permitted and required;
+- [x] the public review packet contains no customer/private data or secrets.
+
+Evidence: `docs/T2_5_INTERNAL_REVIEW_GATE_20260915.md`.
+
+Review packet: `docs/T2_5_REVIEW_PACKET_20260915.md`.
+
+T-2.5 authorizes T-2.6 preparation only. It does not authorize external posting or reviewer contact by itself. The exact T-2.6 public message still requires explicit project-owner approval before publication.
 
 ### T-2.6 — external review handoff
 
