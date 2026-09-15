@@ -106,22 +106,25 @@ T-2.3 retains exactly two candidates for deterministic T-2.4 research: canonical
 
 ### T-2.4 — deterministic research cases
 
-Only for rows that remain useful after overlap review:
+Status: **COMPLETE — 2026-09-15**
 
-- [ ] create the smallest local/synthetic PASS fixture;
-- [ ] create the smallest local/synthetic FAIL fixture;
-- [ ] add a control case where representation changes but equivalent trusted enforcement preserves the invariant, when applicable;
-- [ ] keep execution deterministic and no-paid;
-- [ ] capture evidence through existing HandoffProbe-owned observation paths where possible;
-- [ ] keep research-case naming separate from stable HP attack IDs until admission.
+Only the two rows retained by T-2.3 were implemented:
 
-Initial candidate case families may include:
+- `T2-CANONICALIZATION-VERSION`;
+- `T2-AMBIGUOUS-DUPLICATE-FIELD`.
 
-- canonicalization/version mismatch with divergent downstream meaning;
-- authority/capability widening not already resolved by T-1;
-- replay across a logically identical action boundary;
-- provenance mutation/loss that changes attribution or trust decisions;
-- ambiguous/duplicate fields that change the effective downstream decision.
+- [x] create the smallest local/synthetic PASS fixture;
+- [x] create the smallest local/synthetic FAIL fixture;
+- [x] add a control case where representation changes but equivalent trusted enforcement preserves the invariant, when applicable;
+- [x] keep execution deterministic and no-paid;
+- [x] capture structured HandoffProbe-owned research evidence without forcing premature Phase-9/runtime integration;
+- [x] keep research-case naming separate from stable HP attack IDs until admission.
+
+Evidence: `docs/T2_4_DETERMINISTIC_RESEARCH_CASES_20260915.md`.
+
+Validation completed with 76 test files / 397 tests passing. The two focused research suites contain 12 deterministic tests total. The research modules remain outside the public package/API/CLI/Action build surface.
+
+T-2.4 admits zero stable attacks, leaves the stable corpus at 22, leaves package version `0.3.0` unchanged and does not authorize a release/version bump.
 
 ### T-2.5 — internal review gate
 
