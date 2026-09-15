@@ -1276,16 +1276,18 @@ Already-published tags and artifacts remain immutable.
 
 ### P10.1 — compatibility baseline
 
-Status: **ACTIVE**
+Status: **COMPLETE — 2026-09-15**
 
-- [ ] define the supported Node/runtime compatibility matrix;
-- [ ] define the A2A 1.0 → MCP 2026-07-28 fixture/version matrix;
-- [ ] document the current macOS and Linux support baseline;
-- [ ] determine the practical Windows support baseline;
-- [ ] review upstream A2A/MCP specification drift since the pinned baseline;
-- [ ] record exact compatibility promises, tested combinations and explicit non-promises.
+- [x] define the supported Node/runtime compatibility matrix;
+- [x] define the A2A 1.0 → MCP 2026-07-28 fixture/version matrix;
+- [x] document the current macOS and Linux support baseline;
+- [x] determine the practical Windows support baseline;
+- [x] review upstream A2A/MCP specification drift since the pinned baseline;
+- [x] record exact compatibility promises, tested combinations and explicit non-promises.
 
-Exit gate: the supported compatibility baseline is explicit, reproducible and reviewable without relying on undocumented assumptions.
+Evidence: `docs/P10_1_COMPATIBILITY_BASELINE_20260915.md`.
+
+Exit gate satisfied 2026-09-15: the supported compatibility baseline is explicit, reproducible and reviewable without relying on undocumented assumptions.
 
 ### P10.2 — versioned contracts and compatibility policy
 
