@@ -8,6 +8,8 @@ import type { CliTargetFixture } from './execution-catalog.js';
 export type CliFailOn = FindingSeverity;
 export type CliReporter = 'terminal' | 'json' | 'markdown';
 
+export const CLI_CONFIG_SCHEMA_VERSION = '1';
+
 export interface HandoffProbeConfig {
   target?: CliTargetFixture;
   tests?: readonly string[];
