@@ -1256,31 +1256,82 @@ R3 exit gate satisfied 2026-09-15. GitHub Marketplace presents HandoffProbe v0.3
 
 # Phase 10 — v0.5 reliability hardening
 
-Status: future — begins only after the v0.1.1 maintenance obligation is closed and the v0.2.x line has a deliberate public baseline
+Status: **ACTIVE — started 2026-09-15 after Release Tracks R1 (`v0.1.1`), R2 (`v0.2.0`) and R3 (`v0.3.0`) were completed and verified.**
 
-## Deliverables
+## Goal
 
-- compatibility matrix
-- fixture-version matrix
-- versioned report schema
-- versioned config schema
-- backward compatibility policy
-- test deprecation policy
-- deterministic seeds
-- performance benchmarks
-- concurrency tests
-- structured diagnostic logs
-- redaction regression tests
-- macOS CI
-- Linux CI
-- Windows CI where practical
-- dependency upgrade process
-- upstream spec-drift review
+Turn the released v0.3.0 Core into dependable, version-aware developer infrastructure.
 
-## Exit gate
+Phase 10 hardens compatibility, public contracts, determinism, diagnostics, performance and CI reliability. It does not expand the stable 22-attack corpus unless a separate evidence-backed attack-admission decision explicitly does so.
 
-HandoffProbe behaves like dependable developer infrastructure rather than a
-research prototype.
+## Release sequencing
+
+The `v0.5` label is a reliability milestone, not an instruction that the next npm release must be `0.5.0`.
+
+Do not create `v0.4.0`, `v0.5.0` or any other release merely to match roadmap numbering. An intermediate patch or minor release must have an evidence-backed scope, correct SemVer classification and its own controlled release track.
+
+Already-published tags and artifacts remain immutable.
+
+## Work packages
+
+### P10.1 — compatibility baseline
+
+Status: **ACTIVE**
+
+- [ ] define the supported Node/runtime compatibility matrix;
+- [ ] define the A2A 1.0 → MCP 2026-07-28 fixture/version matrix;
+- [ ] document the current macOS and Linux support baseline;
+- [ ] determine the practical Windows support baseline;
+- [ ] review upstream A2A/MCP specification drift since the pinned baseline;
+- [ ] record exact compatibility promises, tested combinations and explicit non-promises.
+
+Exit gate: the supported compatibility baseline is explicit, reproducible and reviewable without relying on undocumented assumptions.
+
+### P10.2 — versioned contracts and compatibility policy
+
+- [ ] formalize the versioned report schema;
+- [ ] formalize the versioned config schema;
+- [ ] define backward-compatibility policy;
+- [ ] define test deprecation policy;
+- [ ] define migration expectations for future schema or CLI changes.
+
+Exit gate: future changes can be classified as compatible, deprecated or breaking before publication.
+
+### P10.3 — determinism, diagnostics and performance
+
+- [ ] define deterministic seed handling where randomized coverage is introduced;
+- [ ] add reproducible performance benchmarks;
+- [ ] add concurrency tests;
+- [ ] harden structured diagnostic logs;
+- [ ] expand redaction regression tests;
+- [ ] document benchmark environment and acceptable variance.
+
+Exit gate: repeated runs remain trustworthy under load, concurrency and diagnostic failure conditions.
+
+### P10.4 — CI and platform reliability
+
+- [ ] enforce Linux CI coverage;
+- [ ] add macOS CI coverage;
+- [ ] add Windows CI where practical and explicitly document exclusions where not;
+- [ ] define the dependency upgrade process;
+- [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.
+
+Exit gate: every claimed supported platform and runtime combination has an explicit verification path.
+
+### P10.5 — reliability closeout
+
+- [ ] run the complete repository quality and security gates;
+- [ ] run package validation and exact payload inspection;
+- [ ] verify compatibility and fixture matrices against recorded evidence;
+- [ ] reconcile README, installation, usage, security and contributor documentation;
+- [ ] decide from completed scope whether a public patch/minor release is justified;
+- [ ] create a separate controlled release track if publication is justified.
+
+## Phase 10 exit gate
+
+HandoffProbe behaves like dependable developer infrastructure rather than a research prototype.
+
+Compatibility promises are explicit, public contracts are version-aware, supported environments are reproducibly tested, diagnostics remain safe, and reliability claims are backed by recorded evidence.
 
 ---
 
