@@ -1,6 +1,6 @@
 # T-2 protocol-neutral Handoff Contract — review packet
 
-Status: **READY FOR OWNER-APPROVED EXTERNAL HANDOFF — NOT YET SENT**
+Status: **EXTERNAL REVIEW REQUEST SENT — AWAITING RESPONSE**
 
 Date: 2026-09-15
 
@@ -121,6 +121,8 @@ The stable public HandoffProbe corpus remains 22 attacks.
 
 ## External handoff status
 
-This packet has passed the HandoffProbe T-2.5 internal gate but has **not yet been sent for external review**.
+The project owner approved the exact T-2.6 public message and confirmed publication in the existing Indie Hackers thread on 2026-09-15.
 
-The exact T-2.6 public message must be approved by the project owner before the packet is shared in the existing Indie Hackers thread.
+The review request links to the stable merged packet at commit `dd77f6d28e9f5dd8863670b2b12e6a7bbc32bb09`.
+
+T-2.7 is now **WAITING FOR RESPONSE**. No external validation, compatibility, partnership, certification, adoption or endorsement is implied by publication of the review request.

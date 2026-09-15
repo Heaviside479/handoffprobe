@@ -147,17 +147,25 @@ T-2.5 authorizes T-2.6 preparation only. It does not authorize external posting 
 
 ### T-2.6 — external review handoff
 
+Status: **COMPLETE — 2026-09-15**
+
 After project-owner approval of the exact public message:
 
-- [ ] publish or expose the reviewable contract/evidence in the public HandoffProbe repository;
-- [ ] reply in the existing Indie Hackers thread with the exact public review URL;
-- [ ] ask specifically for review of semantic boundaries, not promotion or endorsement;
-- [ ] invite the reviewer to identify ambiguous invariants, missing controls or places where NAEOS interprets the boundary differently;
-- [ ] do not claim review completion until the reviewer actually responds.
+- [x] publish or expose the reviewable contract/evidence in the public HandoffProbe repository;
+- [x] reply in the existing Indie Hackers thread with the exact public review URL;
+- [x] ask specifically for review of semantic boundaries, not promotion or endorsement;
+- [x] invite the reviewer to identify ambiguous invariants, missing controls or places where NAEOS interprets the boundary differently;
+- [x] do not claim review completion until the reviewer actually responds.
 
-External posting remains supervised and requires explicit approval of the exact message before publication.
+Evidence: `docs/T2_6_EXTERNAL_HANDOFF_20260915.md`.
+
+The exact public message was explicitly approved by the project owner before publication. The project owner confirmed publication in the existing Indie Hackers thread on 2026-09-15.
+
+Publication completes the external handoff only. It does not constitute external validation, compatibility, adoption, partnership, certification or endorsement.
 
 ### T-2.7 — review outcome and admission decisions
+
+Status: **WAITING FOR RESPONSE**
 
 If external review arrives:
 
@@ -167,6 +175,8 @@ If external review arrives:
 - [ ] run normal attack-admission discipline for any genuinely distinct security invariant;
 - [ ] preserve no-add decisions when existing attacks already cover the case;
 - [ ] never treat reviewer participation as product adoption, partnership or endorsement without separate evidence.
+
+No T-2.7 technical or release decision is made while the external review request is unanswered.
 
 ## Deliverables
 
