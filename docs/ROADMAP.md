@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.2 complete 2026-09-16; T-3.3 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.3 complete 2026-09-16; T-3.4 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1724,16 +1724,26 @@ These are qualified external technical/reviewer signals. They are not proof of H
 
 #### T-3.3 — execute the justified HandoffProbe comparison for #1937
 
-- [ ] reuse existing deterministic HandoffProbe machinery wherever the vector is already represented;
-- [ ] implement only evidence-backed missing research cases, using local/synthetic fixtures and harmless fake effects;
-- [ ] verify the final pre-dispatch authorization boundary, including the rule that the request dispatched is the request evaluated;
-- [ ] preserve the distinction between equivalent normalization and semantic widening/redirection;
-- [ ] fail closed where an authorization-relevant projection or containment result is genuinely indeterminate;
-- [ ] run focused tests plus the normal repository quality/security gates;
-- [ ] produce a compact comparison artifact that records each vector, HandoffProbe coverage, observed result, limitations and exact commit/evidence references;
-- [ ] make an explicit no-add/refinement/research-candidate decision; do not create a stable attack ID or release solely because the draft contains a new vector.
+Status: **COMPLETE — 2026-09-16**
+
+- [x] reuse existing deterministic HandoffProbe machinery wherever the vector is already represented;
+- [x] implement only evidence-backed missing research cases, using local/synthetic fixtures and harmless fake effects;
+- [x] verify the final pre-dispatch authorization boundary, including the rule that the request dispatched is the request evaluated;
+- [x] preserve the distinction between equivalent normalization and semantic widening/redirection;
+- [x] fail closed where an authorization-relevant projection or containment result is genuinely indeterminate;
+- [x] run focused tests plus the normal repository quality/security gates;
+- [x] produce a compact comparison artifact that records each vector, HandoffProbe coverage, observed result, limitations and exact commit/evidence references;
+- [x] make an explicit no-add/refinement/research-candidate decision; do not create a stable attack ID or release solely because the draft contains a new vector.
+  - Evidence: `docs/T3_3_A2A_CONTEXT_BINDING_EXECUTION_20260916.md`.
+  - New deterministic research execution is limited to V3, V10, V12 and V13.
+  - Final decisions: V1/V2/V4/V5/V6/V7/V8/V9/V11 `NO ADD`; V10/V12 `REFINEMENT`; V3/V13 `DISTINCT RESEARCH CANDIDATE`.
+  - Repository gate: 81 / 81 test files and 417 / 417 tests passed; build, package dry-run, secret safety, release invariants and diff hygiene passed.
+  - Stable corpus remains 22 attacks; the eight current-spec backlog candidates remain non-stable; package version remains `0.3.0`.
+  - No stable attack admission or release is authorized by T-3.3.
 
 #### T-3.4 — reply publicly to Arjun after evidence exists
+
+Status: **NEXT — public reply not yet posted.**
 
 - [ ] reply in A2A `#1937` only after T-3.2/T-3.3 evidence is reproducible;
 - [ ] state exactly which vectors HandoffProbe already covered, which required new research work and what the deterministic comparison observed;
