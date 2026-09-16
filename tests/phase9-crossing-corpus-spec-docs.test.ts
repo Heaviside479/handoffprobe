@@ -10,6 +10,8 @@ const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 
 const readme = readFileSync('README.md', 'utf8');
 
+const evidence = readFileSync('EVIDENCE.md', 'utf8');
+
 describe('Phase 9 crossing-corpus documentation', () => {
   it('pins the selected external corpus and protocol tuple', () => {
     expect(spec).toContain('09aca453f9d5e5552e4ed2cfbda2ed0b22e4d51a');
@@ -65,20 +67,26 @@ describe('Phase 9 crossing-corpus documentation', () => {
     expect(completion).toContain('`initial_issuer_authentication_failed`');
   });
 
-  it('publishes the externally reviewed Phase 9 evidence without overclaiming', () => {
-    expect(readme).toContain('## Externally reviewed crossing-corpus evidence');
-    expect(readme).toContain('https://github.com/Heaviside479/handoffprobe/issues/20');
-    expect(readme).toContain(
+  it('publishes the externally reviewed Phase 9 evidence through the evidence index without overclaiming', () => {
+    expect(readme).toContain('## External technical evidence');
+    expect(readme).toContain('[`EVIDENCE.md`](EVIDENCE.md)');
+    expect(readme).toContain('Open T-3/T-4 work is not presented as completed confirmation');
+
+    expect(evidence).toContain('## 1. Phase 9 A2A → MCP crossing corpus');
+    expect(evidence).toContain('https://github.com/Heaviside479/handoffprobe/issues/20');
+    expect(evidence).toContain(
       'https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138',
     );
-    expect(readme).toContain(
-      '[Detailed Phase 9 evidence record](docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md)',
+    expect(evidence).toContain(
+      '[`docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md`](docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md)',
     );
-    expect(readme).toContain('`implementation_independent`');
-    expect(readme).toContain('`green_eligible: true`');
-    expect(readme).toContain('profile-scoped evidence, not a general certification');
-    expect(readme).toContain('does not claim `operator_independent`');
-    expect(readme).toContain('local synthetic MCP receiver');
+    expect(evidence).toContain('`implementation_independent`');
+    expect(evidence).toContain('`green_eligible: true`');
+    expect(evidence).toContain('profile-scoped evidence, not a general certification');
+    expect(evidence).toContain('`operator_independent` execution');
+    expect(evidence).toContain('local synthetic MCP receiver');
+    expect(evidence).toContain('## Open technical follow-ups');
+    expect(evidence).toContain('A2A `#2079` real cA2A shape / bytes comparison in T-3');
   });
 
   it('records the full HandoffProbe-owned execution', () => {
