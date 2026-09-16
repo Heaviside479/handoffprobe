@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.1 complete 2026-09-16; T-3.2 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.2 complete 2026-09-16; T-3.3 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1715,10 +1715,12 @@ These are qualified external technical/reviewer signals. They are not proof of H
 
 #### T-3.2 — map Arjun's 13 context-binding conformance vectors
 
-- [ ] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;
-- [ ] classify each vector as `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH GAP / OUT OF SCOPE` with rationale;
-- [ ] explicitly separate task-bound vs context-bound behavior, caller/delegate identity, audience/resource containment, semantic widening, equivalent normalization, narrower effective authority, post-authorization mutation, indeterminate comparison, status/expiry and multi-effect final authorization;
-- [ ] do not implement a new case until this overlap map shows that existing evidence is insufficient.
+- [x] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;
+- [x] classify each vector as `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH GAP / OUT OF SCOPE` with rationale;
+- [x] explicitly separate task-bound vs context-bound behavior, caller/delegate identity, audience/resource containment, semantic widening, equivalent normalization, narrower effective authority, post-authorization mutation, indeterminate comparison, status/expiry and multi-effect final authorization;
+- [x] do not implement a new case until this overlap map shows that existing evidence is insufficient.
+  - Evidence: `docs/T3_2_A2A_CONTEXT_BINDING_OVERLAP_MATRIX_20260916.md`.
+  - T-3.3 research is justified only for V3, V10, V12 and V13; no stable attack admission is made.
 
 #### T-3.3 — execute the justified HandoffProbe comparison for #1937
 
