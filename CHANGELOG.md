@@ -47,7 +47,7 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
-## 0.4.0 — 2026-09-16 (release candidate; not published)
+## 0.4.0 — 2026-09-16
 
 ### Security capability
 
@@ -74,10 +74,10 @@ All notable project changes will be documented here.
 
 ### Publication status
 
-- package, lockfile and exported source version are synchronized at release-candidate `0.4.0`
-- public npm remains `handoffprobe@0.3.0` until coordinated publication is completed and verified
-- no `v0.4.0` tag, GitHub Release, Marketplace claim or website availability claim is created by release preparation alone
-- final publication must synchronize npm, immutable tag, GitHub Release, Marketplace presentation, the dedicated HandoffProbe site and the HandoffProbe project page on Heaviside Solutions
+- package, lockfile and exported source version are synchronized at `0.4.0`
+- registry-backed availability must be verified on npm rather than inferred from this source snapshot
+- tag, GitHub Release, Marketplace and website availability must be verified on their corresponding public surfaces
+- R4 closes only after npm, immutable tag, GitHub Release, Marketplace presentation, the dedicated HandoffProbe site and the HandoffProbe project page on Heaviside Solutions describe the same verified release
 
 ## 0.3.0 — 2026-09-14
 

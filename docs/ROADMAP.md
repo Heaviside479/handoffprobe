@@ -1254,12 +1254,12 @@ R3 exit gate satisfied 2026-09-15. GitHub Marketplace presents HandoffProbe v0.3
 
 ### Release Track R4 — v0.4.0 HP-AUTH-006 stable-capability release
 
-Status: **ACTIVE — R4.1 scope/SemVer audit and R4.2 version synchronization complete on 2026-09-16; R4.3 release-document reconciliation in progress. Nothing is published yet.**
+Status: **ACTIVE — pre-publication checkpoint on 2026-09-16: the exact v0.4.0 release candidate passed local/package gates, merged through protected PR #99, and is undergoing final release-record reconciliation before coordinated publication.**
 
 R4 exists because a separate post-T-3 admission review converted the V13 research candidate into a real backward-compatible public capability:
 
 - new stable ID: `HP-AUTH-006 — Stale task authorization reused for later effect`;
-- release-candidate stable corpus: **23 attacks** = 12 P0 + 10 P1 + 1 advanced;
+- v0.4.0 stable corpus: **23 attacks** = 12 P0 + 10 P1 + 1 advanced;
 - default CLI full-corpus execution includes `HP-AUTH-006`;
 - the reusable GitHub Action consumes the same canonical 23-attack catalog;
 - secure/vulnerable fixtures reproduce the intended PASS/FAIL distinction deterministically.
@@ -1271,15 +1271,15 @@ Evidence:
 - R4.1 scope/SemVer audit: `docs/R4_V0_4_0_SCOPE_SEMVER_AUDIT_20260916.md`;
 - R4.2 version synchronization: `docs/R4_V0_4_0_VERSION_SYNC_20260916.md`;
 - attack admission: `docs/V0_4_0_ATTACK_ADMISSION_20260916.md`;
-- release-candidate notes: `docs/V0_4_0_RELEASE_NOTES.md`.
+- v0.4.0 release record: `docs/V0_4_0_RELEASE_NOTES.md`.
 
 Required sequence:
 
 - [x] R4.1 freeze evidence-backed scope and classify as backward-compatible minor `v0.4.0`;
 - [x] R4.2 synchronize package, lockfile, exported source version and version tests to `0.4.0`;
-- [ ] R4.3 reconcile candidate README, installation, usage, changelog, attack catalog, CLI specification, roadmap and release notes;
-- [ ] run full repository, package, tarball and exact local candidate gates after documentation reconciliation;
-- [ ] freeze and merge the exact release candidate through protected PR checks;
+- [x] R4.3 reconcile candidate README, installation, usage, changelog, attack catalog, CLI specification, roadmap and release notes;
+- [x] run full repository, package, tarball and exact local candidate gates after documentation reconciliation;
+- [x] freeze and merge the exact release candidate through protected PR checks;
 - [ ] create immutable annotated `v0.4.0` tag only from the verified merged release commit;
 - [ ] publish `handoffprobe@0.4.0` to npm and verify metadata/integrity/tarball;
 - [ ] create and verify GitHub Release `HandoffProbe v0.4.0`;
@@ -1303,7 +1303,7 @@ Status: **ACTIVE — started 2026-09-15 after Release Tracks R1 (`v0.1.1`), R2 (
 
 Turn the released v0.3.0 Core into dependable, version-aware developer infrastructure.
 
-Phase 10 hardens compatibility, public contracts, determinism, diagnostics, performance and CI reliability. Phase 10 itself does not expand the stable corpus; a separate R4 evidence-backed admission has now expanded the v0.4.0 release-candidate corpus from 22 to 23 attacks by admitting `HP-AUTH-006`.
+Phase 10 hardens compatibility, public contracts, determinism, diagnostics, performance and CI reliability. Phase 10 itself does not expand the stable corpus; a separate R4 evidence-backed admission expanded the v0.4.0 stable corpus from 22 to 23 attacks by admitting `HP-AUTH-006`.
 
 ## Release sequencing
 

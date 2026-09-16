@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 const read = (path: string): string => readFileSync(path, 'utf8');
 
-describe('R4.3 v0.4.0 release-document reconciliation', () => {
+describe('R4 v0.4.0 release-document reconciliation', () => {
   const readme = read('README.md');
   const installation = read('docs/INSTALLATION.md');
   const usage = read('docs/USAGE.md');
@@ -37,14 +37,16 @@ describe('R4.3 v0.4.0 release-document reconciliation', () => {
     expect(notes).toContain('1 advanced (`HP-AUTH-006`)');
   });
 
-  it('keeps candidate metadata separate from current public npm truth', () => {
+  it('keeps release metadata state-safe while preserving the pre-publication checkpoint', () => {
     expect(readme).toContain(
       'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
     );
     expect(readme).toContain('previously published npm release is `handoffprobe@0.3.0`');
-    expect(installation).toContain('current public npm package remains `handoffprobe@0.3.0`');
-    expect(notes).toContain('current public npm release remains `handoffprobe@0.3.0`');
-    expect(notes).toContain('no `v0.4.0` immutable tag is claimed');
+    expect(installation).toContain('npm view handoffprobe@0.4.0 version');
+    expect(notes).toContain(
+      'At the pre-publication checkpoint on 2026-09-16, npm still exposed `handoffprobe@0.3.0`',
+    );
+    expect(notes).toContain('no v0.4.0 tag or GitHub Release had yet been created');
   });
 
   it('protects historical 22-attack records from mechanical rewriting', () => {
