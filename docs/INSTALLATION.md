@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe `0.4.0` is the current source release candidate and is not yet published.
+HandoffProbe release metadata is synchronized at `0.4.0`.
 
-The current public npm package remains `handoffprobe@0.3.0` until coordinated v0.4.0 publication is verified.
+Registry-backed availability is verified independently from the source tree.
 
-Source, lockfile and exported CLI metadata are synchronized at `0.4.0`; the public registry remains at `0.3.0` during release preparation.
+Before using registry-backed v0.4.0 commands, confirm that npm exposes `handoffprobe@0.4.0` with `npm view handoffprobe@0.4.0 version`. The previously published v0.3.0 package, tag and release remain immutable historical release evidence.
 
 ## Requirements
 
@@ -33,19 +33,19 @@ npm --version
 The recommended exact public version check is:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
 ```
 
 Run the secure bundled corpus:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe test
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
 ```
 
-Expected current public version:
+Expected v0.4.0 version:
 
 ```text
-HandoffProbe 0.3.0
+HandoffProbe 0.4.0
 ```
 
 Using the exact version keeps first-run and CI reproduction deterministic.
@@ -55,7 +55,7 @@ Using the exact version keeps first-run and CI reproduction deterministic.
 Install the exact public release:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.3.0
+npm install --save-dev --save-exact handoffprobe@0.4.0
 ```
 
 Then run:
@@ -90,7 +90,7 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-The current v0.4.0 release-candidate source checkout reports:
+The v0.4.0 source checkout reports:
 
 ```text
 HandoffProbe 0.4.0
@@ -140,7 +140,7 @@ Before v1.0, HandoffProbe follows pre-1.0 compatibility expectations. Read relea
 For the exact npm version:
 
 ```bash
-npm install --save-dev --save-exact handoffprobe@0.3.0
+npm install --save-dev --save-exact handoffprobe@0.4.0
 ```
 
 Do not assume report, configuration or protocol compatibility across future pre-1.0 versions unless the release notes state it.
@@ -152,12 +152,12 @@ Do not assume report, configuration or protocol compatibility across future pre-
 Verify the exact public version:
 
 ```bash
-npm view handoffprobe@0.3.0
+npm view handoffprobe@0.4.0
 ```
 
 ### Unsupported Node version
 
-The published v0.3.0 release requires Node `>=24 <25`.
+HandoffProbe v0.4.0 requires Node `>=24 <25`.
 
 Check:
 
@@ -170,7 +170,7 @@ node --version
 Use the exact package selector:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
 ```
 
 ### Build or install failure from source

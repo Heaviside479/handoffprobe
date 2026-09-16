@@ -18,7 +18,9 @@ describe('v0.3.0 published release contract', () => {
     expect(changelog).toContain('## 0.3.0 — 2026-09-14');
     expect(releaseNotes).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
     expect(readme).toContain('previously published npm release is `handoffprobe@0.3.0`');
-    expect(installation).toContain('current public npm package remains `handoffprobe@0.3.0`');
+    expect(installation).toContain(
+      'The previously published v0.3.0 package, tag and release remain immutable historical release evidence',
+    );
   });
 
   it('preserves the v0.3.0 stable contract and HP-AUTH-001 refinement in historical records', () => {
@@ -29,10 +31,11 @@ describe('v0.3.0 published release contract', () => {
     expect(usage).toContain('effective downstream authority');
   });
 
-  it('keeps v0.3.0 public Action guidance valid until v0.4.0 publication', () => {
+  it('keeps v0.3.0 Action guidance as immutable historical release evidence', () => {
     expect(readme).toContain('handoffprobe@0.3.0');
     expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
-    expect(installation).toContain('handoffprobe@0.3.0');
+    expect(installation).toContain('v0.3.0');
+    expect(installation).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
     expect(usage).toContain('immutable v0.3.0 release pin');
     expect(usage).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
   });

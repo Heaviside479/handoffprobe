@@ -6,7 +6,7 @@ async function read(path: string): Promise<string> {
   return readFile(path, 'utf8');
 }
 
-describe('v0.4.0 release-candidate documentation', () => {
+describe('v0.4.0 release documentation', () => {
   it('keeps the packaged README aligned with candidate and public registry truth', async () => {
     const readme = await read('README.md');
 
@@ -25,11 +25,11 @@ describe('v0.4.0 release-candidate documentation', () => {
 
     for (const text of [
       'Node.js `>=24 <25`',
-      'HandoffProbe `0.4.0` is the current source release candidate and is not yet published.',
-      'current public npm package remains `handoffprobe@0.3.0`',
-      'npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version',
-      'npm install --save-dev --save-exact handoffprobe@0.3.0',
-      'current v0.4.0 release-candidate source checkout reports',
+      'HandoffProbe release metadata is synchronized at `0.4.0`.',
+      'npm view handoffprobe@0.4.0 version',
+      'npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version',
+      'npm install --save-dev --save-exact handoffprobe@0.4.0',
+      'The v0.4.0 source checkout reports',
       'HandoffProbe 0.4.0',
       'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
       'owned, synthetic or explicitly authorized target',
@@ -42,7 +42,7 @@ describe('v0.4.0 release-candidate documentation', () => {
     const usage = await read('docs/USAGE.md');
 
     for (const text of [
-      'v0.4.0 release candidate',
+      'HandoffProbe v0.4.0 contains exactly 23 stable attacks',
       'exactly 23 stable attacks: 12 P0, 10 P1 and 1 additional advanced attack',
       'HP-AUTH-001',
       'HP-AUTH-006',
@@ -60,13 +60,17 @@ describe('v0.4.0 release-candidate documentation', () => {
   it('keeps release notes explicit about admission and publication boundaries', async () => {
     const releaseNotes = await read('docs/V0_4_0_RELEASE_NOTES.md');
 
-    expect(releaseNotes).toContain('Status: **release candidate — not published.**');
+    expect(releaseNotes).toContain(
+      'Status: **v0.4.0 release record — public availability must be verified on the corresponding release surfaces.**',
+    );
     expect(releaseNotes).toContain(
       'HP-AUTH-006 — Stale task authorization reused for later effect',
     );
     expect(releaseNotes).toContain('V3: `NO ADD`');
     expect(releaseNotes).toContain('V13: admitted for stable implementation as `HP-AUTH-006`');
-    expect(releaseNotes).toContain('current public npm release remains `handoffprobe@0.3.0`');
+    expect(releaseNotes).toContain(
+      'At the pre-publication checkpoint on 2026-09-16, npm still exposed `handoffprobe@0.3.0`',
+    );
     expect(releaseNotes).toContain('No half-published release state is accepted.');
   });
 });

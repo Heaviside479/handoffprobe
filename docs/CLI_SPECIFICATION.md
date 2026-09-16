@@ -419,14 +419,14 @@ The implemented CLI baseline now satisfies this contract:
 The package remains at version `0.0.0` and is not publicly released on npm yet.
 Public npm publication is intentionally deferred to a later release phase.
 
-## 16. v0.4.0 release-candidate stable-corpus extension — 2026-09-16
+## 16. v0.4.0 stable-corpus extension — 2026-09-16
 
 The Phase 5 completion record above is historical and remains a truthful record of the original 22-attack CLI baseline.
 
 A later evidence-backed R4 admission adds one stable advanced attack without changing the CLI command contract:
 
 - `HP-AUTH-006 — Stale task authorization reused for later effect`;
-- canonical release-candidate catalog: **23 stable attacks**;
+- canonical v0.4.0 catalog: **23 stable attacks**;
 - composition: 12 P0 + 10 P1 + 1 advanced;
 - `handoffprobe list` exposes all 23 candidate stable IDs;
 - default `handoffprobe test` executes all 23;
@@ -437,6 +437,6 @@ A later evidence-backed R4 admission adds one stable advanced attack without cha
 - A2A 1.0 → MCP 2026-07-28 remains the protocol baseline;
 - GitHub Action inputs/outputs remain unchanged and consume the same canonical execution catalog.
 
-The source/package release candidate is `0.4.0`, while the public npm registry remains at `handoffprobe@0.3.0` until coordinated publication and post-publication verification complete.
+The source/package release metadata is `0.4.0`. Registry-backed availability is not inferred from this specification; verify the exact npm package, immutable tag and GitHub Release on their corresponding public surfaces before use.
 
 Do not rewrite the historical Phase 5 22-attack completion record merely because the later stable corpus expanded.

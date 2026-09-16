@@ -1,12 +1,12 @@
 # HandoffProbe v0.4.0 Release Notes
 
-Status: **release candidate — not published.**
+Status: **v0.4.0 release record — public availability must be verified on the corresponding release surfaces.**
 
 Date prepared: 2026-09-16
 
 ## Summary
 
-HandoffProbe v0.4.0 is a backward-compatible minor release candidate that adds one evidence-backed stable advanced security check:
+HandoffProbe v0.4.0 is a backward-compatible minor release that adds one evidence-backed stable advanced security check:
 
 `HP-AUTH-006 — Stale task authorization reused for later effect`
 
@@ -16,7 +16,7 @@ The canonical stable corpus therefore grows from **22 to 23 attacks**:
 - 10 P1;
 - 1 advanced (`HP-AUTH-006`).
 
-This release candidate is based on a separate post-T-3 admission decision. T-3 research volume alone did not trigger a release.
+This release is based on a separate post-T-3 admission decision. T-3 research volume alone did not trigger a release.
 
 ## New stable capability — HP-AUTH-006
 
@@ -71,39 +71,44 @@ Specifically:
 
 - V3 remains research/compatibility evidence;
 - T-2.7/Bayu independent review remains pending and is not a shipped capability;
-- T-4 witness/conduct-observation work is not included in this release candidate;
+- T-4 witness/conduct-observation work is not included in this release;
 - Phase 9 crossing-corpus evidence remains scoped research/conformance evidence unless separately admitted;
 - no A2A or MCP endorsement, standards acceptance, certification, partnership, production-world validation or generic security guarantee is claimed.
 
 HandoffProbe remains a local-first defensive testing tool for synthetic, owned or explicitly authorized targets.
 
-## Release-candidate verification completed before documentation reconciliation
+## Final release-candidate verification
 
-Before R4.3 documentation reconciliation, the candidate implementation demonstrated:
+Before the release-finalization documentation pass, the merged candidate demonstrated:
 
-- 88 / 88 test files passed;
-- 447 / 447 tests passed;
+- 91 / 91 test files passed;
+- 461 / 461 tests passed;
 - build succeeded;
+- dependency audit reported 0 vulnerabilities;
 - npm package dry-run succeeded;
-- CLI exposed exactly 23 stable attacks;
-- bundled secure full-corpus execution produced 23 PASS findings;
-- `HP-AUTH-006` had deterministic secure/vulnerable coverage;
+- exact local `handoffprobe-0.4.0.tgz` built and installed successfully;
+- clean external package execution reported `HandoffProbe 0.4.0`;
+- bundled secure full-corpus execution produced 23 / 23 PASS findings;
+- vulnerable `HP-AUTH-006` reproduced the expected deterministic FAIL;
+- the historical 22 stable IDs remained an unchanged prefix and `HP-AUTH-006` was entry 23;
 - diff hygiene passed.
 
-These are pre-publication candidate results, not evidence that `handoffprobe@0.4.0` is already available from npm.
+These results verify the release candidate and package boundary. They do not by themselves establish live npm, tag, GitHub Release, Marketplace or website availability.
 
-## Publication state
+## Publication verification
 
 Source/package metadata is synchronized to `0.4.0`.
 
-Until coordinated publication completes:
+This release record does not infer live publication state from the source tree. Verify each release surface independently:
 
-- the current public npm release remains `handoffprobe@0.3.0`;
-- no `v0.4.0` immutable tag is claimed;
-- no GitHub Release `HandoffProbe v0.4.0` is claimed;
-- GitHub Marketplace must not be described as presenting v0.4.0;
-- `https://handoffprobe.heaviside-solutions.com` must not claim v0.4.0 is publicly available;
-- the HandoffProbe project page on `https://heaviside-solutions.com` must not claim v0.4.0 is publicly available.
+- npm exact package `handoffprobe@0.4.0`;
+- immutable annotated tag `v0.4.0`;
+- GitHub Release `HandoffProbe v0.4.0`;
+- GitHub Marketplace / reusable Action presentation;
+- `https://handoffprobe.heaviside-solutions.com`;
+- the HandoffProbe project page on `https://heaviside-solutions.com`.
+
+At the pre-publication checkpoint on 2026-09-16, npm still exposed `handoffprobe@0.3.0` and no v0.4.0 tag or GitHub Release had yet been created. Those are historical checkpoint facts, not current-state claims.
 
 ## Coordinated publication requirement
 
