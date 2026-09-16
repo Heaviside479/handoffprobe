@@ -62,8 +62,6 @@ This README documents the published v0.3.0 release. The public npm package is `h
 
 The v0.3.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
-Public, reproducible external technical evidence and its scope limitations are indexed in [`EVIDENCE.md`](EVIDENCE.md). Open research follow-ups are kept separate there and are not presented as completed external confirmation.
-
 ## Commercial support
 
 HandoffProbe remains free and open source under Apache-2.0.
@@ -80,16 +78,11 @@ Other commercial work may include custom adapters, integrations, private organiz
 
 Commercial work is limited to systems you own or are authorized to assess. Security-sensitive disclosures should follow [`SECURITY.md`](SECURITY.md).
 
-## Externally reviewed crossing-corpus evidence
+## External technical evidence
 
-HandoffProbe has one externally reviewed Phase 9 conformance result for the frozen A2A 1.0 → MCP 2026-07-28 crossing corpus from [Issue #20](https://github.com/Heaviside479/handoffprobe/issues/20).
+Public, reproducible external technical evidence and its scope limitations are indexed in [`EVIDENCE.md`](EVIDENCE.md).
 
-An external reviewer independently reran the final measured implementation and exact frozen intake and confirmed the submitted `implementation_independent` grade. With that narrow reviewer confirmation supplied to the frozen intake, this profile derives `green_eligible: true`.
-
-- [External reviewer confirmation](https://github.com/Heaviside479/handoffprobe/issues/20#issuecomment-5516189138)
-- [Detailed Phase 9 evidence record](docs/PHASE9_CROSSING_CORPUS_EXECUTION_20260901.md)
-
-This is profile-scoped evidence, not a general certification. It does not claim `operator_independent`, a production-world effect, restart-durable or multi-process replay protection, or production key management. The recorded effect scope remains a local synthetic MCP receiver.
+The index separates completed, scoped external evidence from open technical follow-ups. Open T-3/T-4 work is not presented as completed confirmation, and the index does not imply protocol endorsement, standards acceptance, certification, production-world validation, partnership or commercial adoption.
 
 ## Requirements
 
@@ -562,6 +555,7 @@ The core admission rule remains:
 
 ## Project documents
 
+- [`EVIDENCE.md`](EVIDENCE.md) — public external technical evidence index, scope limitations and open follow-ups
 - [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical project context
 - [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
