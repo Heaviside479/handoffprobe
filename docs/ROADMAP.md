@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **COMPLETE — 2026-09-16; T-4.1 NEXT.** This track ran in parallel with the T-2.7/Bayu waiting period. It did not change the exact artifact already handed to Bayu; it created separately attributable evidence from two public A2A technical follow-ups.
 
 External inputs:
 
@@ -1810,15 +1810,25 @@ Status: **COMPLETE — 2026-09-16**
 
 #### T-3.8 — combined closeout and admission decision
 
-- [ ] reconcile the #1937 vector comparison and #2079 real-shape execution into one written closeout;
-- [ ] record whether each stream resulted in `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`;
-- [ ] preserve the stable public corpus at **22 attacks** unless a separate normal attack-admission decision explicitly changes it;
-- [ ] do not trigger `v0.3.1`, `v0.4.0` or another release merely because T-3 completes;
-- [ ] update affected research/roadmap documentation with exact evidence references;
-- [ ] keep T-2.7/Bayu status independent, then reconcile Bayu's review later if/when it arrives;
-- [ ] ensure both external GitHub threads have received an evidence-based follow-up from Heaviside479 before T-3 is considered complete.
+Status: **COMPLETE — 2026-09-16**
 
-T-3 exit gate: both external requests have been frozen, overlap-checked and answered with reproducible evidence; any new code is deterministic, local/authorized and covered by tests; the two public A2A threads receive factual follow-up comments after implementation; no unsupported attack-count, specification-acceptance, compatibility, adoption, partnership, endorsement or release claim is introduced; and the outstanding Bayu T-2 review remains independently traceable.
+- [x] reconcile the #1937 vector comparison and #2079 real-shape execution into one written closeout;
+- [x] record whether each stream resulted in `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`;
+- [x] preserve the stable public corpus at **22 attacks** unless a separate normal attack-admission decision explicitly changes it;
+- [x] do not trigger `v0.3.1`, `v0.4.0` or another release merely because T-3 completes;
+- [x] update affected research/roadmap documentation with exact evidence references;
+- [x] keep T-2.7/Bayu status independent, then reconcile Bayu's review later if/when it arrives;
+- [x] ensure both external GitHub threads have received an evidence-based follow-up from Heaviside479 before T-3 is considered complete.
+  - Combined closeout: `docs/T3_8_COMBINED_CLOSEOUT_20260916.md`.
+  - `#1937` stable admission: `NO ADD`; V10/V12 remain `REFINEMENT`; V3/V13 remain `DISTINCT RESEARCH CANDIDATE`.
+  - `#2079` stable admission: `NO ADD`; research outcome remains `REFINEMENT` of the existing `HP-AUTH-001` semantic-authority evidence path; no distinct research candidate is created by this stream.
+  - `#1937` has public author review at `https://github.com/a2aproject/A2A/issues/1937#issuecomment-5697862002`.
+  - `#2079` has the HandoffProbe public result at `https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862`, but no substantive external technical response/review to that result was recorded at T-3 closeout; it remains open in `EVIDENCE.md`.
+  - Stable corpus remains 22 attacks; package version remains `0.3.0`; T-3 completion does not authorize a release.
+  - T-2.7/Bayu remains independently waiting; `docs/T2_5_REVIEW_PACKET_20260915.md` is unchanged.
+  - T-4.1 is next and may now freeze the queued A2A `#1769` witness / conduct-observation input.
+
+T-3 exit gate: **SATISFIED 2026-09-16.** Both external requests were frozen, overlap-checked and answered with reproducible evidence; new code remained deterministic, local/authorized and covered by tests; both public A2A threads received factual HandoffProbe follow-up; no unsupported attack-count, specification-acceptance, compatibility, adoption, partnership, endorsement or release claim was introduced; and the outstanding Bayu T-2 review remains independently traceable.
 
 ### CV-6 — first revenue validation
 

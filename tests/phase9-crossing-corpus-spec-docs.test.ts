@@ -70,7 +70,7 @@ describe('Phase 9 crossing-corpus documentation', () => {
   it('publishes the externally reviewed Phase 9 evidence through the evidence index without overclaiming', () => {
     expect(readme).toContain('## External technical evidence');
     expect(readme).toContain('[`EVIDENCE.md`](EVIDENCE.md)');
-    expect(readme).toContain('Open T-3/T-4 work is not presented as completed confirmation');
+    expect(readme).toContain('pending #2079 review and T-4 work remain explicitly open');
 
     expect(evidence).toContain('## 1. Phase 9 A2A → MCP crossing corpus');
     expect(evidence).toContain('https://github.com/Heaviside479/handoffprobe/issues/20');
@@ -86,7 +86,9 @@ describe('Phase 9 crossing-corpus documentation', () => {
     expect(evidence).toContain('`operator_independent` execution');
     expect(evidence).toContain('local synthetic MCP receiver');
     expect(evidence).toContain('## Open technical follow-ups');
-    expect(evidence).toContain('A2A `#2079` real cA2A shape / bytes comparison in T-3');
+    expect(evidence).toContain(
+      'A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply',
+    );
   });
 
   it('records the full HandoffProbe-owned execution', () => {
