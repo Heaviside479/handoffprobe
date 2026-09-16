@@ -47,12 +47,14 @@ describe('T-3.6 cA2A real-shape execution evidence', () => {
     expect(evidence).toContain('does not mean:');
   });
 
-  it('advances the roadmap from T-3.6 to T-3.7', () => {
+  it('preserves T-3.6 evidence after T-3.7 advances the track', () => {
     const roadmap = readFileSync(ROADMAP, 'utf8');
 
-    expect(roadmap).toContain('Status: **ACTIVE — T-3.6 complete 2026-09-16; T-3.7 NEXT.**');
-    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-16**');
+    expect(roadmap).toContain('Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.**');
     expect(roadmap).toContain('Evidence: `docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md`.');
-    expect(roadmap).toContain('Status: **NEXT — public reply not posted.**');
+    expect(roadmap).toContain(
+      'https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862',
+    );
+    expect(roadmap).toContain('Closeout: `docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md`.');
   });
 });
