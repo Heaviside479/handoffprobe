@@ -49,10 +49,10 @@ describe('T-3.1 external A2A input freeze', () => {
     expect(freeze).not.toContain('T2_5_REVIEW_PACKET_20260915.md`(');
   });
 
-  it('marks T-3.1 complete while leaving T-3.2 implementation gated', () => {
+  it('preserves T-3.1 completion after later T-3 progress', () => {
     const roadmap = readFileSync(ROADMAP, 'utf8');
 
-    expect(roadmap).toContain('Status: **ACTIVE — T-3.1 complete 2026-09-16; T-3.2 NEXT.**');
+    expect(roadmap).toContain('#### T-3.1 — freeze both external inputs before implementation');
     expect(roadmap).toContain(
       '- [x] preserve the exact two comment URLs, authors, timestamps, requested comparison/test scope and any linked public artifacts;',
     );
@@ -63,8 +63,9 @@ describe('T-3.1 external A2A input freeze', () => {
       '- [x] review provenance and license terms before copying or adapting any external vectors/code;',
     );
     expect(roadmap).toContain(
-      '- [ ] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;',
+      '- [x] record the current HandoffProbe baseline: `v0.3.0`, 22 stable attacks, A2A 1.0 → MCP 2026-07-28, T-1 semantic-authority refinement and Phase-9 crossing evidence;',
     );
+    expect(roadmap).toContain('- [x] keep the Bayu T-2 review packet unchanged.');
     expect(roadmap).toContain('  - Evidence: `docs/T3_1_EXTERNAL_A2A_INPUT_FREEZE_20260916.md`.');
     expect(roadmap).not.toContain('unchanged.\\n  - Evidence:');
   });
