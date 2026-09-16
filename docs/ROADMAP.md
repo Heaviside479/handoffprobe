@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.4 complete 2026-09-16; T-3.5 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.5 complete 2026-09-16; T-3.6 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1760,14 +1760,22 @@ Status: **COMPLETE — 2026-09-16**
 
 #### T-3.5 — freeze the real cA2A shape for #2079
 
-Status: **NEXT — not started.**
+Status: **COMPLETE — 2026-09-16**
 
-- [ ] identify and pin the exact public cA2A delegation-chain fixture/vector set giskard09 is referring to;
-- [ ] preserve exact upstream commit/digest and license/provenance metadata;
-- [ ] document the distinction between what the cA2A chain proves (declared delegation-chain narrowing/continuity) and what it does not itself prove (the downstream translated request remains inside that authority);
-- [ ] define the smallest deterministic A2A→MCP effective-request projection needed to test the gap without turning HandoffProbe into a cA2A implementation or generic protocol scanner.
+- [x] identify and pin the exact public cA2A delegation-chain fixture/vector set giskard09 is referring to;
+- [x] preserve exact upstream commit/digest and license/provenance metadata;
+- [x] document the distinction between what the cA2A chain proves (declared delegation-chain narrowing/continuity) and what it does not itself prove (the downstream translated request remains inside that authority);
+- [x] define the smallest deterministic A2A→MCP effective-request projection needed to test the gap without turning HandoffProbe into a cA2A implementation or generic protocol scanner.
+  - Evidence: `docs/T3_5_CA2A_REAL_SHAPE_FREEZE_20260916.md`.
+  - Pinned upstream: `giskard09/argentum-core@4951899c6bb016928e299e9bf9993086885a45ae`, Apache-2.0.
+  - Primary control: `cross-org-001-independent-signers` with leaf `test-cross-org-c`, action `payment.route`, scope `mycelium:payment`.
+  - T-3.6 projection is limited to downstream tool + authorization-relevant `delegated_scope`; MCP audience remains an owned fixed fixture binding.
+  - Positive scope remains `mycelium:payment`; the negative translation widens only the downstream scope to `mycelium:*` while the pinned upstream bytes remain unchanged.
+  - No cA2A/A2A vulnerability, compatibility, certification, stable-attack or release claim is made.
 
 #### T-3.6 — run the cA2A real-shape/real-bytes negative fixture
+
+Status: **NEXT — execution not started.**
 
 - [ ] adapt the pinned real cA2A shape/bytes into a HandoffProbe-owned local fixture without unauthorized production testing;
 - [ ] include a valid/in-scope control and a negative translation case where the effective downstream request exceeds the cleanly verified declared scope;
