@@ -47,6 +47,38 @@ All notable project changes will be documented here.
 - reclassified replay terminology to avoid obsolete MCP session assumptions
 - made translation and evidence lineage first-class architecture concepts
 
+## 0.4.0 — 2026-09-16 (release candidate; not published)
+
+### Security capability
+
+- adds stable advanced attack `HP-AUTH-006 — Stale task authorization reused for later effect`
+- expands the canonical stable corpus from 22 to 23 attacks: 12 P0 + 10 P1 + 1 advanced
+- verifies that a later distinct protected effect receives current final authorization after governing authority becomes non-current
+- secure fixture executes only the first legitimate protected effect and blocks the later stale-authority effect before dispatch
+- intentionally vulnerable fixture reuses the earlier task-level authorization and deterministically executes the later effect
+
+### Compatibility
+
+- preserves the existing `test`, `list`, `explain`, `--version` and `--help` command surface
+- preserves report schema `1`, exit semantics `0 / 1 / 2 / 3`, package-root exports and GitHub Action inputs/outputs
+- preserves Node `>=24 <25` and the A2A 1.0 → MCP 2026-07-28 protocol baseline
+- the default full-corpus CLI and source-backed GitHub Action now consume the same 23-attack canonical catalog
+
+### Admission and research boundary
+
+- V3 remains `NO ADD`; its context-bound positive lane remains research/compatibility evidence rather than a new stable attack
+- V13 was separately admitted after T-3 closeout and becomes `HP-AUTH-006`
+- T-3 completion itself did not authorize this release
+- the cA2A `#2079` stream remains a refinement of `HP-AUTH-001`, not a new stable ID
+- T-2.7/Bayu review and T-4 witness-observation work are not shipped as v0.4.0 capabilities
+
+### Publication status
+
+- package, lockfile and exported source version are synchronized at release-candidate `0.4.0`
+- public npm remains `handoffprobe@0.3.0` until coordinated publication is completed and verified
+- no `v0.4.0` tag, GitHub Release, Marketplace claim or website availability claim is created by release preparation alone
+- final publication must synchronize npm, immutable tag, GitHub Release, Marketplace presentation, the dedicated HandoffProbe site and the HandoffProbe project page on Heaviside Solutions
+
 ## 0.3.0 — 2026-09-14
 
 ### Security capability

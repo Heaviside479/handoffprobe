@@ -9,13 +9,14 @@ import {
 } from '../src/cli/test-command.js';
 
 describe('CLI test command execution', () => {
-  it('selects all 22 stable attacks when no IDs are requested', () => {
+  it('selects all 23 stable attacks when no IDs are requested', () => {
     const selection = resolveCliTestSelection(undefined);
 
     expect(selection.unknownIds).toEqual([]);
-    expect(selection.bindings).toHaveLength(22);
+    expect(selection.bindings).toHaveLength(23);
     expect(selection.bindings[0]?.definition.id).toBe('HP-APPROVAL-001');
     expect(selection.bindings[21]?.definition.id).toBe('HP-REPLAY-003');
+    expect(selection.bindings[22]?.definition.id).toBe('HP-AUTH-006');
   });
 
   it('deduplicates selection and preserves canonical catalog order', () => {
@@ -33,7 +34,7 @@ describe('CLI test command execution', () => {
     ]);
   });
 
-  it('executes the full secure corpus as 22 PASS findings', async () => {
+  it('executes the full secure corpus as 23 PASS findings', async () => {
     const selection = resolveCliTestSelection(undefined);
 
     const run = await runCliTests({
@@ -41,14 +42,14 @@ describe('CLI test command execution', () => {
       bindings: selection.bindings,
     });
 
-    expect(run.selectedIds).toHaveLength(22);
+    expect(run.selectedIds).toHaveLength(23);
     expect(run.summary).toEqual({
-      pass: 22,
+      pass: 23,
       fail: 0,
       notApplicable: 0,
       inconclusive: 0,
       error: 0,
-      total: 22,
+      total: 23,
     });
   });
 

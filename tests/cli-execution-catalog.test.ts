@@ -30,15 +30,27 @@ const EXPECTED_IDS = [
   'HP-REPLAY-001',
   'HP-REPLAY-002',
   'HP-REPLAY-003',
+  'HP-AUTH-006',
 ] as const;
 
 describe('CLI execution catalog', () => {
-  it('binds exactly the 22 stable attacks in deterministic P0/P1 ID order', () => {
+  it('binds exactly the 23 stable attacks in deterministic catalog order', () => {
     const ids = CLI_EXECUTION_CATALOG.map((binding) => binding.definition.id);
 
     expect(ids).toEqual(EXPECTED_IDS);
-    expect(new Set(ids).size).toBe(22);
-    expect(CLI_EXECUTION_CATALOG_BY_ID.size).toBe(22);
+    expect(new Set(ids).size).toBe(23);
+    expect(CLI_EXECUTION_CATALOG_BY_ID.size).toBe(23);
+
+    expect(
+      CLI_EXECUTION_CATALOG.slice(0, 12).every((binding) => binding.definition.priority === 'P0'),
+    ).toBe(true);
+
+    expect(
+      CLI_EXECUTION_CATALOG.slice(12, 22).every((binding) => binding.definition.priority === 'P1'),
+    ).toBe(true);
+
+    expect(CLI_EXECUTION_CATALOG[22]?.definition.id).toBe('HP-AUTH-006');
+    expect(CLI_EXECUTION_CATALOG[22]?.definition.priority).toBe('advanced');
   });
 
   it('reuses the canonical AttackDefinition owned by each AttackCase', () => {

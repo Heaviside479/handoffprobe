@@ -47,7 +47,8 @@ The developer CLI currently includes:
 
 - 12 stable P0 attacks;
 - 10 stable P1 attacks;
-- 22 stable attacks total;
+- 1 additional stable advanced attack (`HP-AUTH-006`);
+- 23 stable attacks total;
 - secure and intentionally vulnerable bundled fixtures;
 - terminal, JSON and Markdown reporters;
 - deterministic CI exit codes;
@@ -56,11 +57,11 @@ The developer CLI currently includes:
 - pull-request summaries and machine-readable artifacts;
 - repository gates for dependency review and secret safety.
 
-Package release metadata is **`handoffprobe@0.3.0`**.
+Release metadata for this source/package is **`handoffprobe@0.4.0`**.
 
-This README documents the published v0.3.0 release. The public npm package is `handoffprobe@0.3.0`, and the immutable annotated `v0.3.0` tag plus GitHub Release resolve to release commit `ef54b950b3ee333c406fa81087685d7f952a028d`.
+This README is prepared for v0.4.0. Before coordinated publication is verified, the previously published npm release is `handoffprobe@0.3.0`, and the immutable annotated `v0.3.0` tag plus GitHub Release remain the last verified public release identity at commit `ef54b950b3ee333c406fa81087685d7f952a028d`. After coordinated v0.4.0 publication is verified, the v0.4.0 package, tag and GitHub Release become the current release identity; the v0.3.0 references remain historical release evidence.
 
-The v0.3.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
+The v0.4.0 candidate adds stable advanced attack `HP-AUTH-006 — Stale task authorization reused for later effect` and expands the canonical stable corpus from 22 to 23 attacks. It preserves the existing public CLI command surface, package-root API, GitHub Action inputs/outputs, report schema `1`, exit semantics, Node policy and A2A 1.0 → MCP 2026-07-28 protocol baseline. Research-only T-2/T-3/T-4 material is not automatically promoted into the public runtime surface.
 
 ## Commercial support
 
@@ -94,12 +95,12 @@ The index separates completed, scoped external evidence from open technical foll
 Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
 
-The published exact release is `handoffprobe@0.3.0`. The exact-version checks are:
+Registry-backed `handoffprobe@0.4.0` exact-version commands below are intended for use only after coordinated v0.4.0 publication is verified. Before that verification, use the previously published exact release documented in `docs/INSTALLATION.md`.
 
 
 ```bash
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe test
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
 ```
 
 ## Quick start from source
@@ -119,13 +120,13 @@ Expected high-level result:
 ```text
 Target: secure
 Protocols: A2A 1.0 | MCP 2026-07-28
-Selected attacks: 22
+Selected attacks: 23
 
 Summary:
-  PASS: 22
+  PASS: 23
   FAIL: 0
   ERROR: 0
-  TOTAL: 22
+  TOTAL: 23
 
 Security gate: PASS
 ```
@@ -144,11 +145,11 @@ Run the packaged CLI through `npx`:
 npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
 ```
 
-The registry commands for this release are:
+After coordinated v0.4.0 publication is verified, the exact registry commands are:
 
 ```bash
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe --version
-npm exec --yes --package=handoffprobe@0.3.0 -- handoffprobe test
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
 ```
 
 The shorter convenience command is:
@@ -328,7 +329,7 @@ Repeated IDs are deduplicated and execution order remains deterministic.
 
 ## Discover attacks
 
-List all 22 stable attacks:
+List all 23 stable attacks:
 
 ```bash
 node dist/cli.js list
@@ -564,6 +565,7 @@ The core admission rule remains:
 - [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
 - [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
 - [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
+- [`docs/V0_4_0_RELEASE_NOTES.md`](docs/V0_4_0_RELEASE_NOTES.md) — v0.4.0 release-candidate scope, compatibility boundary and publication gates
 - [`docs/V0_3_0_RELEASE_NOTES.md`](docs/V0_3_0_RELEASE_NOTES.md) — v0.3.0 released scope, compatibility boundary and post-publication verification
 - [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — historical v0.2.0 release notes, compatibility boundary and limitations
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture

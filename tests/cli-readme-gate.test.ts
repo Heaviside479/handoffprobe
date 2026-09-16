@@ -13,7 +13,7 @@ describe('Phase 5 README developer experience gate', () => {
     const readme = await readReadme();
 
     for (const text of [
-      '22 stable attacks total',
+      '23 stable attacks total',
       'handoffprobe test [options]',
       'handoffprobe list',
       'handoffprobe explain <HP-ID>',
@@ -78,6 +78,8 @@ describe('Phase 5 README developer experience gate', () => {
     expect(readme).toContain(`npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test`);
 
     expect(readme).toContain('npx handoffprobe test');
-    expect(readme).toContain('Package release metadata is **`handoffprobe@0.3.0`**.');
+    expect(readme).toContain(
+      'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
+    );
   });
 });
