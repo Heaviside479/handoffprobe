@@ -122,7 +122,7 @@ Open work is intentionally separated from completed evidence.
 
 Current examples include:
 
-- the A2A `#2079` real cA2A shape / bytes comparison in T-3, which remains subject to its existing execution and public-reply gates;
+- the A2A `#2079` real cA2A shape / bytes comparison in T-3 has completed its HandoffProbe execution and public reply ([reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862); [`T-3.7 closeout`](docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md)); the external technical response/review to that result is still pending, so it remains an open follow-up rather than a completed external-evidence entry;
 - the queued A2A `#1769` third-party witness / conduct-observation follow-up in T-4, which must not interrupt active T-3 work.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.

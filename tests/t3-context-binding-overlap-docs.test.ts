@@ -68,10 +68,10 @@ describe('T-3.2 A2A context-binding overlap matrix', () => {
     );
   });
 
-  it('preserves T-3.2 completion after T-3.6 advances the track', () => {
+  it('preserves T-3.2 completion after T-3.7 advances the track', () => {
     const roadmap = readFileSync(ROADMAP, 'utf8');
 
-    expect(roadmap).toContain('Status: **ACTIVE — T-3.6 complete 2026-09-16; T-3.7 NEXT.**');
+    expect(roadmap).toContain('Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.**');
 
     expect(roadmap).toContain(
       '- [x] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;',
@@ -89,6 +89,8 @@ describe('T-3.2 A2A context-binding overlap matrix', () => {
       'https://github.com/a2aproject/A2A/issues/1937#issuecomment-5695896491',
     );
 
-    expect(roadmap).toContain('Status: **NEXT — public reply not posted.**');
+    expect(roadmap).toContain(
+      'https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862',
+    );
   });
 });

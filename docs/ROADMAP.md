@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.6 complete 2026-09-16; T-3.7 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1793,14 +1793,20 @@ Status: **COMPLETE — 2026-09-16**
 
 #### T-3.7 — reply publicly to giskard09 after real-shape evidence exists
 
-Status: **NEXT — public reply not posted.**
+Status: **COMPLETE — 2026-09-16**
 
-- [ ] reply in A2A `#2079` only after T-3.5/T-3.6 results are reproducible;
-- [ ] report the exact pinned upstream input, HandoffProbe commit/artifact and observed boundary result;
-- [ ] distinguish a demonstrated application/translation-layer property from a flaw in cA2A itself;
-- [ ] avoid compatibility, certification, partnership or endorsement language;
-- [ ] invite correction if the frozen cA2A interpretation is wrong and update the research record if concrete counter-evidence is provided;
-- [ ] if giskard09 replies again, record and classify any substantive technical correction before further implementation.
+- [x] reply in A2A `#2079` only after T-3.5/T-3.6 results are reproducible;
+- [x] report the exact pinned upstream input, HandoffProbe commit/artifact and observed boundary result;
+- [x] distinguish a demonstrated application/translation-layer property from a flaw in cA2A itself;
+- [x] avoid compatibility, certification, partnership or endorsement language;
+- [x] invite correction if the frozen cA2A interpretation is wrong and update the research record if concrete counter-evidence is provided;
+- [x] establish that any later substantive giskard09 correction, confirmation or counter-example is recorded and classified before further implementation that depends on it.
+  - Public reply: `https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862`.
+  - T-3.6 merge used by the reply: `c616804d3b3daedd7f68b300b8416029b5020942`.
+  - Closeout: `docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md`.
+  - The reply reports the in-scope control and translation-only widening negative, including zero MCP dispatch/effect for the widened downstream request.
+  - No substantive external technical response to this specific HandoffProbe result had been recorded at T-3.7 closeout time; `#2079` therefore remains an open technical follow-up in `EVIDENCE.md`, not a completed external-evidence entry.
+  - Stable corpus remains 22 attacks; package version remains `0.3.0`; no release is authorized by T-3.7.
 
 #### T-3.8 — combined closeout and admission decision
 

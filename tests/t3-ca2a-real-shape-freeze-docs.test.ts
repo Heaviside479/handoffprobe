@@ -66,8 +66,11 @@ describe('T-3.5 real delegation-chain shape freeze', () => {
     expect(freeze).toContain('stable corpus remains exactly **22 attacks**');
     expect(freeze).toContain('package version remains `0.3.0`');
 
-    expect(roadmap).toContain('Status: **ACTIVE — T-3.6 complete 2026-09-16; T-3.7 NEXT.**');
+    expect(roadmap).toContain('Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.**');
     expect(roadmap).toContain('Evidence: `docs/T3_5_CA2A_REAL_SHAPE_FREEZE_20260916.md`.');
-    expect(roadmap).toContain('Status: **NEXT — public reply not posted.**');
+    expect(roadmap).toContain(
+      'https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862',
+    );
+    expect(roadmap).toContain('Closeout: `docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md`.');
   });
 });
