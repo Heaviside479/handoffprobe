@@ -28,9 +28,11 @@ describe('T-3.7 cA2A public reply closeout documentation', () => {
   });
 
   it('keeps #2079 open in the evidence index until external review exists', () => {
-    expect(evidence).toContain('A2A `#2079` real cA2A shape / bytes comparison in T-3');
     expect(evidence).toContain(
-      'external technical response/review to that result is still pending',
+      'A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply',
+    );
+    expect(evidence).toContain(
+      'no substantive external technical response/review to that result had been recorded at T-3 closeout',
     );
     expect(evidence).toContain(
       'https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862',
@@ -41,8 +43,8 @@ describe('T-3.7 cA2A public reply closeout documentation', () => {
     );
   });
 
-  it('advances the roadmap to T-3.8 without changing release or stable-corpus semantics', () => {
-    expect(roadmap).toContain('T-3.7 complete 2026-09-16; T-3.8 NEXT');
+  it('preserves the T-3.7 closeout after T-3.8 without changing release or stable-corpus semantics', () => {
+    expect(roadmap).toContain('COMPLETE — 2026-09-16; T-4.1 NEXT');
     expect(roadmap).toContain('Status: **COMPLETE — 2026-09-16**');
     expect(roadmap).toContain(
       'https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862',

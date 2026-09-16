@@ -68,10 +68,10 @@ describe('T-3.2 A2A context-binding overlap matrix', () => {
     );
   });
 
-  it('preserves T-3.2 completion after T-3.7 advances the track', () => {
+  it('preserves T-3.2 completion after the T-3 combined closeout', () => {
     const roadmap = readFileSync(ROADMAP, 'utf8');
 
-    expect(roadmap).toContain('Status: **ACTIVE — T-3.7 complete 2026-09-16; T-3.8 NEXT.**');
+    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-16; T-4.1 NEXT.**');
 
     expect(roadmap).toContain(
       '- [x] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;',

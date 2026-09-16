@@ -1,15 +1,15 @@
 # T-4 — A2A third-party witness / conduct-observation follow-up
 
-Status: **QUEUED — do not start while T-3 is active**  
+Status: **READY — T-3 complete 2026-09-16; T-4.1 NEXT.**
 Date queued: 2026-09-16
 
 ## Purpose
 
 Capture the new A2A `#1769` technical input without changing the currently executing T-3 implementation scope.
 
-T-3 remains the active research/programming track. This T-4 item is intentionally separate so the new external comment does not create mid-implementation scope creep, does not rewrite the T-3 evidence plan, and does not disturb the frozen Bayu T-2 review packet.
+T-3 is complete. This T-4 item remained intentionally separate while T-3 was active so the external comment could not create mid-implementation scope creep, rewrite the T-3 evidence plan, or disturb the frozen Bayu T-2 review packet.
 
-Do not begin T-4 implementation until the current T-3 work has reached its existing evidence/reply closeout unless a concrete blocking correction proves that T-3 itself is invalid.
+T-4.1 may now begin from the clean post-T-3 baseline. The frozen Bayu T-2 review packet remains independent and must still not be rewritten by this track.
 
 ## External input
 
@@ -58,7 +58,7 @@ Therefore:
 
 ## T-4.1 — freeze exact upstream material
 
-After T-3 closeout:
+Now that T-3 is complete:
 
 - [ ] freeze the exact `#1769` comment, author and timestamp;
 - [ ] pin the exact `horizon-shield` upstream commit used for review;
@@ -143,4 +143,4 @@ Do not post a HandoffProbe product pitch merely because the thread is active.
 
 T-4 is complete only when the new `#1769` input has been frozen, overlap-checked against the existing corpus/T-1/T-2/T-3 evidence, any justified fixture is reproducible, an explicit `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` decision exists, and any public HandoffProbe follow-up is factual and evidence-backed.
 
-Until then, T-4 remains **QUEUED** and must not interrupt the currently executing T-3 work.
+T-4.1 is now the next research step. T-4 as a whole remains open until this exit gate is satisfied.
