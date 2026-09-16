@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.5 complete 2026-09-16; T-3.6 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.6 complete 2026-09-16; T-3.7 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1775,17 +1775,25 @@ Status: **COMPLETE — 2026-09-16**
 
 #### T-3.6 — run the cA2A real-shape/real-bytes negative fixture
 
-Status: **NEXT — execution not started.**
+Status: **COMPLETE — 2026-09-16**
 
-- [ ] adapt the pinned real cA2A shape/bytes into a HandoffProbe-owned local fixture without unauthorized production testing;
-- [ ] include a valid/in-scope control and a negative translation case where the effective downstream request exceeds the cleanly verified declared scope;
-- [ ] observe the actual translated audience/tool/authorization-relevant arguments immediately before dispatch/effect where the fixture permits it;
-- [ ] verify whether HandoffProbe blocks/detects the widening at the intended boundary and record `PASS / FAIL / INCONCLUSIVE / ERROR` without converting runtime uncertainty into a vulnerability claim;
-- [ ] retain exact effect-recorder evidence proving whether any protected fake effect occurred;
-- [ ] run focused tests plus the normal repository quality/security gates;
-- [ ] keep the result as research/conformance evidence unless normal attack-admission discipline independently justifies a stable product change.
+- [x] adapt the pinned real cA2A shape/bytes into a HandoffProbe-owned local fixture without unauthorized production testing;
+- [x] include a valid/in-scope control and a negative translation case where the effective downstream request exceeds the cleanly verified declared scope;
+- [x] observe the actual translated audience/tool/authorization-relevant arguments immediately before dispatch/effect where the fixture permits it;
+- [x] verify whether HandoffProbe blocks/detects the widening at the intended boundary and record `PASS / FAIL / INCONCLUSIVE / ERROR` without converting runtime uncertainty into a vulnerability claim;
+- [x] retain exact effect-recorder evidence proving whether any protected fake effect occurred;
+- [x] run focused tests plus the normal repository quality/security gates;
+- [x] keep the result as research/conformance evidence unless normal attack-admission discipline independently justifies a stable product change.
+  - Evidence: `docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md`.
+  - Adapted fixture: `tests/fixtures/t3/ca2a-cross-org-001.json`, SHA-256 `668e3950c54fef486a0bf433c4542b968ee645e33bed2d2b952ce94f4d8bba81`.
+  - Positive control: `payment.route` + `mycelium:payment` accepted with exactly one protected local fake effect.
+  - Widening negative: unchanged pinned upstream `mycelium:payment` authority translated downstream to `mycelium:*`; blocked before `mcp.tool.call` and `fake_tool.execute`, with effect delta `0`.
+  - Focused execution: 2 / 2 test files and 7 / 7 tests passed; diff hygiene passed.
+  - Result remains research/conformance evidence; stable corpus remains 22 attacks and package version remains `0.3.0`.
 
 #### T-3.7 — reply publicly to giskard09 after real-shape evidence exists
+
+Status: **NEXT — public reply not posted.**
 
 - [ ] reply in A2A `#2079` only after T-3.5/T-3.6 results are reproducible;
 - [ ] report the exact pinned upstream input, HandoffProbe commit/artifact and observed boundary result;
