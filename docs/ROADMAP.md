@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active
-Current checkpoint: 2026-09-12
+Current checkpoint: 2026-09-16
 
 Strategy:
 
@@ -1669,7 +1669,7 @@ Closeout: `docs/T1_HP_AUTH_001_SEMANTIC_REFINEMENT_CLOSEOUT_20260914.md`.
 
 ### T-2 — protocol-neutral Handoff Contract review
 
-Status: **ACTIVE — started 2026-09-15.** T-1 is complete and remains authoritative for semantic authority widening; T-2 must reuse the T-1 overlap/admission result and must not duplicate or pre-empt that work. T-2.1 review input freeze is complete.
+Status: **ACTIVE — T-2.1 through T-2.6 completed 2026-09-15; T-2.7 is WAITING FOR RESPONSE from the existing Indie Hackers reviewer `bayu`.** T-1 remains authoritative for semantic authority widening. The exact Bayu review packet is frozen while the review is outstanding and must not be silently rewritten by later external follow-up work.
 
 Implementation contract:
 
@@ -1677,21 +1677,105 @@ Implementation contract:
 
 Required sequence:
 
-- [ ] draft a minimal protocol-neutral Handoff Contract with explicit separation of **Contract Semantics**, **Attestation / Binding**, and **Runtime Enforcement**;
-- [ ] map every proposed invariant against the **22 stable attacks**, **Phase 9**, and **T-1** before creating new research cases;
-- [ ] treat semantic authority widening as T-1-owned and reuse its HP-AUTH-001 refinement/admission result rather than creating parallel authority work;
-- [ ] add only evidence-gated, deterministic local/synthetic research cases that remain justified after the overlap review;
-- [ ] complete the internal public draft, concrete cases, reproducible evidence and review gate before asking `bayu` for external technical review in the existing Indie Hackers thread;
-- [ ] record external feedback and use normal attack-admission discipline only for genuinely distinct evidence-backed invariants.
+- [x] draft a minimal protocol-neutral Handoff Contract with explicit separation of **Contract Semantics**, **Attestation / Binding**, and **Runtime Enforcement**;
+- [x] map every proposed invariant against the **22 stable attacks**, **Phase 9**, and **T-1** before creating new research cases;
+- [x] treat semantic authority widening as T-1-owned and reuse its HP-AUTH-001 refinement/admission result rather than creating parallel authority work;
+- [x] add only evidence-gated, deterministic local/synthetic research cases that remain justified after the overlap review;
+- [x] complete the internal public draft, concrete cases, reproducible evidence and review gate before asking `bayu` for external technical review in the existing Indie Hackers thread;
+- [ ] record Bayu's substantive external feedback when/if it arrives and classify every point as `ACCEPT / MODIFY / REJECT / NEEDS EVIDENCE` before changing the frozen T-2 review outcome.
 
 Guardrails:
 
 - no automatic new stable attack ID;
 - the public stable attack count remains **22** unless a separate normal admission and release decision changes it;
 - no partnership, endorsement, certification or compatibility claim from external reviewer participation;
-- no external review request before the concrete public draft and cases are internally ready.
+- do not mutate the already-shared Bayu review packet while T-2.7 is pending; later evidence may be recorded separately and reconciled after the review response.
 
-T-2 exit gate: the protocol-neutral contract and justified deterministic cases are publicly reviewable, overlap with the existing corpus / Phase 9 / T-1 is documented, and external review is requested only after the internal evidence gate is satisfied.
+T-2 exit gate: the protocol-neutral contract and justified deterministic cases are publicly reviewable, overlap with the existing corpus / Phase 9 / T-1 is documented, the Bayu review request has been made, and any received review feedback is resolved or explicitly left open. If no reply arrives within the documented review window, close only as `NO EXTERNAL REVIEW RECEIVED`, never as validation.
+
+### T-3 — external A2A conformance follow-ups
+
+Status: **NEXT — queued 2026-09-16.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+
+External inputs:
+
+- A2A `#1937`, Arjun context-binding profile draft and explicit request for a HandoffProbe comparison: `https://github.com/a2aproject/A2A/issues/1937#issuecomment-5689749343`;
+- A2A `#2079`, giskard09 confirmation of the delegation-chain vs translated-effective-request gap and invitation to test against the real cA2A shape/bytes: `https://github.com/a2aproject/A2A/issues/2079#issuecomment-5688209314`.
+
+These are qualified external technical/reviewer signals. They are not proof of HandoffProbe adoption, A2A specification acceptance, cA2A vulnerability, partnership, endorsement, certification or commercial demand.
+
+#### T-3.1 — freeze both external inputs before implementation
+
+- [ ] preserve the exact two comment URLs, authors, timestamps, requested comparison/test scope and any linked public artifacts;
+- [ ] pin exact upstream repository/commit/vector references before consuming external test material;
+- [ ] review provenance and license terms before copying or adapting any external vectors/code;
+- [ ] record the current HandoffProbe baseline: `v0.3.0`, 22 stable attacks, A2A 1.0 → MCP 2026-07-28, T-1 semantic-authority refinement and Phase-9 crossing evidence;
+- [ ] keep the Bayu T-2 review packet unchanged.
+
+#### T-3.2 — map Arjun's 13 context-binding conformance vectors
+
+- [ ] map V1–V13 from A2A `#1937` against all relevant stable attacks, Phase 9, T-1 and the T-2 contract;
+- [ ] classify each vector as `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH GAP / OUT OF SCOPE` with rationale;
+- [ ] explicitly separate task-bound vs context-bound behavior, caller/delegate identity, audience/resource containment, semantic widening, equivalent normalization, narrower effective authority, post-authorization mutation, indeterminate comparison, status/expiry and multi-effect final authorization;
+- [ ] do not implement a new case until this overlap map shows that existing evidence is insufficient.
+
+#### T-3.3 — execute the justified HandoffProbe comparison for #1937
+
+- [ ] reuse existing deterministic HandoffProbe machinery wherever the vector is already represented;
+- [ ] implement only evidence-backed missing research cases, using local/synthetic fixtures and harmless fake effects;
+- [ ] verify the final pre-dispatch authorization boundary, including the rule that the request dispatched is the request evaluated;
+- [ ] preserve the distinction between equivalent normalization and semantic widening/redirection;
+- [ ] fail closed where an authorization-relevant projection or containment result is genuinely indeterminate;
+- [ ] run focused tests plus the normal repository quality/security gates;
+- [ ] produce a compact comparison artifact that records each vector, HandoffProbe coverage, observed result, limitations and exact commit/evidence references;
+- [ ] make an explicit no-add/refinement/research-candidate decision; do not create a stable attack ID or release solely because the draft contains a new vector.
+
+#### T-3.4 — reply publicly to Arjun after evidence exists
+
+- [ ] reply in A2A `#1937` only after T-3.2/T-3.3 evidence is reproducible;
+- [ ] state exactly which vectors HandoffProbe already covered, which required new research work and what the deterministic comparison observed;
+- [ ] link to stable HandoffProbe evidence/commit/artifact references where useful;
+- [ ] state limitations and avoid implying that the draft is accepted A2A specification text or that A2A endorses HandoffProbe;
+- [ ] if Arjun materially changes the draft before execution completes, re-freeze the relevant vector set before claiming comparison results;
+- [ ] if Arjun replies again, record the substantive follow-up and continue only where it creates new evidence or a concrete correction.
+
+#### T-3.5 — freeze the real cA2A shape for #2079
+
+- [ ] identify and pin the exact public cA2A delegation-chain fixture/vector set giskard09 is referring to;
+- [ ] preserve exact upstream commit/digest and license/provenance metadata;
+- [ ] document the distinction between what the cA2A chain proves (declared delegation-chain narrowing/continuity) and what it does not itself prove (the downstream translated request remains inside that authority);
+- [ ] define the smallest deterministic A2A→MCP effective-request projection needed to test the gap without turning HandoffProbe into a cA2A implementation or generic protocol scanner.
+
+#### T-3.6 — run the cA2A real-shape/real-bytes negative fixture
+
+- [ ] adapt the pinned real cA2A shape/bytes into a HandoffProbe-owned local fixture without unauthorized production testing;
+- [ ] include a valid/in-scope control and a negative translation case where the effective downstream request exceeds the cleanly verified declared scope;
+- [ ] observe the actual translated audience/tool/authorization-relevant arguments immediately before dispatch/effect where the fixture permits it;
+- [ ] verify whether HandoffProbe blocks/detects the widening at the intended boundary and record `PASS / FAIL / INCONCLUSIVE / ERROR` without converting runtime uncertainty into a vulnerability claim;
+- [ ] retain exact effect-recorder evidence proving whether any protected fake effect occurred;
+- [ ] run focused tests plus the normal repository quality/security gates;
+- [ ] keep the result as research/conformance evidence unless normal attack-admission discipline independently justifies a stable product change.
+
+#### T-3.7 — reply publicly to giskard09 after real-shape evidence exists
+
+- [ ] reply in A2A `#2079` only after T-3.5/T-3.6 results are reproducible;
+- [ ] report the exact pinned upstream input, HandoffProbe commit/artifact and observed boundary result;
+- [ ] distinguish a demonstrated application/translation-layer property from a flaw in cA2A itself;
+- [ ] avoid compatibility, certification, partnership or endorsement language;
+- [ ] invite correction if the frozen cA2A interpretation is wrong and update the research record if concrete counter-evidence is provided;
+- [ ] if giskard09 replies again, record and classify any substantive technical correction before further implementation.
+
+#### T-3.8 — combined closeout and admission decision
+
+- [ ] reconcile the #1937 vector comparison and #2079 real-shape execution into one written closeout;
+- [ ] record whether each stream resulted in `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`;
+- [ ] preserve the stable public corpus at **22 attacks** unless a separate normal attack-admission decision explicitly changes it;
+- [ ] do not trigger `v0.3.1`, `v0.4.0` or another release merely because T-3 completes;
+- [ ] update affected research/roadmap documentation with exact evidence references;
+- [ ] keep T-2.7/Bayu status independent, then reconcile Bayu's review later if/when it arrives;
+- [ ] ensure both external GitHub threads have received an evidence-based follow-up from Heaviside479 before T-3 is considered complete.
+
+T-3 exit gate: both external requests have been frozen, overlap-checked and answered with reproducible evidence; any new code is deterministic, local/authorized and covered by tests; the two public A2A threads receive factual follow-up comments after implementation; no unsupported attack-count, specification-acceptance, compatibility, adoption, partnership, endorsement or release claim is introduced; and the outstanding Bayu T-2 review remains independently traceable.
 
 ### CV-6 — first revenue validation
 
