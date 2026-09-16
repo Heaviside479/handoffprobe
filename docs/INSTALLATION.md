@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe `0.3.0` is the current published release.
+HandoffProbe `0.4.0` is the current source release candidate and is not yet published.
 
-The current public npm package is `handoffprobe@0.3.0`.
+The current public npm package remains `handoffprobe@0.3.0` until coordinated v0.4.0 publication is verified.
 
-Source, lockfile, exported CLI metadata and the public npm package are synchronized at `0.3.0`.
+Source, lockfile and exported CLI metadata are synchronized at `0.4.0`; the public registry remains at `0.3.0` during release preparation.
 
 ## Requirements
 
@@ -90,10 +90,10 @@ node dist/cli.js --version
 node dist/cli.js test
 ```
 
-The current v0.3.0 source checkout reports:
+The current v0.4.0 release-candidate source checkout reports:
 
 ```text
-HandoffProbe 0.3.0
+HandoffProbe 0.4.0
 ```
 
 ## Run the locally packed package

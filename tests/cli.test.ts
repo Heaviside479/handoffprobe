@@ -50,11 +50,11 @@ describe('runCli', () => {
     const exitCode = await runCli(['--version'], capture.io);
 
     expect(exitCode).toBe(0);
-    expect(capture.stdout).toEqual(['HandoffProbe 0.3.0']);
+    expect(capture.stdout).toEqual(['HandoffProbe 0.4.0']);
     expect(capture.stderr).toEqual([]);
   });
 
-  it('lists all 22 stable attacks in deterministic P0 then P1 order', async () => {
+  it('lists all 23 stable attacks in deterministic catalog order', async () => {
     const capture = createCapture();
 
     const exitCode = await runCli(['list'], capture.io);
@@ -65,16 +65,17 @@ describe('runCli', () => {
 
     const output = capture.stdout[0] ?? '';
 
-    expect(output).toContain('HandoffProbe attacks (22)');
+    expect(output).toContain('HandoffProbe attacks (23)');
     expect(output).toContain('HP-AUTH-001');
     expect(output).toContain('HP-AUDIT-001');
+    expect(output).toContain('HP-AUTH-006');
     expect(output).toContain('HP-REPLAY-003');
 
     expect(output.indexOf('HP-TENANT-001')).toBeLessThan(output.indexOf('HP-APPROVAL-002'));
 
     const stableRows = output.split('\n').filter((line) => line.startsWith('HP-'));
 
-    expect(stableRows).toHaveLength(22);
+    expect(stableRows).toHaveLength(23);
   });
 
   it('explains a stable attack from the canonical catalog', async () => {
@@ -131,7 +132,7 @@ describe('runCli', () => {
     expect(capture.stderr.join('\n')).toContain('"list" does not accept positional arguments');
   });
 
-  it('runs all 22 attacks against the secure target by default', async () => {
+  it('runs all 23 attacks against the secure target by default', async () => {
     const capture = createCapture();
 
     const exitCode = await runCli(['test'], capture.io);
@@ -145,12 +146,12 @@ describe('runCli', () => {
     expect(output).toContain('HandoffProbe test');
     expect(output).toContain('Target: secure');
     expect(output).toContain('Protocols: A2A 1.0 | MCP 2026-07-28');
-    expect(output).toContain('Selected attacks: 22');
+    expect(output).toContain('Selected attacks: 23');
     expect(output).toContain('Fail on: HIGH');
-    expect(output).toContain('PASS: 22');
+    expect(output).toContain('PASS: 23');
     expect(output).toContain('FAIL: 0');
     expect(output).toContain('ERROR: 0');
-    expect(output).toContain('TOTAL: 22');
+    expect(output).toContain('TOTAL: 23');
     expect(output).toContain('Security gate: PASS');
   }, 15_000);
 

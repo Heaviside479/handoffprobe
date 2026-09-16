@@ -1,6 +1,6 @@
 # Usage
 
-The v0.3.0 release contract for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. Source metadata and the current public npm package are synchronized at `0.3.0`.
+The v0.4.0 release candidate for HandoffProbe remains a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. Source metadata is synchronized at `0.4.0`; the current public npm package remains `handoffprobe@0.3.0` until coordinated publication is verified.
 
 The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
@@ -27,13 +27,13 @@ Expected high-level result:
 ```text
 Target: secure
 Protocols: A2A 1.0 | MCP 2026-07-28
-Selected attacks: 22
+Selected attacks: 23
 
 Summary:
-  PASS: 22
+  PASS: 23
   FAIL: 0
   ERROR: 0
-  TOTAL: 22
+  TOTAL: 23
 
 Security gate: PASS
 ```
@@ -56,7 +56,7 @@ The vulnerable demonstration exits `1` at the default `high` threshold.
 
 The bundled target is intentionally vulnerable synthetic test code. A failure here does not mean A2A or MCP is inherently insecure; it demonstrates a composition/integration invariant that the vulnerable handoff breaks.
 
-In v0.3.0, `HP-AUTH-001` evaluates upstream delegated authority, translated authority and effective downstream authority. A concrete widening witness is reported when effective downstream authority exceeds the upstream delegation.
+The v0.4.0 candidate retains the v0.3.0 `HP-AUTH-001` semantic-authority behavior across upstream delegated authority, translated authority and effective downstream authority, and adds `HP-AUTH-006`. `HP-AUTH-006` verifies that successful authorization of an earlier protected effect does not authorize a later distinct protected effect after the governing authority becomes non-current; the later effect must receive current final authorization before dispatch.
 
 ## List stable attacks
 
@@ -64,7 +64,7 @@ In v0.3.0, `HP-AUTH-001` evaluates upstream delegated authority, translated auth
 handoffprobe list
 ```
 
-The v0.3.0 release preserves exactly 22 stable attacks: 12 P0 and 10 P1. Phase 9 crossing-corpus cases remain research/conformance cases and do not become additional stable `HP-*` attacks.
+The v0.4.0 release candidate contains exactly 23 stable attacks: 12 P0, 10 P1 and 1 additional advanced attack (`HP-AUTH-006`). Phase 9 crossing-corpus cases remain research/conformance cases and do not become additional stable `HP-*` attacks.
 
 ## Explain an attack
 
@@ -216,7 +216,7 @@ Exit `1` is a security finding, not a scanner crash.
 handoffprobe test   --target secure   --reporter json   --output handoffprobe-report.json
 ```
 
-The v0.3.0 release contract preserves report schema version `1`.
+The v0.4.0 release candidate preserves report schema version `1`.
 
 The report contains:
 
@@ -288,7 +288,7 @@ The revision above is the immutable v0.3.0 release pin and preserves the stronge
 
 ## Reproducible public demo
 
-The primary v0.3.0 demonstration remains the same stable public-product scenario:
+Until coordinated v0.4.0 publication is verified, the primary registry-backed public demonstration remains the v0.3.0 stable scenario:
 
 ```bash
 handoffprobe test --target vulnerable --test HP-AUTH-001
@@ -307,6 +307,14 @@ Compare it with the secure control:
 handoffprobe test --target secure --test HP-AUTH-001
 ```
 
+The v0.4.0 source release candidate additionally exposes the newly admitted stable advanced check:
+
+```bash
+handoffprobe test --target vulnerable --test HP-AUTH-006
+```
+
+Its secure fixture authorizes effect A, makes the governing authority non-current, and blocks distinct effect B before dispatch. The intentionally vulnerable fixture reuses the earlier task-level authorization and executes effect B, producing a deterministic FAIL.
+
 ## Safety boundary
 
 Use HandoffProbe only against:
@@ -316,7 +324,7 @@ Use HandoffProbe only against:
 - staging/test environments you control;
 - targets for which you have explicit authorization.
 
-The v0.3.0 release scope is not a generic internet scanner, runtime firewall or authorization provider.
+Neither the v0.4.0 release candidate nor the current v0.3.0 public release is a generic internet scanner, runtime firewall or authorization provider.
 
 ## More documentation
 

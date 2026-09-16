@@ -4,6 +4,7 @@ import type {
   P1ApprovalScenario,
   P1AuditScenario,
   P1AuthorizationScenario,
+  P1PerEffectAuthorizationScenario,
   P1RaceScenario,
   P1ReplayScenario,
 } from '../../p1-fixture/index.js';
@@ -11,6 +12,12 @@ import type {
 export interface P1AttackPlan {
   attack: AttackCase;
   scenario: P1AuthorizationScenario;
+  createContext(): SecurityContext;
+}
+
+export interface P1PerEffectAuthorizationAttackPlan {
+  attack: AttackCase;
+  scenario: P1PerEffectAuthorizationScenario;
   createContext(): SecurityContext;
 }
 

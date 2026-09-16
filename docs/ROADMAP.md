@@ -1252,6 +1252,47 @@ Publication and post-publication synchronization:
 
 R3 exit gate satisfied 2026-09-15. GitHub Marketplace presents HandoffProbe v0.3.0 as Latest and reflects the reconciled published-release README with immutable release SHA `ef54b950b3ee333c406fa81087685d7f952a028d`. npm, GitHub Release, immutable tag, external Action execution, both public website surfaces, Marketplace presentation, documentation and external exact-version verification describe and execute the same released HandoffProbe v0.3.0 version. No half-published release state is accepted.
 
+### Release Track R4 — v0.4.0 HP-AUTH-006 stable-capability release
+
+Status: **ACTIVE — R4.1 scope/SemVer audit and R4.2 version synchronization complete on 2026-09-16; R4.3 release-document reconciliation in progress. Nothing is published yet.**
+
+R4 exists because a separate post-T-3 admission review converted the V13 research candidate into a real backward-compatible public capability:
+
+- new stable ID: `HP-AUTH-006 — Stale task authorization reused for later effect`;
+- release-candidate stable corpus: **23 attacks** = 12 P0 + 10 P1 + 1 advanced;
+- default CLI full-corpus execution includes `HP-AUTH-006`;
+- the reusable GitHub Action consumes the same canonical 23-attack catalog;
+- secure/vulnerable fixtures reproduce the intended PASS/FAIL distinction deterministically.
+
+R4 does not mechanically promote all T-3 work. V3 remains `NO ADD`; the `#2079` stream remains an `HP-AUTH-001` refinement; T-2.7/Bayu remains independent; T-4 work is not part of the v0.4.0 shipped capability.
+
+Evidence:
+
+- R4.1 scope/SemVer audit: `docs/R4_V0_4_0_SCOPE_SEMVER_AUDIT_20260916.md`;
+- R4.2 version synchronization: `docs/R4_V0_4_0_VERSION_SYNC_20260916.md`;
+- attack admission: `docs/V0_4_0_ATTACK_ADMISSION_20260916.md`;
+- release-candidate notes: `docs/V0_4_0_RELEASE_NOTES.md`.
+
+Required sequence:
+
+- [x] R4.1 freeze evidence-backed scope and classify as backward-compatible minor `v0.4.0`;
+- [x] R4.2 synchronize package, lockfile, exported source version and version tests to `0.4.0`;
+- [ ] R4.3 reconcile candidate README, installation, usage, changelog, attack catalog, CLI specification, roadmap and release notes;
+- [ ] run full repository, package, tarball and exact local candidate gates after documentation reconciliation;
+- [ ] freeze and merge the exact release candidate through protected PR checks;
+- [ ] create immutable annotated `v0.4.0` tag only from the verified merged release commit;
+- [ ] publish `handoffprobe@0.4.0` to npm and verify metadata/integrity/tarball;
+- [ ] create and verify GitHub Release `HandoffProbe v0.4.0`;
+- [ ] verify/update GitHub Marketplace / reusable Action presentation;
+- [ ] update `https://handoffprobe.heaviside-solutions.com` only after public v0.4.0 availability is verified;
+- [ ] update the HandoffProbe project page on `https://heaviside-solutions.com` to the same verified release truth;
+- [ ] verify clean external exact-version npm execution;
+- [ ] verify external GitHub Action execution from both tag and immutable release SHA;
+- [ ] reconcile public release documentation from candidate wording to published wording;
+- [ ] close R4 only when every public surface describes the same verified release.
+
+Operationally, T-4.1 remains queued while R4 is being stabilized so the release scope does not move underneath the candidate. This does not change the completed T-3 closeout record or the independent T-2.7/Bayu wait.
+
 ---
 
 # Phase 10 — v0.5 reliability hardening
@@ -1262,7 +1303,7 @@ Status: **ACTIVE — started 2026-09-15 after Release Tracks R1 (`v0.1.1`), R2 (
 
 Turn the released v0.3.0 Core into dependable, version-aware developer infrastructure.
 
-Phase 10 hardens compatibility, public contracts, determinism, diagnostics, performance and CI reliability. It does not expand the stable 22-attack corpus unless a separate evidence-backed attack-admission decision explicitly does so.
+Phase 10 hardens compatibility, public contracts, determinism, diagnostics, performance and CI reliability. Phase 10 itself does not expand the stable corpus; a separate R4 evidence-backed admission has now expanded the v0.4.0 release-candidate corpus from 22 to 23 attacks by admitting `HP-AUTH-006`.
 
 ## Release sequencing
 

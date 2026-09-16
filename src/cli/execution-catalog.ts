@@ -8,6 +8,7 @@ import {
   HP_AUTH_003,
   HP_AUTH_004,
   HP_AUTH_005,
+  HP_AUTH_006,
   HP_CRED_001,
   HP_CRED_002,
   HP_ID_001,
@@ -28,6 +29,7 @@ import type {
   P1ApprovalAttackPlan,
   P1AttackPlan,
   P1AuditAttackPlan,
+  P1PerEffectAuthorizationAttackPlan,
   P1RaceAttackPlan,
   P1ReplayAttackPlan,
 } from '../attacks/index.js';
@@ -45,6 +47,7 @@ import {
   P1ApprovalTargetAdapter,
   P1AuditTargetAdapter,
   P1AuthorizationTargetAdapter,
+  P1PerEffectAuthorizationTargetAdapter,
   P1RaceTargetAdapter,
   P1ReplayTargetAdapter,
 } from '../p1-fixture/index.js';
@@ -88,6 +91,18 @@ function bindP1Authorization(plan: P1AttackPlan): CliExecutionBinding {
     () => plan.createContext(),
     (fixture) => {
       return new P1AuthorizationTargetAdapter(fixture, plan.scenario);
+    },
+  );
+}
+
+function bindP1PerEffectAuthorization(
+  plan: P1PerEffectAuthorizationAttackPlan,
+): CliExecutionBinding {
+  return createBinding(
+    plan.attack,
+    () => plan.createContext(),
+    (fixture) => {
+      return new P1PerEffectAuthorizationTargetAdapter(fixture, plan.scenario);
     },
   );
 }
@@ -156,14 +171,16 @@ const catalog: readonly CliExecutionBinding[] = [
   bindP1Replay(HP_REPLAY_001),
   bindP1Replay(HP_REPLAY_002),
   bindP1Replay(HP_REPLAY_003),
+
+  bindP1PerEffectAuthorization(HP_AUTH_006),
 ];
 
 const ids = catalog.map((binding) => binding.definition.id);
 const uniqueIds = new Set(ids);
 
-if (catalog.length !== 22 || uniqueIds.size !== catalog.length) {
+if (catalog.length !== 23 || uniqueIds.size !== catalog.length) {
   throw new Error(
-    `CLI execution catalog must contain exactly 22 unique stable attacks; received ${catalog.length} entries and ${uniqueIds.size} unique IDs.`,
+    `CLI execution catalog must contain exactly 23 unique stable attacks; received ${catalog.length} entries and ${uniqueIds.size} unique IDs.`,
   );
 }
 

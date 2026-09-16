@@ -19,7 +19,7 @@ describe('HandoffProbe GitHub Action core', () => {
     expect(request.target).toBe('secure');
     expect(request.failOn).toBe('high');
     expect(request.artifactName).toBe('handoffprobe-report');
-    expect(request.bindings).toHaveLength(22);
+    expect(request.bindings).toHaveLength(23);
   });
 
   it('validates comma-separated stable attack selection', () => {

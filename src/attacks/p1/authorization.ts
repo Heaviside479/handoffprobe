@@ -16,9 +16,12 @@ import {
   createP0UpdateInvoiceScenario,
 } from '../../p0-fixture/index.js';
 
-import type { P1AuthorizationTargetOutput } from '../../p1-fixture/index.js';
+import type {
+  P1AuthorizationTargetOutput,
+  P1PerEffectAuthorizationTargetOutput,
+} from '../../p1-fixture/index.js';
 
-import type { P1AttackPlan } from './types.js';
+import type { P1AttackPlan, P1PerEffectAuthorizationAttackPlan } from './types.js';
 
 const FULL_DELEGATION_CHAIN = [P0_PRINCIPAL, P0_CALLER, P0_AUTHORIZED_DOWNSTREAM] as const;
 
@@ -271,6 +274,159 @@ const AUTH_005_DEFINITION = createDefinition({
   section: 'hp-auth-005--delegation-chain-truncation',
 });
 
+function relevantPerEffectEvidenceSequences(result: TargetExecutionResult): number[] {
+  const relevant = new Set([
+    'p1.per_effect.authorization',
+    'p1.per_effect.invalidate',
+    'p1.per_effect.blocked',
+    'p1.per_effect.authorization_reused',
+    'p1.per_effect.summary',
+    'mcp.tool.call',
+    'mcp.tool.result',
+  ]);
+
+  return result.evidence
+    .filter((event) => relevant.has(event.event))
+    .map((event) => event.sequence);
+}
+
+const AUTH_006_DEFINITION: AttackDefinition = {
+  id: 'HP-AUTH-006',
+
+  name: 'Stale task authorization reused for later effect',
+
+  category: 'authorization',
+
+  defaultSeverity: 'high',
+
+  priority: 'advanced',
+
+  preconditions: [
+    'One task/run/context can produce multiple distinct protected effects.',
+    'Effect A is authorized while the governing delegation is current.',
+    'The governing delegation can become non-current before later effect B.',
+  ],
+
+  mutationSteps: [
+    'Execute distinct protected effect A with current authority.',
+    'Invalidate the governing delegation while keeping the same task/run/context.',
+    'Attempt distinct protected effect B without issuing a new grant.',
+    'In the vulnerable fixture, reuse the earlier task-level authorization instead of re-evaluating current authority.',
+  ],
+
+  expectedInvariant:
+    'Successful authorization of an earlier protected effect must not authorize a later distinct protected effect after the governing authority becomes non-current; each protected effect must receive a current final authorization before dispatch.',
+
+  evidenceRequirements: [
+    'shared task/run/context identifiers',
+    'distinct logical action IDs for effect A and effect B',
+    'current authorization decision for effect A',
+    'authority invalidation between effects',
+    'current authorization decision for effect B',
+    'MCP dispatch count per effect',
+    'protected synthetic effect delta',
+  ],
+
+  applicability: {
+    a2a: ['1.0'],
+    mcp: ['2026-07-28'],
+  },
+
+  propertyClass: 'composition_responsibility',
+
+  sourceReferences: [
+    {
+      kind: 'research',
+      title: 'A2A #1937 context-binding vector V13',
+      locator: 'https://github.com/a2aproject/A2A/issues/1937',
+    },
+    {
+      kind: 'project',
+      title: 'T-3.3 A2A context-binding execution',
+      locator: 'docs/T3_3_A2A_CONTEXT_BINDING_EXECUTION_20260916.md',
+    },
+    {
+      kind: 'project',
+      title: 'v0.4.0 attack admission',
+      locator: 'docs/V0_4_0_ATTACK_ADMISSION_20260916.md',
+    },
+  ],
+
+  sideEffectClass: 'synthetic',
+
+  destructive: false,
+};
+
+const AUTH_006_CASE = {
+  definition: AUTH_006_DEFINITION,
+
+  evaluate(result: TargetExecutionResult): AttackEvaluation {
+    const output = result.output as P1PerEffectAuthorizationTargetOutput;
+    const evidenceSequences = relevantPerEffectEvidenceSequences(result);
+
+    if (
+      output.firstActionId === output.secondActionId ||
+      !output.firstDecision.allowed ||
+      !output.firstEffectExecuted ||
+      output.firstEffectDelta !== 1
+    ) {
+      return {
+        status: 'inconclusive',
+        observedBehavior:
+          'The fixture did not establish one valid first protected effect with two distinct logical effect identities.',
+        evidenceSequences,
+      };
+    }
+
+    if (
+      output.secondDecision === undefined ||
+      output.secondDecision.allowed ||
+      !output.secondDecision.invalidated ||
+      !output.secondDecision.reasons.includes('delegation_invalidated')
+    ) {
+      return {
+        status: 'inconclusive',
+        observedBehavior:
+          'The fixture did not establish that governing authority became non-current before the second protected effect.',
+        evidenceSequences,
+      };
+    }
+
+    if (
+      !output.secondEffectExecuted &&
+      output.secondEffectDelta === 0 &&
+      output.protectedEffectDelta === 1
+    ) {
+      return {
+        status: 'pass',
+        observedBehavior:
+          'Effect A executed under current authority, then effect B was independently re-authorized and blocked after the governing delegation became non-current.',
+        evidenceSequences,
+      };
+    }
+
+    if (
+      output.secondEffectExecuted &&
+      output.secondEffectDelta === 1 &&
+      output.protectedEffectDelta === 2
+    ) {
+      return {
+        status: 'fail',
+        observedBehavior:
+          'The earlier task-level authorization was reused after invalidation, so distinct later effect B executed without current authority.',
+        evidenceSequences,
+      };
+    }
+
+    return {
+      status: 'inconclusive',
+      observedBehavior:
+        'Per-effect authorization and synthetic effect evidence could not establish a deterministic PASS or FAIL.',
+      evidenceSequences,
+    };
+  },
+};
+
 const AUTH_004_CASE = {
   definition: AUTH_004_DEFINITION,
 
@@ -414,6 +570,76 @@ export const HP_AUTH_005: P1AttackPlan = {
     logicalTime: 15,
 
     p0Scenario: createP0UpdateInvoiceScenario(24005),
+  },
+
+  createContext: createUpdateContext,
+};
+
+export const HP_AUTH_006: P1PerEffectAuthorizationAttackPlan = {
+  attack: AUTH_006_CASE,
+
+  scenario: {
+    id: 'stale-task-authorization-later-effect',
+
+    delegation: {
+      id: 'delegation:AUTH-006',
+
+      principal: P0_PRINCIPAL,
+
+      delegate: P0_AUTHORIZED_DOWNSTREAM,
+
+      tenant: P0_AUTHORIZED_TENANT,
+
+      resources: [P0_AUTHORIZED_RESOURCE],
+
+      capabilities: [P0_CAPABILITY_UPDATE],
+
+      chain: [...FULL_DELEGATION_CHAIN],
+
+      taskId: 'task:AUTH-006',
+
+      runId: 'run:AUTH-006',
+
+      issuedAt: 10,
+
+      expiresAt: 100,
+
+      singleUse: false,
+    },
+
+    request: {
+      principal: P0_PRINCIPAL,
+
+      delegate: P0_AUTHORIZED_DOWNSTREAM,
+
+      tenant: P0_AUTHORIZED_TENANT,
+
+      resource: P0_AUTHORIZED_RESOURCE,
+
+      capability: P0_CAPABILITY_UPDATE,
+
+      taskId: 'task:AUTH-006',
+
+      runId: 'run:AUTH-006',
+
+      requiredChain: FULL_DELEGATION_CHAIN,
+    },
+
+    contextId: 'context:AUTH-006',
+
+    firstLogicalTime: 20,
+
+    invalidationTime: 25,
+
+    secondLogicalTime: 30,
+
+    firstActionId: 'action:AUTH-006-A',
+
+    secondActionId: 'action:AUTH-006-B',
+
+    firstP0Scenario: createP0UpdateInvoiceScenario(24601),
+
+    secondP0Scenario: createP0UpdateInvoiceScenario(24602),
   },
 
   createContext: createUpdateContext,
