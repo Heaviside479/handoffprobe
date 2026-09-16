@@ -1,0 +1,46 @@
+{
+  "provenance": {
+    "repository": "giskard09/argentum-core",
+    "commit": "4951899c6bb016928e299e9bf9993086885a45ae",
+    "source_file": "examples/conformance/delegation-chain-ref/cross-org-vectors.json",
+    "source_blob": "39066b73db43c247be9a2b2e34578a111897a656",
+    "source_sha256": "fab4982ccc557287c187244bb0106a2f82ac903a1da74e82e49a7808f7522f54",
+    "license": "Apache-2.0",
+    "vector_id": "cross-org-001-independent-signers",
+    "upstream_expected": "PASS"
+  },
+  "vector": {
+    "id": "cross-org-001-independent-signers",
+    "expected": "PASS",
+    "chain_artifact": {
+      "chain_id": "chain-cross-org-001",
+      "hops": [
+        {
+          "delegatee": "test-cross-org-b",
+          "delegator": "test-cross-org-a",
+          "delegation_ref": "4fbe4e4552899fae28ee307c44da01e8537a6dba8044a6bc3259ba6ea0c9878a",
+          "scope": "mycelium:payment",
+          "hop_signature": "+h7dNbL0gG1mBl/kS1llXTEuqgzttroQvFAlbuYZVZeQ4scrnDCmCcRufzhYmocE/fGTwsKQmDz8cyNm3XR3Dg=="
+        },
+        {
+          "delegatee": "test-cross-org-c",
+          "delegator": "test-cross-org-b",
+          "delegation_ref": "f13451b02b6e78cf2b6c08f6f4c30bc504bd4508ccf6847935c1a7c19ff22aca",
+          "scope": "mycelium:payment",
+          "hop_signature": "4o1ctYiTufW8ABZPjFBGslrDqCSbv544gEz/3Y5QM2vmIeOA4u+TKE3Y6Z7vMVgdkNru15kYPSMAsC01RKlmCg=="
+        }
+      ],
+      "leaf_action_ref": "9e727d4eb437fd2c78c138430a2a26f252f5d6363d940c1e627eb11deffa695b",
+      "root_delegator": "test-cross-org-a",
+      "scope": "mycelium:payment",
+      "version": "delegation-chain-ref-v1"
+    },
+    "delegation_chain_ref": "14421b11d1ebf062e0f3f43f8845b8e3dd691901593f29d0da2eab2d1ad749b4",
+    "leaf_preimage": {
+      "agent_id": "test-cross-org-c",
+      "action_type": "payment.route",
+      "scope": "mycelium:payment",
+      "timestamp": "2026-08-01T10:00:00.000Z"
+    }
+  }
+}
