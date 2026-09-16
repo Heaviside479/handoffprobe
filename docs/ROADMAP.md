@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **ACTIVE — T-3.3 complete 2026-09-16; T-3.4 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.4 complete 2026-09-16; T-3.5 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1743,16 +1743,24 @@ Status: **COMPLETE — 2026-09-16**
 
 #### T-3.4 — reply publicly to Arjun after evidence exists
 
-Status: **NEXT — public reply not yet posted.**
+Status: **COMPLETE — 2026-09-16**
 
-- [ ] reply in A2A `#1937` only after T-3.2/T-3.3 evidence is reproducible;
-- [ ] state exactly which vectors HandoffProbe already covered, which required new research work and what the deterministic comparison observed;
-- [ ] link to stable HandoffProbe evidence/commit/artifact references where useful;
-- [ ] state limitations and avoid implying that the draft is accepted A2A specification text or that A2A endorses HandoffProbe;
-- [ ] if Arjun materially changes the draft before execution completes, re-freeze the relevant vector set before claiming comparison results;
-- [ ] if Arjun replies again, record the substantive follow-up and continue only where it creates new evidence or a concrete correction.
+- [x] reply in A2A `#1937` only after T-3.2/T-3.3 evidence is reproducible;
+- [x] state exactly which vectors HandoffProbe already covered, which required new research work and what the deterministic comparison observed;
+- [x] link to stable HandoffProbe evidence/commit/artifact references where useful;
+- [x] state limitations and avoid implying that the draft is accepted A2A specification text or that A2A endorses HandoffProbe;
+- [x] verify the frozen draft had not materially changed before posting; re-freeze any future material revision before comparing it;
+- [x] establish the follow-up rule that any substantive later Arjun reply is recorded and acted on only where it creates new evidence or a concrete correction.
+  - Public reply: `https://github.com/a2aproject/A2A/issues/1937#issuecomment-5695896491`.
+  - Posted by `Heaviside479` after T-3.3 merged as `398daa88c17821b901dbeecc3c2ce79065f87d61`.
+  - Reply links the merged T-3.3 evidence artifact and reports the exact `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` outcomes.
+  - The V1–V13 draft was rechecked before posting and had not materially changed from the frozen T-3 input.
+  - The reply explicitly preserves the synthetic/research limitations and makes no A2A acceptance, endorsement, certification or release claim.
+  - No subsequent Arjun reply was observed at this closeout; any later substantive response remains an event-triggered follow-up.
 
 #### T-3.5 — freeze the real cA2A shape for #2079
+
+Status: **NEXT — not started.**
 
 - [ ] identify and pin the exact public cA2A delegation-chain fixture/vector set giskard09 is referring to;
 - [ ] preserve exact upstream commit/digest and license/provenance metadata;
