@@ -62,6 +62,8 @@ This README documents the published v0.3.0 release. The public npm package is `h
 
 The v0.3.0 release contract preserves the existing public CLI, package-root API, GitHub Action, report schema `1`, A2A 1.0 → MCP 2026-07-28 protocol baseline and exactly 22 stable attacks while refining the semantic-authority evaluation of `HP-AUTH-001`. Phase 9 crossing-corpus functionality remains repository research/conformance tooling rather than a new public CLI/API/Action surface.
 
+Public, reproducible external technical evidence and its scope limitations are indexed in [`EVIDENCE.md`](EVIDENCE.md). Open research follow-ups are kept separate there and are not presented as completed external confirmation.
+
 ## Commercial support
 
 HandoffProbe remains free and open source under Apache-2.0.
