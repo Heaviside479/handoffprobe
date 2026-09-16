@@ -1695,7 +1695,7 @@ T-2 exit gate: the protocol-neutral contract and justified deterministic cases a
 
 ### T-3 — external A2A conformance follow-ups
 
-Status: **NEXT — queued 2026-09-16.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
+Status: **ACTIVE — T-3.1 complete 2026-09-16; T-3.2 NEXT.** This track runs in parallel with the T-2.7/Bayu waiting period. It must not change the exact artifact already handed to Bayu; it creates separately attributable evidence from two new public A2A technical replies.
 
 External inputs:
 
@@ -1706,11 +1706,12 @@ These are qualified external technical/reviewer signals. They are not proof of H
 
 #### T-3.1 — freeze both external inputs before implementation
 
-- [ ] preserve the exact two comment URLs, authors, timestamps, requested comparison/test scope and any linked public artifacts;
-- [ ] pin exact upstream repository/commit/vector references before consuming external test material;
-- [ ] review provenance and license terms before copying or adapting any external vectors/code;
-- [ ] record the current HandoffProbe baseline: `v0.3.0`, 22 stable attacks, A2A 1.0 → MCP 2026-07-28, T-1 semantic-authority refinement and Phase-9 crossing evidence;
-- [ ] keep the Bayu T-2 review packet unchanged.
+- [x] preserve the exact two comment URLs, authors, timestamps, requested comparison/test scope and any linked public artifacts;
+- [x] pin exact upstream repository/commit/vector references before consuming external test material;
+- [x] review provenance and license terms before copying or adapting any external vectors/code;
+- [x] record the current HandoffProbe baseline: `v0.3.0`, 22 stable attacks, A2A 1.0 → MCP 2026-07-28, T-1 semantic-authority refinement and Phase-9 crossing evidence;
+- [x] keep the Bayu T-2 review packet unchanged.
+  - Evidence: `docs/T3_1_EXTERNAL_A2A_INPUT_FREEZE_20260916.md`.
 
 #### T-3.2 — map Arjun's 13 context-binding conformance vectors
 
