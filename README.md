@@ -83,7 +83,7 @@ Commercial work is limited to systems you own or are authorized to assess. Secur
 
 Public, reproducible external technical evidence and its scope limitations are indexed in [`EVIDENCE.md`](EVIDENCE.md).
 
-The index separates completed, scoped external evidence from open technical follow-ups. A completed HandoffProbe research track is not treated as external confirmation unless its own external-review conditions are met; pending #2079 review and T-4 work remain explicitly open. The index does not imply protocol endorsement, standards acceptance, certification, production-world validation, partnership or commercial adoption.
+The index separates completed, scoped external evidence from open technical follow-ups. A completed HandoffProbe research track is not treated as external confirmation unless its own external-review conditions are met. The T-3 closeout historically recorded that pending #2079 review and T-4 work remain explicitly open; #2079 has since received a scoped external author confirmation, while T-4 remains open. The index does not imply protocol endorsement, standards acceptance, certification, production-world validation, partnership or commercial adoption.
 
 ## Requirements
 
