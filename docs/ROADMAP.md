@@ -1897,9 +1897,16 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - The supplied vector map gives concrete T-4 inputs for structural witness binding (`A1`, `S1`), hop continuity (`A4`, `A4b`, `S2`, `prod-t2`), disagreement preservation (`A3`, `S4`) and cross-language canonicalization. Oga explicitly limits R1 to structural witness distinctness, not proof of non-affiliation.
 - Outcome-unknown remains an explicit gap on the WitnessObservation side: there is no dedicated v0 vector for the response-loss / read-only-reconciliation case yet. The VATE revision must therefore be frozen independently rather than inferred from Oga's artifacts.
 - HandoffProbe acknowledgement of the canonical pin and those boundaries: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5713030346`.
+- Takao Sato / `Poke-nushi` then supplied the canonical VATE side: repository revision `4a63adb4ade9d6e1affe622744a49056413a8c86`, fixed Vaara → VATE reproduction document and package identity; public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5713423719`.
+- The package identity pins archive SHA-256 `5f1fe2d4bf656cc02c25c04757180fc3d6111296e157abfc61f5b3e7715d3f7e`, VATE source `a15b9f5e64413f7a1312ec8e9e7731e8ebdb1f60`, Vaara source `cfb5495c0c8d08fb34a99501c670f4ed225e7870` and `rfc8785` `0.1.4`.
+- The VATE comparison must keep action binding, caller outcome state after response loss, and provider-side reconciliation distinct. Saved reference cases are `J28`, `P93`, `L64` and `V17`.
+- Scope remains limited to a single-operator local stdio experiment with unsigned VATE records and adapter-derived output hashes; A2A transport is outside that reproduction scope.
+- Both WitnessObservation and VATE now have canonical author-supplied inputs, but T-4.1 remains incomplete until HandoffProbe independently preserves and verifies those artifacts after R4 closeout.
 - These responses are **queued T-4 research inputs only**. They do not by themselves establish external HandoffProbe validation, a new stable attack, A2A acceptance/conformance, production behavior or a release requirement.
 - T-4 remains queued until R4 closeout is complete; the author-supplied pin does not by itself complete T-4.1.
 - T-4 must freeze the exact upstream artifacts and then classify overlap/admission normally as `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` before any implementation decision.
+- After reproducible T-4 results exist, HandoffProbe must return the relevant findings to the upstream contributors rather than only recording them internally: WitnessObservation-specific results to Oga in A2A `#1769` with reference to `#5712951510`; VATE-specific reproduction results to Poke-nushi in `Poke-nushi/Verifiable-Agent-Trust-Envelope#2` with reference to `#5713423719`; and any VATE result that affects A2A caller/task/context binding or artifact-carriage requirements must also be summarized in A2A `#1769`.
+- Any cross-comparison result involving both inputs must mention both contributors, link reproducible HandoffProbe evidence/commit references, preserve each upstream scope boundary, and be recorded before T-4 closeout.
 
 ### CV-6 — first revenue validation
 
