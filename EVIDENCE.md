@@ -116,13 +116,66 @@ This comparison does not establish:
 
 ---
 
+## 3. A2A #2079 cA2A real-shape translation-boundary comparison
+
+**Evidence level:** External vector comparison + author review  
+**Status:** Completed scoped comparison and external author confirmation — 2026-09-17  
+**Scope:** Pinned real `argentum-core` delegation-chain vector plus a HandoffProbe-owned downstream A2A → MCP projection; deterministic local fake-tool effects
+
+### External input and reproducible execution
+
+The A2A `#2079` discussion supplied a concrete real-shape boundary question: whether a delegation chain that verifies cleanly still needs an independent downstream containment check after translation.
+
+The HandoffProbe comparison pinned:
+
+- upstream repository commit `giskard09/argentum-core@4951899c6bb016928e299e9bf9993086885a45ae`;
+- vector `cross-org-001-independent-signers`;
+- upstream leaf action `payment.route`;
+- upstream leaf scope `mycelium:payment`;
+- upstream expected result `PASS`.
+
+HandoffProbe preserved the upstream vector and changed only the HandoffProbe-owned downstream projection for the negative case. The positive projection kept `delegated_scope: mycelium:payment` and produced exactly one protected local fake-tool effect. The widening negative projected `delegated_scope: mycelium:*` and was blocked before MCP dispatch, with zero protected effects.
+
+- [A2A issue #2079](https://github.com/a2aproject/A2A/issues/2079)
+- [giskard09's real-shape boundary follow-up](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5688209314)
+- [`docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md`](docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md)
+- [Immutable execution artifact used publicly](https://github.com/Heaviside479/handoffprobe/blob/c616804d3b3daedd7f68b300b8416029b5020942/docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md)
+- [HandoffProbe public comparison reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862)
+
+### External author confirmation
+
+On 2026-09-17, giskard09 independently checked the pinned `4951899c` vector and `cross-org-001-independent-signers` input against the HandoffProbe evidence document and confirmed the scoped interpretation: the upstream signed delegation-chain guarantee proves chain integrity and monotonic scope narrowing, while a later widening introduced by the HandoffProbe-owned projection belongs to the downstream translation layer rather than the upstream verifier.
+
+The confirmation also explicitly endorsed the narrow claim boundary: containment refinement, **not** a cA2A/A2A finding.
+
+- [giskard09's external author confirmation](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400)
+- [HandoffProbe acknowledgement and claim boundary](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5710063080)
+- [`docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`](docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md)
+
+Historical state is preserved rather than rewritten: at T-3 closeout, the A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply, and no substantive external technical response/review to that result had been recorded at T-3 closeout. The T-3.7 and T-3.8 closeout documents therefore remain correct records of the state on 2026-09-16; the 2026-09-17 confirmation is a post-closeout evidence update.
+
+### What this does **not** establish
+
+This completed evidence loop does not establish:
+
+- a cA2A or A2A vulnerability;
+- A2A endorsement of HandoffProbe;
+- cA2A/A2A conformance or compatibility certification;
+- independent re-certification of the upstream delegation-chain verifier;
+- production-world behavior;
+- a guarantee about arbitrary downstream translators;
+- a new stable HandoffProbe attack, package version or release by itself.
+
+The `#2079` extension proposal itself remains open upstream; only this narrowly scoped HandoffProbe comparison/review loop is classified as completed external evidence.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
 
 Current examples include:
 
-- the A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply ([reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862); [`T-3.7 closeout`](docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md); [`T-3.8 combined closeout`](docs/T3_8_COMBINED_CLOSEOUT_20260916.md)); no substantive external technical response/review to that result had been recorded at T-3 closeout, so it remains an open follow-up rather than a completed external-evidence entry;
 - the A2A `#1769` third-party witness / conduct-observation follow-up in T-4 is the next research track after the completed T-3 closeout; it remains open until its own freeze, overlap, execution/admission and public-reply gates are satisfied.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
