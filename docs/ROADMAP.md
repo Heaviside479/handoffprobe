@@ -1893,7 +1893,12 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - Toshikatsu Oga (`ogasurfproject-jpg`) mapped his draft `WitnessObservation` shape directly onto the HandoffProbe caller/task/context/audience/tool/argument boundary, including verifier-side recomputation, witness independence, delegation-hop continuity and preservation of disagreement/outcome-unknown states. Public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5711708984`.
 - Oga's stated scope remains limited: the design is a draft, is not wired into a live service, and is not outsider-verifiable beyond the published specification and tests.
 - HandoffProbe follow-up preserving those claim boundaries and requesting an exact canonical upstream revision/vector for the later T-4 freeze: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712635674`.
+- Oga then supplied an immutable canonical WitnessObservation pin: commit `4d7c9c270c2846465fafdea9833869c5660c4ae2`, path `workers/hs-ledger/nenrin/task-delegation-bind-v0/`, with `EXTENSION.md`, `bind.mjs`, `sign.mjs` and `signed.json`; public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712951510`.
+- The supplied vector map gives concrete T-4 inputs for structural witness binding (`A1`, `S1`), hop continuity (`A4`, `A4b`, `S2`, `prod-t2`), disagreement preservation (`A3`, `S4`) and cross-language canonicalization. Oga explicitly limits R1 to structural witness distinctness, not proof of non-affiliation.
+- Outcome-unknown remains an explicit gap on the WitnessObservation side: there is no dedicated v0 vector for the response-loss / read-only-reconciliation case yet. The VATE revision must therefore be frozen independently rather than inferred from Oga's artifacts.
+- HandoffProbe acknowledgement of the canonical pin and those boundaries: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5713030346`.
 - These responses are **queued T-4 research inputs only**. They do not by themselves establish external HandoffProbe validation, a new stable attack, A2A acceptance/conformance, production behavior or a release requirement.
+- T-4 remains queued until R4 closeout is complete; the author-supplied pin does not by itself complete T-4.1.
 - T-4 must freeze the exact upstream artifacts and then classify overlap/admission normally as `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` before any implementation decision.
 
 ### CV-6 — first revenue validation

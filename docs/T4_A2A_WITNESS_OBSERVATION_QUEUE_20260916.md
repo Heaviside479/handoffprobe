@@ -3,13 +3,15 @@
 Status: **READY — T-3 complete 2026-09-16; T-4.1 NEXT.**
 Date queued: 2026-09-16
 
+Current scheduling note — 2026-09-17: the historical readiness marker above is preserved as part of the T-3 closeout record. Operationally, T-4.1 remains queued until the R4/v0.4.0 release closeout is complete; the canonical WitnessObservation pin identified below does not by itself complete T-4.1.
+
 ## Purpose
 
 Capture the new A2A `#1769` technical input without changing the currently executing T-3 implementation scope.
 
 T-3 is complete. This T-4 item remained intentionally separate while T-3 was active so the external comment could not create mid-implementation scope creep, rewrite the T-3 evidence plan, or disturb the frozen Bayu T-2 review packet.
 
-T-4.1 may now begin from the clean post-T-3 baseline. The frozen Bayu T-2 review packet remains independent and must still not be rewritten by this track.
+T-4.1 remains queued behind the R4/v0.4.0 release closeout. Once that closeout is complete, T-4.1 begins from the clean post-R4 baseline. The frozen Bayu T-2 review packet remains independent and must still not be rewritten by this track.
 
 ## External input
 
@@ -37,6 +39,34 @@ The author explicitly states that the work is a **draft**, is not yet wired into
 
 This is qualified external technical input, not HandoffProbe adoption, A2A specification acceptance, interoperability certification, partnership, endorsement, commercial demand or proof of a vulnerability.
 
+## Canonical WitnessObservation pin supplied 2026-09-17
+
+After HandoffProbe requested an exact immutable upstream revision rather than inferring from a moving branch, Toshikatsu Oga supplied the canonical WitnessObservation side for the later T-4 comparison:
+
+- public pin response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712951510`;
+- canonical upstream commit: `4d7c9c270c2846465fafdea9833869c5660c4ae2`;
+- canonical path: `workers/hs-ledger/nenrin/task-delegation-bind-v0/`;
+- named artifacts at that commit: `EXTENSION.md`, `bind.mjs`, `sign.mjs`, and the frozen signed example `signed.json`.
+
+The author also mapped concrete adversarial inputs onto the seams HandoffProbe proposed to test:
+
+- third-party observation binding: `A1 self-witness rejected (R1)` and `S1 spoofed witness rejected`;
+- hop continuity: `A4 hidden hop breaks chain continuity`, `A4b forged prev pointer breaks chain`, `S2 forged edge (signed by receiver, not delegator) rejected`, plus the cross-language two-hop `prod-t2 chain continuous` case;
+- disagreement preservation: `A3 full witness set yields disagreement`, the suppressed-subset `A3` case, and `S4 post-sign verdict tamper rejected`;
+- cross-implementation canonicalization: `cross_lang_test` feeds Python-produced observations into the JS ledger recomputation and requires matching canonical bytes for acceptance.
+
+Important scope limits supplied by the author must be preserved:
+
+- R1 establishes only that `witness_id` is structurally distinct from `hop.from` and `hop.to`; it does **not** prove organizational or social non-affiliation;
+- the specific response-loss / caller-outcome-unknown case has **no dedicated WitnessObservation v0 vector yet**; this remains a real comparison gap rather than coverage that HandoffProbe may infer;
+- the VATE artifact belongs to Takao Sato / `Poke-nushi`, so its canonical revision must be frozen independently;
+- the WitnessObservation work remains a draft whose vectors pass but which is not yet outsider-validated; signatures and digests prove assertion/linkage, not semantic truth.
+
+HandoffProbe acknowledged those boundaries and the canonical pin here:
+`https://github.com/a2aproject/A2A/issues/1769#issuecomment-5713030346`.
+
+This author-supplied pin is a T-4 freeze input, not completion of T-4.1 by itself. T-4.1 must still independently fetch/preserve the pinned material, record hashes where practical, check provenance/license, and freeze the VATE side before overlap or implementation decisions.
+
 ## Why this is separate from T-3
 
 T-3 currently owns two concrete external follow-ups:
@@ -58,7 +88,7 @@ Therefore:
 
 ## T-4.1 — freeze exact upstream material
 
-Now that T-3 is complete:
+Once R4 closeout is complete:
 
 - [ ] freeze the exact `#1769` comment, author and timestamp;
 - [ ] pin the exact `horizon-shield` upstream commit used for review;
@@ -120,7 +150,7 @@ After any justified execution, decide one of:
 Guardrails:
 
 - no automatic stable attack ID;
-- stable public corpus remains **22 attacks** unless a separate normal admission/release decision changes it;
+- current stable public corpus remains **23 attacks** (`12 P0 + 10 P1 + HP-AUTH-006`) unless a separate normal admission/release decision changes it; T-4 itself does not change that count;
 - no release is triggered merely because T-4 completes;
 - do not describe a profile-specific policy requirement as normative A2A/MCP behavior without protocol evidence;
 - do not claim that a successful signature/digest check proves a witness statement is true;
@@ -143,4 +173,4 @@ Do not post a HandoffProbe product pitch merely because the thread is active.
 
 T-4 is complete only when the new `#1769` input has been frozen, overlap-checked against the existing corpus/T-1/T-2/T-3 evidence, any justified fixture is reproducible, an explicit `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` decision exists, and any public HandoffProbe follow-up is factual and evidence-backed.
 
-T-4.1 is now the next research step. T-4 as a whole remains open until this exit gate is satisfied.
+T-4.1 remains queued behind R4 closeout. T-4 as a whole remains open until this exit gate is satisfied.
