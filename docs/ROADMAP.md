@@ -1885,6 +1885,17 @@ A substantive `#2079` response arrived after the dated T-3.7/T-3.8 closeout.
 - attack admission remains **NO ADD** and the research outcome remains **REFINEMENT** of `HP-AUTH-001`; this response does not authorize a new stable attack or release;
 - record: `docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`.
 
+#### T-4 / A2A #1769 queued external signals — 2026-09-17
+
+Two additional public technical responses arrived after the existing T-4 queue was prepared and must be included in the T-4 freeze/overlap review before implementation or admission decisions:
+
+- Takao Sato (`Poke-nushi`) read the pinned HandoffProbe Phase-9 execution record and stated that the native-vs-bound comparison with effect recording outside the verifier is relevant to the trace requested in A2A `#1769`; he explicitly did **not** claim a local HandoffProbe rerun. Public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5710413588`.
+- Toshikatsu Oga (`ogasurfproject-jpg`) mapped his draft `WitnessObservation` shape directly onto the HandoffProbe caller/task/context/audience/tool/argument boundary, including verifier-side recomputation, witness independence, delegation-hop continuity and preservation of disagreement/outcome-unknown states. Public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5711708984`.
+- Oga's stated scope remains limited: the design is a draft, is not wired into a live service, and is not outsider-verifiable beyond the published specification and tests.
+- HandoffProbe follow-up preserving those claim boundaries and requesting an exact canonical upstream revision/vector for the later T-4 freeze: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712635674`.
+- These responses are **queued T-4 research inputs only**. They do not by themselves establish external HandoffProbe validation, a new stable attack, A2A acceptance/conformance, production behavior or a release requirement.
+- T-4 must freeze the exact upstream artifacts and then classify overlap/admission normally as `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` before any implementation decision.
+
 ### CV-6 — first revenue validation
 
 Target: first **3 paid accepted assessments**.
