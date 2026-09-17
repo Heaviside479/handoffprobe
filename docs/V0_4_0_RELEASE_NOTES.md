@@ -1,6 +1,6 @@
 # HandoffProbe v0.4.0 Release Notes
 
-Status: **v0.4.0 release record — public availability must be verified on the corresponding release surfaces.**
+Status: **RELEASED AND VERIFIED — coordinated publication and post-publication verification completed 2026-09-17.**
 
 Date prepared: 2026-09-16
 
@@ -51,7 +51,7 @@ The cA2A `#2079` work remains a refinement of the existing `HP-AUTH-001` semanti
 
 ## Public contract
 
-The v0.4.0 candidate preserves:
+The v0.4.0 release preserves:
 
 - CLI commands: `test`, `list`, `explain`, `--version`, `--help`;
 - deterministic exit semantics `0 / 1 / 2 / 3`;
@@ -97,9 +97,7 @@ These results verify the release candidate and package boundary. They do not by 
 
 ## Publication verification
 
-Source/package metadata is synchronized to `0.4.0`.
-
-This release record does not infer live publication state from the source tree. Verify each release surface independently:
+Coordinated post-publication verification completed on 2026-09-17. The following surfaces were independently checked against the released v0.4.0 truth:
 
 - npm exact package `handoffprobe@0.4.0`;
 - immutable annotated tag `v0.4.0`;
@@ -125,3 +123,5 @@ R4 is complete only after the same verified release truth is synchronized across
 9. clean external GitHub Action execution.
 
 No half-published release state is accepted.
+
+This requirement was satisfied on 2026-09-17. Full closeout evidence is recorded in `docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md`.

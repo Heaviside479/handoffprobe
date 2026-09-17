@@ -17,9 +17,11 @@ describe('v0.3.0 published release contract', () => {
     expect(releaseNotes).toContain('Status: **published on 2026-09-14.**');
     expect(changelog).toContain('## 0.3.0 — 2026-09-14');
     expect(releaseNotes).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
-    expect(readme).toContain('previously published npm release is `handoffprobe@0.3.0`');
+    expect(readme).toContain(
+      'The v0.3.0 package, tag and release remain historical release evidence.',
+    );
     expect(installation).toContain(
-      'The previously published v0.3.0 package, tag and release remain immutable historical release evidence',
+      'The v0.3.0 package, tag and release remain historical release evidence',
     );
   });
 
@@ -27,17 +29,21 @@ describe('v0.3.0 published release contract', () => {
     expect(releaseNotes).toContain('exactly **22 stable attacks**');
     expect(releaseNotes).toContain('stable ID `HP-AUTH-001`');
     expect(releaseNotes).toContain('report schema version `1`');
-    expect(usage).toContain('immutable v0.3.0 release pin');
+    expect(usage).toContain('compatible demonstration across v0.3.0 and v0.4.0');
     expect(usage).toContain('effective downstream authority');
   });
 
-  it('keeps v0.3.0 Action guidance as immutable historical release evidence', () => {
-    expect(readme).toContain('handoffprobe@0.3.0');
+  it('keeps v0.3.0 release identity as historical evidence without making it the current Action pin', () => {
+    expect(releaseNotes).toContain('handoffprobe@0.3.0');
     expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
     expect(installation).toContain('v0.3.0');
-    expect(installation).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
-    expect(usage).toContain('immutable v0.3.0 release pin');
-    expect(usage).toContain('ef54b950b3ee333c406fa81087685d7f952a028d');
+    expect(installation).not.toContain(
+      'Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d',
+    );
+    expect(usage).toContain('compatible demonstration across v0.3.0 and v0.4.0');
+    expect(usage).not.toContain(
+      'Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d',
+    );
   });
 
   it('keeps historical safety, research and post-publication boundaries explicit', () => {

@@ -1191,7 +1191,6 @@ Exit gate satisfied 2026-09-09.
 
 Do not pre-commit to publishing `v0.3.0` or `v0.4.0` simply to fill version numbers. Use SemVer according to the next evidence-backed scope. The Phase 10 `v0.5` label remains a reliability milestone, not an instruction to skip or force intermediate releases.
 
-
 ### Release Track R3 — v0.3.0 semantic-authority release
 
 Status: **COMPLETE — v0.3.0 was published on 2026-09-14 and R3 closed on 2026-09-15 after GitHub Marketplace presentation was re-verified. npm, the immutable annotated tag, GitHub Release, external exact-version execution, external Action verification, both public website surfaces and Marketplace presentation are synchronized.**
@@ -1254,7 +1253,7 @@ R3 exit gate satisfied 2026-09-15. GitHub Marketplace presents HandoffProbe v0.3
 
 ### Release Track R4 — v0.4.0 HP-AUTH-006 stable-capability release
 
-Status: **ACTIVE — pre-publication checkpoint on 2026-09-16: the exact v0.4.0 release candidate passed local/package gates, merged through protected PR #99, and is undergoing final release-record reconciliation before coordinated publication.**
+Status: **COMPLETE — v0.4.0 coordinated publication and post-publication verification closed on 2026-09-17.**
 
 R4 exists because a separate post-T-3 admission review converted the V13 research candidate into a real backward-compatible public capability:
 
@@ -1271,7 +1270,8 @@ Evidence:
 - R4.1 scope/SemVer audit: `docs/R4_V0_4_0_SCOPE_SEMVER_AUDIT_20260916.md`;
 - R4.2 version synchronization: `docs/R4_V0_4_0_VERSION_SYNC_20260916.md`;
 - attack admission: `docs/V0_4_0_ATTACK_ADMISSION_20260916.md`;
-- v0.4.0 release record: `docs/V0_4_0_RELEASE_NOTES.md`.
+- v0.4.0 release record: `docs/V0_4_0_RELEASE_NOTES.md`;
+- post-publication closeout: `docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md`.
 
 Required sequence:
 
@@ -1280,18 +1280,18 @@ Required sequence:
 - [x] R4.3 reconcile candidate README, installation, usage, changelog, attack catalog, CLI specification, roadmap and release notes;
 - [x] run full repository, package, tarball and exact local candidate gates after documentation reconciliation;
 - [x] freeze and merge the exact release candidate through protected PR checks;
-- [ ] create immutable annotated `v0.4.0` tag only from the verified merged release commit;
-- [ ] publish `handoffprobe@0.4.0` to npm and verify metadata/integrity/tarball;
-- [ ] create and verify GitHub Release `HandoffProbe v0.4.0`;
-- [ ] verify/update GitHub Marketplace / reusable Action presentation;
-- [ ] update `https://handoffprobe.heaviside-solutions.com` only after public v0.4.0 availability is verified;
-- [ ] update the HandoffProbe project page on `https://heaviside-solutions.com` to the same verified release truth;
-- [ ] verify clean external exact-version npm execution;
-- [ ] verify external GitHub Action execution from both tag and immutable release SHA;
-- [ ] reconcile public release documentation from candidate wording to published wording;
-- [ ] close R4 only when every public surface describes the same verified release.
+- [x] create annotated `v0.4.0` tag only from the verified merged release commit;
+- [x] publish `handoffprobe@0.4.0` to npm and verify metadata/integrity/tarball;
+- [x] create and verify GitHub Release `HandoffProbe v0.4.0`;
+- [x] verify/update GitHub Marketplace / reusable Action presentation;
+- [x] update `https://handoffprobe.heaviside-solutions.com` only after public v0.4.0 availability is verified;
+- [x] update the HandoffProbe project page on `https://heaviside-solutions.com` to the same verified release truth;
+- [x] verify clean external exact-version npm execution;
+- [x] verify external GitHub Action execution from both tag and immutable release SHA;
+- [x] reconcile public release documentation from candidate wording to published wording;
+- [x] close R4 only when every public surface describes the same verified release.
 
-Operationally, T-4.1 remains queued while R4 is being stabilized so the release scope does not move underneath the candidate. This does not change the completed T-3 closeout record or the independent T-2.7/Bayu wait.
+R4 closeout is complete. T-4.1 is now unblocked as the next queued research step. This does not change the completed T-3 closeout record, does not retroactively place T-4 inside v0.4.0, and does not change the independent T-2.7/Bayu wait.
 
 ---
 
@@ -1631,6 +1631,7 @@ Status: **COMPLETE — synthetic end-to-end delivery verified 2026-09-13.**
 - [x] validate the workflow with a synthetic end-to-end assessment before customer delivery.
 
 Verification:
+
 - `npm run check` passes the full repository gate;
 - repository-local `npx tsx scripts/commercial-assessment-delivery.ts <assessment.json>` generates Markdown, PDF and allowlisted safe JSON;
 - `.handoffprobe-assessments/` keeps real customer working data outside the public repository;
@@ -1647,6 +1648,7 @@ The live CV-3 Stripe mechanism remains intentionally deferred until the first su
 - [x] update future npm/release-visible commercial links through normal release discipline;
 
 Npm/release verification:
+
 - published `handoffprobe@0.2.0` remains unchanged;
 - the current repository README contains the assessment CTA and URL;
 - `npm pack --dry-run` includes `README.md`, so the CTA will become npm-visible with the next normal release;
@@ -1656,6 +1658,7 @@ Npm/release verification:
 - [x] keep technical-community promotion value-first and non-spammy.
 
 Community-promotion guardrail:
+
 - the HandoffProbe marketing plan now requires technical value before promotion;
 - GitHub/npm/CLI remain the default destination when someone only wants to try the scanner;
 - the commercial assessment page is used only when a real authorized assessment need is relevant;
@@ -1871,7 +1874,6 @@ Status: **COMPLETE — 2026-09-16**
 
 T-3 exit gate: **SATISFIED 2026-09-16.** Both external requests were frozen, overlap-checked and answered with reproducible evidence; new code remained deterministic, local/authorized and covered by tests; both public A2A threads received factual HandoffProbe follow-up; no unsupported attack-count, specification-acceptance, compatibility, adoption, partnership, endorsement or release claim was introduced; and the outstanding Bayu T-2 review remains independently traceable.
 
-
 #### Post-T-3 external author confirmation — 2026-09-17
 
 A substantive `#2079` response arrived after the dated T-3.7/T-3.8 closeout.
@@ -1901,9 +1903,9 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - The package identity pins archive SHA-256 `5f1fe2d4bf656cc02c25c04757180fc3d6111296e157abfc61f5b3e7715d3f7e`, VATE source `a15b9f5e64413f7a1312ec8e9e7731e8ebdb1f60`, Vaara source `cfb5495c0c8d08fb34a99501c670f4ed225e7870` and `rfc8785` `0.1.4`.
 - The VATE comparison must keep action binding, caller outcome state after response loss, and provider-side reconciliation distinct. Saved reference cases are `J28`, `P93`, `L64` and `V17`.
 - Scope remains limited to a single-operator local stdio experiment with unsigned VATE records and adapter-derived output hashes; A2A transport is outside that reproduction scope.
-- Both WitnessObservation and VATE now have canonical author-supplied inputs, but T-4.1 remains incomplete until HandoffProbe independently preserves and verifies those artifacts after R4 closeout.
+- Both WitnessObservation and VATE now have canonical author-supplied inputs. The R4 prerequisite is satisfied, but T-4.1 remains incomplete until HandoffProbe independently preserves and verifies those artifacts.
 - These responses are **queued T-4 research inputs only**. They do not by themselves establish external HandoffProbe validation, a new stable attack, A2A acceptance/conformance, production behavior or a release requirement.
-- T-4 remains queued until R4 closeout is complete; the author-supplied pin does not by itself complete T-4.1.
+- The R4 closeout prerequisite is satisfied; the author-supplied pin does not by itself complete T-4.1.
 - T-4 must freeze the exact upstream artifacts and then classify overlap/admission normally as `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` before any implementation decision.
 - After reproducible T-4 results exist, HandoffProbe must return the relevant findings to the upstream contributors rather than only recording them internally: WitnessObservation-specific results to Oga in A2A `#1769` with reference to `#5712951510`; VATE-specific reproduction results to Poke-nushi in `Poke-nushi/Verifiable-Agent-Trust-Envelope#2` with reference to `#5713423719`; and any VATE result that affects A2A caller/task/context binding or artifact-carriage requirements must also be summarized in A2A `#1769`.
 - Any cross-comparison result involving both inputs must mention both contributors, link reproducible HandoffProbe evidence/commit references, preserve each upstream scope boundary, and be recorded before T-4 closeout.
@@ -1934,7 +1936,7 @@ A separate MCP research signal arrived in `modelcontextprotocol/modelcontextprot
 - Akira stated that the current demo has no authority layer and is considering adding the negative case with a fixed approved-argument commitment. This is therefore a design/research signal, **not** evidence that the fixture has already been implemented or independently reproduced.
 - This signal does not establish MCP specification acceptance, HandoffProbe adoption, compatibility, certification, partnership, endorsement, a new stable attack or a release requirement.
 - Detailed queue record: `docs/MCP_3354_VERIFIABLE_RESULTS_QUEUE_20260917.md`.
-- This work must not interrupt R4 closeout or the already queued T-4 path. Any implementation requires a separate later prioritization and normal research/admission decision.
+- R4 is now closed. This work remains separately queued and must not interrupt the already queued T-4 path. Any implementation requires a separate later prioritization and normal research/admission decision.
 - **External feedback obligation:** if HandoffProbe later produces a reproducible result for this seam, return the exact result to AkiraTamai in MCP `#3354`, including the pinned HandoffProbe commit/evidence, what the proof layer accepted, what the authority layer accepted/rejected, and the exact scope limitations. Invite correction and record any substantive response before closing this research item.
 
 ### CV-6 — first revenue validation

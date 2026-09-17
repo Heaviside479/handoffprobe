@@ -7,25 +7,25 @@ async function read(path: string): Promise<string> {
 }
 
 describe('v0.4.0 release documentation', () => {
-  it('keeps the packaged README aligned with candidate and public registry truth', async () => {
+  it('keeps the packaged README aligned with released package and public registry truth', async () => {
     const readme = await read('README.md');
 
     expect(readme).toContain(
       'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
     );
-    expect(readme).toContain('previously published npm release is `handoffprobe@0.3.0`');
+    expect(readme).toContain('HandoffProbe v0.4.0 is the current verified public release.');
     expect(readme).toContain('23 stable attacks total');
     expect(readme).toContain('HP-AUTH-006');
     expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
     expect(readme).toContain('https://handoffprobe.heaviside-solutions.com/security-assessment');
   });
 
-  it('separates public v0.3.0 execution from local v0.4.0 candidate execution', async () => {
+  it('documents current public v0.4.0 execution and historical release context', async () => {
     const installation = await read('docs/INSTALLATION.md');
 
     for (const text of [
       'Node.js `>=24 <25`',
-      'HandoffProbe release metadata is synchronized at `0.4.0`.',
+      'HandoffProbe v0.4.0 is the current verified public release.',
       'npm view handoffprobe@0.4.0 version',
       'npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version',
       'npm install --save-dev --save-exact handoffprobe@0.4.0',
@@ -38,7 +38,7 @@ describe('v0.4.0 release documentation', () => {
     }
   });
 
-  it('documents the 23-attack stable candidate and preserved contracts', async () => {
+  it('documents the 23-attack stable release and preserved contracts', async () => {
     const usage = await read('docs/USAGE.md');
 
     for (const text of [
@@ -61,7 +61,7 @@ describe('v0.4.0 release documentation', () => {
     const releaseNotes = await read('docs/V0_4_0_RELEASE_NOTES.md');
 
     expect(releaseNotes).toContain(
-      'Status: **v0.4.0 release record — public availability must be verified on the corresponding release surfaces.**',
+      'Status: **RELEASED AND VERIFIED — coordinated publication and post-publication verification completed 2026-09-17.**',
     );
     expect(releaseNotes).toContain(
       'HP-AUTH-006 — Stale task authorization reused for later effect',

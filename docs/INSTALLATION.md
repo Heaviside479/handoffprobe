@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe release metadata is synchronized at `0.4.0`.
+HandoffProbe v0.4.0 is the current verified public release.
 
-Registry-backed availability is verified independently from the source tree.
+Source/package metadata and public npm availability are synchronized at `0.4.0`.
 
-Before using registry-backed v0.4.0 commands, confirm that npm exposes `handoffprobe@0.4.0` with `npm view handoffprobe@0.4.0 version`. The previously published v0.3.0 package, tag and release remain immutable historical release evidence.
+For supply-chain-sensitive use, independently confirm the exact registry version with `npm view handoffprobe@0.4.0 version`. The v0.3.0 package, tag and release remain historical release evidence.
 
 ## Requirements
 
@@ -120,18 +120,18 @@ HandoffProbe also ships a source-backed composite GitHub Action.
 For external repositories, immutable commit-SHA pinning is the strongest default:
 
 ```yaml
-- uses: Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d
+- uses: Heaviside479/handoffprobe@8ffdbec95e8ebe6fe1db1f3c2151d571461d596d
   with:
     target: secure
     fail-on: high
     artifact-name: handoffprobe-report
 ```
 
-The pin above is the reviewed immutable release commit for HandoffProbe v0.3.0 and was verified after publication from a separate consumer repository.
+The pin above is the reviewed exact release commit for HandoffProbe v0.4.0 and was verified after publication from a separate consumer repository.
 
-The `v0.3.0` tag is available for discoverability, while the reviewed immutable commit SHA remains stronger for supply-chain pinning.
+The `v0.4.0` tag is available for discoverability, while the reviewed exact release commit SHA remains stronger for supply-chain pinning.
 
-Both the `v0.3.0` Action reference and the immutable v0.3.0 release SHA were verified after publication from a separate consumer repository.
+Both the `v0.4.0` Action reference and the exact v0.4.0 release SHA were verified after publication from a separate consumer repository.
 
 ## Updating
 

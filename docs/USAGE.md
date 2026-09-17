@@ -277,14 +277,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@ef54b950b3ee333c406fa81087685d7f952a028d
+      - uses: Heaviside479/handoffprobe@8ffdbec95e8ebe6fe1db1f3c2151d571461d596d
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The revision above is the immutable v0.3.0 release pin and preserves the strongest verified supply-chain pinning model. Both `v0.3.0` and `ef54b950b3ee333c406fa81087685d7f952a028d` were verified after publication from a separate consumer repository.
+The revision above is the reviewed exact v0.4.0 release commit and preserves the strongest verified supply-chain pinning model. Both `v0.4.0` and `8ffdbec95e8ebe6fe1db1f3c2151d571461d596d` were verified after publication from a separate consumer repository.
 
 ## Reproducible public demo
 
