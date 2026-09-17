@@ -7,7 +7,10 @@ const followup = readFileSync(
   'docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md',
   'utf8',
 );
-const t37 = readFileSync('docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md', 'utf8');
+const t37 = readFileSync(
+  'docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md',
+  'utf8',
+);
 const t38 = readFileSync('docs/T3_8_COMBINED_CLOSEOUT_20260916.md', 'utf8');
 
 describe('T-3 post-closeout cA2A external author confirmation', () => {
@@ -32,7 +35,7 @@ describe('T-3 post-closeout cA2A external author confirmation', () => {
       '**Status:** Completed scoped comparison and external author confirmation — 2026-09-17',
     );
     expect(evidence).toContain(
-      '[giskard09\'s external author confirmation](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400)',
+      "[giskard09's external author confirmation](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400)",
     );
     expect(evidence).toContain(
       'The `#2079` extension proposal itself remains open upstream',
