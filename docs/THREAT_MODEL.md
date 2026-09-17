@@ -167,6 +167,26 @@ HandoffProbe should test these only where upstream A2A context is translated int
 
 Generic prompt-injection detection remains out of scope. However, HandoffProbe may test a structured end-to-end invariant when untrusted A2A content/artifacts cause the handoff layer to select or authorize a different MCP tool/resource than the trusted upstream policy allowed. The focus is the security-property change, not model jailbreak quality.
 
+## Execution integrity vs authorization continuity
+
+A downstream execution proof and an upstream authorization binding answer different security questions.
+
+An execution-integrity mechanism may establish that a particular program ran on particular committed inputs and produced a particular output. That evidence does not, by itself, establish that those inputs were authorized by the original actor, caller, delegation or approval in the current execution context.
+
+For composed A2A → MCP workflows, HandoffProbe therefore keeps at least these properties distinct:
+
+- **computation integrity** — did the pinned computation run on the committed inputs and produce the committed output?
+- **input truth/provenance** — are the supplied inputs themselves authentic or supported by trusted provenance?
+- **program validity/policy suitability** — is the identified computation actually the computation policy intended to authorize or rely on?
+- **input authorization continuity** — were these exact downstream inputs within the authority carried from the upstream caller/delegation/approval?
+
+A schema-valid but semantically widened downstream MCP request may satisfy an execution proof while still violating authority monotonicity. In such a case, proof verification succeeding must not override a separate handoff/authority rejection.
+
+External design discussion motivating this explicit boundary:
+`https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5715753995`.
+
+This records a composition-security boundary, not a claim that the Verifiable MCP proposal, MCP itself or another project is vulnerable or non-conformant.
+
 ## Out of scope initially
 
 - generic model jailbreak quality

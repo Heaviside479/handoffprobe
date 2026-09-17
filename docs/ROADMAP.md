@@ -1908,6 +1908,35 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - After reproducible T-4 results exist, HandoffProbe must return the relevant findings to the upstream contributors rather than only recording them internally: WitnessObservation-specific results to Oga in A2A `#1769` with reference to `#5712951510`; VATE-specific reproduction results to Poke-nushi in `Poke-nushi/Verifiable-Agent-Trust-Envelope#2` with reference to `#5713423719`; and any VATE result that affects A2A caller/task/context binding or artifact-carriage requirements must also be summarized in A2A `#1769`.
 - Any cross-comparison result involving both inputs must mention both contributors, link reproducible HandoffProbe evidence/commit references, preserve each upstream scope boundary, and be recorded before T-4 closeout.
 
+#### Global external evidence return-loop policy — 2026-09-17
+
+This policy applies to **all current and future external technical contributors/threads**, including but not limited to A2A `#1937`, A2A `#2079`, A2A `#1769`, MCP `#3354`, and later research inputs.
+
+- Any qualified external input that materially informs a HandoffProbe comparison, fixture, admission decision or evidence claim must remain traceable to its exact public source and author.
+- If HandoffProbe produces a reproducible result from that input, the result must be returned to the originating contributor/thread with the exact HandoffProbe commit/artifact, observed result, tested scope, untested scope and limitations.
+- HandoffProbe must explicitly invite correction or counter-evidence and record any substantive response before dependent follow-on implementation or research closeout.
+- A lack of external reply must be recorded as **no substantive response**, not interpreted as agreement.
+- Confirmation, correction, disagreement and counter-examples are all evidence and must be preserved faithfully.
+- `EVIDENCE.md` may promote an item only to the strongest evidence level actually demonstrated; a HandoffProbe result alone does not become external confirmation.
+- Each research-specific queue/closeout should carry its own result-return checkbox or equivalent trace so the global policy cannot be forgotten during execution.
+- This policy is designed to keep `EVIDENCE.md` auditable: external input → frozen material → HandoffProbe comparison → reproducible artifact → public result return → external response state → scoped evidence classification.
+
+#### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17
+
+A separate MCP research signal arrived in `modelcontextprotocol/modelcontextprotocol#3354` and is intentionally **not** folded into A2A T-4.
+
+- HandoffProbe raised the boundary between execution integrity and authorization continuity across an A2A → MCP handoff: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5682996881`.
+- AkiraTamai explicitly agreed that this boundary belongs in the threat model: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5715753995`.
+- The response separates four properties: integrity of the computation, truth of the inputs, validity of the program, and authorization of the inputs. The proposed Verifiable MCP extension claims only the first.
+- `inputCommitment`, `circuitHash` and `nonce` can establish that a pinned program ran on committed inputs and produced an output; they do **not** establish that those inputs were within the upstream callers authority for that execution context.
+- Akira described the HandoffProbe negative fixture as useful: a schema-valid but semantically widened call may still carry a fully valid execution proof, while the composed system must reject it because the approved authority does not cover those widened inputs.
+- A possible layer boundary is an authority-supplied approved-argument commitment compared with the execution-side `inputCommitment`; the Verifiable MCP layer does not itself obtain or judge the approval.
+- Akira stated that the current demo has no authority layer and is considering adding the negative case with a fixed approved-argument commitment. This is therefore a design/research signal, **not** evidence that the fixture has already been implemented or independently reproduced.
+- This signal does not establish MCP specification acceptance, HandoffProbe adoption, compatibility, certification, partnership, endorsement, a new stable attack or a release requirement.
+- Detailed queue record: `docs/MCP_3354_VERIFIABLE_RESULTS_QUEUE_20260917.md`.
+- This work must not interrupt R4 closeout or the already queued T-4 path. Any implementation requires a separate later prioritization and normal research/admission decision.
+- **External feedback obligation:** if HandoffProbe later produces a reproducible result for this seam, return the exact result to AkiraTamai in MCP `#3354`, including the pinned HandoffProbe commit/evidence, what the proof layer accepted, what the authority layer accepted/rejected, and the exact scope limitations. Invite correction and record any substantive response before closing this research item.
+
 ### CV-6 — first revenue validation
 
 Target: first **3 paid accepted assessments**.
