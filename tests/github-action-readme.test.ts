@@ -18,11 +18,14 @@ describe('GitHub Action README contract', () => {
   it('documents external immutable revision pinning without recommending main', async () => {
     const contents = await readFile('README.md', 'utf8');
 
+    const releaseState = JSON.parse(await readFile('docs/RELEASE_STATE.json', 'utf8')) as {
+      releaseCommit: string;
+      version: string;
+    };
+
+    expect(contents).toContain(`Heaviside479/handoffprobe@${releaseState.releaseCommit}`);
     expect(contents).toContain(
-      'Heaviside479/handoffprobe@8ffdbec95e8ebe6fe1db1f3c2151d571461d596d',
-    );
-    expect(contents).toContain(
-      'The pin above is the reviewed exact release commit for HandoffProbe v0.4.0.',
+      `The pin above is the reviewed exact release commit for HandoffProbe v${releaseState.version}.`,
     );
     expect(contents).not.toContain('uses: Heaviside479/handoffprobe@main');
   });
