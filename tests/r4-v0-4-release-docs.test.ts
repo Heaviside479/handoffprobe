@@ -14,6 +14,7 @@ describe('R4 v0.4.0 release-document reconciliation', () => {
   const roadmap = read('docs/ROADMAP.md');
   const notes = read('docs/V0_4_0_RELEASE_NOTES.md');
   const record = read('docs/R4_V0_4_0_RELEASE_DOCS_20260916.md');
+  const closeout = read('docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md');
 
   it('aligns the current candidate on 23 stable attacks and HP-AUTH-006', () => {
     for (const text of [readme, usage, changelog, catalog, cliSpec, roadmap, notes, record]) {
@@ -41,12 +42,16 @@ describe('R4 v0.4.0 release-document reconciliation', () => {
     expect(readme).toContain(
       'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
     );
-    expect(readme).toContain('previously published npm release is `handoffprobe@0.3.0`');
+    expect(readme).toContain('HandoffProbe v0.4.0 is the current verified public release.');
     expect(installation).toContain('npm view handoffprobe@0.4.0 version');
     expect(notes).toContain(
       'At the pre-publication checkpoint on 2026-09-16, npm still exposed `handoffprobe@0.3.0`',
     );
     expect(notes).toContain('no v0.4.0 tag or GitHub Release had yet been created');
+    expect(closeout).toContain('Status: **COMPLETE — 2026-09-17.**');
+    expect(roadmap).toContain(
+      'Status: **COMPLETE — v0.4.0 coordinated publication and post-publication verification closed on 2026-09-17.**',
+    );
   });
 
   it('protects historical 22-attack records from mechanical rewriting', () => {

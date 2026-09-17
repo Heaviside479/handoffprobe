@@ -74,10 +74,12 @@ All notable project changes will be documented here.
 
 ### Publication status
 
-- package, lockfile and exported source version are synchronized at `0.4.0`
-- registry-backed availability must be verified on npm rather than inferred from this source snapshot
-- tag, GitHub Release, Marketplace and website availability must be verified on their corresponding public surfaces
-- R4 closes only after npm, immutable tag, GitHub Release, Marketplace presentation, the dedicated HandoffProbe site and the HandoffProbe project page on Heaviside Solutions describe the same verified release
+- public `handoffprobe@0.4.0` is published and independently verified from npm
+- the annotated `v0.4.0` tag is anchored to the exact release commit and the GitHub Release is published
+- external exact-version npm execution and external GitHub Action execution passed
+- reusable Action / Marketplace presentation is synchronized with v0.4.0
+- the dedicated HandoffProbe site and the Heaviside Solutions project page are verified live on the v0.4.0 / 23-attack / `HP-AUTH-006` release truth
+- R4 post-publication closeout completed on 2026-09-17
 
 ## 0.3.0 — 2026-09-14
 

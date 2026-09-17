@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const currentReleaseSha = 'ef54b950b3ee333c406fa81087685d7f952a028d';
+const currentReleaseSha = '8ffdbec95e8ebe6fe1db1f3c2151d571461d596d';
 const readme = readFileSync('README.md', 'utf8');
 const installation = readFileSync('docs/INSTALLATION.md', 'utf8');
 const usage = readFileSync('docs/USAGE.md', 'utf8');
@@ -9,7 +9,7 @@ const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 const audit = readFileSync('docs/PHASE8_GITHUB_ACTION_AUDIT_20260830.md', 'utf8');
 
 describe('Phase 8.2 external GitHub Action onboarding contract', () => {
-  it('makes the supported v0.3.0 immutable action pin directly copy-pasteable', () => {
+  it('makes the supported v0.4.0 immutable action pin directly copy-pasteable', () => {
     for (const document of [readme, installation, usage]) {
       expect(document).toContain(`Heaviside479/handoffprobe@${currentReleaseSha}`);
       expect(document).not.toContain('<pinned-handoffprobe-commit-sha>');
