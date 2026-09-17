@@ -195,6 +195,33 @@ Open items do not become evidence entries above until their own reproducibility 
 
 ## Evidence policy
 
+### Global external result-return rule
+
+This rule applies to **every qualified external technical input** that materially influences a HandoffProbe research track, comparison, fixture, admission decision or evidence claim, regardless of protocol, repository, contributor or project.
+
+The required loop is:
+
+1. freeze the exact external source, author, public thread/comment and relevant scope;
+2. preserve or pin the exact upstream material used for comparison where practical;
+3. perform HandoffProbe overlap analysis before adding new implementation;
+4. if execution is justified, produce a reproducible HandoffProbe artifact and exact immutable commit/reference;
+5. return the concrete HandoffProbe result to the same external contributor or originating technical thread;
+6. state exactly what HandoffProbe tested, what it observed, what it did **not** test, and the applicable limitations/non-claims;
+7. invite correction, counter-evidence or confirmation from the external contributor;
+8. record any substantive response and classify it as confirmation, correction, counter-example, new input or unresolved disagreement before dependent follow-on implementation;
+9. if no substantive external response arrives, record that fact explicitly rather than implying review or confirmation.
+
+Returning the result publicly is required whenever HandoffProbe produces a reproducible result from an external technical input. External confirmation itself is **not** required and must never be invented.
+
+Evidence status must therefore remain distinct:
+
+- a reproduced HandoffProbe result with no external response remains an **open external-review follow-up**;
+- a public technical author/reviewer confirmation may qualify for **external vector comparison + author review**;
+- an independent external rerun/review may qualify for **external rerun / reviewer confirmation**;
+- disagreement or correction remains valuable evidence and must be preserved rather than filtered out.
+
+A research item must not be promoted to completed external evidence merely because HandoffProbe posted a result. The evidence index should reflect the strongest level actually demonstrated.
+
 A future entry should include, where applicable:
 
 1. the exact external source or request;
