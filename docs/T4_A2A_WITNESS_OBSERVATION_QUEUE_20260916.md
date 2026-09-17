@@ -1,6 +1,6 @@
 # T-4 — A2A third-party witness / conduct-observation follow-up
 
-Status: **READY — T-3 complete 2026-09-16; T-4.1 NEXT.**
+Status: **T-4.1 complete 2026-09-17; T-4.2 NEXT.**
 Date queued: 2026-09-16
 
 Current scheduling note — 2026-09-17: the historical readiness marker above is preserved as part of the T-3 closeout record. Operationally, T-4.1 remains queued until the R4/v0.4.0 release closeout is complete; the canonical WitnessObservation pin identified below does not by itself complete T-4.1.
@@ -129,12 +129,13 @@ Therefore:
 
 Once R4 closeout is complete:
 
-- [ ] freeze the exact `#1769` comment, author and timestamp;
-- [ ] pin the exact `horizon-shield` upstream commit used for review;
-- [ ] preserve the exact `EXTENSION.md`, reference implementation and adversarial-vector/test inputs relevant to the comparison;
-- [ ] record hashes/digests where practical;
-- [ ] review repository and file-level license/provenance before copying or adapting any code or vectors;
-- [ ] record whether the upstream material changed between this queue date and the actual T-4 start.
+- [x] freeze the exact `#1769` comment, author and timestamp;
+- [x] pin the exact `horizon-shield` upstream commit used for review;
+- [x] preserve the exact `EXTENSION.md`, reference implementation and adversarial-vector/test inputs relevant to the comparison;
+- [x] record hashes/digests where practical;
+- [x] review repository and file-level license/provenance before copying or adapting any code or vectors;
+- [x] record whether the upstream material changed between this queue date and the actual T-4 start.
+Completion evidence: [`T4_1_UPSTREAM_FREEZE_20260917.md`](T4_1_UPSTREAM_FREEZE_20260917.md)
 
 ## T-4.2 — overlap and boundary analysis
 
