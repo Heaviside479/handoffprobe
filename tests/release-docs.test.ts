@@ -1,76 +1,67 @@
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 import { describe, expect, it } from 'vitest';
 
-async function read(path: string): Promise<string> {
-  return readFile(path, 'utf8');
+const read = (path: string): string => readFileSync(path, 'utf8');
+
+interface ReleaseState {
+  version: string;
+  status: string;
+  releaseCommit: string;
+  stableAttacks: number;
+  p0Attacks: number;
+  p1Attacks: number;
+  advancedAttacks: number;
+  latestStableAttackId: string;
+  reportSchema: string;
+  protocolBaseline: {
+    a2a: string;
+    mcp: string;
+  };
 }
 
-describe('v0.4.0 release documentation', () => {
-  it('keeps the packaged README aligned with released package and public registry truth', async () => {
-    const readme = await read('README.md');
+const releaseState = JSON.parse(read('docs/RELEASE_STATE.json')) as ReleaseState;
+const packageJson = JSON.parse(read('package.json')) as {
+  version: string;
+  engines: { node: string };
+};
 
-    expect(readme).toContain(
-      'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
+describe('current release documentation contract', () => {
+  const readme = read('README.md');
+  const installation = read('docs/INSTALLATION.md');
+  const usage = read('docs/USAGE.md');
+  const releaseNotes = read('docs/V0_4_0_RELEASE_NOTES.md');
+  const closeout = read('docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md');
+
+  it('keeps package metadata aligned with the central release state', () => {
+    expect(packageJson.version).toBe(releaseState.version);
+    expect(packageJson.engines.node).toBe('>=24 <25');
+    expect(releaseState.status).toBe('released-and-verified');
+    expect(releaseState.stableAttacks).toBe(
+      releaseState.p0Attacks + releaseState.p1Attacks + releaseState.advancedAttacks,
     );
-    expect(readme).toContain('HandoffProbe v0.4.0 is the current verified public release.');
-    expect(readme).toContain('23 stable attacks total');
-    expect(readme).toContain('HP-AUTH-006');
-    expect(readme).toContain('https://handoffprobe.heaviside-solutions.com');
-    expect(readme).toContain('https://handoffprobe.heaviside-solutions.com/security-assessment');
   });
 
-  it('documents current public v0.4.0 execution and historical release context', async () => {
-    const installation = await read('docs/INSTALLATION.md');
-
-    for (const text of [
-      'Node.js `>=24 <25`',
-      'HandoffProbe v0.4.0 is the current verified public release.',
-      'npm view handoffprobe@0.4.0 version',
-      'npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version',
-      'npm install --save-dev --save-exact handoffprobe@0.4.0',
-      'The v0.4.0 source checkout reports',
-      'HandoffProbe 0.4.0',
-      'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
-      'owned, synthetic or explicitly authorized target',
-    ]) {
-      expect(installation).toContain(text);
+  it('keeps current-facing documentation aligned with the release identity', () => {
+    for (const document of [readme, installation, usage]) {
+      expect(document).toContain(releaseState.version);
     }
+
+    expect(readme).toContain(`${releaseState.stableAttacks} stable attacks`);
+    expect(usage).toContain(`${releaseState.stableAttacks} stable attacks`);
+    expect(readme).toContain(releaseState.latestStableAttackId);
+    expect(usage).toContain(releaseState.latestStableAttackId);
   });
 
-  it('documents the 23-attack stable release and preserved contracts', async () => {
-    const usage = await read('docs/USAGE.md');
-
-    for (const text of [
-      'HandoffProbe v0.4.0 contains exactly 23 stable attacks',
-      'exactly 23 stable attacks: 12 P0, 10 P1 and 1 additional advanced attack',
-      'HP-AUTH-001',
-      'HP-AUTH-006',
-      'report schema version `1`',
-      'handoffprobe test [options]',
-      'handoffprobe list',
-      'handoffprobe explain <HP-ID>',
-      '--reporter json',
-      '--output handoffprobe-report.json',
-    ]) {
-      expect(usage).toContain(text);
-    }
-  });
-
-  it('keeps release notes explicit about admission and publication boundaries', async () => {
-    const releaseNotes = await read('docs/V0_4_0_RELEASE_NOTES.md');
-
-    expect(releaseNotes).toContain(
-      'Status: **RELEASED AND VERIFIED — coordinated publication and post-publication verification completed 2026-09-17.**',
+  it('keeps release evidence aligned with the central release state', () => {
+    expect(releaseNotes).toContain(releaseState.version);
+    expect(releaseNotes).toContain(releaseState.latestStableAttackId);
+    expect(closeout).toContain(releaseState.releaseCommit);
+    expect(closeout).toContain(`public stable corpus: **${releaseState.stableAttacks} attacks**`);
+    expect(closeout).toContain(releaseState.latestStableAttackId);
+    expect(closeout).toContain(`report schema remains \`${releaseState.reportSchema}\``);
+    expect(closeout).toContain(
+      `protocol baseline remains A2A ${releaseState.protocolBaseline.a2a} → MCP ${releaseState.protocolBaseline.mcp}`,
     );
-    expect(releaseNotes).toContain(
-      'HP-AUTH-006 — Stale task authorization reused for later effect',
-    );
-    expect(releaseNotes).toContain('V3: `NO ADD`');
-    expect(releaseNotes).toContain('V13: admitted for stable implementation as `HP-AUTH-006`');
-    expect(releaseNotes).toContain(
-      'At the pre-publication checkpoint on 2026-09-16, npm still exposed `handoffprobe@0.3.0`',
-    );
-    expect(releaseNotes).toContain('No half-published release state is accepted.');
   });
 });

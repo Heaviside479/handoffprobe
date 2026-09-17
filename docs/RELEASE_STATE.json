@@ -1,0 +1,15 @@
+{
+  "version": "0.4.0",
+  "status": "released-and-verified",
+  "releaseCommit": "8ffdbec95e8ebe6fe1db1f3c2151d571461d596d",
+  "stableAttacks": 23,
+  "p0Attacks": 12,
+  "p1Attacks": 10,
+  "advancedAttacks": 1,
+  "latestStableAttackId": "HP-AUTH-006",
+  "reportSchema": "1",
+  "protocolBaseline": {
+    "a2a": "1.0",
+    "mcp": "2026-07-28"
+  }
+}
