@@ -116,13 +116,75 @@ This comparison does not establish:
 
 ---
 
+## 3. A2A #2079 cA2A real-shape translation-boundary comparison
+
+**Evidence level:** External vector comparison + author review
+**Status:** Completed external review follow-up — 2026-09-17
+**Scope:** Pinned cA2A delegation-chain vector projected through HandoffProbe's deterministic local A2A → MCP translation boundary
+
+### External input and reproducible HandoffProbe result
+
+The A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply during T-3 against a concrete cross-organization delegation-chain input.
+
+HandoffProbe pinned:
+
+- `giskard09/argentum-core@4951899c6bb016928e299e9bf9993086885a45ae`;
+- vector `cross-org-001-independent-signers`;
+- leaf action `payment.route`;
+- upstream scope `mycelium:payment`;
+- upstream expected result `PASS`.
+
+The reproducible HandoffProbe execution kept the pinned upstream input unchanged. The in-scope control preserved downstream `delegated_scope = mycelium:payment` and produced exactly one protected local fake effect. The translation-only negative widened only the downstream scope to `mycelium:*` and was blocked before MCP dispatch, with zero protected fake-tool execution.
+
+- [A2A issue #2079](https://github.com/a2aproject/A2A/issues/2079)
+- [HandoffProbe public comparison reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862)
+- [`docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md`](docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md)
+- [`docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md`](docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md)
+- [`docs/T3_8_COMBINED_CLOSEOUT_20260916.md`](docs/T3_8_COMBINED_CLOSEOUT_20260916.md)
+
+The dated T-3 record states that no substantive external technical response/review to that result had been recorded at T-3 closeout. That historical state is preserved in the T-3.7 and T-3.8 closeout records.
+
+### External author confirmation
+
+On 2026-09-17, giskard09 independently checked the pinned vector (`4951899c`, `cross-org-001-independent-signers`, scope `mycelium:payment`, expected `PASS`) against the HandoffProbe evidence document and publicly confirmed the scoped boundary interpretation.
+
+The confirmation distinguishes two properties:
+
+- the upstream delegation-chain verifier establishes the signed chain's integrity and monotonic scope narrowing across hops;
+- a later widening from `mycelium:payment` to `mycelium:*` introduced by HandoffProbe's own projection is a downstream translation-layer property, not something the upstream verifier is expected to catch.
+
+giskard09 also explicitly agreed with the narrow framing: containment refinement, not a cA2A/A2A finding.
+
+- [giskard09 external author confirmation](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400)
+- [HandoffProbe acknowledgement](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5710063080)
+- [`docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`](docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md)
+
+### Admission and claim boundary
+
+This later author confirmation changes the evidence-index state of `#2079` from an open external-review follow-up to completed scoped external evidence. It does **not** change the T-3 admission result:
+
+- stable attack admission: **NO ADD**;
+- research outcome: **REFINEMENT** of the existing `HP-AUTH-001` semantic-authority evidence path;
+- distinct research candidate from this stream: **NO**.
+
+It also does not establish:
+
+- a cA2A or A2A vulnerability;
+- A2A acceptance, endorsement or protocol conformance;
+- HandoffProbe compatibility certification;
+- independent re-certification of the upstream delegation-chain verifier;
+- production-world behavior;
+- partnership, adoption or commercial validation;
+- a new stable attack or release by itself.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
 
 Current examples include:
 
-- the A2A `#2079` real cA2A shape / bytes comparison completed its HandoffProbe execution and public reply ([reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862); [`T-3.7 closeout`](docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md); [`T-3.8 combined closeout`](docs/T3_8_COMBINED_CLOSEOUT_20260916.md)); no substantive external technical response/review to that result had been recorded at T-3 closeout, so it remains an open follow-up rather than a completed external-evidence entry;
 - the A2A `#1769` third-party witness / conduct-observation follow-up in T-4 is the next research track after the completed T-3 closeout; it remains open until its own freeze, overlap, execution/admission and public-reply gates are satisfied.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.

@@ -1871,6 +1871,20 @@ Status: **COMPLETE — 2026-09-16**
 
 T-3 exit gate: **SATISFIED 2026-09-16.** Both external requests were frozen, overlap-checked and answered with reproducible evidence; new code remained deterministic, local/authorized and covered by tests; both public A2A threads received factual HandoffProbe follow-up; no unsupported attack-count, specification-acceptance, compatibility, adoption, partnership, endorsement or release claim was introduced; and the outstanding Bayu T-2 review remains independently traceable.
 
+
+#### Post-T-3 external author confirmation — 2026-09-17
+
+A substantive `#2079` response arrived after the dated T-3.7/T-3.8 closeout.
+
+- giskard09 independently checked the pinned `4951899c` / `cross-org-001-independent-signers` vector, scope `mycelium:payment`, expected `PASS`, against the HandoffProbe evidence document;
+- external confirmation: `https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400`;
+- HandoffProbe acknowledgement: `https://github.com/a2aproject/A2A/issues/2079#issuecomment-5710063080`;
+- the response confirms the scoped distinction between upstream signed/monotonic delegation-chain guarantees and downstream translation containment;
+- `EVIDENCE.md` may now promote `#2079` from an open external-review follow-up to completed scoped external evidence;
+- the dated T-3.7/T-3.8 statements remain unchanged because they accurately record the state at 2026-09-16 closeout;
+- attack admission remains **NO ADD** and the research outcome remains **REFINEMENT** of `HP-AUTH-001`; this response does not authorize a new stable attack or release;
+- record: `docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`.
+
 ### CV-6 — first revenue validation
 
 Target: first **3 paid accepted assessments**.
