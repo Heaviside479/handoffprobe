@@ -1368,7 +1368,7 @@ Exit gate: every claimed supported platform and runtime combination has an expli
 
 ### Repository cleanup and current-state reconciliation — 2026-09-18
 
-Status: **ACTIVE — Cleanup A and compact README B.1 complete; remaining Cleanup B current-document reconciliation next.**
+Status: **ACTIVE — Cleanup A, B.1 compact README and B.2 current core docs complete; remaining Cleanup B architecture/product/commercial/changelog reconciliation next.**
 
 Persistent execution plan:
 
@@ -1392,6 +1392,9 @@ Next:
 - [x] compact the root README by removing duplicated long-form material while
       preserving quick start, current release truth, safety, Action, evidence and
       commercial CTA;
+- [x] reconcile `PROJECT_CONTEXT.md`, `AGENTS.md`, `CONTRIBUTING.md` and
+      `SECURITY.md` with the current v0.4.0 / 23-attack product state and real
+      repository quality gates;
 - [ ] rely on that same root README for npm presentation at the next otherwise
       justified normal release; do not publish a release solely for README cleanup;
 - [ ] add a documentation navigation/index layer rather than mass-moving historical

@@ -1,6 +1,6 @@
 # HandoffProbe — Canonical Project Context
 
-Last updated: 2026-08-21
+Last updated: 2026-09-18
 
 This file is the central context for future contributors, coding agents and project discussions.
 
@@ -12,13 +12,27 @@ Build the best developer-first open-source defensive test engine for security fa
 
 - Product name: **HandoffProbe**
 - Repository: `Heaviside479/handoffprobe`
-- Planned npm package / CLI: `handoffprobe`
+- Public npm package / CLI: `handoffprobe`
 - Stable test-ID prefix: `HP-`
 - License: Apache-2.0
 
-## Initial wedge
+## Current public product state
 
-HandoffProbe v0.1 tests **A2A 1.0 -> MCP 2026-07-28** handoffs. It does not attempt to be a generic AI-security platform or a replacement for single-protocol conformance tools.
+- Current verified release: `handoffprobe@0.4.0`
+- Stable public corpus: **23 attacks**
+- Stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
+- Protocol baseline: A2A 1.0 -> MCP 2026-07-28
+- Report schema: `1`
+- Runtime baseline: Node.js `>=24 <25`
+- Public CLI: live
+- Public npm package: live
+- Reusable GitHub Action: live
+- Commercial validation: active in parallel through the Founding Security Assessment
+- Hosted Teams/Cloud product: demand-gated, not currently authorized
+
+## Current wedge
+
+The current public HandoffProbe Core tests **A2A 1.0 -> MCP 2026-07-28** handoffs. It does not attempt to be a generic AI-security platform or a replacement for single-protocol conformance tools.
 
 Core question:
 
@@ -26,7 +40,7 @@ Core question:
 
 ## Product shape
 
-Start as a local TypeScript CLI and reusable test engine. Add a GitHub Action after the local engine is credible. Hosted dashboards, accounts and billing are deliberately deferred.
+HandoffProbe now ships as a local TypeScript CLI and reusable test engine with a source-backed GitHub Action. The open-source Core remains local-first. Hosted dashboards, customer accounts and recurring SaaS billing remain deferred until the roadmap's organization-level demand gates are satisfied.
 
 ## Handoff-specific admission rule
 
@@ -54,7 +68,7 @@ See `docs/RESEARCH_BASELINE.md` for authoritative sources and update policy.
 3. No GPU dependency.
 4. Prefer deterministic security assertions over model-based judgement.
 5. Keep the open-source core under Apache-2.0.
-6. v0.1 scope is A2A -> MCP only.
+6. The current public Core scope remains centered on A2A -> MCP; additional protocol surfaces require explicit evidence-backed roadmap admission.
 7. Build attack corpus, reproducibility and technical credibility before UI polish.
 8. Use only systems the tester owns or is explicitly authorized to test.
 9. Default active testing to local fixtures/loopback; remote active testing must require explicit opt-in if introduced.
@@ -115,7 +129,7 @@ Early success is not defined by revenue alone. Watch for:
 
 ## Naming status
 
-**Final for the pre-alpha product:** HandoffProbe. The repository has been renamed to `handoffprobe`, planned CLI/package naming is `handoffprobe`, and test IDs use `HP-`. The earlier BridgeBreak working name was retired because of a cybersecurity naming collision. See `docs/NAMING.md`.
+**Final product identity:** HandoffProbe. The repository is `handoffprobe`, the public CLI/package is `handoffprobe`, and stable test IDs use `HP-`. The earlier BridgeBreak working name was retired because of a cybersecurity naming collision. See `docs/NAMING.md`.
 
 A formal trademark/legal review can still be performed before meaningful commercial branding spend; that does not reopen the routine product naming decision by default.
 
@@ -127,10 +141,13 @@ Before implementation work, also read:
 - `docs/P0_TEST_SPECIFICATION.md`
 - `docs/FINAL_PRODUCT_DEFINITION.md`
 
-The twelve P0 tests are mandatory v0.1 acceptance criteria.
+The twelve P0 tests remain the mandatory foundational corpus. The current
+verified public corpus contains 23 stable attacks: 12 P0 + 10 P1 + 1 advanced.
 
-A working scanner or CLI alone does not mean the project is professionally
-finished. `docs/FINAL_PRODUCT_DEFINITION.md` defines the mature product target.
+The existence of a working scanner, CLI and Action does not mean the mature
+product roadmap is complete. `docs/FINAL_PRODUCT_DEFINITION.md` defines the
+long-term product target, while `docs/ROADMAP.md` is authoritative for current
+sequencing.
 
 ## Build philosophy
 

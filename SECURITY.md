@@ -15,11 +15,15 @@ Do not use the project to disrupt, damage or access third-party systems without 
 
 ## Safe defaults
 
-The HandoffProbe v0.3.0 release safety boundary keeps active tests defaulted to local/loopback fixtures. Bundled tools must use harmless synthetic side effects wherever possible.
+The current HandoffProbe v0.4.0 release safety boundary keeps bundled active tests defaulted to local/loopback fixtures. Bundled tools must use harmless synthetic side effects wherever possible.
 
 If remote active testing is added later, it must require explicit operator opt-in. Destructive/high-impact tests should remain disabled by default and require clear configuration plus authorization.
 
 Test reports/evidence must redact bearer tokens, credentials and other secrets before writing them to disk or CI artifacts.
+
+The current public Core does not make a blanket authorization to scan arbitrary
+internet targets. Any future remote active-testing surface must preserve explicit
+operator intent, authorization and safe defaults.
 
 ## Reporting a vulnerability in HandoffProbe
 

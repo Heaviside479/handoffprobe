@@ -1,6 +1,6 @@
 # HandoffProbe repository cleanup and current-state reconciliation plan
 
-Status: **ACTIVE — Cleanup A and Cleanup B.1 completed 2026-09-18; remaining Cleanup B current-document reconciliation next.**
+Status: **ACTIVE — Cleanup A, B.1 and B.2 completed 2026-09-18; remaining Cleanup B architecture/product/commercial/changelog reconciliation next.**
 
 Date started: 2026-09-18
 
@@ -110,7 +110,7 @@ No force deletion is allowed merely to make the branch list shorter.
 
 # Cleanup B — current documentation reconciliation
 
-Status: **NEXT**
+Status: **IN PROGRESS — B.1 and B.2 complete**
 
 Goal:
 
@@ -149,6 +149,26 @@ Rules:
   look current;
 - distinguish historical snapshot facts from current product truth;
 - preserve exact external-source provenance.
+
+
+## Cleanup B.2 — current core instruction documents
+
+Status: **COMPLETE — 2026-09-18**
+
+Reconciled:
+
+- `PROJECT_CONTEXT.md`;
+- `AGENTS.md`;
+- `CONTRIBUTING.md`;
+- `SECURITY.md`.
+
+B.2 updates current-facing release/corpus/product truth to v0.4.0 / 23 stable
+attacks, removes obsolete pre-alpha/core-CLI-phase instructions, records the
+actual repository quality gates and preserves the distinction between current
+documentation and immutable historical evidence.
+
+No runtime behavior, attack identity, protocol baseline, package version or release
+state changed through B.2.
 
 ---
 
@@ -402,6 +422,6 @@ When work continues in another chat, coding-agent session or contributor context
 
 Current next step:
 
-**Continue Cleanup B current-document reconciliation with `PROJECT_CONTEXT.md`,
-`AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/ARCHITECTURE.md`,
-`docs/PRODUCT.md`, the commercial track and `CHANGELOG.md`.**
+**Continue Cleanup B with `docs/ARCHITECTURE.md`, `docs/PRODUCT.md`,
+`docs/ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md`, `CHANGELOG.md` and any
+remaining current-facing roadmap reconciliation.**
