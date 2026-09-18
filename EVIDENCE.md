@@ -63,6 +63,7 @@ This is profile-scoped evidence, not a general certification. It does not establ
 The A2A `#1937` discussion developed a concrete optional context-binding profile and a V1–V13 conformance-vector set. The thread explicitly invited a HandoffProbe comparison against those vectors.
 
 - [A2A issue #1937](https://github.com/a2aproject/A2A/issues/1937)
+- [HandoffProbe boundary comment](https://github.com/a2aproject/A2A/issues/1937#issuecomment-5684030629)
 - [Arjun's comparison request / vector discussion](https://github.com/a2aproject/A2A/issues/1937#issuecomment-5689749343)
 
 Before implementation, HandoffProbe mapped the vectors against existing stable attacks and prior research evidence:
@@ -100,6 +101,8 @@ His follow-up specifically highlighted:
 He also explicitly characterized the result as implementation evidence about the proposed boundary/invariants, **not** A2A acceptance of the draft or conformance certification.
 
 - [Arjun's public review of the HandoffProbe comparison](https://github.com/a2aproject/A2A/issues/1937#issuecomment-5697862002)
+- [HandoffProbe review acknowledgement](https://github.com/a2aproject/A2A/issues/1937#issuecomment-5698439348)
+- [Canonical HandoffProbe closeout PR #93](https://github.com/Heaviside479/handoffprobe/pull/93)
 - [`docs/ROADMAP_T3_ARJUN_FOLLOWUP_20260916.md`](docs/ROADMAP_T3_ARJUN_FOLLOWUP_20260916.md)
 
 ### What this does **not** establish
@@ -137,6 +140,7 @@ HandoffProbe pinned:
 The reproducible HandoffProbe execution kept the pinned upstream input unchanged. The in-scope control preserved downstream `delegated_scope = mycelium:payment` and produced exactly one protected local fake effect. The translation-only negative widened only the downstream scope to `mycelium:*` and was blocked before MCP dispatch, with zero protected fake-tool execution.
 
 - [A2A issue #2079](https://github.com/a2aproject/A2A/issues/2079)
+- [HandoffProbe initial boundary comment](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5682091042)
 - [HandoffProbe public comparison reply](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5699008862)
 - [`docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md`](docs/T3_6_CA2A_REAL_SHAPE_EXECUTION_20260916.md)
 - [`docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md`](docs/T3_7_CA2A_PUBLIC_REPLY_CLOSEOUT_20260916.md)
@@ -157,6 +161,7 @@ giskard09 also explicitly agreed with the narrow framing: containment refinement
 
 - [giskard09 external author confirmation](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5706400400)
 - [HandoffProbe acknowledgement](https://github.com/a2aproject/A2A/issues/2079#issuecomment-5710063080)
+- [Canonical HandoffProbe closeout PR #103](https://github.com/Heaviside479/handoffprobe/pull/103)
 - [`docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`](docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md)
 
 ### Admission and claim boundary
@@ -184,6 +189,12 @@ It also does not establish:
 **Evidence level:** External vector comparison + author review
 **Status:** Completed scoped external author review — WitnessObservation and VATE responses received
 **Scope:** Deterministic local/synthetic provider-side original-attempt reconciliation
+
+### External input / HandoffProbe participation
+
+- [A2A issue #1769](https://github.com/a2aproject/A2A/issues/1769)
+- [HandoffProbe initial evidence/context comment](https://github.com/a2aproject/A2A/issues/1769#issuecomment-5682264021)
+- [VATE implementation-review issue #2](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2)
 
 ### Reproducible HandoffProbe result
 
@@ -244,6 +255,18 @@ Poke-nushi additionally preserves the distinction between A2A task state and evi
 
 The review does not report an independent HandoffProbe rerun. It is therefore scoped author review rather than independent reproduction.
 
+### VATE issue-specific acknowledgement
+
+After the A2A-side author review, Poke-nushi also closed the VATE-specific traceability loop in VATE issue #2:
+
+- [HandoffProbe VATE result return](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5729853773)
+- [Poke-nushi VATE issue acknowledgement](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5733113059)
+- [Immutable VATE technical review record](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/blob/60c8c7c9cf89fc6011eb95f9d67b5d25233338b7/docs/interop/handoffprobe-reconciliation-review.md)
+- [HandoffProbe acknowledgement](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5733216447)
+- [Canonical HandoffProbe closeout PR #121](https://github.com/Heaviside479/handoffprobe/pull/121)
+
+The VATE record explicitly says that the source/package correspondence was checked and that the HandoffProbe tests were **not rerun** by the VATE maintainer. This strengthens provenance and reciprocal traceability, but it does not raise the evidence level above scoped author review or convert the result into independent reproduction.
+
 ### Current review state
 
 Both materially relevant external sides now have substantive author review:
@@ -279,6 +302,7 @@ This result does not establish:
 AkiraTamai publicly confirmed the distinction between execution integrity and authorization of the effective inputs in MCP `#3354`.
 
 - [MCP #3354](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354)
+- [HandoffProbe boundary comment](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5682996881)
 - [AkiraTamai boundary response](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5715753995)
 
 The frozen upstream demo basis remains:
@@ -316,6 +340,7 @@ The result demonstrates the narrow composition rule that valid execution-integri
 The merged result was returned publicly to AkiraTamai in the originating MCP thread:
 
 - [HandoffProbe public result return](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791)
+- [Canonical HandoffProbe closeout PR #115](https://github.com/Heaviside479/handoffprobe/pull/115)
 
 The reply includes the immutable HandoffProbe merge commit, execution record, deterministic test, observed layer outcomes and scope limitations, and explicitly invites correction or counter-evidence.
 
