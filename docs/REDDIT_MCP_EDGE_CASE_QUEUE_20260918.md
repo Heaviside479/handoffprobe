@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and pre-implementation overlap complete.**
+Status: **ACTIVE — R-1 and R-2 public results returned; R-3 local execution complete with merge/public result return pending.**
 
 ## Purpose
 
@@ -608,7 +608,7 @@ No release is triggered.
 
 # R-3 — authorized tenant switch after denial / task-intent target drift
 
-Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-TARGET-001 REFINEMENT / NO ADD; deterministic fixture queued.**
+Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**
 
 Originating Reddit author:
 
@@ -1001,6 +1001,71 @@ No release is triggered.
 
 `EVIDENCE.md` remains unchanged before execution and public result return.
 
+## Local execution result — 2026-09-18
+
+Execution fixture:
+
+`tests/reddit-r3-target-intent-execution.test.ts`
+
+Execution record:
+
+`docs/REDDIT_R3_TARGET_INTENT_EXECUTION_20260918.md`
+
+The B retry is evaluated through HandoffProbe's existing request-level
+authorization implementation.
+
+Observed positive control:
+
+- B request authorization: `ACCEPT`;
+- request-authorization reasons: none;
+- task-target continuity: `MATCH`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+Observed secure negative:
+
+- B request authorization: `ACCEPT`;
+- request-authorization reasons: none;
+- task-target continuity: `MISMATCH`;
+- protected dispatch: blocked;
+- protected-effect delta: `0`.
+
+Observed intentionally vulnerable negative:
+
+- B request authorization: `ACCEPT`;
+- request-authorization reasons: none;
+- task-target continuity: `MISMATCH`;
+- request-only policy ignores the mismatch;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+Focused execution:
+
+- `5/5` R-3 tests passed.
+
+Overlap regression:
+
+- `38/38` tests passed across the frozen neighboring invariants.
+
+Repeated scenario summaries are deterministic.
+
+Post-execution admission remains:
+
+**HP-TARGET-001 REFINEMENT / NO ADD**
+
+No new stable attack ID is added.
+
+Stable public corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+The merged immutable result and public Reddit result return remain pending.
+
+`EVIDENCE.md` remains unchanged until the reproducible merged result is
+returned publicly.
+
 ## R-3 gates
 
 - [x] originating thread and author recorded;
@@ -1014,11 +1079,11 @@ No release is triggered.
 - [x] deterministic `403 → visible targets → target switch → retry` sequence frozen;
 - [x] positive control for an explicitly multi-target task frozen;
 - [x] final pre-implementation decision: `HP-TARGET-001 REFINEMENT / NO ADD`;
-- [ ] deterministic fixture implemented;
-- [ ] secure result reproduced;
-- [ ] intentionally vulnerable result reproduced;
-- [ ] protected-effect evidence recorded;
-- [ ] normal admission decision completed;
+- [x] deterministic fixture implemented;
+- [x] secure result reproduced;
+- [x] intentionally vulnerable result reproduced;
+- [x] protected-effect evidence recorded;
+- [x] normal admission decision completed as `HP-TARGET-001 REFINEMENT / NO ADD`;
 - [ ] merged immutable result recorded;
 - [ ] concrete result returned to originating Reddit commenter/thread;
 - [ ] external response state recorded;
@@ -1033,7 +1098,7 @@ Current research state:
 
 1. **R-1 token rotation / reconnect** — execution and public result return complete; external response pending.
 2. **R-2 same-name hot deploy / capability drift** — execution, admission and public result return complete; external response pending.
-3. **R-3 authorized tenant switch after denial** — source, final overlap and deterministic fixture shape frozen as `HP-TARGET-001 REFINEMENT / NO ADD`; implementation may proceed only within that frozen shape.
+3. **R-3 authorized tenant switch after denial** — deterministic execution and admission complete as `HP-TARGET-001 REFINEMENT / NO ADD`; merge and public result return remain pending.
 
 R-2 and R-3 are independent research cases.
 
