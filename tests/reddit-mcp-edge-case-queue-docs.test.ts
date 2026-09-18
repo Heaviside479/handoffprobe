@@ -19,7 +19,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('classifies token rotation as an HP-RACE-002 refinement', () => {
     expect(queue).toContain(
-      'preliminary overlap: HP-RACE-002 REFINEMENT / NO NEW ID JUSTIFIED AT INTAKE',
+      'Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**',
     );
     expect(queue).toContain(
       '`HP-REPLAY-003 — Retry double execution` governs only if attempt 1 already caused the protected effect',

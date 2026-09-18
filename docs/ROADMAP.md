@@ -1980,6 +1980,28 @@ The reproducible T-4 result has now been returned to the external contributors.
 
 Detailed record: `docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md`.
 
+#### Reddit R-1 token-rotation execution — 2026-09-18
+
+R-1 has now completed deterministic local execution.
+
+- execution record: `docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md`;
+- execution test: `tests/reddit-r1-token-rotation-execution.test.ts`;
+- initial token A authorization: accepted;
+- server-side current session generation rotates to B before any protected effect;
+- reconnect attempt presents stale A in the same logical action/task/context;
+- secure path revalidates current state and blocks before MCP dispatch;
+- secure protected-effect delta: `0`;
+- intentionally vulnerable path reuses the pre-interruption authorization snapshot;
+- vulnerable protected-effect delta: `1`;
+- effect count before interruption is exactly `0`, so the primary fixture does not exercise `HP-REPLAY-003` duplicate-effect semantics;
+- final classification: **HP-RACE-002 REFINEMENT / NO ADD**;
+- no new stable attack ID;
+- stable public corpus remains **23 attacks**;
+- package remains `0.4.0`;
+- no release is triggered;
+- next step after merge is public result return to the originating Reddit commenter/thread;
+- `EVIDENCE.md` remains unchanged until that public return is recorded.
+
 #### Reddit MCP community edge-case queue — 2026-09-18
 
 Two public community-supplied MCP handoff cases are now queued for evidence-driven research.
