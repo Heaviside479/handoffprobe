@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 executed and direct comment source frozen; R-2 queued with exact direct-comment permalink pending.**
+Status: **ACTIVE — R-1 public result returned; R-2 queued with exact direct-comment permalink pending.**
 
 ## Purpose
 
@@ -38,7 +38,7 @@ A public suggestion alone is not evidence sufficient for `EVIDENCE.md`.
 
 # R-1 — token rotation during interrupted handoff / reconnect with stale token
 
-Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; external response PENDING.**
 
 Originating Reddit author:
 
@@ -189,9 +189,34 @@ Final admission:
 - `HP-REPLAY-003` is not governing because effect count before interruption is exactly `0`;
 - `HP-AUTH-006` is not governing because the resumed attempt is the same logical protected action.
 
-Public result return is required after merge.
+## Public result return — 2026-09-18
 
-`EVIDENCE.md` remains unchanged until that return step is completed.
+The merged R-1 result was returned to the originating Reddit discussion:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
+
+The reply reports:
+
+- secure reconnect with stale A after A → B rotation: current authorization `REJECT`;
+- secure MCP dispatch count: `0`;
+- secure protected-effect delta: `0`;
+- intentionally vulnerable cached pre-interruption authorization reuse;
+- vulnerable MCP dispatch count: `1`;
+- vulnerable protected-effect delta: `1`;
+- final classification: **HP-RACE-002 REFINEMENT / NO ADD**;
+- the primary fixture is not classified as `HP-REPLAY-003` because no protected effect occurred before interruption;
+- the result is a local synthetic HandoffProbe reproduction, not a claim about a real MCP implementation;
+- correction or counter-evidence was explicitly invited.
+
+External response state:
+
+**PENDING**
+
+No substantive response to the returned result has been recorded yet.
+
+The public result return itself is not external confirmation, and silence must not be interpreted as agreement.
+
+`EVIDENCE.md` records R-1 at **Open research follow-up** only.
 
 ## R-1 gates
 
@@ -205,10 +230,10 @@ Public result return is required after merge.
 - [x] protected-effect evidence recorded;
 - [x] normal admission decision completed;
 - [x] merged immutable result recorded;
-- [ ] concrete result returned to originating Reddit commenter/thread;
-- [ ] external response state recorded;
+- [x] concrete result returned to originating Reddit commenter/thread;
+- [x] external response state recorded as PENDING;
 - [ ] substantive response classified if one arrives;
-- [ ] `EVIDENCE.md` inclusion/promotion decision completed.
+- [x] `EVIDENCE.md` inclusion/promotion decision completed at Open research follow-up.
 
 ---
 

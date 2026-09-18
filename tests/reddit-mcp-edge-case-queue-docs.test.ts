@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks both community research cases without pretending both sources are frozen', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 executed and direct comment source frozen; R-2 queued with exact direct-comment permalink pending.**',
+      'Status: **ACTIVE — R-1 public result returned; R-2 queued with exact direct-comment permalink pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -22,7 +22,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('classifies token rotation as an HP-RACE-002 refinement', () => {
     expect(queue).toContain(
-      'Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; external response PENDING.**',
     );
     expect(queue).toContain(
       '`HP-REPLAY-003 — Retry double execution` governs only if attempt 1 already caused the protected effect',
@@ -52,7 +52,9 @@ describe('Reddit MCP edge-case research queue', () => {
   it('records both tracks in the research-candidate index and main roadmap', () => {
     expect(candidates).toContain('## RC-2 — Reddit MCP reconnect token-rotation refinement');
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
-    expect(candidates).toContain('Status: **EXECUTION COMPLETE / RESULT RETURN PENDING**');
+    expect(candidates).toContain(
+      'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
+    );
     expect(candidates).toContain(
       'Status: **QUEUED / DISTINCTNESS UNRESOLVED / SOURCE FREEZE INCOMPLETE**',
     );
@@ -62,11 +64,17 @@ describe('Reddit MCP edge-case research queue', () => {
     );
   });
 
-  it('keeps evidence promotion gated until execution and result return', () => {
-    expect(queue).toContain('`EVIDENCE.md` remains unchanged at queue creation.');
+  it('records R-1 as open research after public return without promoting R-2', () => {
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
+    expect(queue).toContain(
+      '- [x] concrete result returned to originating Reddit commenter/thread;',
+    );
+    expect(queue).toContain('- [x] external response state recorded as PENDING;');
     expect(queue).toContain('silence is not agreement or confirmation.');
 
-    expect(evidence).not.toContain('Reddit MCP reconnect token-rotation refinement');
+    expect(evidence).toContain('## 6. Reddit R-1 token-rotation / reconnect refinement');
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
     expect(evidence).not.toContain('Reddit same-name capability hot-deploy drift');
   });
 });

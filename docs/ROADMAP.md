@@ -2001,12 +2001,16 @@ R-1 has now completed deterministic local execution.
 - stable public corpus remains **23 attacks**;
 - package remains `0.4.0`;
 - no release is triggered;
-- next step after merge is public result return to the originating Reddit commenter/thread;
-- `EVIDENCE.md` remains unchanged until that public return is recorded.
+- public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
+- external response state: **PENDING**;
+- no substantive external response has been recorded yet;
+- public result return is not external confirmation;
+- `EVIDENCE.md` records R-1 as **Open research follow-up**;
+- active R-1 execution/result-return work is complete; only external-response classification remains if a substantive reply arrives.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Two public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and source freeze for result return; R-2 remains queued with its exact direct-comment permalink still pending.
+Two public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 remains queued with its exact direct-comment permalink still pending.
 
 Detailed queue:
 
@@ -2020,7 +2024,9 @@ Research-candidate index:
   - final classification: **HP-RACE-002 REFINEMENT / NO ADD**;
   - merged execution commit: `05677e5a00c45bcc20abe06b3622a72d4b7aa43b`;
   - direct comment source frozen before public result return;
-  - public result return remains pending.
+  - public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
+  - external response state: **PENDING**;
+  - evidence level: **Open research follow-up**.
 - R-2: approval is issued against capability version A, then a hot deploy causes the same visible tool name to resolve to materially changed capability version B before execution.
   - preliminary classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
   - overlap must include `HP-APPROVAL-002`, `HP-VERSION-001`, `HP-AUTH-001` and conditional `HP-RACE-002` review;
