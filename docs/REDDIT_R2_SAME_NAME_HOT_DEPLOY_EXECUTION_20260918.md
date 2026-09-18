@@ -1,6 +1,6 @@
 # Reddit R-2 same-name capability hot-deploy execution — 2026-09-18
 
-Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; external response PENDING.**
 
 ## Purpose
 
@@ -39,6 +39,7 @@ The HandoffProbe reproduction is local/synthetic and is not external confirmatio
 ## Baseline
 
 - base commit: `0fb7fe0678ab59de09ccb6754121a6b70da391ec`;
+- merged execution commit: `7ffcd7254a85391e0937ec514a39f4507af26727`;
 - execution test: `tests/reddit-r2-same-name-hot-deploy-execution.test.ts`;
 - stable public corpus before this execution: **23 attacks**;
 - package version: `0.4.0`;
@@ -241,16 +242,50 @@ It does not establish:
 - production-world behavior;
 - external reproduction or confirmation.
 
-## Remaining closeout
+## Public result return — 2026-09-18
 
-Before public result return:
+The merged reproducible result was returned to the originating Reddit discussion:
 
-1. full repository validation must pass;
-2. the exact execution record and fixture must be merged;
-3. the immutable merge commit must be recorded;
-4. the concrete result must then be returned to the originating Reddit discussion;
-5. correction or counter-evidence must be invited;
-6. external response state must be recorded;
-7. only then should `EVIDENCE.md` inclusion be decided.
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/
 
-No public result claim should precede the merged reproducible artifact.
+Originating input:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/
+
+Merged execution commit:
+
+`7ffcd7254a85391e0937ec514a39f4507af26727`
+
+The public reply reports the observed three-path result:
+
+- positive control: authority `ACCEPT`, approval `MATCH`, protected-effect delta `1`;
+- secure negative: authority `ACCEPT`, approval `MISMATCH`, protected-effect delta `0`;
+- intentionally vulnerable label-only negative: authority `ACCEPT`, stale approval accepted, protected-effect delta `1`.
+
+The reply preserves the classification:
+
+**HP-APPROVAL-002 REFINEMENT / NO ADD**
+
+It also states that the fixture is local/synthetic, does not claim an MCP specification or implementation vulnerability, and invites correction or a concrete counterexample.
+
+## Current external-response state
+
+External response:
+
+**PENDING**
+
+As of this closeout record, no substantive response to the returned result has been recorded.
+
+The HandoffProbe result itself is not external confirmation.
+
+Silence is not agreement or confirmation.
+
+`EVIDENCE.md` records R-2 as **Open research follow-up**.
+
+No new stable attack is added.
+
+The stable public corpus remains **23 attacks**.
+
+Package version remains `0.4.0`.
+
+No release is triggered.

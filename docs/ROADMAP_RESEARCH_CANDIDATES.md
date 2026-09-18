@@ -92,7 +92,7 @@ Active execution work for RC-2 is complete. Any later substantive external respo
 
 ## RC-3 — Reddit same-name capability hot-deploy drift
 
-Status: **LOCAL EXECUTION COMPLETE / HP-APPROVAL-002 REFINEMENT / MERGE PENDING**
+Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**
 
 Detailed queue:
 
@@ -135,13 +135,16 @@ Current position:
 - intentionally vulnerable label-only negative observed authority `ACCEPT`, stale approval acceptance and protected-effect delta `1`;
 - repeated summaries were deterministic;
 - post-execution classification remains **HP-APPROVAL-002 REFINEMENT / NO ADD**;
-- merge and public result return remain pending;
+- merged execution commit: `7ffcd7254a85391e0937ec514a39f4507af26727`;
+- public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/
+- external response state: **PENDING**;
+- evidence level: **Open research follow-up**;
 - secure negative must observe upstream authority `ACCEPT`, approval mismatch and protected-effect delta `0`;
 - intentionally vulnerable negative must observe upstream authority `ACCEPT`, stale approval acceptance and protected-effect delta `1`;
 - positive control must approve B directly and produce protected-effect delta `1`;
 - post-execution admission must reconfirm the refinement classification;
-- any merged result must be returned to the originating Reddit discussion;
-- `EVIDENCE.md` remains gated on reproducible execution and public result return.
+- the merged result has been returned to the originating Reddit discussion;
+- `EVIDENCE.md` records the item as **Open research follow-up** while external response is pending.
 
 ## RC-4 — Reddit authorized tenant switch after denial
 

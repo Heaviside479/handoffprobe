@@ -31,22 +31,26 @@ describe('Reddit R-2 same-name hot-deploy execution record', () => {
     expect(execution).toContain('release triggered: **no**');
   });
 
-  it('updates the tracked R-2 state after execution', () => {
+  it('records completed R-2 public result return with external response pending', () => {
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; external response PENDING.**',
     );
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / HP-APPROVAL-002 REFINEMENT / MERGE PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
-    expect(roadmap).toContain(
-      'post-execution classification remains **HP-APPROVAL-002 REFINEMENT / NO ADD**',
+    expect(execution).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
+    expect(execution).toContain('`7ffcd7254a85391e0937ec514a39f4507af26727`');
+    expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
+    expect(queue).toContain(
+      '- [x] concrete result returned to originating Reddit commenter/thread;',
     );
+    expect(queue).toContain('- [x] external response state recorded as PENDING;');
   });
 
-  it('does not promote R-2 into external evidence before public return', () => {
-    expect(evidence).not.toContain('Reddit R-2 same-name capability hot-deploy');
-    expect(execution).toContain(
-      'No public result claim should precede the merged reproducible artifact.',
-    );
+  it('records R-2 only as Open research follow-up while response is pending', () => {
+    expect(evidence).toContain('## 7. Reddit R-2 same-name capability hot-deploy refinement');
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
+    expect(evidence).toContain('The public result return itself is **not** external confirmation.');
   });
 });

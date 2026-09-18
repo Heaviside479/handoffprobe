@@ -269,6 +269,39 @@ GitHub timeline checks then confirmed visible HandoffProbe PR cross-reference ev
 
 This is metadata/traceability repair only. It does not alter the historical research result, evidence level, stable corpus, package version or release state.
 
+## Permanent GitHub cross-reference rule
+
+The retrospective repair above is now a permanent HandoffProbe process rule.
+
+Whenever an external GitHub issue or pull request materially causes or shapes HandoffProbe research, comparison, fixture work, admission work, evidence work or a technical closeout:
+
+1. the exact external GitHub source must be frozen before dependent implementation where applicable;
+2. the canonical HandoffProbe PR or closeout PR for that work must contain the **full external GitHub issue/PR URL**;
+3. shorthand such as `#123` alone is not sufficient for the cross-repository traceability requirement;
+4. the full URL must be present in the HandoffProbe PR body or a durable PR comment so GitHub can create its native cross-reference event;
+5. after the HandoffProbe closeout is merged or otherwise finalized, the external GitHub timeline must be checked for the visible HandoffProbe cross-reference / “mentioned this issue” entry;
+6. the internal closeout record should preserve both the external thread URL and the canonical HandoffProbe PR/commit;
+7. if a historical closeout is missing the link, metadata-only retroactive repair is permitted and should be verified afterwards.
+
+This rule applies only when real HandoffProbe technical work exists.
+
+A comment-only external signal that produces no HandoffProbe fixture, comparison, admission decision or closeout must **not** receive an artificial PR merely to manufacture a cross-reference.
+
+For non-GitHub sources such as Reddit, the equivalent traceability requirement is to preserve the exact source permalink, exact public result-return permalink and immutable HandoffProbe artifact. GitHub-native cross-reference behavior obviously does not apply there.
+
+A GitHub cross-reference is provenance/traceability metadata only.
+
+It does **not** by itself establish:
+
+- external confirmation;
+- independent reproduction;
+- protocol endorsement;
+- evidence-level promotion;
+- a new attack;
+- a release trigger.
+
+The evidence level must continue to reflect only the strongest technical evidence actually demonstrated.
+
 ## Final audit state
 
 - stable public corpus: **23 attacks**;

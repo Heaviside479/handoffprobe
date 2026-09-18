@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 public result returned; R-2 local execution complete with merge/public return pending; R-3 source frozen and overlap unresolved.**',
+      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and overlap unresolved.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -40,7 +40,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('freezes R-2 as an HP-APPROVAL-002 refinement before execution', () => {
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; external response PENDING.**',
     );
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
     expect(queue).toContain('### HP-APPROVAL-002 — governing stable invariant');
@@ -91,7 +91,7 @@ describe('Reddit MCP edge-case research queue', () => {
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / HP-APPROVAL-002 REFINEMENT / MERGE PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
     expect(roadmap).toContain('#### Reddit MCP community edge-case queue — 2026-09-18');
     expect(roadmap).toContain(
@@ -101,18 +101,19 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
   });
 
-  it('records R-1 as open research after public return without promoting R-2', () => {
+  it('records R-1 and R-2 as open research after public result return', () => {
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
     expect(queue).toContain(
       '- [x] concrete result returned to originating Reddit commenter/thread;',
     );
     expect(queue).toContain('- [x] external response state recorded as PENDING;');
-    expect(queue).toContain('silence is not agreement or confirmation.');
+    expect(queue).toContain('Silence is not agreement or confirmation.');
 
     expect(evidence).toContain('## 6. Reddit R-1 token-rotation / reconnect refinement');
+    expect(evidence).toContain('## 7. Reddit R-2 same-name capability hot-deploy refinement');
     expect(evidence).toContain('**Evidence level:** Open research follow-up');
-    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
-    expect(evidence).not.toContain('Reddit same-name capability hot-deploy drift');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
     expect(evidence).not.toContain('Reddit authorized tenant switch after denial');
   });
 });

@@ -36,6 +36,27 @@ describe('external GitHub thread traceability audit', () => {
     expect(roadmap).toContain('docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md');
   });
 
+  it('locks the permanent GitHub cross-reference rule into policy', () => {
+    expect(audit).toContain('## Permanent GitHub cross-reference rule');
+    expect(audit).toContain(
+      'the canonical HandoffProbe PR or closeout PR for that work must contain the **full external GitHub issue/PR URL**',
+    );
+    expect(audit).toContain(
+      'the external GitHub timeline must be checked for the visible HandoffProbe cross-reference',
+    );
+    expect(audit).toContain(
+      'must **not** receive an artificial PR merely to manufacture a cross-reference',
+    );
+
+    expect(evidence).toContain(
+      'the canonical HandoffProbe PR/closeout must contain the **full external GitHub issue or pull-request URL**',
+    );
+    expect(roadmap).toContain(
+      'the canonical HandoffProbe PR/closeout must include the **full external GitHub issue/PR URL**',
+    );
+    expect(roadmap).toContain('GitHub cross-reference presence is provenance metadata only');
+  });
+
   it('adds missing initiating comments and the VATE reciprocal record to Evidence', () => {
     expect(evidence).toContain(
       'https://github.com/a2aproject/A2A/issues/1937#issuecomment-5684030629',

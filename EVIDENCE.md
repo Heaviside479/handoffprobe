@@ -480,14 +480,115 @@ This result does not establish:
 
 ---
 
+## 7. Reddit R-2 same-name capability hot-deploy refinement
+
+**Evidence level:** Open research follow-up
+
+**Status:** Reproducible HandoffProbe result returned publicly; external commenter response pending
+**Scope:** Deterministic local/synthetic same-name capability-drift comparison
+
+### External technical input
+
+A Reddit contributor supplied a concrete approval-continuity edge case:
+
+- capability A is approved;
+- before protected dispatch, the receiver resolves the same visible tool name to materially changed capability B;
+- the security-relevant capability changes even though the label remains identical;
+- the contributor suggested binding approval to the capability definition/digest rather than only the tool name.
+
+Originating source:
+
+- [Reddit source comment](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/)
+
+### Reproducible HandoffProbe result
+
+HandoffProbe reduced the case to a deterministic local synthetic fixture.
+
+Merged execution:
+
+- [merge commit](https://github.com/Heaviside479/handoffprobe/commit/7ffcd7254a85391e0937ec514a39f4507af26727)
+- [`docs/REDDIT_R2_SAME_NAME_HOT_DEPLOY_EXECUTION_20260918.md`](docs/REDDIT_R2_SAME_NAME_HOT_DEPLOY_EXECUTION_20260918.md)
+- [`tests/reddit-r2-same-name-hot-deploy-execution.test.ts`](tests/reddit-r2-same-name-hot-deploy-execution.test.ts)
+
+Observed positive control:
+
+- upstream semantic authority for B: `ACCEPT`;
+- approval directly bound to B: `MATCH`;
+- protected-effect delta: `1`.
+
+Observed secure negative:
+
+- approval remains bound to A;
+- effective capability becomes B under the same visible tool name;
+- upstream semantic authority for B: `ACCEPT`;
+- approval binding: `MISMATCH`;
+- protected-effect delta: `0`.
+
+Observed intentionally vulnerable label-only negative:
+
+- approval remains bound to A;
+- effective capability becomes B;
+- upstream semantic authority for B: `ACCEPT`;
+- the unchanged tool label is treated as sufficient;
+- stale approval is accepted;
+- protected-effect delta: `1`.
+
+### Admission result
+
+Final classification:
+
+**HP-APPROVAL-002 REFINEMENT / NO ADD**
+
+The result refines the existing approval-continuity invariant.
+
+No new stable attack was added.
+
+The stable public corpus remains **23 attacks**, package version remains `0.4.0`, and no release was triggered.
+
+### Public result return
+
+The merged reproducible result was returned to the originating Reddit discussion:
+
+- [HandoffProbe public result return](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/)
+
+The reply includes the observed positive, secure-negative and intentionally vulnerable outcomes, the admission classification, the local/synthetic limitation, and an invitation for correction or counter-evidence.
+
+### Current external-review state
+
+External response to the returned HandoffProbe result:
+
+**PENDING**
+
+No substantive external response has been recorded as of this closeout.
+
+The public result return itself is **not** external confirmation.
+
+Silence must not be interpreted as agreement.
+
+This item therefore remains an **Open research follow-up**.
+
+### Limitations
+
+This result does not establish:
+
+- an MCP specification vulnerability;
+- a vulnerability in a real MCP implementation;
+- a normative requirement to use SHA-256 capability digests;
+- production-world behavior;
+- external reproduction or confirmation;
+- a new stable HandoffProbe attack.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
 
 Current examples include:
 
-- A2A `#1769` / VATE T-4 has completed freeze, overlap analysis, reproducible execution/admission and public result return. WitnessObservation author review has been received from `ogasurfproject-jpg`; the VATE-specific external response from `Poke-nushi` remains pending before final T-4 closeout.
 - Reddit R-1 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
+- Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
+- MCP #3354 has a reproducible public result return with external post-result author response still pending.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 
@@ -512,6 +613,16 @@ The required loop is:
 7. invite correction, counter-evidence or confirmation from the external contributor;
 8. record any substantive response and classify it as confirmation, correction, counter-example, new input or unresolved disagreement before dependent follow-on implementation;
 9. if no substantive external response arrives, record that fact explicitly rather than implying review or confirmation.
+
+For external GitHub threads, an additional mandatory traceability rule applies whenever the thread materially produces HandoffProbe technical work:
+
+- the canonical HandoffProbe PR/closeout must contain the **full external GitHub issue or pull-request URL**;
+- after closeout, verify that the external GitHub timeline exposes the corresponding HandoffProbe cross-reference / “mentioned this issue” entry;
+- preserve the canonical HandoffProbe PR/commit alongside the external source in the relevant closeout/evidence record;
+- repair missing historical linkage when discovered, but do not manufacture a technical PR for a comment-only signal that produced no HandoffProbe work;
+- treat the cross-reference as provenance metadata only, never as external confirmation, independent reproduction or evidence-level promotion.
+
+For non-GitHub sources, preserve the equivalent exact source permalink, public result-return permalink and immutable HandoffProbe artifact.
 
 Returning the result publicly is required whenever HandoffProbe produces a reproducible result from an external technical input. External confirmation itself is **not** required and must never be invented.
 

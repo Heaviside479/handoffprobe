@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 has completed deterministic local execution as an HP-APPROVAL-002 refinement with merge/public result return pending; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
+Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
 
 Detailed queue:
 
@@ -2056,7 +2056,10 @@ Research-candidate index:
   - intentionally vulnerable label-only negative: authority `ACCEPT`, stale approval accepted, protected-effect delta `1`;
   - deterministic repeated summaries passed;
   - post-execution classification remains **HP-APPROVAL-002 REFINEMENT / NO ADD**;
-  - merged immutable result and public Reddit result return remain pending;
+  - merged execution commit: `7ffcd7254a85391e0937ec514a39f4507af26727`;
+  - public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/
+  - external response state: **PENDING**;
+  - evidence level: **Open research follow-up**;
   - no new stable ID is reserved.
 - R-3: after a denied request, an agent enumerates visible tenants, switches to another independently authorized target and retries successfully.
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
@@ -2115,6 +2118,11 @@ This policy applies to **all current and future external technical contributors/
 - Confirmation, correction, disagreement and counter-examples are all evidence and must be preserved faithfully.
 - `EVIDENCE.md` may promote an item only to the strongest evidence level actually demonstrated; a HandoffProbe result alone does not become external confirmation.
 - Each research-specific queue/closeout should carry its own result-return checkbox or equivalent trace so the global policy cannot be forgotten during execution.
+- For every external GitHub thread that materially produces HandoffProbe technical work, the canonical HandoffProbe PR/closeout must include the **full external GitHub issue/PR URL** so GitHub can create its native cross-reference.
+- After that closeout, the external GitHub timeline must be checked for the visible HandoffProbe cross-reference / “mentioned this issue” entry.
+- Missing historical GitHub linkage may be repaired retroactively as metadata/traceability work, but a comment-only signal must not receive an artificial technical PR merely to create a cross-reference.
+- GitHub cross-reference presence is provenance metadata only and must never be treated as external confirmation, independent reproduction or an evidence-level promotion.
+- For non-GitHub sources such as Reddit, preserve the exact source permalink, public result-return permalink and immutable HandoffProbe artifact instead.
 - This policy is designed to keep `EVIDENCE.md` auditable: external input → frozen material → HandoffProbe comparison → reproducible artifact → public result return → external response state → scoped evidence classification.
 
 #### MCP #3354 freeze / overlap decision — 2026-09-18
