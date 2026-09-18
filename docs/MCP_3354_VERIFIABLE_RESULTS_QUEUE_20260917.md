@@ -1,6 +1,6 @@
 # MCP #3354 — Verifiable MCP / authority-boundary research queue
 
-Status: **FREEZE / OVERLAP COMPLETE 2026-09-18 — REFINEMENT; no stable attack admitted; narrow execution candidate may be evaluated separately.**
+Status: **EXECUTION COMPLETE 2026-09-18 — REFINEMENT confirmed; public result return to AkiraTamai NEXT.**
 Date queued: 2026-09-17
 
 ## Purpose
@@ -32,6 +32,10 @@ The response distinguishes four properties:
 The Verifiable MCP proposal claims the first property. Its `inputCommitment`, `circuitHash` and `nonce` bind a result to committed inputs and a pinned program, but a valid proof does not establish that the committed inputs were within the upstream callers authority.
 
 ## Freeze / overlap decision — 2026-09-18
+
+Milestone status:
+
+**FREEZE / OVERLAP COMPLETE 2026-09-18 — REFINEMENT**
 
 Completion record:
 
@@ -77,6 +81,40 @@ Important limitation: Akira stated that the current demo has no authority layer 
 - do not treat a valid cryptographic proof as proof of upstream authorization;
 - classify any later result through the normal HandoffProbe research/admission process before creating a stable attack;
 - no release is triggered merely by this queue item.
+
+## Deterministic refinement execution — 2026-09-18
+
+Execution record:
+
+`docs/MCP_3354_PROOF_AUTHORITY_EXECUTION_20260918.md`
+
+Execution test:
+
+`tests/mcp-3354-proof-authority-execution.test.ts`
+
+Observed composition:
+
+- execution-integrity binding over the exact in-scope request: `ACCEPT`;
+- semantic authority over the in-scope request: `ACCEPT`;
+- positive protected-effect delta: `1`;
+- execution-integrity binding over the exact widened effective request: `ACCEPT`;
+- semantic authority over that widened request: `REJECT`;
+- crossing result: `action_digest_mismatch`;
+- widened protected-effect delta: `0`.
+
+The execution uses a HandoffProbe-owned deterministic synthetic binding analogue. It does not reproduce or claim conformance with AkiraTamai's ZK/TEE implementation.
+
+Classification remains:
+
+**REFINEMENT**
+
+No new stable attack is admitted.
+
+The stable public corpus remains **23 attacks**.
+
+No package version change or release is triggered.
+
+Public result return to AkiraTamai in MCP `#3354` is now the next required step after merge.
 
 ## External result-return gate
 
