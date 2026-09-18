@@ -1366,6 +1366,48 @@ Exit gate: repeated runs remain trustworthy under load, concurrency and diagnost
 
 Exit gate: every claimed supported platform and runtime combination has an explicit verification path.
 
+### Repository cleanup and current-state reconciliation — 2026-09-18
+
+Status: **ACTIVE — Cleanup A complete; Cleanup B next.**
+
+Persistent execution plan:
+
+`docs/REPOSITORY_CLEANUP_PLAN_20260918.md`
+
+This track is part of Phase 10 repository reliability/hygiene and is intentionally
+non-product-expanding.
+
+Completed:
+
+- [x] read-only whole-repository audit;
+- [x] classify remote branch inventory;
+- [x] delete 27 remote branches already fully merged into `main`;
+- [x] preserve 16 divergent branches for individual review;
+- [x] close obsolete PR #72 without merge;
+- [x] verify no open pull requests remain after Cleanup A.
+
+Next:
+
+- [ ] reconcile active documentation with the current v0.4.0 / 23-attack truth;
+- [ ] compact the root README by removing duplicated long-form material while
+      preserving quick start, current release truth, safety, Action, evidence and
+      commercial CTA;
+- [ ] rely on that same root README for npm presentation at the next otherwise
+      justified normal release; do not publish a release solely for README cleanup;
+- [ ] add a documentation navigation/index layer rather than mass-moving historical
+      research files;
+- [ ] audit all 16 divergent branches individually before any further deletion;
+- [ ] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;
+- [ ] reconcile already-satisfied Phase 10 documentation/CI checkboxes where current
+      repository evidence supports completion;
+- [ ] run full repository and package gates before cleanup closeout.
+
+Cleanup must preserve historical research provenance, stable attack identity,
+release immutability and evidence-level discipline.
+
+The cleanup itself does not authorize a new stable attack, version bump, release,
+protocol-baseline change or runtime behavior change.
+
 ### P10.5 — reliability closeout
 
 - [ ] run the complete repository quality and security gates;

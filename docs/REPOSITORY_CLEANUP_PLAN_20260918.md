@@ -1,0 +1,389 @@
+# HandoffProbe repository cleanup and current-state reconciliation plan
+
+Status: **ACTIVE — Cleanup A completed 2026-09-18; Cleanup B next.**
+
+Date started: 2026-09-18
+
+Purpose:
+
+Keep the HandoffProbe repository easy to understand, maintain and hand over between
+contributors, coding agents and separate ChatGPT/work sessions without losing
+research provenance or historical release evidence.
+
+This cleanup is a repository-hygiene and documentation-reconciliation track.
+
+It does **not** authorize:
+
+- a new stable attack;
+- a package-version change;
+- a release;
+- a protocol-baseline change;
+- a scanner/runtime behavior change;
+- deletion of historical research evidence merely because it is old.
+
+Current public product truth at the start of this cleanup:
+
+- current verified public release: `handoffprobe@0.4.0`;
+- stable public corpus: **23 attacks**;
+- stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`);
+- protocol baseline: A2A 1.0 → MCP 2026-07-28;
+- public CLI, npm package and reusable GitHub Action already exist;
+- T-3 is complete;
+- T-4 is complete;
+- Reddit R-1, R-2 and R-3 have completed deterministic execution, admission and
+  public result return;
+- Phase 10 reliability hardening remains active;
+- Phase 13 commercial validation runs in parallel.
+
+---
+
+# Cleanup A — Git hygiene
+
+Status: **COMPLETE — 2026-09-18**
+
+Initial audit found 43 non-main remote branches.
+
+They were separated into:
+
+- 27 branches whose commits were already fully reachable from `main`;
+- 16 divergent branches containing branch-only history requiring separate review.
+
+Safety rule:
+
+A remote branch could be removed during Cleanup A only when:
+
+1. the remote branch existed;
+2. its commit was an ancestor of `origin/main`;
+3. it had no open pull request.
+
+Result:
+
+- 27 verified merged remote branches deleted;
+- 16 divergent branches preserved;
+- obsolete PR #72 closed without merge;
+- PR #72 branch intentionally preserved for later divergent-branch audit;
+- no open pull requests remained after Cleanup A;
+- final remote inventory: `main` + 16 preserved divergent branches.
+
+PR #72:
+
+`Add v0.3.0 post-release GitHub discovery roadmap`
+
+Disposition:
+
+**CLOSED / NOT MERGED / superseded by later release and roadmap work.**
+
+Its branch remains preserved until the divergent-branch audit decides whether its
+unique historical commit should be retained elsewhere or the branch can be removed.
+
+## Preserved divergent branches
+
+Do not delete these merely because they are old:
+
+- `chore/marketing-repo-pointer-20260910`
+- `docs/commercial-product-track-20260916`
+- `docs/commercial-validation-20260912`
+- `docs/handoff-contract-research-20260908`
+- `docs/handoffprobe-name-migration-20260821`
+- `docs/model-mediated-mutation-roadmap-20260917`
+- `docs/point-growth-to-central-marketing-20260901`
+- `docs/project-foundation-20260821`
+- `docs/release-roadmap-v0.1.1-v0.2.0-20260908`
+- `docs/research-gap-audit-20260821`
+- `docs/semantic-authority-followup-20260912`
+- `docs/t4-witness-observation-queue-20260916`
+- `fix/qs-6.16.0-20260908`
+- `release/v0.1.x`
+- `release/v0.1.1-security-maintenance`
+- `roadmap/v0.3.0-postrelease-github-discovery`
+
+Each branch must later be classified individually as one of:
+
+- `SAFE_TO_DELETE_SUPERSEDED`;
+- `HISTORICAL_BRANCH_KEEP`;
+- `UNIQUE_CONTENT_MUST_RECONCILE`;
+- `NEEDS_FURTHER_REVIEW`.
+
+No force deletion is allowed merely to make the branch list shorter.
+
+---
+
+# Cleanup B — current documentation reconciliation
+
+Status: **NEXT**
+
+Goal:
+
+Make the current repository-facing documentation describe the actual HandoffProbe
+product rather than leaving old v0.1/v0.3 development language in active documents.
+
+Files requiring explicit reconciliation include at least:
+
+- `README.md`;
+- `PROJECT_CONTEXT.md`;
+- `AGENTS.md`;
+- `CONTRIBUTING.md`;
+- `SECURITY.md`;
+- `docs/ARCHITECTURE.md`;
+- `docs/PRODUCT.md`;
+- `docs/ROADMAP.md`;
+- `docs/ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md`;
+- `CHANGELOG.md`.
+
+Known stale/current-state mismatches found during the read-only audit include:
+
+- active docs still referring to v0.3.0 / 22 stable attacks;
+- `PROJECT_CONTEXT.md` still describing npm/CLI and GitHub Action as planned/future;
+- `ARCHITECTURE.md` still titled and written primarily as planned architecture;
+- active v0.1-era wording that now describes historical scope rather than current state;
+- commercial-track text still preserving old T-3/T-4 scheduling state;
+- README text still implying T-4 remains open although T-4 has closed;
+- `CHANGELOG.md` `Unreleased` section still containing foundation work that has
+  long since shipped.
+
+Rules:
+
+- reconcile active/current docs;
+- preserve historical release/research records as historical truth;
+- do not rewrite old evidence documents merely to make their historical statements
+  look current;
+- distinguish historical snapshot facts from current product truth;
+- preserve exact external-source provenance.
+
+---
+
+# Cleanup B.1 — compact README / npm presentation
+
+Status: **PLANNED**
+
+The root `README.md` serves both:
+
+- the GitHub repository landing page;
+- the README rendered for the npm package on npmjs.com when a new package version
+  is normally published.
+
+There is no separate npm README planned.
+
+The README should become materially more compact by removing duplication while
+keeping the primary product story and fast-start path intact.
+
+Target:
+
+- reduce current README length roughly **40–50%** where this can be achieved
+  through deduplication;
+- do not delete important safety, release or product facts merely to hit a byte count;
+- prefer links to canonical long-form documentation over repeating whole sections.
+
+The compact README should retain:
+
+1. product name and one-line value proposition;
+2. why handoff-specific security matters;
+3. current verified release: `0.4.0`;
+4. current stable corpus: **23 attacks**;
+5. A2A 1.0 → MCP 2026-07-28 baseline;
+6. exact quick-start command;
+7. concise secure/vulnerable demonstration;
+8. concise GitHub Action example;
+9. safety / authorization boundary;
+10. evidence/research link;
+11. commercial Security Assessment CTA;
+12. contributor/security/documentation links.
+
+Detailed material should primarily live in:
+
+- `docs/INSTALLATION.md`;
+- `docs/USAGE.md`;
+- `docs/ATTACK_CATALOG.md`;
+- `docs/CLI_SPECIFICATION.md`;
+- `docs/GITHUB_INTEGRATION_SPECIFICATION.md`;
+- `EVIDENCE.md`;
+- `SECURITY.md`;
+- `CONTRIBUTING.md`.
+
+The README cleanup itself does **not** justify a package release.
+
+The compact README becomes visible on npmjs.com with the next otherwise justified
+normal HandoffProbe release because the root README is part of the package surface.
+
+---
+
+# Cleanup C — documentation navigation
+
+Status: **PLANNED**
+
+Goal:
+
+Make the existing documentation corpus understandable without deleting valuable
+research provenance.
+
+Current repository evidence includes many Phase, T-series, release and external
+research records. Their volume is not itself a defect.
+
+Preferred approach:
+
+Create a navigation/index document such as:
+
+`docs/README.md`
+
+It should clearly separate:
+
+## Current product documentation
+
+Examples:
+
+- installation;
+- usage;
+- architecture;
+- threat model;
+- attack catalog;
+- CLI contract;
+- GitHub integration;
+- compatibility policy.
+
+## Current roadmap / active planning
+
+Examples:
+
+- main roadmap;
+- research-candidate index;
+- commercial product track;
+- repository cleanup plan.
+
+## Research / evidence records
+
+Examples:
+
+- Phase 9;
+- T-1 through T-4;
+- MCP external research;
+- Reddit R-1/R-2/R-3;
+- external review and traceability records.
+
+## Historical release records
+
+Examples:
+
+- v0.1.x;
+- v0.2.0;
+- v0.3.0;
+- v0.4.0 release evidence.
+
+Guardrail:
+
+Do not perform a mass file move solely for cosmetic organization.
+
+Moving historical documents would create large link churn and unnecessary regression
+risk. Index first; relocate only when a concrete maintenance benefit exists.
+
+---
+
+# Cleanup D — issue and branch reconciliation
+
+Status: **PLANNED**
+
+## Divergent branches
+
+Audit all 16 preserved divergent branches individually.
+
+Special care:
+
+`docs/model-mediated-mutation-roadmap-20260917`
+
+contains substantial branch-only history and must not be deleted without a complete
+comparison.
+
+## GitHub issues
+
+Current contributor issues #22, #23 and #24 remain potentially useful contributor
+tasks unless later review proves otherwise.
+
+Issue #38:
+
+`Evaluate protocol-neutral Handoff Contract integrity model after v0.1.1`
+
+is stale relative to the completed T-2.1 through T-2.6 work.
+
+Before changing or closing issue #38:
+
+- reconcile it against the current T-2 record;
+- preserve the outstanding T-2.7 Bayu external-review state;
+- never turn absence of external response into validation.
+
+Likely outcome:
+
+update or close #38 as superseded/completed except for the separately recorded T-2.7
+external-review state.
+
+---
+
+# Cleanup E — reliability and final repository verification
+
+Status: **PLANNED**
+
+Before the cleanup track is closed:
+
+- run focused documentation regression tests;
+- run `git diff --check`;
+- run the complete `npm run check`;
+- run `npm run package:check`;
+- inspect the exact npm payload;
+- verify the compact README remains included in the package;
+- verify stable attack count remains 23;
+- verify package version remains 0.4.0 unless a separately justified release track
+  changes it;
+- verify report schema remains `1`;
+- verify no production source/runtime behavior changed unintentionally;
+- reconcile Phase 10 roadmap checkboxes that are already satisfied by current CI;
+- verify no accidental secret or customer material entered the repository.
+
+---
+
+# Product direction preserved during cleanup
+
+Repository cleanup must not distract from the main product direction.
+
+The current high-level sequence remains:
+
+`reliability → real integrations → external usage → paid assessments → recurring demand`
+
+Only after repeated organization-level demand should HandoffProbe consider:
+
+`Teams/Cloud → subscription proof → enterprise expansion`
+
+The largest product gap remains real-system usability.
+
+HandoffProbe already has:
+
+- a deterministic engine;
+- a stable CLI;
+- 23 stable attacks;
+- synthetic secure/vulnerable fixtures;
+- a protocol laboratory;
+- GitHub Action integration;
+- reproducible research/evidence workflows.
+
+The next major product proof is not simply increasing the attack count.
+
+It is demonstrating that external users can reliably apply HandoffProbe to real,
+owned or explicitly authorized agent-handoff systems.
+
+The existing adapter admission and Cloud/SaaS demand gates remain binding.
+
+---
+
+# Continuity / handoff rule
+
+This document is the persistent repository handoff for this cleanup track.
+
+When work continues in another chat, coding-agent session or contributor context:
+
+1. read this document;
+2. read `docs/ROADMAP.md`;
+3. verify current `main`;
+4. continue from the first incomplete cleanup section;
+5. never infer completion merely from an older chat transcript.
+
+Current next step after this plan is merged:
+
+**Cleanup B — current documentation reconciliation, beginning with the compact
+README and active current-state documents.**
