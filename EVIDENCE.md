@@ -18,8 +18,8 @@ The goal is simple:
 
 ## 1. Phase 9 A2A → MCP crossing corpus
 
-**Evidence level:** External rerun / reviewer confirmation  
-**Status:** Completed  
+**Evidence level:** External rerun / reviewer confirmation
+**Status:** Completed
 **Scope:** Frozen A2A 1.0 → MCP 2026-07-28 crossing corpus; local synthetic MCP receiver
 
 ### What was tested
@@ -54,8 +54,8 @@ This is profile-scoped evidence, not a general certification. It does not establ
 
 ## 2. A2A #1937 context-binding vector comparison
 
-**Evidence level:** External vector comparison + author review  
-**Status:** Completed comparison; later revisions may be compared separately  
+**Evidence level:** External vector comparison + author review
+**Status:** Completed comparison; later revisions may be compared separately
 **Scope:** Draft optional context-binding profile for delegated authority; deterministic local/synthetic comparison
 
 ### External input
@@ -179,13 +179,83 @@ It also does not establish:
 
 ---
 
+## 4. A2A #1769 WitnessObservation / VATE reconciliation comparison
+
+**Evidence level:** Open research follow-up
+**Status:** Public HandoffProbe result returned; WitnessObservation author review received; VATE response pending
+**Scope:** Deterministic local/synthetic provider-side original-attempt reconciliation
+
+### Reproducible HandoffProbe result
+
+T-4 isolated provider-side reconciliation of the original attempt after caller-facing response loss as a distinct research gap.
+
+The local fixture reproduces:
+
+- one protected synthetic effect;
+- caller outcome remaining `unknown` after response loss;
+- no blind fresh execution as recovery;
+- read-only provider lookup of the original attempt;
+- validation of logical action identity, attempt identity and execution evidence;
+- `confirmed_success` only after valid reconciliation evidence;
+- zero additional protected effects during reconciliation;
+- `INCONCLUSIVE` for missing or mismatched evidence;
+- `ERROR` for provider lookup failure.
+
+Artifacts:
+
+- [immutable fixture commit](https://github.com/Heaviside479/handoffprobe/commit/07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba)
+- [execution/admission record](https://github.com/Heaviside479/handoffprobe/blob/360f3345cf72ca60e0a91a81b91164dad7dd3d2c/docs/T4_3_PROVIDER_RECONCILIATION_EXECUTION_20260918.md)
+- [public A2A result return](https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541)
+- [public VATE result return](https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5729853773)
+
+T-4.4 classification: **DISTINCT RESEARCH CANDIDATE**.
+
+No stable attack was added. The stable public corpus remains **23 attacks** and no release was triggered.
+
+### WitnessObservation author review
+
+Toshikatsu Oga / `ogasurfproject-jpg` reviewed the returned comparison:
+
+- [public author review](https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729937680)
+
+Classification: **CONFIRMATION + CLARIFICATION**.
+
+The review confirms the compose-rather-than-subsume boundary between WitnessObservation and provider execution reconciliation and confirms that no additional signed WitnessObservation fixture was required for this result.
+
+The author also clarified that provider attestation bound to the original action and attempt establishes attestation and binding, but not independently confirmed world-side effect truth by itself.
+
+The current HandoffProbe fixture separately measures its own local synthetic protected effect. The author clarification therefore limits production generalization rather than invalidating the fixture.
+
+A supplemental NENRIN execution-side candidate at revision `62b60205` was mentioned in the review. HandoffProbe has not frozen or executed that artifact as part of this result.
+
+### Current review state
+
+The WitnessObservation side has substantive author review.
+
+The VATE-specific external response remains pending. This item therefore remains an **Open research follow-up** rather than completed external evidence.
+
+Silence on the VATE side is not interpreted as confirmation.
+
+### Limitations
+
+This result does not establish:
+
+- production VATE, WitnessObservation, A2A or MCP conformance;
+- a defect in any of those projects;
+- operator-independent or production-world reconciliation;
+- that provider attestation alone proves a world-side effect;
+- a new stable HandoffProbe attack;
+- certification, endorsement, partnership or adoption.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
 
 Current examples include:
 
-- the A2A `#1769` third-party witness / conduct-observation follow-up in T-4 is the next research track after the completed T-3 closeout; it remains open until its own freeze, overlap, execution/admission and public-reply gates are satisfied.
+- A2A `#1769` / VATE T-4 has completed freeze, overlap analysis, reproducible execution/admission and public result return. WitnessObservation author review has been received from `ogasurfproject-jpg`; the VATE-specific external response from `Poke-nushi` remains pending before final T-4 closeout.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 

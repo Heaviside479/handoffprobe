@@ -61,7 +61,9 @@ describe('T-3.8 combined A2A follow-up closeout', () => {
     expect(roadmap).toContain('Status: **COMPLETE — 2026-09-16; T-4.1 NEXT.**');
     expect(roadmap).toContain('Combined closeout: `docs/T3_8_COMBINED_CLOSEOUT_20260916.md`.');
     expect(roadmap).toContain('T-3 exit gate: **SATISFIED 2026-09-16.**');
-    expect(t4).toContain('Status: **T-4.4 complete 2026-09-18; T-4.5 NEXT.**');
+    expect(t4).toContain(
+      'Status: **T-4.5 public result return complete 2026-09-18; WitnessObservation author review recorded; VATE response pending.**',
+    );
     expect(t43).toContain('07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba');
     expect(t43).toContain('T-4.4 decision: **DISTINCT RESEARCH CANDIDATE**');
     expect(t43).toContain('New stable attack admitted: **no**.');
