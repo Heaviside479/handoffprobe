@@ -1,6 +1,6 @@
 # MCP #3354 — Verifiable MCP / authority-boundary research queue
 
-Status: **QUEUED — external technical signal recorded; no implementation authorized.**
+Status: **FREEZE / OVERLAP COMPLETE 2026-09-18 — REFINEMENT; no stable attack admitted; narrow execution candidate may be evaluated separately.**
 Date queued: 2026-09-17
 
 ## Purpose
@@ -30,6 +30,28 @@ The response distinguishes four properties:
 4. authorization of the inputs in the upstream execution context.
 
 The Verifiable MCP proposal claims the first property. Its `inputCommitment`, `circuitHash` and `nonce` bind a result to committed inputs and a pinned program, but a valid proof does not establish that the committed inputs were within the upstream callers authority.
+
+## Freeze / overlap decision — 2026-09-18
+
+Completion record:
+
+`docs/MCP_3354_FREEZE_OVERLAP_20260918.md`
+
+Frozen upstream basis:
+
+- `ripple-node-lab/mcp-verifiable-tools-demo@66a959f79802d3751ba7edc0aec4c1c0e0ee2b36`;
+- `docs/spec/verifiable-tools.md` blob `1fd2d0c377388e4d8560fe5b38cf2e2a1d895541`;
+- AkiraTamai response `#5715753995`.
+
+Decision:
+
+**REFINEMENT**
+
+The widened-request authorization invariant is already owned by stable `HP-AUTH-001` and existing Phase 9 / T-3 evidence.
+
+The new value is the explicit layer-separation control: a proof may validly establish execution over the effective widened request while the independent authority layer must still reject that request before protected effect.
+
+No new stable attack, package version or release is authorized by this decision.
 
 ## Candidate deterministic negative fixture
 

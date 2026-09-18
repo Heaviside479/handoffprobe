@@ -1993,6 +1993,22 @@ This policy applies to **all current and future external technical contributors/
 - Each research-specific queue/closeout should carry its own result-return checkbox or equivalent trace so the global policy cannot be forgotten during execution.
 - This policy is designed to keep `EVIDENCE.md` auditable: external input → frozen material → HandoffProbe comparison → reproducible artifact → public result return → external response state → scoped evidence classification.
 
+#### MCP #3354 freeze / overlap decision — 2026-09-18
+
+The queued Verifiable MCP authority-boundary signal has now completed its first HandoffProbe freeze and overlap gate.
+
+- Frozen upstream demo commit: `66a959f79802d3751ba7edc0aec4c1c0e0ee2b36`.
+- Frozen spec blob: `1fd2d0c377388e4d8560fe5b38cf2e2a1d895541`.
+- External interpretation source: AkiraTamai comment `#5715753995`.
+- The proof layer's acceptance of execution over committed inputs is distinct from authorization of those inputs.
+- Semantic downstream widening is already covered by stable `HP-AUTH-001`, Phase 9 and T-3 evidence.
+- Overall classification: **REFINEMENT**.
+- No new stable attack is admitted; the public corpus remains **23 attacks**.
+- No release or package-version change is triggered.
+- A later narrow execution may be justified only to demonstrate `proof accepts / authority rejects / protected effect = 0` without duplicating the existing stable authorization invariant.
+
+Evidence: `docs/MCP_3354_FREEZE_OVERLAP_20260918.md`.
+
 #### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17
 
 A separate MCP research signal arrived in `modelcontextprotocol/modelcontextprotocol#3354` and is intentionally **not** folded into A2A T-4.
