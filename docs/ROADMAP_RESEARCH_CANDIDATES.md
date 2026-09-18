@@ -115,3 +115,37 @@ Current position:
 - a later stable ID requires normal distinctness/admission evidence;
 - the merged result must be returned to the originating Reddit discussion;
 - `EVIDENCE.md` remains gated on reproducible execution and public result return.
+
+## RC-4 — Reddit authorized tenant switch after denial
+
+Status: **SOURCE FROZEN / DISTINCTNESS UNRESOLVED / IMPLEMENTATION BLOCKED**
+
+Detailed queue:
+
+`docs/REDDIT_MCP_EDGE_CASE_QUEUE_20260918.md#r-3--authorized-tenant-switch-after-denial--task-intent-target-drift`
+
+Originating source:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
+
+Community feedback supplied an adaptive retry case in which an agent receives a denial on one target, enumerates visible tenants, switches to another target and succeeds while each individual request remains properly authorized.
+
+Preliminary overlap:
+
+- `HP-TARGET-001` is the closest stable neighbor, but its current fixture proves unauthorized resource substitution rather than an independently authorized alternate target that may violate task-bound intent;
+- `HP-TENANT-001` is adjacent but is not governing when the alternate request is independently authorized;
+- `HP-APPROVAL-003` is conditional on explicit target-bound approval reuse;
+- `HP-AUTH-001` is not governing when no semantic authority widening occurs;
+- `HP-AUTH-006` is not governing when the first denied attempt has zero protected effects and the alternate request receives fresh authorization;
+- RC-1 is adjacent if the switch is model-mediated, but the source report alone does not establish a reproducible model-mediated flow.
+
+Current position:
+
+- classification: **RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**;
+- source permalink and exact supplied text are frozen before implementation;
+- no new stable `HP-*` ID is reserved;
+- fixture implementation remains blocked until the upstream task/intent target set, independently authorized alternate target, deterministic denial/discovery/retry sequence and multi-target positive control are frozen;
+- the pre-implementation decision must determine whether the case is an `HP-TARGET-001` refinement or a genuinely distinct research fixture;
+- if the upstream task permits any independently authorized visible tenant, the negative case is invalid and must not be manufactured;
+- any reproducible result must be returned to the originating Reddit discussion;
+- `EVIDENCE.md` remains unchanged at intake.
