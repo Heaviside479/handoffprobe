@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 public result returned; R-2 source frozen and pre-implementation overlap complete; R-3 source frozen and overlap unresolved.**
+Status: **ACTIVE — R-1 public result returned; R-2 local execution complete with merge/public return pending; R-3 source frozen and overlap unresolved.**
 
 ## Purpose
 
@@ -239,7 +239,7 @@ The public result return itself is not external confirmation, and silence must n
 
 # R-2 — same-name hot deploy / capability drift after approval
 
-Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-APPROVAL-002 REFINEMENT / NO ADD; deterministic fixture queued.**
+Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**
 
 Originating Reddit author:
 
@@ -493,6 +493,63 @@ No release is triggered.
 
 `EVIDENCE.md` remains unchanged until reproducible execution is merged and the concrete result is returned to the originating Reddit discussion.
 
+## R-2 execution result — 2026-09-18
+
+Execution record:
+
+`docs/REDDIT_R2_SAME_NAME_HOT_DEPLOY_EXECUTION_20260918.md`
+
+Execution test:
+
+`tests/reddit-r2-same-name-hot-deploy-execution.test.ts`
+
+Observed positive control:
+
+- upstream semantic authority for B: `ACCEPT`;
+- approval directly bound to B: `MATCH`;
+- protected-effect delta: `1`.
+
+Observed secure negative:
+
+- approval remains bound to A;
+- effective capability becomes B under the same visible tool name;
+- upstream semantic authority for B: `ACCEPT`;
+- authority widening witnesses: none;
+- capability digest A != capability digest B;
+- approval binding: `MISMATCH`;
+- protected-effect delta: `0`.
+
+Observed intentionally vulnerable negative:
+
+- approval remains bound to A;
+- effective capability becomes B under the same visible tool name;
+- upstream semantic authority for B: `ACCEPT`;
+- capability digest A != capability digest B;
+- label-only approval accepts because the visible tool name still matches;
+- protected-effect delta: `1`.
+
+All three scenario summaries reproduced deterministically.
+
+Post-execution classification:
+
+**HP-APPROVAL-002 REFINEMENT / NO ADD**
+
+`HP-AUTH-001` is not governing because B remains within upstream semantic authority.
+
+`HP-RACE-002` is not governing because no interruption, reconnect, resume or retry occurs.
+
+`HP-VERSION-001` remains adjacent but is not governing because no protocol-version negotiation or translation occurs.
+
+No new stable attack ID is justified.
+
+Stable corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+`EVIDENCE.md` remains unchanged until the merged result is returned publicly.
+
 ## R-2 gates
 
 - [x] originating thread, author and exact supplied comment text recorded;
@@ -507,12 +564,12 @@ No release is triggered.
 - [x] upstream semantic authority for both A and B frozen to isolate approval continuity;
 - [x] positive control frozen;
 - [x] primary fixture excludes interruption/resume semantics;
-- [ ] deterministic fixture implemented;
-- [ ] secure result reproduced;
-- [ ] intentionally vulnerable result reproduced;
-- [ ] positive control reproduced;
-- [ ] protected-effect evidence recorded;
-- [ ] post-execution admission decision reconfirmed;
+- [x] deterministic fixture implemented;
+- [x] secure result reproduced;
+- [x] intentionally vulnerable result reproduced;
+- [x] positive control reproduced;
+- [x] protected-effect evidence recorded;
+- [x] post-execution admission decision reconfirmed;
 - [ ] merged immutable result recorded;
 - [ ] concrete result returned to originating Reddit commenter/thread;
 - [ ] external response state recorded;
