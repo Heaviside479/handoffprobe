@@ -92,7 +92,7 @@ Active execution work for RC-2 is complete. Any later substantive external respo
 
 ## RC-3 — Reddit same-name capability hot-deploy drift
 
-Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-APPROVAL-002 REFINEMENT / FIXTURE QUEUED**
+Status: **LOCAL EXECUTION COMPLETE / HP-APPROVAL-002 REFINEMENT / MERGE PENDING**
 
 Detailed queue:
 
@@ -129,7 +129,13 @@ Current position:
 - pre-implementation classification: **HP-APPROVAL-002 REFINEMENT / NO ADD**;
 - exact Reddit source is frozen before implementation;
 - no new stable `HP-*` ID is reserved;
-- deterministic fixture implementation is now permitted within the frozen shape;
+- deterministic local execution completed within the frozen shape;
+- positive control observed authority `ACCEPT`, approval `MATCH` and protected-effect delta `1`;
+- secure negative observed authority `ACCEPT`, approval `MISMATCH` and protected-effect delta `0`;
+- intentionally vulnerable label-only negative observed authority `ACCEPT`, stale approval acceptance and protected-effect delta `1`;
+- repeated summaries were deterministic;
+- post-execution classification remains **HP-APPROVAL-002 REFINEMENT / NO ADD**;
+- merge and public result return remain pending;
 - secure negative must observe upstream authority `ACCEPT`, approval mismatch and protected-effect delta `0`;
 - intentionally vulnerable negative must observe upstream authority `ACCEPT`, stale approval acceptance and protected-effect delta `1`;
 - positive control must approve B directly and produce protected-effect delta `1`;

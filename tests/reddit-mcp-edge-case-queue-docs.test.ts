@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 public result returned; R-2 source frozen and pre-implementation overlap complete; R-3 source frozen and overlap unresolved.**',
+      'Status: **ACTIVE — R-1 public result returned; R-2 local execution complete with merge/public return pending; R-3 source frozen and overlap unresolved.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -40,7 +40,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('freezes R-2 as an HP-APPROVAL-002 refinement before execution', () => {
     expect(queue).toContain(
-      'Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-APPROVAL-002 REFINEMENT / NO ADD; deterministic fixture queued.**',
+      'Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**',
     );
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
     expect(queue).toContain('### HP-APPROVAL-002 — governing stable invariant');
@@ -52,7 +52,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(queue).toContain('`JSON.stringify([toolName, inputSchemaId, effectClass])`');
     expect(queue).toContain('**HP-APPROVAL-002 REFINEMENT / NO ADD**');
     expect(queue).toContain('- [x] source frozen before fixture implementation;');
-    expect(queue).toContain('- [ ] deterministic fixture implemented;');
+    expect(queue).toContain('- [x] deterministic fixture implemented;');
     expect(queue).toContain('The stable public corpus remains **23 attacks**.');
   });
 
@@ -91,7 +91,7 @@ describe('Reddit MCP edge-case research queue', () => {
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
     expect(candidates).toContain(
-      'Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-APPROVAL-002 REFINEMENT / FIXTURE QUEUED**',
+      'Status: **LOCAL EXECUTION COMPLETE / HP-APPROVAL-002 REFINEMENT / MERGE PENDING**',
     );
     expect(roadmap).toContain('#### Reddit MCP community edge-case queue — 2026-09-18');
     expect(roadmap).toContain(

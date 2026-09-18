@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 now has its source frozen and pre-implementation overlap complete as an HP-APPROVAL-002 refinement; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
+Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 has completed deterministic local execution as an HP-APPROVAL-002 refinement with merge/public result return pending; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
 
 Detailed queue:
 
@@ -2050,7 +2050,13 @@ Research-candidate index:
   - secure expected protected-effect delta: `0`;
   - intentionally vulnerable expected protected-effect delta: `1`;
   - positive control approves B directly and must produce protected-effect delta `1`;
-  - deterministic fixture implementation is now permitted within this frozen shape;
+  - deterministic local execution is complete within the frozen shape;
+  - positive control: authority `ACCEPT`, approval `MATCH`, protected-effect delta `1`;
+  - secure negative: authority `ACCEPT`, approval `MISMATCH`, protected-effect delta `0`;
+  - intentionally vulnerable label-only negative: authority `ACCEPT`, stale approval accepted, protected-effect delta `1`;
+  - deterministic repeated summaries passed;
+  - post-execution classification remains **HP-APPROVAL-002 REFINEMENT / NO ADD**;
+  - merged immutable result and public Reddit result return remain pending;
   - no new stable ID is reserved.
 - R-3: after a denied request, an agent enumerates visible tenants, switches to another independently authorized target and retries successfully.
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
