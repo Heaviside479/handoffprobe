@@ -181,8 +181,8 @@ It also does not establish:
 
 ## 4. A2A #1769 WitnessObservation / VATE reconciliation comparison
 
-**Evidence level:** Open research follow-up
-**Status:** Public HandoffProbe result returned; WitnessObservation author review received; VATE response pending
+**Evidence level:** External vector comparison + author review
+**Status:** Completed scoped external author review — WitnessObservation and VATE responses received
 **Scope:** Deterministic local/synthetic provider-side original-attempt reconciliation
 
 ### Reproducible HandoffProbe result
@@ -228,13 +228,32 @@ The current HandoffProbe fixture separately measures its own local synthetic pro
 
 A supplemental NENRIN execution-side candidate at revision `62b60205` was mentioned in the review. HandoffProbe has not frozen or executed that artifact as part of this result.
 
+### VATE author review
+
+Takao Sato / `Poke-nushi` reviewed the pinned T-4 closeout:
+
+- [public VATE author review](https://github.com/a2aproject/A2A/issues/1769#issuecomment-5732275655)
+
+Classification: **CONFIRMATION + CLARIFICATION**.
+
+The review states that the T-4 separation of action binding, unknown caller outcome and original-attempt reconciliation matches the VATE points raised earlier in the thread.
+
+It also recognizes the bounded local result: evidence is checked against the original action and attempt, missing or mismatched evidence stays unresolved, and reconciliation adds no protected effect.
+
+Poke-nushi additionally preserves the distinction between A2A task state and evidence of an external operation's outcome, with the receiver responsible for assessing what referenced evidence establishes.
+
+The review does not report an independent HandoffProbe rerun. It is therefore scoped author review rather than independent reproduction.
+
 ### Current review state
 
-The WitnessObservation side has substantive author review.
+Both materially relevant external sides now have substantive author review:
 
-The VATE-specific external response remains pending. This item therefore remains an **Open research follow-up** rather than completed external evidence.
+- WitnessObservation: **CONFIRMATION + CLARIFICATION**;
+- VATE: **CONFIRMATION + CLARIFICATION**.
 
-Silence on the VATE side is not interpreted as confirmation.
+This item is now completed scoped external evidence at **External vector comparison + author review**.
+
+Neither review is treated as A2A/VATE conformance, production-world validation, certification or independent proof of a real-world side effect.
 
 ### Limitations
 

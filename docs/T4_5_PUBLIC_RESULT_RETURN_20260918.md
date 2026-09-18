@@ -1,6 +1,6 @@
 # T-4.5 public result return
 
-Status: **PUBLIC RESULT RETURN COMPLETE — external response classification pending.**
+Status: **COMPLETE — scoped external author review received from WitnessObservation and VATE; T-4 closed.**
 
 Date: 2026-09-18
 
@@ -63,7 +63,7 @@ WitnessObservation R1-R4 were not treated as provider execution reconciliation o
 
 ## External response state
 
-Current state: **PARTIAL EXTERNAL REVIEW RECEIVED — WitnessObservation reviewed; VATE response pending.**
+Current state: **COMPLETE — scoped external author review received from WitnessObservation and VATE.**
 
 ### WitnessObservation response
 
@@ -97,10 +97,50 @@ Oga also referenced supplemental NENRIN revision `62b60205`. HandoffProbe has no
 
 ### VATE response
 
-Current state: **PENDING**.
+Public response:
 
-No substantive response to the VATE-specific result return has been recorded yet.
+https://github.com/a2aproject/A2A/issues/1769#issuecomment-5732275655
 
-Silence is not treated as agreement or confirmation.
+Author:
 
-T-4 remains open only for the VATE response classification and final closeout.
+- Takao Sato / `Poke-nushi`
+
+Classification: **CONFIRMATION + CLARIFICATION**.
+
+Poke-nushi reviewed the pinned T-4 closeout and stated that the separation of action binding, unknown caller outcome and original-attempt reconciliation matches the VATE points previously raised in the thread.
+
+The review specifically recognizes the reported local recovery behavior:
+
+- reconciliation checks evidence against the original action and attempt;
+- missing or mismatched evidence remains unresolved;
+- reconciliation produces no additional protected effect;
+- the provider report remains distinct from the synthetic protected effect measured by HandoffProbe.
+
+The review also preserves an important A2A boundary:
+
+- action, attempt and evidence-source references can remain available to the receiver;
+- A2A task state remains distinguishable from evidence about an external operation's outcome;
+- the receiver remains responsible for assessing what the referenced evidence establishes.
+
+This is scoped author review of the reported HandoffProbe result. It is **not** an independent rerun of HandoffProbe.
+
+It does not establish A2A or VATE conformance, production-world reconciliation, certification, endorsement or independent confirmation of a real-world side effect.
+
+### Final T-4 closeout
+
+Both materially relevant external review paths now have substantive responses:
+
+- WitnessObservation: **CONFIRMATION + CLARIFICATION**;
+- VATE: **CONFIRMATION + CLARIFICATION**.
+
+T-4 is therefore closed as a completed scoped external-review research result.
+
+The T-4.4 admission decision remains unchanged:
+
+**DISTINCT RESEARCH CANDIDATE / NO STABLE ATTACK ADD**
+
+The stable public corpus remains **23 attacks**.
+
+Package version remains `0.4.0`.
+
+No release is triggered.
