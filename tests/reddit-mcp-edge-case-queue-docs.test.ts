@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and overlap unresolved.**',
+      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and pre-implementation overlap complete.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -56,27 +56,32 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(queue).toContain('The stable public corpus remains **23 attacks**.');
   });
 
-  it('freezes R-3 source while keeping target-drift admission unresolved', () => {
+  it('freezes R-3 as an HP-TARGET-001 refinement before implementation', () => {
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
     expect(queue).toContain(
       "We had the following problem: our agent hit a 403 for a licence it didn't have",
     );
     expect(queue).toContain(
-      '### HP-TARGET-001 — closest stable neighbor, but not exact coverage yet',
+      'Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-TARGET-001 REFINEMENT / NO ADD; deterministic fixture queued.**',
     );
-    expect(queue).toContain('### HP-TENANT-001 — adjacent, not governing on the supplied facts');
-    expect(queue).toContain('### HP-APPROVAL-003 — conditional only');
+    expect(queue).toContain('### HP-TARGET-001 — governing stable invariant');
+    expect(queue).toContain('**HP-TARGET-001 REFINEMENT / NO ADD**');
+    expect(queue).toContain('`[["tenant:A", "resource:A"]]`');
+    expect(queue).toContain('`[["tenant:A", "resource:A"], ["tenant:B", "resource:B"]]`');
+    expect(queue).toContain('request-level authorization for B: `ACCEPT`');
+    expect(queue).toContain('task-target continuity: `MISMATCH`');
     expect(queue).toContain(
-      '### HP-AUTH-001 — not governing if request authority remains narrow and valid',
+      '- [x] exact upstream task/intent target-binding representation frozen;',
     );
-    expect(queue).toContain('### HP-AUTH-006 — not governing on the supplied facts');
     expect(queue).toContain(
-      '### RC-1 — model-mediated mutation discovery is adjacent, not activated by this comment alone',
+      '- [x] exact independently authorized alternate-target representation frozen;',
     );
-    expect(queue).toContain('**RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**');
-    expect(queue).toContain('- [x] source frozen before fixture implementation;');
     expect(queue).toContain(
-      '- [ ] final pre-implementation decision: `HP-TARGET-001` refinement vs distinct research fixture;',
+      '- [x] deterministic `403 → visible targets → target switch → retry` sequence frozen;',
+    );
+    expect(queue).toContain('- [x] positive control for an explicitly multi-target task frozen;');
+    expect(queue).toContain(
+      '- [x] final pre-implementation decision: `HP-TARGET-001 REFINEMENT / NO ADD`;',
     );
   });
 
@@ -85,7 +90,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain(
-      'Status: **SOURCE FROZEN / DISTINCTNESS UNRESOLVED / IMPLEMENTATION BLOCKED**',
+      'Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-TARGET-001 REFINEMENT / FIXTURE QUEUED**',
     );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',

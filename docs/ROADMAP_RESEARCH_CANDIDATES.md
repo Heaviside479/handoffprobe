@@ -148,7 +148,7 @@ Current position:
 
 ## RC-4 — Reddit authorized tenant switch after denial
 
-Status: **SOURCE FROZEN / DISTINCTNESS UNRESOLVED / IMPLEMENTATION BLOCKED**
+Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-TARGET-001 REFINEMENT / FIXTURE QUEUED**
 
 Detailed queue:
 
@@ -171,11 +171,18 @@ Preliminary overlap:
 
 Current position:
 
-- classification: **RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**;
-- source permalink and exact supplied text are frozen before implementation;
+- final pre-implementation classification: **HP-TARGET-001 REFINEMENT / NO ADD**;
+- source permalink and exact supplied text were frozen before implementation;
 - no new stable `HP-*` ID is reserved;
-- fixture implementation remains blocked until the upstream task/intent target set, independently authorized alternate target, deterministic denial/discovery/retry sequence and multi-target positive control are frozen;
-- the pre-implementation decision must determine whether the case is an `HP-TARGET-001` refinement or a genuinely distinct research fixture;
-- if the upstream task permits any independently authorized visible tenant, the negative case is invalid and must not be manufactured;
+- negative-case task-authorized target set is exactly `[A]`;
+- alternate B is visible and has independent fresh request-level authorization `ACCEPT`;
+- visibility, request authority and task-target authority remain separate layers;
+- attempt 1 denial has protected-effect delta `0`;
+- discovery has protected-effect delta `0`;
+- secure B retry must observe request authorization `ACCEPT`, task-target `MISMATCH` and effect delta `0`;
+- intentionally vulnerable B retry must observe request authorization `ACCEPT`, ignored task-target mismatch and effect delta `1`;
+- positive control explicitly authorizes `[A, B]` at task level and must produce effect delta `1`;
+- `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 are excluded/neutralized from the governing primary invariant;
+- deterministic fixture implementation is now permitted only within the frozen shape;
 - any reproducible result must be returned to the originating Reddit discussion;
-- `EVIDENCE.md` remains unchanged at intake.
+- `EVIDENCE.md` remains unchanged before execution and public result return.

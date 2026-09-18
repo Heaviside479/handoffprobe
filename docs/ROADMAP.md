@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
+Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has completed source freeze and final pre-implementation overlap as an HP-TARGET-001 refinement.
 
 Detailed queue:
 
@@ -2063,13 +2063,25 @@ Research-candidate index:
   - no new stable ID is reserved.
 - R-3: after a denied request, an agent enumerates visible tenants, switches to another independently authorized target and retries successfully.
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
-  - preliminary classification: **RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**;
-  - closest stable neighbor: `HP-TARGET-001`;
-  - request-level authorization alone does not settle upstream task/intent target continuity;
-  - `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 are adjacent/conditional overlaps rather than assumed governing invariants;
-  - source is frozen before fixture implementation;
-  - fixture implementation remains blocked until the exact task-bound target set, independently authorized alternate target, deterministic retry shape and multi-target positive control are frozen;
-  - no stable ID is reserved.
+  - source frozen before fixture implementation;
+  - final pre-implementation classification: **HP-TARGET-001 REFINEMENT / NO ADD**;
+  - governing property: the effective target must remain within the upstream task-authorized target set;
+  - negative task-authorized set: `[A]`;
+  - alternate B is visible and receives fresh request-level authorization `ACCEPT`;
+  - visibility and request-level authorization do not expand task-level target authority;
+  - attempt 1 denial: protected-effect delta `0`;
+  - discovery: protected-effect delta `0`;
+  - secure B retry: request authorization `ACCEPT`, task-target `MISMATCH`, protected-effect delta `0`;
+  - intentionally vulnerable B retry: request authorization `ACCEPT`, ignored task-target mismatch, protected-effect delta `1`;
+  - positive control task-authorizes `[A, B]` and must permit B with protected-effect delta `1`;
+  - `HP-TENANT-001` is neutralized because B is independently request-authorized;
+  - `HP-APPROVAL-003` is excluded because the primary fixture contains no approval reuse;
+  - `HP-AUTH-001` is neutralized because B authority is independently valid rather than widened from A;
+  - `HP-AUTH-006` is excluded because attempt 1 has zero protected effects and B receives a fresh authorization decision;
+  - RC-1 remains unactivated because the adaptation sequence is deterministic;
+  - deterministic fixture implementation may now proceed only within this frozen shape;
+  - no new stable ID is reserved.
+
 
 Required sequence for each case:
 
