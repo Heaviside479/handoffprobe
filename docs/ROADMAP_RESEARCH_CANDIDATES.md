@@ -59,3 +59,52 @@ Do not implement RC-1 merely because it is documented. Activate a concrete work 
 **Record now, build later only if evidence strengthens.**
 
 This keeps the signal without prematurely turning the roadmap into speculative feature work.
+
+## RC-2 — Reddit MCP reconnect token-rotation refinement
+
+Status: **QUEUED / NOT YET EXECUTED**
+
+Detailed queue:
+
+`docs/REDDIT_MCP_EDGE_CASE_QUEUE_20260918.md#r-1--token-rotation-during-interrupted-handoff--reconnect-with-stale-token`
+
+Community feedback supplied a concrete stale-session variant:
+
+`token A valid → server rotates to B → deterministic interruption → reconnect in same handoff context with stale A`.
+
+Preliminary overlap maps the governing negative invariant to stable `HP-RACE-002 — Partial-failure stale execution`.
+
+Current position:
+
+- classification: **REFINEMENT**;
+- no new stable ID justified at intake;
+- `HP-REPLAY-003` becomes governing only if a prior protected effect already occurred and the reconnect can duplicate the same logical action;
+- `HP-AUTH-006` is not governing because R-1 resumes the same interrupted logical action rather than authorizing a later distinct effect;
+- implementation is authorized only as a narrow deterministic research/regression fixture after the queue is merged;
+- final admission remains evidence-driven.
+
+The merged result must be returned to the originating Reddit discussion before the research loop is considered complete.
+
+## RC-3 — Reddit same-name capability hot-deploy drift
+
+Status: **QUEUED / DISTINCTNESS UNRESOLVED**
+
+Detailed queue:
+
+`docs/REDDIT_MCP_EDGE_CASE_QUEUE_20260918.md#r-2--same-name-hot-deploy--capability-drift-after-approval`
+
+Community feedback supplied a capability-version edge case in which approval is issued for version A and the same visible tool name resolves to materially different version B before execution.
+
+Preliminary overlap:
+
+- `HP-APPROVAL-002` is relevant but currently mutates the tool identity itself;
+- `HP-VERSION-001` is adjacent but does not by itself settle stale approval under same-name capability drift.
+
+Current position:
+
+- classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
+- no new stable `HP-*` ID reserved;
+- a deterministic capability-definition/digest fixture is permitted only after the queue is merged;
+- a later stable ID requires normal distinctness/admission evidence;
+- the merged result must be returned to the originating Reddit discussion;
+- `EVIDENCE.md` remains gated on reproducible execution and public result return.

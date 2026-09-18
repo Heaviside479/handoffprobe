@@ -1980,6 +1980,35 @@ The reproducible T-4 result has now been returned to the external contributors.
 
 Detailed record: `docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md`.
 
+#### Reddit MCP community edge-case queue — 2026-09-18
+
+Two public community-supplied MCP handoff cases are now queued for evidence-driven research.
+
+Detailed queue:
+
+`docs/REDDIT_MCP_EDGE_CASE_QUEUE_20260918.md`
+
+Research-candidate index:
+
+`docs/ROADMAP_RESEARCH_CANDIDATES.md`
+
+- R-1: token A is initially valid, the server rotates current state to token B during an interrupted handoff, and the client reconnects in the same handoff context with stale A.
+  - preliminary classification: **HP-RACE-002 REFINEMENT**;
+  - no new stable ID justified at intake;
+  - deterministic fixture and later normal admission required.
+- R-2: approval is issued against capability version A, then a hot deploy causes the same visible tool name to resolve to materially changed capability version B before execution.
+  - preliminary classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
+  - overlap with `HP-APPROVAL-002` and `HP-VERSION-001` must be resolved through deterministic evidence;
+  - no stable ID is reserved.
+
+Required sequence for each case:
+
+`source → overlap → deterministic fixture → protected-effect evidence → admission → merge → Reddit result return → external-response classification → EVIDENCE.md decision`
+
+`EVIDENCE.md` is intentionally not changed at queue creation.
+
+The public stable corpus remains **23 attacks** and no package-version change or release is triggered by recording these signals.
+
 #### Global external evidence return-loop policy — 2026-09-17
 
 This policy applies to **all current and future external technical contributors/threads**, including but not limited to A2A `#1937`, A2A `#2079`, A2A `#1769`, MCP `#3354`, and later research inputs.
