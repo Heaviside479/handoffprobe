@@ -2009,6 +2009,23 @@ The queued Verifiable MCP authority-boundary signal has now completed its first 
 
 Evidence: `docs/MCP_3354_FREEZE_OVERLAP_20260918.md`.
 
+#### MCP #3354 deterministic refinement execution — 2026-09-18
+
+The MCP #3354 layer-separation refinement has now been executed locally and deterministically.
+
+- Execution record: `docs/MCP_3354_PROOF_AUTHORITY_EXECUTION_20260918.md`.
+- Execution test: `tests/mcp-3354-proof-authority-execution.test.ts`.
+- The HandoffProbe-owned execution-integrity binding accepts evidence generated for the exact widened effective request.
+- The independent existing semantic-authority evaluator rejects the same widened request because it exceeds the upstream allowed authority.
+- The final pre-dispatch gate blocks the widened request with `action_digest_mismatch`.
+- The widened protected-effect delta is exactly `0`.
+- The in-scope positive control has execution-integrity `ACCEPT`, authority `ACCEPT` and exactly one protected local effect.
+- The execution is a synthetic binding analogue only; it does not reproduce AkiraTamai's ZK/TEE implementation or claim Verifiable MCP conformance.
+- Classification remains **REFINEMENT**.
+- No new stable attack is admitted; the stable public corpus remains **23 attacks**.
+- No package-version change or release is triggered.
+- Next required step after merge: return the concrete result to AkiraTamai in MCP `#3354`, then update `EVIDENCE.md`, queue and roadmap with the public response state.
+
 #### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17
 
 A separate MCP research signal arrived in `modelcontextprotocol/modelcontextprotocol#3354` and is intentionally **not** folded into A2A T-4.
