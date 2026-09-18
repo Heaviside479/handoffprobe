@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 public result returned; R-2 source freeze pending; R-3 source frozen and overlap unresolved.**
+Status: **ACTIVE — R-1 public result returned; R-2 source frozen and pre-implementation overlap complete; R-3 source frozen and overlap unresolved.**
 
 ## Purpose
 
@@ -239,138 +239,280 @@ The public result return itself is not external confirmation, and silence must n
 
 # R-2 — same-name hot deploy / capability drift after approval
 
-Status: **QUEUED — DISTINCTNESS UNRESOLVED; research candidate only, no stable ID reserved.**
+Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-APPROVAL-002 REFINEMENT / NO ADD; deterministic fixture queued.**
 
 Originating Reddit author:
 
 `u/anderson_the_one`
 
-Exact direct Reddit comment permalink:
+Direct Reddit comment permalink supplied by the originating thread:
 
-**PENDING**
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+Canonical direct comment URL:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/
 
 Exact supplied comment text:
 
 > Try a hot deploy in the middle. The sender approves capability version A, then the receiver resolves the same tool name after version B has widened the schema or changed a read into a write. The old approval should be dead, even though the label still matches. I'd bind it to the capability digest, not the tool name.
 
-Source description:
+The exact direct permalink and supplied text were recorded before any R-2 fixture implementation.
 
-A sender approves capability version A. During the handoff the receiver hot-deploys or resolves version B under the **same tool name**. Version B has materially widened the schema or changed protected semantics, for example from a read-like operation to a write-like operation.
+## Source description
 
-The source proposes binding approval to a capability digest rather than only the tool label.
+A sender approves capability version A.
 
-## Queued research question
+After approval but before protected dispatch, the receiver deterministically changes the effective capability to version B while retaining the same visible tool name.
 
-The important comparison is not merely:
+The security-relevant definition changes underneath the already-issued approval.
+
+The supplied examples are:
+
+- schema widening; or
+- changing read-like semantics into write-like semantics.
+
+The source proposes binding approval to the capability definition/digest rather than only the visible tool label.
+
+HandoffProbe treats that digest as one deterministic fixture mechanism, not as a normative MCP requirement.
+
+## Governing research question
+
+The relevant comparison is not merely:
 
 `approved tool name == executed tool name`
 
 It is:
 
-`approved capability definition == effective capability definition at execution`
+`approved security-relevant capability == effective security-relevant capability at execution`
 
-The deterministic fixture should therefore keep the visible tool name identical while changing a security-relevant capability definition between approval and final execution.
+The question is therefore whether an approval for capability A remains valid when the same label resolves to materially different capability B before execution.
 
-Candidate binding material may include a deterministic digest over the security-relevant capability definition.
+---
 
-This queue does not prescribe a production cryptographic format.
+## Final pre-implementation overlap review
 
-## Preliminary overlap
+### HP-APPROVAL-002 — governing stable invariant
 
-### HP-APPROVAL-002 — partial overlap, not exact coverage
+`HP-APPROVAL-002 — Tool substitution after approval` already establishes that approval cannot be silently reused when the approved tool identity is replaced before execution.
 
-`HP-APPROVAL-002 — Tool substitution after approval` changes the selected tool after approval.
+The existing stable fixture changes the visible tool identity itself.
 
-R-2 is different in mechanism:
+R-2 keeps that label unchanged and mutates the security-relevant capability definition behind it.
 
-- the tool label remains the same;
-- the effective capability definition changes after approval.
+That is a new mechanism and useful regression shape, but the governing property is still approval continuity:
 
-The existing approval invariant is therefore relevant, but current `HP-APPROVAL-002` does not by itself demonstrate same-name capability-version drift.
+> execution must remain bound to what was actually approved.
 
-### HP-VERSION-001 — adjacent backlog candidate
+R-2 therefore refines the existing stable approval invariant rather than defining a new security property.
 
-`HP-VERSION-001` concerns security-relevant behavior lost or changed through version negotiation/translation.
+Pre-implementation classification:
 
-R-2 is adjacent because a version change alters effective semantics, but the proposed Reddit fixture specifically concerns a previously issued approval surviving a hot-deployed capability change under the same name.
+**HP-APPROVAL-002 REFINEMENT / NO ADD**
 
-Overlap must be resolved with execution evidence rather than by name alone.
+### HP-VERSION-001 — adjacent backlog, not governing
 
-### HP-AUTH-001 — semantic-widening overlap to resolve
+The deferred `HP-VERSION-001` direction concerns security-relevant behavior lost or changed through version negotiation or translation.
 
-`HP-AUTH-001` already owns semantic downstream authority widening.
+R-2 deliberately does not model protocol version negotiation.
 
-R-2 must therefore prove that any failure is specifically caused by stale approval surviving a materially changed same-name capability definition, rather than merely reproducing an already-covered authority-widening failure.
+The transition is a deterministic receiver-side capability replacement:
 
-### HP-RACE-002 — conditional timing overlap
+`approval(A) → replace effective A with B → execute`
 
-`HP-RACE-002` becomes relevant only if the hot-deploy transition is modeled as security state changing during an interrupted/resumed operation.
+No negotiation failure, downgrade algorithm or cross-version translation is required.
 
-If R-2 is executed without interruption/resume semantics, `HP-RACE-002` is not automatically governing.
+`HP-VERSION-001` remains adjacent but is not the governing invariant for the frozen R-2 fixture.
 
-This conditional overlap must be resolved before fixture implementation.
+### HP-AUTH-001 — deliberately neutralized in the primary fixture
 
-## Preliminary classification
+`HP-AUTH-001` governs semantic authority amplification.
 
-**RESEARCH CANDIDATE — ADMISSION UNRESOLVED**
+To prevent R-2 from merely reproducing that existing invariant, the deterministic fixture must grant upstream semantic authority for both capability A and capability B.
 
-No new `HP-*` ID is reserved.
+Therefore:
 
-A new stable ID would require later evidence that:
+- semantic authority for A: `ACCEPT`;
+- semantic authority for B: `ACCEPT`;
+- explicit approval binding: A only.
 
-1. the negative security invariant is distinct from existing approval/version invariants;
-2. secure and intentionally vulnerable outcomes are deterministic;
-3. protected-effect evidence gives a clear PASS/FAIL oracle;
-4. the result is handoff/composition-specific rather than generic deployment/version management;
-5. normal admission review concludes existing stable IDs cannot represent the failure accurately.
+The negative failure is then caused solely by stale approval surviving the A → B capability replacement.
 
-## Candidate deterministic shape
+The secure R-2 path must reject B because approval does not match B, not because B exceeds delegated authority.
 
-Version A:
+### HP-RACE-002 — excluded from the primary fixture
 
-- tool name: unchanged stable label;
-- capability definition: A;
-- capability digest: A;
-- approval is issued against A.
+`HP-RACE-002` governs stale execution across partial failure / interruption and resume.
 
-Deterministic transition:
+The R-2 primary fixture must contain:
 
-- pause after approval and before protected dispatch;
-- replace effective capability definition A with B;
-- retain the same visible tool name.
+- no network interruption;
+- no reconnect;
+- no resume;
+- no retry attempt;
+- no partial-failure state transition.
 
-Version B negative:
+The only ordering boundary is:
 
-- capability definition differs materially from A;
-- candidate example: schema widening or a change from read-only semantics to protected mutation semantics;
-- capability digest B differs from A.
+`approval A → deterministic hot deploy A→B → final dispatch`
 
-Secure:
+Therefore `HP-RACE-002` is not governing the primary R-2 fixture.
 
-- final execution compares the approved capability binding to the effective capability;
-- A/B mismatch is rejected before protected effect;
+A future interruption/resume variant would require a separate overlap decision and must not be silently folded into R-2.
+
+---
+
+## Frozen deterministic capability representation
+
+R-2 will use a fixture-local security-relevant capability tuple with exactly three fields:
+
+1. visible tool name;
+2. deterministic input-schema identifier;
+3. protected effect class.
+
+The primary fixture values are frozen as:
+
+Capability A:
+
+`["same-name-tool", "schema-v1", "read_only"]`
+
+Capability B:
+
+`["same-name-tool", "schema-v1", "protected_write"]`
+
+Properties intentionally held constant:
+
+- visible tool name;
+- input-schema identifier;
+- caller/principal;
+- task/context;
+- intended audience;
+- request arguments;
+- upstream semantic authority.
+
+Only the protected effect class changes.
+
+This deliberately chooses the source comment's read → write example rather than combining schema widening and effect mutation in one primary fixture.
+
+A schema-widening variant may be researched later, but it must not be needed to establish the primary result.
+
+## Frozen deterministic binding representation
+
+Fixture binding preimage:
+
+`JSON.stringify([toolName, inputSchemaId, effectClass])`
+
+Fixture binding:
+
+`SHA-256(UTF-8(binding preimage))`
+
+This is a deterministic local HandoffProbe representation only.
+
+It is not:
+
+- a proposed MCP wire format;
+- a protocol requirement;
+- a claim that production systems must use SHA-256;
+- a general JSON canonicalization design.
+
+The tuple shape is fixed by the fixture, so no general schema-canonicalization problem is introduced.
+
+## Frozen execution ordering
+
+1. create capability A;
+2. create capability B;
+3. establish upstream authority that permits both A and B;
+4. issue explicit approval bound to A's capability digest;
+5. record protected-effect count `0`;
+6. deterministically replace effective capability A with B;
+7. keep the visible tool label unchanged;
+8. perform final approval-binding evaluation;
+9. only then permit or reject protected dispatch;
+10. record protected-effect delta.
+
+There is exactly one A → B transition.
+
+There is no interruption/resume or retry.
+
+## Required deterministic controls
+
+### Positive control
+
+Approval is issued directly for B.
+
+Expected:
+
+- upstream semantic authority for B: `ACCEPT`;
+- approval binding for B: `MATCH`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+This proves that the secure fixture does not simply prohibit B.
+
+### Secure negative
+
+Approval remains bound to A and effective capability becomes B.
+
+Expected:
+
+- upstream semantic authority for B: `ACCEPT`;
+- visible tool label: unchanged;
+- approved digest A != effective digest B;
+- protected dispatch: blocked;
 - protected-effect delta: `0`.
 
-Intentionally vulnerable:
+### Intentionally vulnerable negative
 
-- final execution checks only the visible tool name or otherwise ignores the security-relevant capability change;
-- stale approval for A authorizes B;
+Approval remains bound to A and effective capability becomes B.
+
+The intentionally vulnerable path validates only the unchanged visible tool name or otherwise ignores the security-relevant capability binding.
+
+Expected:
+
+- upstream semantic authority for B: `ACCEPT`;
+- visible tool label: unchanged;
+- stale approval accepted;
+- protected dispatch: occurs;
 - protected-effect delta: `1`.
+
+## Pre-implementation decision
+
+**HP-APPROVAL-002 REFINEMENT / NO ADD**
+
+A deterministic fixture is justified because current stable execution changes the visible tool identity, while R-2 tests the same approval-continuity invariant when identity-by-label remains constant and semantics change underneath it.
+
+The fixture is regression/research evidence for an existing stable invariant.
+
+It does not reserve or justify a new stable `HP-*` ID at this stage.
+
+The stable public corpus remains **23 attacks**.
+
+Package version remains `0.4.0`.
+
+No release is triggered.
+
+`EVIDENCE.md` remains unchanged until reproducible execution is merged and the concrete result is returned to the originating Reddit discussion.
 
 ## R-2 gates
 
 - [x] originating thread, author and exact supplied comment text recorded;
-- [x] preliminary overlap with `HP-APPROVAL-002` and `HP-VERSION-001` recorded;
-- [ ] exact Reddit comment permalink recorded and source frozen before fixture implementation;
-- [ ] complete overlap review against `HP-AUTH-001` and the conditional `HP-RACE-002` case before fixture implementation;
+- [x] exact Reddit comment permalink recorded;
+- [x] source frozen before fixture implementation;
+- [x] complete overlap review against `HP-APPROVAL-002`, `HP-VERSION-001`, `HP-AUTH-001` and `HP-RACE-002`;
+- [x] pre-implementation classification recorded as `HP-APPROVAL-002 REFINEMENT / NO ADD`;
 - [x] no new stable attack ID reserved;
-- [ ] exact security-relevant capability-definition subset frozen;
-- [ ] deterministic capability digest/binding representation frozen;
-- [ ] deterministic hot-deploy/version-transition fixture implemented;
+- [x] exact security-relevant capability-definition subset frozen;
+- [x] deterministic capability digest/binding representation frozen;
+- [x] deterministic A → B transition ordering frozen;
+- [x] upstream semantic authority for both A and B frozen to isolate approval continuity;
+- [x] positive control frozen;
+- [x] primary fixture excludes interruption/resume semantics;
+- [ ] deterministic fixture implemented;
 - [ ] secure result reproduced;
 - [ ] intentionally vulnerable result reproduced;
+- [ ] positive control reproduced;
 - [ ] protected-effect evidence recorded;
-- [ ] normal overlap/admission decision completed;
+- [ ] post-execution admission decision reconfirmed;
 - [ ] merged immutable result recorded;
 - [ ] concrete result returned to originating Reddit commenter/thread;
 - [ ] external response state recorded;

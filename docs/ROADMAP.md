@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 remains blocked on its exact direct-comment permalink; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
+Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 now has its source frozen and pre-implementation overlap complete as an HP-APPROVAL-002 refinement; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
 
 Detailed queue:
 
@@ -2037,12 +2037,21 @@ Research-candidate index:
   - public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
   - external response state: **PENDING**;
   - evidence level: **Open research follow-up**.
-- R-2: approval is issued against capability version A, then a hot deploy causes the same visible tool name to resolve to materially changed capability version B before execution.
-  - preliminary classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
-  - overlap must include `HP-APPROVAL-002`, `HP-VERSION-001`, `HP-AUTH-001` and conditional `HP-RACE-002` review;
-  - exact direct-comment permalink is still pending;
-  - fixture implementation remains blocked until source freeze and full overlap review are complete;
-  - no stable ID is reserved.
+- R-2: approval is issued against capability version A, then a deterministic hot deploy causes the same visible tool name to resolve to materially changed capability version B before execution.
+  - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/
+  - source frozen before fixture implementation;
+  - pre-implementation classification: **HP-APPROVAL-002 REFINEMENT / NO ADD**;
+  - `HP-APPROVAL-002` governs approval continuity even though the existing stable fixture changes the visible tool identity;
+  - `HP-VERSION-001` is adjacent but not governing because the primary fixture contains no version negotiation or translation;
+  - `HP-AUTH-001` is neutralized by granting upstream semantic authority for both A and B while approval binds only A;
+  - `HP-RACE-002` is excluded because the primary fixture contains no interruption/resume/retry;
+  - frozen capability change: `["same-name-tool", "schema-v1", "read_only"]` → `["same-name-tool", "schema-v1", "protected_write"]`;
+  - deterministic local binding uses SHA-256 over the fixed three-field tuple and is not a normative MCP format;
+  - secure expected protected-effect delta: `0`;
+  - intentionally vulnerable expected protected-effect delta: `1`;
+  - positive control approves B directly and must produce protected-effect delta `1`;
+  - deterministic fixture implementation is now permitted within this frozen shape;
+  - no new stable ID is reserved.
 - R-3: after a denied request, an agent enumerates visible tenants, switches to another independently authorized target and retries successfully.
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
   - preliminary classification: **RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**;
