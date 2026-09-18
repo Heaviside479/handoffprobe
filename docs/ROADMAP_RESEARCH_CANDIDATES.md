@@ -148,7 +148,7 @@ Current position:
 
 ## RC-4 — Reddit authorized tenant switch after denial
 
-Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-TARGET-001 REFINEMENT / FIXTURE QUEUED**
+Status: **LOCAL EXECUTION COMPLETE / HP-TARGET-001 REFINEMENT / MERGE PENDING**
 
 Detailed queue:
 
@@ -183,6 +183,13 @@ Current position:
 - intentionally vulnerable B retry must observe request authorization `ACCEPT`, ignored task-target mismatch and effect delta `1`;
 - positive control explicitly authorizes `[A, B]` at task level and must produce effect delta `1`;
 - `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 are excluded/neutralized from the governing primary invariant;
-- deterministic fixture implementation is now permitted only within the frozen shape;
-- any reproducible result must be returned to the originating Reddit discussion;
-- `EVIDENCE.md` remains unchanged before execution and public result return.
+- deterministic local execution completed within the frozen shape;
+- B request-level authorization is `ACCEPT` with no rejection reasons;
+- positive control observes task-target `MATCH` and protected-effect delta `1`;
+- secure negative observes task-target `MISMATCH` and protected-effect delta `0`;
+- intentionally vulnerable request-only path observes the same `MISMATCH` but protected-effect delta `1`;
+- repeated scenario summaries are deterministic;
+- post-execution classification remains **HP-TARGET-001 REFINEMENT / NO ADD**;
+- merge and public result return remain pending;
+- any reproducible merged result must be returned to the originating Reddit discussion;
+- `EVIDENCE.md` remains unchanged before public result return.

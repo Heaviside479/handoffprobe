@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and pre-implementation overlap complete.**',
+      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 local execution complete with merge/public result return pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -62,7 +62,7 @@ describe('Reddit MCP edge-case research queue', () => {
       "We had the following problem: our agent hit a 403 for a licence it didn't have",
     );
     expect(queue).toContain(
-      'Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-TARGET-001 REFINEMENT / NO ADD; deterministic fixture queued.**',
+      'Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**',
     );
     expect(queue).toContain('### HP-TARGET-001 — governing stable invariant');
     expect(queue).toContain('**HP-TARGET-001 REFINEMENT / NO ADD**');
@@ -83,6 +83,13 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(queue).toContain(
       '- [x] final pre-implementation decision: `HP-TARGET-001 REFINEMENT / NO ADD`;',
     );
+    expect(queue).toContain('- [x] deterministic fixture implemented;');
+    expect(queue).toContain('- [x] secure result reproduced;');
+    expect(queue).toContain('- [x] intentionally vulnerable result reproduced;');
+    expect(queue).toContain('- [x] protected-effect evidence recorded;');
+    expect(queue).toContain(
+      '- [x] normal admission decision completed as `HP-TARGET-001 REFINEMENT / NO ADD`;',
+    );
   });
 
   it('records all Reddit tracks in the research-candidate index and main roadmap', () => {
@@ -90,7 +97,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain(
-      'Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-TARGET-001 REFINEMENT / FIXTURE QUEUED**',
+      'Status: **LOCAL EXECUTION COMPLETE / HP-TARGET-001 REFINEMENT / MERGE PENDING**',
     );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',

@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has completed source freeze and final pre-implementation overlap as an HP-TARGET-001 refinement.
+Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has completed deterministic local execution and admission as an HP-TARGET-001 refinement, with merge and public result return pending.
 
 Detailed queue:
 
@@ -2079,7 +2079,13 @@ Research-candidate index:
   - `HP-AUTH-001` is neutralized because B authority is independently valid rather than widened from A;
   - `HP-AUTH-006` is excluded because attempt 1 has zero protected effects and B receives a fresh authorization decision;
   - RC-1 remains unactivated because the adaptation sequence is deterministic;
-  - deterministic fixture implementation may now proceed only within this frozen shape;
+  - deterministic local execution completed within the frozen shape;
+  - B request authorization: `ACCEPT`, with no rejection reasons;
+  - positive control: task-target `MATCH`, protected-effect delta `1`;
+  - secure negative: task-target `MISMATCH`, protected-effect delta `0`;
+  - intentionally vulnerable request-only path: task-target `MISMATCH` ignored, protected-effect delta `1`;
+  - post-execution classification remains **HP-TARGET-001 REFINEMENT / NO ADD**;
+  - merge and public result return remain pending;
   - no new stable ID is reserved.
 
 
