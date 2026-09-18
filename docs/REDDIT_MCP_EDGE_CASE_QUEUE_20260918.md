@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 public result returned; R-2 local execution complete with merge/public return pending; R-3 source frozen and overlap unresolved.**
+Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and overlap unresolved.**
 
 ## Purpose
 
@@ -239,7 +239,7 @@ The public result return itself is not external confirmation, and silence must n
 
 # R-2 — same-name hot deploy / capability drift after approval
 
-Status: **LOCAL EXECUTION COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-APPROVAL-002 REFINEMENT / NO ADD; external response PENDING.**
 
 Originating Reddit author:
 
@@ -548,7 +548,35 @@ Package remains `0.4.0`.
 
 No release is triggered.
 
-`EVIDENCE.md` remains unchanged until the merged result is returned publicly.
+`EVIDENCE.md` now records R-2 at the strongest demonstrated level: **Open research follow-up**.
+
+## R-2 public result return — 2026-09-18
+
+Merged execution commit:
+
+`7ffcd7254a85391e0937ec514a39f4507af26727`
+
+Public result-return comment:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/
+
+Originating source:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/
+
+External response state:
+
+**PENDING**
+
+The public result return itself is not external confirmation.
+
+Silence is not agreement or confirmation.
+
+Stable corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
 
 ## R-2 gates
 
@@ -570,11 +598,11 @@ No release is triggered.
 - [x] positive control reproduced;
 - [x] protected-effect evidence recorded;
 - [x] post-execution admission decision reconfirmed;
-- [ ] merged immutable result recorded;
-- [ ] concrete result returned to originating Reddit commenter/thread;
-- [ ] external response state recorded;
+- [x] merged immutable result recorded;
+- [x] concrete result returned to originating Reddit commenter/thread;
+- [x] external response state recorded as PENDING;
 - [ ] substantive response classified if one arrives;
-- [ ] `EVIDENCE.md` inclusion/promotion decision completed.
+- [x] `EVIDENCE.md` inclusion/promotion decision completed at Open research follow-up.
 
 ---
 
@@ -763,7 +791,7 @@ The positive control is required so the fixture tests task-bound target continui
 Current research state:
 
 1. **R-1 token rotation / reconnect** — execution and public result return complete; external response pending.
-2. **R-2 same-name hot deploy / capability drift** — blocked before implementation because the exact direct-comment permalink is still pending.
+2. **R-2 same-name hot deploy / capability drift** — execution, admission and public result return complete; external response pending.
 3. **R-3 authorized tenant switch after denial** — source frozen; overlap and deterministic fixture-shape freeze may proceed, but implementation remains blocked until the R-3 gates above are complete.
 
 R-2 and R-3 are independent research cases.
