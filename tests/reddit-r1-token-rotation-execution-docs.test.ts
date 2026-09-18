@@ -30,6 +30,16 @@ describe('Reddit R-1 token-rotation execution closeout', () => {
     expect(execution).toContain('### HP-AUTH-006');
   });
 
+  it('records the exact R-1 source and immutable merged artifact before result return', () => {
+    expect(execution).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/');
+    expect(execution).toContain('`05677e5a00c45bcc20abe06b3622a72d4b7aa43b`');
+    expect(execution).toContain('The HandoffProbe reproduction is not external confirmation.');
+    expect(queue).toContain(
+      '- [x] exact Reddit comment permalink recorded before public result return;',
+    );
+    expect(queue).toContain('- [x] merged immutable result recorded;');
+  });
+
   it('updates the queue and roadmap while keeping result return pending', () => {
     expect(queue).toContain(
       'Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**',

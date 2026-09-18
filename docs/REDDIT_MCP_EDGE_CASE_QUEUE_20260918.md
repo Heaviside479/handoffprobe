@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **QUEUED — two external technical signals frozen; implementation not yet authorized.**
+Status: **ACTIVE — R-1 executed and direct comment source frozen; R-2 queued with exact direct-comment permalink pending.**
 
 ## Purpose
 
@@ -43,6 +43,20 @@ Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result 
 Originating Reddit author:
 
 `u/Signal_Temporary6572`
+
+Direct Reddit comment permalink supplied by the commenter thread:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+Canonical direct comment URL:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/
+
+Exact supplied comment text:
+
+> what happens when a client reconnects mid-handoff after a transient network blip and the server already rotated its internal session token but the client still presents the old one, do you treat that as a replay or just a stale auth?
+
+The direct permalink was recorded after deterministic execution/merge and before any public HandoffProbe result-return reply.
 
 Source description:
 
@@ -136,6 +150,18 @@ Execution record:
 
 `docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md`
 
+Merged execution commit:
+
+`05677e5a00c45bcc20abe06b3622a72d4b7aa43b`
+
+Immutable execution record:
+
+https://github.com/Heaviside479/handoffprobe/blob/05677e5a00c45bcc20abe06b3622a72d4b7aa43b/docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md
+
+Immutable execution test:
+
+https://github.com/Heaviside479/handoffprobe/blob/05677e5a00c45bcc20abe06b3622a72d4b7aa43b/tests/reddit-r1-token-rotation-execution.test.ts
+
 Observed secure path:
 
 - token A initially accepted;
@@ -169,16 +195,16 @@ Public result return is required after merge.
 
 ## R-1 gates
 
-- [x] external source recorded;
+- [x] originating thread, author, exact supplied comment text and direct permalink recorded;
 - [x] preliminary overlap with `HP-RACE-002`, `HP-REPLAY-003` and `HP-AUTH-006` recorded;
 - [x] no new stable attack ID reserved;
-- [ ] exact Reddit comment permalink recorded before public result return;
+- [x] exact Reddit comment permalink recorded before public result return;
 - [x] deterministic fixture implemented;
 - [x] secure result reproduced;
 - [x] intentionally vulnerable result reproduced;
 - [x] protected-effect evidence recorded;
 - [x] normal admission decision completed;
-- [ ] merged immutable result recorded;
+- [x] merged immutable result recorded;
 - [ ] concrete result returned to originating Reddit commenter/thread;
 - [ ] external response state recorded;
 - [ ] substantive response classified if one arrives;
@@ -194,13 +220,21 @@ Originating Reddit author:
 
 `u/anderson_the_one`
 
+Exact direct Reddit comment permalink:
+
+**PENDING**
+
+Exact supplied comment text:
+
+> Try a hot deploy in the middle. The sender approves capability version A, then the receiver resolves the same tool name after version B has widened the schema or changed a read into a write. The old approval should be dead, even though the label still matches. I'd bind it to the capability digest, not the tool name.
+
 Source description:
 
 A sender approves capability version A. During the handoff the receiver hot-deploys or resolves version B under the **same tool name**. Version B has materially widened the schema or changed protected semantics, for example from a read-like operation to a write-like operation.
 
 The source proposes binding approval to a capability digest rather than only the tool label.
 
-## Frozen research question
+## Queued research question
 
 The important comparison is not merely:
 
@@ -236,6 +270,20 @@ The existing approval invariant is therefore relevant, but current `HP-APPROVAL-
 R-2 is adjacent because a version change alters effective semantics, but the proposed Reddit fixture specifically concerns a previously issued approval surviving a hot-deployed capability change under the same name.
 
 Overlap must be resolved with execution evidence rather than by name alone.
+
+### HP-AUTH-001 — semantic-widening overlap to resolve
+
+`HP-AUTH-001` already owns semantic downstream authority widening.
+
+R-2 must therefore prove that any failure is specifically caused by stale approval surviving a materially changed same-name capability definition, rather than merely reproducing an already-covered authority-widening failure.
+
+### HP-RACE-002 — conditional timing overlap
+
+`HP-RACE-002` becomes relevant only if the hot-deploy transition is modeled as security state changing during an interrupted/resumed operation.
+
+If R-2 is executed without interruption/resume semantics, `HP-RACE-002` is not automatically governing.
+
+This conditional overlap must be resolved before fixture implementation.
 
 ## Preliminary classification
 
@@ -286,10 +334,11 @@ Intentionally vulnerable:
 
 ## R-2 gates
 
-- [x] external source recorded;
+- [x] originating thread, author and exact supplied comment text recorded;
 - [x] preliminary overlap with `HP-APPROVAL-002` and `HP-VERSION-001` recorded;
+- [ ] exact Reddit comment permalink recorded and source frozen before fixture implementation;
+- [ ] complete overlap review against `HP-AUTH-001` and the conditional `HP-RACE-002` case before fixture implementation;
 - [x] no new stable attack ID reserved;
-- [ ] exact Reddit comment permalink recorded before public result return;
 - [ ] exact security-relevant capability-definition subset frozen;
 - [ ] deterministic capability digest/binding representation frozen;
 - [ ] deterministic hot-deploy/version-transition fixture implemented;
