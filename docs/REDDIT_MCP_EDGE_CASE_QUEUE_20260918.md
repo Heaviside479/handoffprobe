@@ -38,7 +38,7 @@ A public suggestion alone is not evidence sufficient for `EVIDENCE.md`.
 
 # R-1 — token rotation during interrupted handoff / reconnect with stale token
 
-Status: **QUEUED — preliminary overlap: HP-RACE-002 REFINEMENT / NO NEW ID JUSTIFIED AT INTAKE.**
+Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**
 
 Originating Reddit author:
 
@@ -130,17 +130,54 @@ Intentionally vulnerable:
 - resumed protected dispatch occurs;
 - protected-effect delta: `1`.
 
+## R-1 execution result — 2026-09-18
+
+Execution record:
+
+`docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md`
+
+Observed secure path:
+
+- token A initially accepted;
+- server-side current generation rotates to B during the interruption;
+- reconnect presents stale A;
+- current authorization rejects A as `stale_session`;
+- MCP tool calls: `0`;
+- protected-effect delta: `0`.
+
+Observed intentionally vulnerable path:
+
+- current authorization still rejects stale A;
+- pre-interruption authorization snapshot is reused;
+- MCP tool calls: `1`;
+- protected-effect delta: `1`.
+
+Final admission:
+
+**HP-RACE-002 REFINEMENT / NO ADD**
+
+- no new stable attack ID;
+- stable corpus remains **23 attacks**;
+- package remains `0.4.0`;
+- no release is triggered;
+- `HP-REPLAY-003` is not governing because effect count before interruption is exactly `0`;
+- `HP-AUTH-006` is not governing because the resumed attempt is the same logical protected action.
+
+Public result return is required after merge.
+
+`EVIDENCE.md` remains unchanged until that return step is completed.
+
 ## R-1 gates
 
 - [x] external source recorded;
 - [x] preliminary overlap with `HP-RACE-002`, `HP-REPLAY-003` and `HP-AUTH-006` recorded;
 - [x] no new stable attack ID reserved;
 - [ ] exact Reddit comment permalink recorded before public result return;
-- [ ] deterministic fixture implemented;
-- [ ] secure result reproduced;
-- [ ] intentionally vulnerable result reproduced;
-- [ ] protected-effect evidence recorded;
-- [ ] normal admission decision completed;
+- [x] deterministic fixture implemented;
+- [x] secure result reproduced;
+- [x] intentionally vulnerable result reproduced;
+- [x] protected-effect evidence recorded;
+- [x] normal admission decision completed;
 - [ ] merged immutable result recorded;
 - [ ] concrete result returned to originating Reddit commenter/thread;
 - [ ] external response state recorded;
