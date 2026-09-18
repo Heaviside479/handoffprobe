@@ -1975,8 +1975,18 @@ The reproducible T-4 result has now been returned to the external contributors.
 - the author confirmed the compose-rather-than-subsume boundary and that no additional signed WitnessObservation fixture was required;
 - the author clarified that provider attestation establishes attestation/binding, not an independently confirmed world-side effect by itself;
 - supplemental NENRIN revision `62b60205` was mentioned but is not frozen or executed by this T-4 result;
-- VATE-specific external response remains **PENDING**;
-- T-4 remains open only for the VATE response classification and final closeout.
+- VATE author review received: https://github.com/a2aproject/A2A/issues/1769#issuecomment-5732275655
+- VATE response classification: **CONFIRMATION + CLARIFICATION**;
+- Poke-nushi states that the separation of action binding, unknown caller outcome and original-attempt reconciliation matches the VATE points previously raised;
+- the review recognizes that missing or mismatched evidence remains unresolved and reconciliation produces no additional protected effect;
+- A2A task state remains distinguishable from evidence of an external operation's outcome;
+- the VATE response is scoped author review, not an independent HandoffProbe rerun;
+- T-4 evidence level is now **External vector comparison + author review**;
+- T-4 is **CLOSED**;
+- the T-4.4 decision remains **DISTINCT RESEARCH CANDIDATE / NO STABLE ATTACK ADD**;
+- stable public corpus remains **23 attacks**;
+- package remains `0.4.0`;
+- no release is triggered.
 
 Detailed record: `docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md`.
 
