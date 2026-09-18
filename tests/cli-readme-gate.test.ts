@@ -8,76 +8,72 @@ async function readReadme(): Promise<string> {
   return readFile(README_PATH, 'utf8');
 }
 
-describe('Phase 5 README developer experience gate', () => {
-  it('documents the complete stable CLI surface', async () => {
+describe('compact README developer experience contract', () => {
+  it('keeps current release and protocol truth visible', async () => {
     const readme = await readReadme();
 
     for (const text of [
+      'handoffprobe@0.4.0',
       '23 stable attacks total',
+      'HP-AUTH-006',
+      'A2A 1.0 → MCP 2026-07-28',
+      'Report schema | `1`',
+      'Node.js | `>=24 <25`',
+    ]) {
+      expect(readme).toContain(text);
+    }
+  });
+
+  it('keeps the stable CLI surface while delegating detailed reference material', async () => {
+    const readme = await readReadme();
+
+    for (const text of [
       'handoffprobe test [options]',
       'handoffprobe list',
       'handoffprobe explain <HP-ID>',
       'handoffprobe --version',
       'handoffprobe --help',
+      'docs/USAGE.md',
+      'docs/CLI_SPECIFICATION.md',
+      'docs/INSTALLATION.md',
     ]) {
       expect(readme).toContain(text);
     }
   });
 
-  it('documents secure, vulnerable and severity workflows', async () => {
+  it('keeps the secure quick start and vulnerable demonstration', async () => {
     const readme = await readReadme();
 
-    for (const text of [
-      'Target: secure',
-      '--target vulnerable',
-      '--test HP-AUTH-001',
-      '--fail-on medium',
-      'info < low < medium < high < critical',
-    ]) {
-      expect(readme).toContain(text);
-    }
+    expect(readme).toContain('npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test');
+
+    expect(readme).toContain('Target: secure');
+    expect(readme).toContain('PASS: 23');
+
+    expect(readme).toContain('handoffprobe test --target vulnerable --test HP-AUTH-001');
+
+    expect(readme).toContain('Security gate: FAIL');
   });
 
-  it('documents config, reporters and output', async () => {
+  it('does not duplicate the complete CLI manual in the root README', async () => {
     const readme = await readReadme();
 
-    for (const text of [
-      'handoffprobe.config.json',
-      '--reporter terminal',
-      '--reporter json',
-      '--reporter markdown',
-      '--output handoffprobe-report.json',
-      'CLI flags override config values.',
-    ]) {
-      expect(readme).toContain(text);
-    }
-  });
+    expect(Buffer.byteLength(readme, 'utf8')).toBeLessThan(12_000);
 
-  it('documents exit codes, redaction and troubleshooting', async () => {
-    const readme = await readReadme();
-
-    for (const text of [
-      'ERROR is never converted into vulnerability exit code `1`',
-      '## Security and redaction',
+    for (const removedHeading of [
+      '## Configuration',
+      '## Reporters',
+      '## Output files',
+      '## Exit codes',
       '## Troubleshooting',
-      'A2A 1.0 → MCP 2026-07-28',
+      '## Command reference',
     ]) {
-      expect(readme).toContain(text);
-    }
-
-    for (const exitCode of ['0', '1', '2', '3']) {
-      expect(readme).toMatch(new RegExp(`\\|\\s+\`${exitCode}\`\\s+\\|`, 'u'));
+      expect(readme).not.toContain(removedHeading);
     }
   });
 
-  it('documents packaged and public npx execution', async () => {
+  it('keeps exact release metadata', async () => {
     const readme = await readReadme();
 
-    expect(readme).toContain(`PACKAGE_TARBALL="$(npm pack --silent)"`);
-
-    expect(readme).toContain(`npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test`);
-
-    expect(readme).toContain('npx handoffprobe test');
     expect(readme).toContain(
       'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
     );

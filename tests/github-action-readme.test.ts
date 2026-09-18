@@ -2,20 +2,19 @@ import { readFile } from 'node:fs/promises';
 
 import { describe, expect, it } from 'vitest';
 
-describe('GitHub Action README contract', () => {
-  it('documents the source-backed action and secure self-test', async () => {
+describe('compact GitHub Action README contract', () => {
+  it('keeps the external Action entry point visible', async () => {
     const contents = await readFile('README.md', 'utf8');
 
     expect(contents).toContain('## GitHub Action');
     expect(contents).toContain('source-backed composite GitHub Action');
-    expect(contents).toContain('GITHUB_ACTION_PATH');
-    expect(contents).toContain('uses: ./');
+    expect(contents).toContain('[`action.yml`](action.yml)');
     expect(contents).toContain('target: secure');
     expect(contents).toContain('fail-on: high');
     expect(contents).toContain('artifact-name: handoffprobe-report');
   });
 
-  it('documents external immutable revision pinning without recommending main', async () => {
+  it('documents immutable release pinning without recommending main', async () => {
     const contents = await readFile('README.md', 'utf8');
 
     const releaseState = JSON.parse(await readFile('docs/RELEASE_STATE.json', 'utf8')) as {
@@ -24,40 +23,19 @@ describe('GitHub Action README contract', () => {
     };
 
     expect(contents).toContain(`Heaviside479/handoffprobe@${releaseState.releaseCommit}`);
+
     expect(contents).toContain(
       `The pin above is the reviewed exact release commit for HandoffProbe v${releaseState.version}.`,
     );
+
     expect(contents).not.toContain('uses: Heaviside479/handoffprobe@main');
   });
 
-  it('documents action inputs, outputs and exit semantics', async () => {
+  it('delegates the full Action contract to the canonical specification', async () => {
     const contents = await readFile('README.md', 'utf8');
 
-    for (const input of ['`target`', '`tests`', '`fail-on`', '`artifact-name`']) {
-      expect(contents).toContain(input);
-    }
-
-    for (const output of ['`exit-code`', '`result`', '`report-path`', '`summary-path`']) {
-      expect(contents).toContain(output);
-    }
-
-    expect(contents).toContain(
-      'exit code `1` means the scan completed correctly and found a qualifying vulnerability',
-    );
-    expect(contents).toContain('exit code `2` means usage or configuration failure');
-    expect(contents).toContain('exit code `3` means scanner, runtime or output failure');
-  });
-
-  it('documents the protected repository merge gate', async () => {
-    const contents = await readFile('README.md', 'utf8');
-
-    expect(contents).toContain(
-      'The protected `main` branch of this repository currently requires:',
-    );
-    expect(contents).toContain('`HandoffProbe`');
-    expect(contents).toContain('`Quality`');
-    expect(contents).toContain('`Dependency Review`');
-    expect(contents).toContain('security failure blocks a non-draft pull request');
     expect(contents).toContain('docs/GITHUB_INTEGRATION_SPECIFICATION.md');
+
+    expect(contents).toContain('inputs, outputs, artifact behavior');
   });
 });

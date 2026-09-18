@@ -70,7 +70,11 @@ describe('Phase 9 crossing-corpus documentation', () => {
   it('publishes the externally reviewed Phase 9 evidence through the evidence index without overclaiming', () => {
     expect(readme).toContain('## External technical evidence');
     expect(readme).toContain('[`EVIDENCE.md`](EVIDENCE.md)');
-    expect(readme).toContain('pending #2079 review and T-4 work remain explicitly open');
+    expect(readme).toContain(
+      'A HandoffProbe reproduction is not automatically external confirmation.',
+    );
+    expect(readme).not.toContain('pending #2079 review and T-4 work remain explicitly open');
+    expect(evidence).toContain('**Status:** Completed external review follow-up — 2026-09-17');
 
     expect(evidence).toContain('## 1. Phase 9 A2A → MCP crossing corpus');
     expect(evidence).toContain('https://github.com/Heaviside479/handoffprobe/issues/20');
