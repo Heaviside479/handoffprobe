@@ -2076,6 +2076,34 @@ Required sequence for each case:
 
 The public stable corpus remains **23 attacks** and no package-version change or release is triggered by recording these signals.
 
+#### External GitHub thread traceability audit — 2026-09-18
+
+A retrospective GitHub-thread audit is recorded at:
+
+`docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md`
+
+The audit covers every external thread returned by the HandoffProbe-specific maintainer search and then verified directly:
+
+- A2A #1937 — completed external vector comparison + author review;
+- A2A #2079 — completed external vector comparison + author review;
+- A2A #1769 — completed T-4 scoped author review;
+- VATE #2 — completed VATE-specific acknowledgement with an immutable external technical record; no independent rerun;
+- MCP #3354 — reproducible result returned; external post-result response still **PENDING**, so evidence remains **Open research follow-up**;
+- MCP TypeScript SDK #2777 — HandoffProbe-related comment only; no fixture, admission or Evidence promotion.
+
+MCP Registry #1579 is explicitly excluded because the Heaviside479 comment there concerns MCPShip rather than HandoffProbe.
+
+Traceability repair:
+
+- HandoffProbe PR #93 now cross-references A2A #1937;
+- HandoffProbe PR #103 now cross-references A2A #2079;
+- HandoffProbe PR #121 now cross-references A2A #1769 and VATE #2;
+- HandoffProbe PR #115 now cross-references MCP #3354.
+
+GitHub issue timelines were checked after the repair and expose the expected HandoffProbe PR cross-reference events.
+
+The audit creates no new research work, attack ID, package-version change, evidence-level promotion by itself or release.
+
 #### Global external evidence return-loop policy — 2026-09-17
 
 This policy applies to **all current and future external technical contributors/threads**, including but not limited to A2A `#1937`, A2A `#2079`, A2A `#1769`, MCP `#3354`, and later research inputs.
