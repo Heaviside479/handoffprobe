@@ -1,6 +1,6 @@
 # T-4 — A2A third-party witness / conduct-observation follow-up
 
-Status: **T-4.4 complete 2026-09-18; T-4.5 NEXT.**
+Status: **T-4.5 public result return complete 2026-09-18; WitnessObservation author review recorded; VATE response pending.**
 Date queued: 2026-09-16
 
 Current scheduling note — 2026-09-17: the historical readiness marker above is preserved as part of the T-3 closeout record. Operationally, T-4.1 remains queued until the R4/v0.4.0 release closeout is complete; the canonical WitnessObservation pin identified below does not by itself complete T-4.1.
@@ -253,17 +253,22 @@ Guardrails:
 
 Only after the upstream material is frozen and any HandoffProbe comparison is reproducible:
 
-- [ ] reply in A2A `#1769` with the exact overlap/result rather than a speculative promise;
-- [ ] report WitnessObservation-specific findings back to Toshikatsu Oga / `ogasurfproject-jpg`, explicitly referencing the canonical input comment `#5712951510`;
-- [ ] report VATE-specific reproduction findings back to Takao Sato / `Poke-nushi` in the VATE implementation review issue (`Poke-nushi/Verifiable-Agent-Trust-Envelope#2`), explicitly referencing the canonical VATE input comment `#5713423719`;
-- [ ] if a VATE finding changes or informs A2A caller/task/context binding or artifact-carriage requirements, also summarize that result in A2A `#1769` and reference `#5713423719`;
-- [ ] if a final comparison result spans both WitnessObservation and VATE, post one evidence-backed cross-comparison summary in A2A `#1769` that mentions both authors and links the exact HandoffProbe evidence/commit;
-- [ ] preserve each authors scope boundaries and do not turn one upstream projects result into a claim about the other;
-- [ ] distinguish cryptographic provenance/linkage from semantic truth and runtime authorization;
-- [ ] report exactly what HandoffProbe did and did not test;
-- [ ] link stable evidence/commit references where useful;
-- [ ] invite correction if the upstream interpretation is wrong;
-- [ ] record any substantive reply and classify it before further implementation.
+- [x] reply in A2A `#1769` with the exact overlap/result rather than a speculative promise — https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541;
+- [x] report WitnessObservation-specific findings back to Toshikatsu Oga / `ogasurfproject-jpg`, explicitly referencing the canonical input comment `#5712951510` — returned in https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541;
+- [x] report VATE-specific reproduction findings back to Takao Sato / `Poke-nushi` in the VATE implementation review issue (`Poke-nushi/Verifiable-Agent-Trust-Envelope#2`), explicitly referencing the canonical VATE input comment `#5713423719` — https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5729853773;
+- [x] if a VATE finding changes or informs A2A caller/task/context binding or artifact-carriage requirements, also summarize that result in A2A `#1769` and reference `#5713423719` — cross-comparison returned in https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541;
+- [x] if a final comparison result spans both WitnessObservation and VATE, post one evidence-backed cross-comparison summary in A2A `#1769` that mentions both authors and links the exact HandoffProbe evidence/commit — https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541;
+- [x] preserve each authors scope boundaries and do not turn one upstream projects result into a claim about the other;
+- [x] distinguish cryptographic provenance/linkage from semantic truth and runtime authorization;
+- [x] report exactly what HandoffProbe did and did not test;
+- [x] link stable evidence/commit references where useful;
+- [x] invite correction if the upstream interpretation is wrong;
+- [x] record the substantive WitnessObservation author reply and classify it before final T-4 closeout — https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729937680
+  - classification: **CONFIRMATION + CLARIFICATION**;
+  - confirmed: compose-rather-than-subsume boundary, no additional signed WitnessObservation fixture required, and provider-side original-attempt reconciliation remains a distinct research candidate;
+  - clarification: provider attestation proves attestation and binding, not an independently confirmed world-side effect by itself;
+  - supplemental NENRIN revision `62b60205` was mentioned but was not frozen or tested by this T-4 result.
+- [ ] record and classify the VATE-specific external response before final T-4 closeout; current state: **PENDING**.
 
 Do not post a HandoffProbe product pitch merely because the thread is active.
 

@@ -1960,6 +1960,26 @@ T-4.3 and T-4.4 are complete.
 - No new stable attack is admitted, the stable public corpus remains 23 attacks, and no release is triggered.
 - T-4.5 is next: return the reproducible result to A2A `#1769` and the VATE implementation review thread with exact commit/evidence links, tested and untested scope, limitations and an invitation to correct the interpretation.
 - The post-T-3 A2A `#1937` signal did not materially determine this reconciliation fixture, so this result alone does not require a separate `#1937` reply.
+#### T-4.5 public result return — 2026-09-18
+
+The reproducible T-4 result has now been returned to the external contributors.
+
+- A2A #1769 cross-comparison reply: https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729838541
+- VATE implementation-review reply: https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5729853773
+- HandoffProbe fixture commit: `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`
+- merged evidence state: `360f3345cf72ca60e0a91a81b91164dad7dd3d2c`
+- both replies preserve tested/untested scope and explicitly invite correction or counter-evidence;
+- no external confirmation is claimed from the HandoffProbe result itself;
+- WitnessObservation author review received: https://github.com/a2aproject/A2A/issues/1769#issuecomment-5729937680
+- response classification: **CONFIRMATION + CLARIFICATION**;
+- the author confirmed the compose-rather-than-subsume boundary and that no additional signed WitnessObservation fixture was required;
+- the author clarified that provider attestation establishes attestation/binding, not an independently confirmed world-side effect by itself;
+- supplemental NENRIN revision `62b60205` was mentioned but is not frozen or executed by this T-4 result;
+- VATE-specific external response remains **PENDING**;
+- T-4 remains open only for the VATE response classification and final closeout.
+
+Detailed record: `docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md`.
+
 #### Global external evidence return-loop policy — 2026-09-17
 
 This policy applies to **all current and future external technical contributors/threads**, including but not limited to A2A `#1937`, A2A `#2079`, A2A `#1769`, MCP `#3354`, and later research inputs.
