@@ -126,6 +126,30 @@ This is scoped author review of the reported HandoffProbe result. It is **not** 
 
 It does not establish A2A or VATE conformance, production-world reconciliation, certification, endorsement or independent confirmation of a real-world side effect.
 
+### Post-closeout VATE issue-specific acknowledgement
+
+After the A2A-side VATE author review, Poke-nushi also responded in the canonical VATE implementation-review issue:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5733113059
+
+The response links an immutable VATE-side technical review record:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/blob/60c8c7c9cf89fc6011eb95f9d67b5d25233338b7/docs/interop/handoffprobe-reconciliation-review.md
+
+That record preserves the three-property comparison, the pinned HandoffProbe sources, the reported local result and the scope boundary. It explicitly states that source/package correspondence was checked and that the HandoffProbe tests were **not rerun** by the VATE maintainer.
+
+HandoffProbe acknowledged that issue-specific record here:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5733216447
+
+This is additional reciprocal provenance and scoped author acknowledgement. It does not change the evidence level, does not constitute an independent rerun and does not reopen T-4.
+
+Canonical HandoffProbe closeout PR:
+
+https://github.com/Heaviside479/handoffprobe/pull/121
+
+That PR now carries explicit full links to both A2A #1769 and VATE #2, and the external GitHub timelines expose the corresponding HandoffProbe cross-reference events.
+
 ### Final T-4 closeout
 
 Both materially relevant external review paths now have substantive responses:
