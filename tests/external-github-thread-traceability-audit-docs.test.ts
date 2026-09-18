@@ -2,37 +2,23 @@ import { readFileSync } from 'node:fs';
 
 import { describe, expect, it } from 'vitest';
 
-const audit = readFileSync(
-  'docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md',
-  'utf8',
-);
+const audit = readFileSync('docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md', 'utf8');
 const evidence = readFileSync('EVIDENCE.md', 'utf8');
 const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
-const t4 = readFileSync(
-  'docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md',
-  'utf8',
-);
+const t4 = readFileSync('docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md', 'utf8');
 
 describe('external GitHub thread traceability audit', () => {
   it('tracks every verified external HandoffProbe GitHub thread', () => {
-    expect(audit).toContain(
-      'https://github.com/a2aproject/A2A/issues/1937',
-    );
-    expect(audit).toContain(
-      'https://github.com/a2aproject/A2A/issues/2079',
-    );
-    expect(audit).toContain(
-      'https://github.com/a2aproject/A2A/issues/1769',
-    );
+    expect(audit).toContain('https://github.com/a2aproject/A2A/issues/1937');
+    expect(audit).toContain('https://github.com/a2aproject/A2A/issues/2079');
+    expect(audit).toContain('https://github.com/a2aproject/A2A/issues/1769');
     expect(audit).toContain(
       'https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354',
     );
     expect(audit).toContain(
       'https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2',
     );
-    expect(audit).toContain(
-      'https://github.com/modelcontextprotocol/typescript-sdk/issues/2777',
-    );
+    expect(audit).toContain('https://github.com/modelcontextprotocol/typescript-sdk/issues/2777');
   });
 
   it('keeps the MCPShip registry thread outside HandoffProbe lineage', () => {
@@ -47,9 +33,7 @@ describe('external GitHub thread traceability audit', () => {
     expect(audit).toContain('PR #103 → A2A #2079');
     expect(audit).toContain('PR #121 → A2A #1769 and VATE #2');
     expect(audit).toContain('PR #115 → MCP #3354');
-    expect(roadmap).toContain(
-      'docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md',
-    );
+    expect(roadmap).toContain('docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md');
   });
 
   it('adds missing initiating comments and the VATE reciprocal record to Evidence', () => {
@@ -71,15 +55,11 @@ describe('external GitHub thread traceability audit', () => {
   });
 
   it('preserves evidence truth and does not manufacture a new result', () => {
-    expect(evidence).toContain(
-      '**Evidence level:** Open research follow-up',
-    );
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
     expect(audit).toContain('no new attack ID');
     expect(audit).toContain('no new research execution');
     expect(audit).toContain('no release');
-    expect(t4).toContain(
-      'the HandoffProbe tests were **not rerun** by the VATE maintainer',
-    );
+    expect(t4).toContain('the HandoffProbe tests were **not rerun** by the VATE maintainer');
     expect(t4).toContain(
       'It does not change the evidence level, does not constitute an independent rerun and does not reopen T-4.',
     );
