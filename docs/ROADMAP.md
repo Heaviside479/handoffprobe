@@ -1887,6 +1887,20 @@ A substantive `#2079` response arrived after the dated T-3.7/T-3.8 closeout.
 - attack admission remains **NO ADD** and the research outcome remains **REFINEMENT** of `HP-AUTH-001`; this response does not authorize a new stable attack or release;
 - record: `docs/T3_CA2A_EXTERNAL_AUTHOR_CONFIRMATION_20260917.md`.
 
+#### Post-T-3 A2A #1937 technical follow-up — 2026-09-17
+
+A new technical comment arrived after T-3 had already been completed and must not reopen the closed T-3 implementation track.
+
+- Public source: `https://github.com/a2aproject/A2A/issues/1937#issuecomment-5722725065`.
+- Author: `chgaowei`.
+- The comment distinguishes a valid grant replayed into the wrong task from a missing-token failure.
+- The proposed fail-closed binding set is: authenticated acting principal, A2A task/context, target, non-widening scope and validity window.
+- The comment identifies the A2A -> MCP tool boundary as a place where a delegation chain can appear attenuated while the translated downstream effect is wider, and therefore calls for binding to be checked again against the actual caller at that boundary.
+- The described resolvable-DID leaf identity is implementation-specific and is explicitly not proposed as A2A conformance.
+- T-3 remains closed. This comment does not create a new T-3 fixture, stable attack, admission decision or release requirement.
+- The signal may support T-4.2 overlap analysis where materially relevant because T-4.2 already compares completed `#1937` findings with cross-protocol authority and runtime-enforcement evidence.
+- No additional public HandoffProbe reply is required merely to acknowledge this post-T-3 comment. If the signal materially informs a later reproducible HandoffProbe comparison or fixture, return that concrete result to A2A `#1937`, state the tested and untested scope, invite correction, and record the response before dependent follow-on work.
+
 #### T-4 / A2A #1769 queued external signals — 2026-09-17
 
 Two additional public technical responses arrived after the existing T-4 queue was prepared and must be included in the T-4 freeze/overlap review before implementation or admission decisions:
@@ -1896,6 +1910,7 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - Oga's stated scope remains limited: the design is a draft, is not wired into a live service, and is not outsider-verifiable beyond the published specification and tests.
 - HandoffProbe follow-up preserving those claim boundaries and requesting an exact canonical upstream revision/vector for the later T-4 freeze: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712635674`.
 - Oga then supplied an immutable canonical WitnessObservation pin: commit `4d7c9c270c2846465fafdea9833869c5660c4ae2`, path `workers/hs-ledger/nenrin/task-delegation-bind-v0/`, with `EXTENSION.md`, `bind.mjs`, `sign.mjs` and `signed.json`; public response: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5712951510`.
+- Later correction: this preserves the original author-supplied description, but independent freeze verification and Oga comments `#5722127484` and `#5728468834` confirmed that `signed.json` and `obs.json` are regenerated gitignored non-source material. They are not part of canonical commit `4d7c9c27`; only tracked source and tests are treated as pinned input.
 - The supplied vector map gives concrete T-4 inputs for structural witness binding (`A1`, `S1`), hop continuity (`A4`, `A4b`, `S2`, `prod-t2`), disagreement preservation (`A3`, `S4`) and cross-language canonicalization. Oga explicitly limits R1 to structural witness distinctness, not proof of non-affiliation.
 - Outcome-unknown remains an explicit gap on the WitnessObservation side: there is no dedicated v0 vector for the response-loss / read-only-reconciliation case yet. The VATE revision must therefore be frozen independently rather than inferred from Oga's artifacts.
 - HandoffProbe acknowledgement of the canonical pin and those boundaries: `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5713030346`.
@@ -1909,6 +1924,22 @@ Two additional public technical responses arrived after the existing T-4 queue w
 - T-4 must freeze the exact upstream artifacts and then classify overlap/admission normally as `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE` before any implementation decision.
 - After reproducible T-4 results exist, HandoffProbe must return the relevant findings to the upstream contributors rather than only recording them internally: WitnessObservation-specific results to Oga in A2A `#1769` with reference to `#5712951510`; VATE-specific reproduction results to Poke-nushi in `Poke-nushi/Verifiable-Agent-Trust-Envelope#2` with reference to `#5713423719`; and any VATE result that affects A2A caller/task/context binding or artifact-carriage requirements must also be summarized in A2A `#1769`.
 - Any cross-comparison result involving both inputs must mention both contributors, link reproducible HandoffProbe evidence/commit references, preserve each upstream scope boundary, and be recorded before T-4 closeout.
+
+#### T-4.2 WitnessObservation / VATE overlap closeout — 2026-09-18
+
+T-4.2 is complete.
+
+- Completion artifact: `docs/T4_2_WITNESS_VATE_OVERLAP_MATRIX_20260918.md`.
+- Eight candidate properties were classified: 3 `ALREADY COVERED`, 2 `REFINEMENT`, 1 `DISTINCT RESEARCH GAP`, 1 `OUT OF SCOPE`, and 1 `NEEDS EVIDENCE`.
+- Witness structural distinctness alone remains profile policy rather than a new HandoffProbe invariant.
+- Evidence-id recomputation and delegation/evidence continuity overlap existing integrity, lineage and audit evidence.
+- Authorized-action equivalence is already covered by existing authority, target, approval, Phase 9, T-1 and T-3 evidence.
+- Caller outcome uncertainty after response loss is a refinement of existing retry and partial-failure evidence.
+- Provider-side reconciliation of the original attempt after response loss is the only current `DISTINCT RESEARCH GAP`.
+- Witness disagreement preservation remains `NEEDS EVIDENCE` because no concrete protected-decision or protected-effect consequence has yet been demonstrated.
+- No new stable attack is admitted. The stable corpus remains 23 attacks.
+- T-4.3 may implement only the smallest local deterministic synthetic fixture for original-attempt provider reconciliation.
+- Oga comment `#5728468834` confirms that no additional signed WitnessObservation fixture is needed unless a later concrete property requires one.
 
 #### Global external evidence return-loop policy — 2026-09-17
 

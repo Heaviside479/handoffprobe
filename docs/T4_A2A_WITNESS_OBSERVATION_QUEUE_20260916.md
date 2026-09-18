@@ -1,6 +1,6 @@
 # T-4 — A2A third-party witness / conduct-observation follow-up
 
-Status: **T-4.1 complete 2026-09-17; T-4.2 NEXT.**
+Status: **T-4.2 complete 2026-09-18; T-4.3 NEXT.**
 Date queued: 2026-09-16
 
 Current scheduling note — 2026-09-17: the historical readiness marker above is preserved as part of the T-3 closeout record. Operationally, T-4.1 remains queued until the R4/v0.4.0 release closeout is complete; the canonical WitnessObservation pin identified below does not by itself complete T-4.1.
@@ -47,6 +47,9 @@ After HandoffProbe requested an exact immutable upstream revision rather than in
 - canonical upstream commit: `4d7c9c270c2846465fafdea9833869c5660c4ae2`;
 - canonical path: `workers/hs-ledger/nenrin/task-delegation-bind-v0/`;
 - named artifacts at that commit: `EXTENSION.md`, `bind.mjs`, `sign.mjs`, and the frozen signed example `signed.json`.
+
+Later correction: the line above preserves what the author originally named at the time. Independent inspection and later Oga comments `#5722127484` and `#5728468834` confirmed that `signed.json` and `obs.json` are regenerated gitignored non-source material and are not part of the immutable canonical pin. The canonical pin therefore consists only of tracked source and tests.
+
 
 The author also mapped concrete adversarial inputs onto the seams HandoffProbe proposed to test:
 
@@ -148,6 +151,16 @@ Before implementing any new HandoffProbe case, map the proposal against:
 - the T-2 protocol-neutral separation of Contract Semantics, Attestation / Binding and Runtime Enforcement;
 - completed T-3 findings from `#1937` and `#2079`.
 
+Post-T-3 supporting signal for this overlap analysis:
+
+- `chgaowei` added A2A `#1937` comment `#5722725065`: `https://github.com/a2aproject/A2A/issues/1937#issuecomment-5722725065`;
+- the comment proposes fail-closed binding of the authenticated acting principal, A2A task/context, target, non-widening scope and validity window;
+- it specifically calls out the A2A -> MCP translation boundary, where an apparently attenuated A2A chain can still produce a wider downstream effect, and says binding should be checked again at the tool boundary against the actual caller;
+- the resolvable-DID leaf identity described there is source-specific and is explicitly not presented as A2A conformance;
+- this comment does not reopen completed T-3 work and does not independently justify a new fixture, stable attack or admission decision;
+- it may be used as supporting external input in T-4.2 only where it materially sharpens the existing cross-protocol boundary analysis. If it materially informs a reproducible HandoffProbe result, that result must be returned to `#1937` under the external-evidence return-loop policy.
+
+
 At minimum, answer these questions:
 
 - What security property does an independent witness add beyond signed lineage/provenance already represented elsewhere?
@@ -162,6 +175,18 @@ Classify each candidate property as:
 `ALREADY COVERED / REFINEMENT / DISTINCT RESEARCH GAP / OUT OF SCOPE / NEEDS EVIDENCE`.
 
 No code is justified before this overlap map exists.
+
+T-4.2 completion evidence: [`T4_2_WITNESS_VATE_OVERLAP_MATRIX_20260918.md`](T4_2_WITNESS_VATE_OVERLAP_MATRIX_20260918.md).
+
+T-4.2 classified eight candidate properties:
+
+- `ALREADY COVERED`: 3;
+- `REFINEMENT`: 2;
+- `DISTINCT RESEARCH GAP`: 1;
+- `OUT OF SCOPE`: 1;
+- `NEEDS EVIDENCE`: 1.
+
+The only T-4.3 research fixture currently justified is provider-side reconciliation of the original attempt after response loss. No stable attack is admitted by T-4.2 and the stable corpus remains 23 attacks.
 
 ## T-4.3 — smallest deterministic research fixture, only if justified
 
