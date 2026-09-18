@@ -1,6 +1,6 @@
 # HandoffProbe repository cleanup and current-state reconciliation plan
 
-Status: **ACTIVE — Cleanup A completed 2026-09-18; Cleanup B next.**
+Status: **ACTIVE — Cleanup A and Cleanup B.1 completed 2026-09-18; remaining Cleanup B current-document reconciliation next.**
 
 Date started: 2026-09-18
 
@@ -154,7 +154,7 @@ Rules:
 
 # Cleanup B.1 — compact README / npm presentation
 
-Status: **PLANNED**
+Status: **COMPLETE — 2026-09-18**
 
 The root `README.md` serves both:
 
@@ -204,6 +204,23 @@ The README cleanup itself does **not** justify a package release.
 
 The compact README becomes visible on npmjs.com with the next otherwise justified
 normal HandoffProbe release because the root README is part of the package surface.
+
+Completion record:
+
+- the root README was rewritten as a compact current-product landing page;
+- v0.4.0, 23 stable attacks, A2A 1.0 → MCP 2026-07-28, quick start,
+  vulnerable demo, immutable Action pin, safety boundary, evidence policy,
+  commercial assessment CTA and opt-in feedback paths remain visible;
+- detailed configuration, reporter, output, exit-code and troubleshooting material
+  remains canonical in `docs/USAGE.md`, `docs/CLI_SPECIFICATION.md`,
+  `docs/INSTALLATION.md` and `docs/GITHUB_INTEGRATION_SPECIFICATION.md`;
+- README regression tests now protect the compact landing-page contract instead of
+  requiring a duplicated full CLI/Action manual;
+- historical Phase 8/T-3/T-4 regression coverage remains, but current README tests
+  no longer require superseded historical status statements to remain on the current
+  product landing page;
+- no runtime behavior, attack identity, package version or release state changed;
+- npm presentation will change only with the next otherwise justified normal release.
 
 ---
 
@@ -383,7 +400,8 @@ When work continues in another chat, coding-agent session or contributor context
 4. continue from the first incomplete cleanup section;
 5. never infer completion merely from an older chat transcript.
 
-Current next step after this plan is merged:
+Current next step:
 
-**Cleanup B — current documentation reconciliation, beginning with the compact
-README and active current-state documents.**
+**Continue Cleanup B current-document reconciliation with `PROJECT_CONTEXT.md`,
+`AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/ARCHITECTURE.md`,
+`docs/PRODUCT.md`, the commercial track and `CHANGELOG.md`.**

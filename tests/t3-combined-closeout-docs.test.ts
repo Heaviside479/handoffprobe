@@ -68,6 +68,7 @@ describe('T-3.8 combined A2A follow-up closeout', () => {
     expect(t43).toContain('T-4.4 decision: **DISTINCT RESEARCH CANDIDATE**');
     expect(t43).toContain('New stable attack admitted: **no**.');
     expect(t43).toContain('The stable public corpus remains **23 attacks**.');
-    expect(readme).toContain('pending #2079 review and T-4 work remain explicitly open');
+    expect(evidence).toContain('**Status:** Completed external review follow-up — 2026-09-17');
+    expect(readme).not.toContain('pending #2079 review and T-4 work remain explicitly open');
   });
 });

@@ -1,123 +1,81 @@
 # HandoffProbe
 
-Open-source adversarial security testing for AI agent handoffs.
+**Open-source adversarial security testing for AI agent handoffs.**
 
 HandoffProbe tests whether security properties survive when an AI-agent action crosses protocol and execution boundaries.
+
+A system can be valid at the A2A layer and valid at the MCP layer while the composed handoff still loses authority, identity, approval, target or lifecycle constraints.
 
 Current deterministic protocol baseline:
 
 **A2A 1.0 → MCP 2026-07-28**
 
-The bundled developer experience is local-first, deterministic and synthetic.
-It requires no paid AI service, no telemetry and no signup.
+HandoffProbe is local-first, deterministic and open source. The bundled test path requires no paid AI service, telemetry or signup.
 
-## Why HandoffProbe exists
+## Current release
 
-A system can look secure at each individual protocol layer while becoming insecure at the handoff between those layers.
+| | |
+| --- | --- |
+| Release | `handoffprobe@0.4.0` |
+| Stable corpus | **23 stable attacks total** |
+| Composition | 12 P0 + 10 P1 + 1 advanced |
+| Latest stable addition | `HP-AUTH-006` |
+| Protocol baseline | A2A 1.0 → MCP 2026-07-28 |
+| Report schema | `1` |
+| Node.js | `>=24 <25` |
+| License | Apache-2.0 |
 
-```text
+Release metadata for this source/package is **`handoffprobe@0.4.0`**.
+
+HandoffProbe v0.4.0 is the current verified public release. The package, `v0.4.0` tag, GitHub Release and reusable Action were verified after publication.
+
+## What HandoffProbe tests
+
+~~~text
 Human / calling service
         |
         v
      Agent A
-        | A2A 1.0
+        | A2A
         v
      Agent B / translation layer
-        | MCP 2026-07-28
+        | MCP
         v
        Tool
-```
+~~~
 
-HandoffProbe checks security properties such as:
+The stable corpus tests handoff properties including:
 
-- delegated authority;
-- principal identity;
-- tenant continuity;
-- resource binding;
-- approval and consent;
+- delegated authority and authorization freshness;
+- principal and agent identity continuity;
+- tenant and resource binding;
+- approval and consent continuity;
 - credential audience;
-- replay protection;
-- cancellation;
-- retry identity;
-- audit lineage.
+- replay and retry behavior;
+- cancellation and lifecycle propagation;
+- cross-protocol audit lineage.
 
-## Current status
+The admission rule is intentionally narrow: a stable HandoffProbe test must exercise a security property that can be lost because a handoff composes or translates protocol/security context.
 
-The developer CLI currently includes:
+HandoffProbe is not intended to replace the official A2A conformance/inspection tools, MCP Inspector, a generic LLM red-team platform, an identity provider or a production runtime firewall.
 
-- 12 stable P0 attacks;
-- 10 stable P1 attacks;
-- 1 additional stable advanced attack (`HP-AUTH-006`);
-- 23 stable attacks total;
-- secure and intentionally vulnerable bundled fixtures;
-- terminal, JSON and Markdown reporters;
-- deterministic CI exit codes;
-- secret redaction and safe runtime diagnostics;
-- reusable source-backed composite GitHub Action;
-- pull-request summaries and machine-readable artifacts;
-- repository gates for dependency review and secret safety.
+## Quick start
 
-Release metadata for this source/package is **`handoffprobe@0.4.0`**.
+Requirements:
 
-HandoffProbe v0.4.0 is the current verified public release. The public npm package, annotated `v0.4.0` tag, GitHub Release, reusable Action / Marketplace presentation and both public website surfaces have completed coordinated post-publication verification. The v0.3.0 package, tag and release remain historical release evidence.
+- Node.js `>=24 <25`;
+- npm.
 
-The v0.4.0 release adds stable advanced attack `HP-AUTH-006 — Stale task authorization reused for later effect` and expands the canonical stable corpus from 22 to 23 attacks. It preserves the existing public CLI command surface, package-root API, GitHub Action inputs/outputs, report schema `1`, exit semantics, Node policy and A2A 1.0 → MCP 2026-07-28 protocol baseline. Research-only T-2/T-3/T-4 material is not automatically promoted into the public runtime surface.
+Run the exact verified public release:
 
-## Commercial support
-
-HandoffProbe remains free and open source under Apache-2.0.
-
-Teams that want HandoffProbe applied to a real authorized agent/tool handoff can request a **Founding Security Assessment** from Heaviside Solutions.
-
-The assessment covers one clearly agreed handoff boundary and includes human review of HandoffProbe evidence, written findings and remediation guidance, plus one retest after fixes.
-
-[HandoffProbe product website](https://handoffprobe.heaviside-solutions.com)
-
-[Request a Founding Security Assessment](https://handoffprobe.heaviside-solutions.com/security-assessment)
-
-Other commercial work may include custom adapters, integrations, private organization-specific test packs, technical onboarding and enterprise support.
-
-Commercial work is limited to systems you own or are authorized to assess. Security-sensitive disclosures should follow [`SECURITY.md`](SECURITY.md).
-
-## External technical evidence
-
-Public, reproducible external technical evidence and its scope limitations are indexed in [`EVIDENCE.md`](EVIDENCE.md).
-
-The index separates completed, scoped external evidence from open technical follow-ups. A completed HandoffProbe research track is not treated as external confirmation unless its own external-review conditions are met. The T-3 closeout historically recorded that pending #2079 review and T-4 work remain explicitly open; #2079 has since received a scoped external author confirmation, while T-4 remains open. The index does not imply protocol endorsement, standards acceptance, certification, production-world validation, partnership or commercial adoption.
-
-## Requirements
-
-- Node.js `>=24 <25`
-- npm
-
-## Installation
-
-Detailed installation instructions are in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
-The complete CLI and automation guide is in [`docs/USAGE.md`](docs/USAGE.md).
-
-The exact registry commands below target the current verified public release `handoffprobe@0.4.0`.
-
-
-```bash
+~~~bash
 npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
 npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
-```
+~~~
 
-## Quick start from source
+Expected secure high-level result:
 
-```bash
-git clone https://github.com/Heaviside479/handoffprobe.git
-cd handoffprobe
-npm ci
-npm run build
-node dist/cli.js test
-```
-
-The default target is the bundled `secure` target.
-
-Expected high-level result:
-
-```text
+~~~text
 Target: secure
 Protocols: A2A 1.0 | MCP 2026-07-28
 Selected attacks: 23
@@ -129,61 +87,57 @@ Summary:
   TOTAL: 23
 
 Security gate: PASS
-```
+~~~
 
-## Packaged-artifact demo
+The default target is a bundled synthetic secure fixture.
 
-To create the package tarball locally:
+### Reproduce a handoff failure
 
-```bash
-PACKAGE_TARBALL="$(npm pack --silent)"
-```
+Run the intentionally vulnerable `HP-AUTH-001` demonstration:
 
-Run the packaged CLI through `npx`:
+~~~bash
+npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test --target vulnerable --test HP-AUTH-001
+~~~
 
-```bash
-npx --yes --package="./$PACKAGE_TARBALL" handoffprobe test
-```
+Expected finding:
 
-The exact registry commands for the current verified public release are:
+~~~text
+FAIL           HP-AUTH-001 Delegated authority amplification [HIGH]
 
-```bash
-npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
-npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
-```
+Security gate: FAIL
+~~~
 
-The shorter convenience command is:
+A security exit code `1` means HandoffProbe completed correctly and detected a qualifying security failure. It is not a scanner crash.
 
-```bash
-npx handoffprobe test
-```
+The current release also includes `HP-AUTH-006 — Stale task authorization reused for later effect`, which verifies that an earlier successful authorization cannot silently authorize a later distinct protected effect after the governing authority becomes non-current.
+
+## CLI
+
+The stable command surface is:
+
+~~~text
+handoffprobe test [options]
+handoffprobe list
+handoffprobe explain <HP-ID>
+handoffprobe --version
+handoffprobe --help
+~~~
+
+The full CLI contract — including attack selection, severity thresholds, configuration, terminal/JSON/Markdown reporters, output files, exit codes and troubleshooting — lives in:
+
+- [`docs/USAGE.md`](docs/USAGE.md)
+- [`docs/CLI_SPECIFICATION.md`](docs/CLI_SPECIFICATION.md)
+- [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
+
+Keeping those details in their canonical documents avoids duplicating a second CLI manual in the repository landing page and npm README.
 
 ## GitHub Action
 
-HandoffProbe includes a reusable source-backed composite GitHub Action in
-[`action.yml`](action.yml).
+HandoffProbe includes a **source-backed composite GitHub Action** in [`action.yml`](action.yml).
 
-The action installs and builds HandoffProbe from its own `GITHUB_ACTION_PATH`.
-It therefore does not require the calling repository to contain the HandoffProbe
-source tree or depend on the npm package already being publicly released.
+For security-sensitive use, pin the Action to the reviewed immutable v0.4.0 release commit:
 
-A single action invocation executes the scanner exactly once. The canonical
-machine-readable JSON report and the Markdown/GitHub summary are derived from
-that same completed scan.
-
-The repository self-test uses:
-
-```yaml
-- uses: ./
-  with:
-    target: secure
-    fail-on: high
-    artifact-name: handoffprobe-report
-```
-
-For another repository, pin HandoffProbe to a reviewed immutable commit SHA:
-
-```yaml
+~~~yaml
 name: HandoffProbe
 
 on:
@@ -194,7 +148,6 @@ permissions:
 
 jobs:
   handoffprobe:
-    name: HandoffProbe
     runs-on: ubuntu-latest
 
     steps:
@@ -207,381 +160,113 @@ jobs:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
-```
+~~~
 
 The pin above is the reviewed exact release commit for HandoffProbe v0.4.0.
-The human-readable `v0.4.0` tag remains useful for discovery while the exact release commit SHA is the stronger supply-chain pin. Both `v0.4.0` and `8ffdbec95e8ebe6fe1db1f3c2151d571461d596d` were verified after publication from a separate consumer repository.
 
-Supported inputs:
+The human-readable `v0.4.0` tag is useful for discovery; immutable commit-SHA pinning is the stronger supply-chain choice.
 
-| Input           | Default               | Meaning                                               |
-| --------------- | --------------------- | ----------------------------------------------------- |
-| `target`        | `secure`              | bundled `secure` or intentionally `vulnerable` target |
-| `tests`         | all stable attacks    | optional comma-separated stable `HP-` IDs             |
-| `fail-on`       | `high`                | `info`, `low`, `medium`, `high` or `critical`         |
-| `artifact-name` | `handoffprobe-report` | validated artifact name                               |
+For all Action inputs, outputs, artifact behavior, exit semantics and CI integration details, see [`docs/GITHUB_INTEGRATION_SPECIFICATION.md`](docs/GITHUB_INTEGRATION_SPECIFICATION.md).
 
-Action outputs:
+## External technical evidence
 
-| Output         | Meaning                                   |
-| -------------- | ----------------------------------------- |
-| `exit-code`    | deterministic HandoffProbe exit code      |
-| `result`       | `pass`, `fail` or `error`                 |
-| `report-path`  | canonical JSON report path when available |
-| `summary-path` | generated Markdown summary path           |
+HandoffProbe treats research provenance as part of the product rather than as marketing material.
 
-Security behavior:
+[`EVIDENCE.md`](EVIDENCE.md) records external technical inputs, reproducible HandoffProbe results, external response state and scope limitations.
 
-- exit code `0` means the security gate passed;
-- exit code `1` means the scan completed correctly and found a qualifying vulnerability;
-- exit code `2` means usage or configuration failure;
-- exit code `3` means scanner, runtime or output failure;
-- a security exit code `1` still uploads its safe report artifact before the GitHub check fails;
-- reports contain redacted finding data plus safe evidence counts and sequence references;
-- the reference pull-request workflow uses `contents: read`;
-- the reference workflow does not use `pull_request_target`.
+Historical reproducible example:
 
-The protected `main` branch of this repository currently requires:
+[Reproduzierbarer Research-Fall HP-AUTH-001](docs/PHASE8_RESEARCH_CASE_HP_AUTH_001_20260831.md)
 
-- `HandoffProbe`;
-- `Quality`;
-- `Dependency Review`.
+A HandoffProbe reproduction is not automatically external confirmation. Silence is not treated as agreement, and research results are not promoted to stable attacks without the normal overlap, evidence and admission process.
 
-The Phase 6 merge-gate demonstration proved that a qualifying HandoffProbe
-security failure blocks a non-draft pull request while Quality and Dependency
-Review remain successful.
+The project deliberately preserves historical research and release records instead of rewriting old snapshot facts to match the newest release.
 
-## Mitwirken
+## Safety
 
-Beiträge sollen klein, reproduzierbar und sicher testbar bleiben.
+Use HandoffProbe only against:
 
-- [Contribution Guide](CONTRIBUTING.md)
-- [Contributor-Quickstart](docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md)
+- bundled synthetic fixtures;
+- systems you own;
+- controlled staging/test environments;
+- targets for which you have explicit authorization.
 
-Der Contributor-Quickstart beschreibt die vorhandenen synthetischen Fixture-Flächen, konkrete Test-Erwartungen und kleine extern bearbeitbare Aufgaben.
+Bundled fixtures use harmless synthetic effects. Reports apply secret redaction and avoid exposing raw evidence context unnecessarily.
+
+Do not put credentials, private customer data or undisclosed vulnerabilities into public issues.
+
+See [`SECURITY.md`](SECURITY.md) for authorized-use and disclosure rules.
+
+## Commercial support
+
+HandoffProbe Core remains free and open source under Apache-2.0.
+
+Teams that want HandoffProbe applied to a real authorized agent/tool boundary can request a **Founding Security Assessment** from Heaviside Solutions.
+
+The standard founding scope covers one agreed handoff boundary and includes written evidence-backed findings, remediation guidance and one retest.
+
+- [HandoffProbe product website](https://handoffprobe.heaviside-solutions.com)
+- [Request a Founding Security Assessment](https://handoffprobe.heaviside-solutions.com/security-assessment)
+
+Custom adapters, private test packs and broader authorized assessment work remain possible when justified by real demand.
 
 ## Opt-in adoption and integration feedback
 
-HandoffProbe does not collect hidden usage telemetry. If you choose to share how you use the project, the repository provides two voluntary public feedback paths:
+HandoffProbe does not collect hidden usage telemetry.
 
-- [Share adoption / integration feedback](https://github.com/Heaviside479/handoffprobe/issues/new?template=adoption-feedback.yml) — report one-time evaluation, repeated local use, repeated CI use, friction and an optional public integration.
-- [Request an adapter / integration](https://github.com/Heaviside479/handoffprobe/issues/new?template=adapter-request.yml) — provide evidence about a real handoff path, protocol versions, reproducibility and integration demand.
+If you choose to share real usage or integration demand:
+
+- [Share adoption / integration feedback](https://github.com/Heaviside479/handoffprobe/issues/new?template=adoption-feedback.yml)
+- [Request an adapter / integration](https://github.com/Heaviside479/handoffprobe/issues/new?template=adapter-request.yml)
 
 These reports are public and optional. An adapter request is evidence for evaluation; it does not guarantee implementation.
 
-Do not include secrets, private data or undisclosed vulnerabilities in these public forms. Follow [`SECURITY.md`](SECURITY.md) for security-sensitive reporting.
+Do not include secrets, private data or undisclosed vulnerabilities in these forms.
 
-## Reproduzierbarer Research-Fall
+## Contributing
 
-Der erste öffentliche Phase-8-Research-Fall dokumentiert eine unzulässige Berechtigungserweiterung an der A2A-zu-MCP-Handoff-Grenze:
+Small, reproducible and safely testable contributions are preferred.
 
-- [Reproduzierbarer Research-Fall HP-AUTH-001](docs/PHASE8_RESEARCH_CASE_HP_AUTH_001_20260831.md)
+- [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- [Contributor-Quickstart](docs/PHASE8_CONTRIBUTOR_LOOP_20260831.md)
 
-Der Fall reproduziert sowohl den sicheren PASS als auch den absichtlich verwundbaren FAIL mit dem unveränderlichen öffentlichen Paket `handoffprobe@0.1.0` und dokumentiert die Responsible-Disclosure-Einstufung.
+Stable attack proposals should identify the handoff-specific invariant, secure behavior, failure condition, protocol applicability, evidence requirements and provenance.
 
-## Vulnerable demo
+## Documentation
 
-HandoffProbe includes intentionally vulnerable synthetic fixtures for defensive testing.
+Current product documentation:
 
-```bash
-node dist/cli.js test --target vulnerable --test HP-AUTH-001
-```
+- [Installation](docs/INSTALLATION.md)
+- [Usage](docs/USAGE.md)
+- [Attack catalog](docs/ATTACK_CATALOG.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Threat model](docs/THREAT_MODEL.md)
+- [CLI specification](docs/CLI_SPECIFICATION.md)
+- [GitHub integration specification](docs/GITHUB_INTEGRATION_SPECIFICATION.md)
+- [Evidence index](EVIDENCE.md)
+- [Roadmap](docs/ROADMAP.md)
+- [Product definition](docs/PRODUCT.md)
+- [Mature-product definition](docs/FINAL_PRODUCT_DEFINITION.md)
 
-Expected result:
+Historical v0.1 research/release records remain available in
+[`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md),
+[`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) and
+[`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
-```text
-FAIL           HP-AUTH-001 Delegated authority amplification [HIGH]
-
-Security gate: FAIL
-```
-
-This exits with code `1`.
-
-## Run the complete corpus
-
-Secure reference target:
-
-```bash
-node dist/cli.js test
-```
-
-Intentionally vulnerable target:
-
-```bash
-node dist/cli.js test --target vulnerable
-```
-
-## Select attacks
-
-Run one attack:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001
-```
-
-Run multiple attacks:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001 --test HP-CRED-001
-```
-
-Repeated IDs are deduplicated and execution order remains deterministic.
-
-## Discover attacks
-
-List all 23 stable attacks:
-
-```bash
-node dist/cli.js list
-```
-
-Explain one attack without executing it:
-
-```bash
-node dist/cli.js explain HP-AUTH-001
-```
-
-## Severity gate
-
-Supported thresholds:
-
-```text
-info < low < medium < high < critical
-```
-
-The default threshold is `high`.
-
-Example:
-
-```bash
-node dist/cli.js test --target vulnerable --test HP-CRED-001 --fail-on medium
-```
-
-All findings remain visible.
-The threshold controls the process exit code, not finding visibility.
-
-## Reporters
-
-HandoffProbe supports three deterministic reporters:
-
-- `terminal`
-- `json`
-- `markdown`
-
-Terminal:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001 --reporter terminal
-```
-
-JSON:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001 --reporter json
-```
-
-Markdown:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001 --reporter markdown
-```
-
-JSON writes only the JSON document to stdout.
-Markdown is suitable for CI artifacts and pull-request summaries.
-
-Reports expose safe evidence counts and sequence references instead of raw EvidenceEvent context/details.
-
-## Configuration
-
-HandoffProbe reads an optional `handoffprobe.config.json` from the current working directory.
-
-Example:
-
-```json
-{
-  "target": "vulnerable",
-  "tests": ["HP-AUTH-001", "HP-CRED-001"],
-  "failOn": "high",
-  "reporter": "json",
-  "output": "handoffprobe-report.json"
-}
-```
-
-Supported keys:
-
-- `target`
-- `tests`
-- `failOn`
-- `reporter`
-- `output`
-
-The config file is optional.
-Unknown keys, malformed JSON and invalid values are rejected.
-CLI flags override config values.
-
-## Output files
-
-Write a JSON report to a file:
-
-```bash
-node dist/cli.js test --test HP-AUTH-001 --reporter json --output handoffprobe-report.json
-```
-
-When `--output` is supplied, the selected report is written to that path instead of stdout.
-An output write failure is a runtime error and returns exit code `3`.
-
-## Exit codes
-
-| Exit | Meaning                                                                   |
-| ---: | ------------------------------------------------------------------------- |
-|  `0` | scan completed correctly and no qualifying vulnerability FAIL exists      |
-|  `1` | at least one vulnerability FAIL meets or exceeds the configured threshold |
-|  `2` | usage or configuration error                                              |
-|  `3` | scanner, runtime or output error                                          |
-
-**ERROR is never converted into vulnerability exit code `1`.**
-
-Exit code `1` means HandoffProbe executed correctly and detected a qualifying security failure.
-Exit code `3` means the operation could not complete trustworthily.
-
-## Security and redaction
-
-The CLI includes:
-
-- recursive structured secret redaction;
-- free-text bearer/basic credential redaction;
-- sensitive key/value redaction;
-- redacted terminal finding text;
-- redacted JSON finding text;
-- redacted Markdown finding text;
-- deterministic runtime diagnostics;
-- no raw OS path in output-write diagnostics;
-- no raw runtime `error.message`;
-- no environment dump;
-- no telemetry or signup requirement.
-
-Reports use safe evidence counts and sequence references instead of raw EvidenceEvent context/details.
-Bundled fixtures are synthetic and perform no real external destructive actions.
-
-## Troubleshooting
-
-### Invalid configuration
-
-Check that `handoffprobe.config.json` contains valid JSON and only supported keys.
-
-```bash
-node dist/cli.js --help
-```
-
-### Unknown attack ID
-
-List the stable attack IDs:
-
-```bash
-node dist/cli.js list
-```
-
-Then inspect one attack:
-
-```bash
-node dist/cli.js explain HP-AUTH-001
-```
-
-### Report file cannot be written
-
-Ensure the parent directory exists and is writable.
-
-```bash
-mkdir -p reports
-node dist/cli.js test --reporter json --output reports/handoffprobe.json
-```
-
-Output-write failures return exit code `3`.
-
-### Exit code 1
-
-This is a detected vulnerability, not a scanner crash.
-
-### Exit code 3
-
-This indicates a scanner, runtime or output problem rather than a vulnerability finding.
-Use the deterministic troubleshooting message written to stderr and rerun the same command.
-
-## Command reference
-
-```text
-handoffprobe test [options]
-handoffprobe list
-handoffprobe explain <HP-ID>
-handoffprobe --version
-handoffprobe --help
-```
-
-Test options:
-
-```text
---target secure|vulnerable
---test <HP-ID>                 repeatable
---fail-on info|low|medium|high|critical
---reporter terminal|json|markdown
---output <path>
-```
-
-## What HandoffProbe is not
-
-HandoffProbe is not intended to replace:
-
-- official A2A conformance or inspection tooling;
-- the official MCP Inspector;
-- generic LLM red-team platforms;
-- a production runtime firewall or gateway;
-- an identity provider.
-
-The core admission rule remains:
-
-> A core test must exercise a security property that can be lost because an agent handoff composes or translates protocol/security context.
+The repository cleanup and current-state reconciliation track is recorded in
+[`docs/REPOSITORY_CLEANUP_PLAN_20260918.md`](docs/REPOSITORY_CLEANUP_PLAN_20260918.md).
 
 ## Principles
 
-- Open-source core under Apache-2.0.
 - Local-first.
-- Safe and authorized testing only.
-- Synthetic bundled targets.
-- No paid AI API required for bundled tests.
-- Deterministic attacks before AI-assisted heuristics.
-- Evidence before UI.
-- No hidden external side effects.
-- No telemetry or signup requirement.
-- Initial protocol wedge remains A2A → MCP.
-
-## Project documents
-
-- [`EVIDENCE.md`](EVIDENCE.md) — public external technical evidence index, scope limitations and open follow-ups
-- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — canonical project context
-- [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition
-- [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation and launch roadmap
-- [`docs/INSTALLATION.md`](docs/INSTALLATION.md) — installation and release execution
-- [`docs/USAGE.md`](docs/USAGE.md) — CLI commands, reporters, configuration and exit codes
-- [`docs/RESEARCH_ARTICLE.md`](docs/RESEARCH_ARTICLE.md) — v0.1 composition-security research article
-- [`docs/LAUNCH_EXAMPLES.md`](docs/LAUNCH_EXAMPLES.md) — reproducible v0.1 launch examples
-- [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) — evidence-backed v0.1 release checklist
-- [`docs/V0_4_0_RELEASE_NOTES.md`](docs/V0_4_0_RELEASE_NOTES.md) — v0.4.0 released scope, compatibility boundary and post-publication verification
-- [`docs/V0_3_0_RELEASE_NOTES.md`](docs/V0_3_0_RELEASE_NOTES.md) — v0.3.0 released scope, compatibility boundary and post-publication verification
-- [`docs/V0_2_0_RELEASE_NOTES.md`](docs/V0_2_0_RELEASE_NOTES.md) — historical v0.2.0 release notes, compatibility boundary and limitations
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture
-- [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) — threat model
-- [`docs/ATTACK_CATALOG.md`](docs/ATTACK_CATALOG.md) — attack catalog
-- [`docs/P0_TEST_SPECIFICATION.md`](docs/P0_TEST_SPECIFICATION.md) — P0 acceptance contract
-- [`docs/P1_TEST_SPECIFICATION.md`](docs/P1_TEST_SPECIFICATION.md) — P1 acceptance contract
-- [`docs/CLI_SPECIFICATION.md`](docs/CLI_SPECIFICATION.md) — CLI contract
-- [`docs/GITHUB_INTEGRATION_SPECIFICATION.md`](docs/GITHUB_INTEGRATION_SPECIFICATION.md) — GitHub Action and CI contract
-- [`docs/TECHNICAL_BASELINE.md`](docs/TECHNICAL_BASELINE.md) — technical baseline
-- [`docs/FINAL_PRODUCT_DEFINITION.md`](docs/FINAL_PRODUCT_DEFINITION.md) — mature-product definition
-- [`docs/RESEARCH_BASELINE.md`](docs/RESEARCH_BASELINE.md) — protocol and research baseline
-- [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md) — competitive landscape
-- [`docs/SEVERITY.md`](docs/SEVERITY.md) — severity policy
-- [`SECURITY.md`](SECURITY.md) — authorized-use and disclosure policy
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution guidelines
+- Open-source Core under Apache-2.0.
+- Deterministic evidence before heuristic judgement.
+- No paid AI API required for the bundled Core path.
+- Safe and explicitly authorized testing only.
+- Stable attack IDs require evidence-backed admission.
+- Research provenance and limitations stay visible.
+- Real integration demand should drive adapter expansion.
+- Cloud/SaaS remains demand-gated.
 
 ## License
 
