@@ -1,6 +1,6 @@
 # MCP #3354 — Verifiable MCP / authority-boundary research queue
 
-Status: **EXECUTION COMPLETE 2026-09-18 — REFINEMENT confirmed; public result return to AkiraTamai NEXT.**
+Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; external response PENDING.**
 Date queued: 2026-09-17
 
 ## Purpose
@@ -114,20 +114,49 @@ The stable public corpus remains **23 attacks**.
 
 No package version change or release is triggered.
 
-Public result return to AkiraTamai in MCP `#3354` is now the next required step after merge.
+Public result return to AkiraTamai in MCP `#3354` completed after merge; external response classification remains pending.
+
+## Public result return — 2026-09-18
+
+Merged HandoffProbe execution state:
+
+`13e4a525b658077e235a769f6aff6d6e2754a33e`
+
+Public HandoffProbe result return:
+
+`https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791`
+
+The reply records separately:
+
+- execution-integrity binding result;
+- semantic-authority result;
+- protected-effect observation;
+- the frozen upstream implementation revision;
+- the fact that HandoffProbe used its own deterministic synthetic binding analogue;
+- the fact that HandoffProbe did not reproduce or claim conformance with the upstream ZK/TEE implementation;
+- the `REFINEMENT` classification;
+- the absence of a new stable attack or release implication.
+
+External response state:
+
+**PENDING**
+
+No substantive external response to the returned HandoffProbe result has been recorded at this point.
+
+The result return itself is not external confirmation and silence is not agreement.
 
 ## External result-return gate
 
 If HandoffProbe later has a reproducible result worth showing:
 
-- [ ] reply to AkiraTamai in MCP `#3354`;
-- [ ] reference the exact originating response `#5715753995`;
-- [ ] link the exact HandoffProbe commit and stable evidence/fixture;
-- [ ] state separately what the execution-proof layer accepted or rejected;
-- [ ] state separately what the handoff/authority layer accepted or rejected;
-- [ ] preserve the distinction between execution integrity and authorization;
-- [ ] describe exactly what was and was not tested;
-- [ ] invite correction if the Verifiable MCP interpretation is wrong;
+- [x] reply to AkiraTamai in MCP `#3354`;
+- [x] reference the exact originating response `#5715753995`;
+- [x] link the exact HandoffProbe commit and stable evidence/fixture;
+- [x] state separately what the execution-proof layer accepted or rejected;
+- [x] state separately what the handoff/authority layer accepted or rejected;
+- [x] preserve the distinction between execution integrity and authorization;
+- [x] describe exactly what was and was not tested;
+- [x] invite correction if the Verifiable MCP interpretation is wrong;
 - [ ] record and classify any substantive AkiraTamai response before further implementation that depends on it.
 
 The research item is not complete merely because it is documented here. Completion requires an explicit later decision of `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`, plus the public evidence-based follow-up above if HandoffProbe actually produces a reproducible result.
