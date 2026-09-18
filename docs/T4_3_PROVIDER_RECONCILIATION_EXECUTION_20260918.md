@@ -1,6 +1,6 @@
 # T-4.3 provider-side original-attempt reconciliation execution
 
-Status: **LOCAL EXECUTION VERIFIED — immutable fixture commit pending.**
+Status: **COMPLETE — fixture commit `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`; T-4.4 DISTINCT RESEARCH CANDIDATE; T-4.5 NEXT.**
 
 Date: 2026-09-18
 
@@ -98,8 +98,32 @@ The normal full repository gate is run after this record is created so the compl
 - witness-disagreement preservation remains outside this execution because T-4.2 classified it as `NEEDS EVIDENCE`;
 - action-binding widening is not reimplemented because T-4.2 classified that property as already covered.
 
-## T-4.4 boundary
+## T-4.4 admission decision
 
-This document does not make the T-4.4 admission decision.
+Decision date: 2026-09-18.
 
-After the immutable T-4.3 fixture commit is known, T-4.4 must explicitly classify the result as `NO ADD`, `REFINEMENT`, or `DISTINCT RESEARCH CANDIDATE` and record the exact fixture commit before any T-4.5 public result is posted.
+Immutable T-4.3 fixture commit: `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`.
+
+T-4.4 decision: **DISTINCT RESEARCH CANDIDATE**.
+
+The result is distinct from the stable `HP-REPLAY-003` invariant because that attack asks whether acknowledgement loss plus retry can create a duplicate protected effect. T-4.3 instead makes the callers unresolved original-attempt state explicit and demonstrates recovery through read-only provider evidence for that same attempt without re-execution.
+
+That distinction is reproducible, but the fixture does not demonstrate a new stable vulnerability, authorization bypass, second protected effect, A2A defect, MCP defect, WitnessObservation defect or VATE defect.
+
+New stable attack admitted: **no**.
+
+The stable public corpus remains **23 attacks**.
+
+Release triggered: **no**.
+
+Any future promotion from research candidate to a stable attack requires a separate normal admission decision with an adversarial security invariant and reproducible failure evidence.
+
+## T-4.5 next
+
+The result-return phase may proceed after this closeout change is committed, pushed, reviewed by CI and merged.
+
+- A2A `#1769`: return the cross-comparison result to Toshikatsu Oga and Takao Sato, link the immutable HandoffProbe evidence, state tested and untested scope, and invite correction.
+- `Poke-nushi/Verifiable-Agent-Trust-Envelope#2`: return the VATE-specific provider-reconciliation result and its limits.
+- The post-T-3 `#1937` signal supported the action-binding overlap analysis but did not materially determine the distinct T-4.3 reconciliation fixture; no separate `#1937` result reply is required for this reconciliation result alone.
+- No public reply may claim production VATE conformance, WitnessObservation conformance, A2A/MCP normative behavior or a defect not demonstrated by the fixture.
+- Any substantive external response must be recorded and classified before T-4 is finally closed.

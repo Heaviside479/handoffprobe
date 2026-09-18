@@ -1,6 +1,6 @@
 # T-4 — A2A third-party witness / conduct-observation follow-up
 
-Status: **T-4.2 complete 2026-09-18; T-4.3 NEXT.**
+Status: **T-4.4 complete 2026-09-18; T-4.5 NEXT.**
 Date queued: 2026-09-16
 
 Current scheduling note — 2026-09-17: the historical readiness marker above is preserved as part of the T-3 closeout record. Operationally, T-4.1 remains queued until the R4/v0.4.0 release closeout is complete; the canonical WitnessObservation pin identified below does not by itself complete T-4.1.
@@ -190,28 +190,56 @@ The only T-4.3 research fixture currently justified is provider-side reconciliat
 
 ## T-4.3 — smallest deterministic research fixture, only if justified
 
-If T-4.2 finds a real HandoffProbe-specific evidence gap:
+Status: **COMPLETE — 2026-09-18.**
 
-- [ ] implement only the smallest local/synthetic fixture needed to demonstrate it;
-- [ ] use harmless fake effects and no unauthorized external systems;
-- [ ] keep observer assertions, cryptographic linkage and actual runtime/effect observations distinct in evidence;
-- [ ] include a clean control where signatures/linkage and runtime behavior agree;
-- [ ] include only evidence-backed negative controls;
-- [ ] where relevant, include a case in which witness/signature/linkage is structurally valid but the downstream effective request or effect violates the governing authority;
-- [ ] preserve `PASS / FAIL / INCONCLUSIVE / ERROR` semantics and never convert missing evidence into a vulnerability `FAIL`;
-- [ ] run focused tests plus normal repository quality/security gates;
-- [ ] record exact commit, fixture inputs and reproducibility evidence.
+- [x] implemented only the smallest local/synthetic fixture justified by T-4.2;
+- [x] used harmless local fake effects and no unauthorized external systems;
+- [x] kept provider execution evidence and actual runtime/effect observations distinct; no WitnessObservation signature layer was introduced into this reconciliation-only fixture;
+- [x] included a clean original-attempt reconciliation control;
+- [x] included only evidence-backed negative controls for action mismatch, attempt mismatch, missing evidence and provider lookup failure;
+- [x] did not duplicate action-binding widening because T-4.2 already classified that property as covered;
+- [x] preserved `PASS / FAIL / INCONCLUSIVE / ERROR` semantics and never converted missing evidence into vulnerability `FAIL`;
+- [x] ran focused tests plus the normal repository quality/security gate;
+- [x] recorded the exact immutable fixture commit and reproducibility evidence.
 
-This work remains research/conformance evidence unless the normal attack-admission process independently justifies a product change.
+Completion evidence: `docs/T4_3_PROVIDER_RECONCILIATION_EXECUTION_20260918.md`.
 
+Immutable fixture commit: `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`.
+
+Verified local result:
+
+- caller state remains `unknown` after response loss even though exactly one protected effect occurred;
+- blind fresh execution is blocked while the original outcome is unknown;
+- a read-only provider lookup for the same original attempt resolves the caller to `confirmed_success` only when action identity, attempt identity and execution evidence validate;
+- reconciliation itself produces zero additional protected effects;
+- missing or mismatched evidence remains `INCONCLUSIVE`;
+- provider lookup failure remains `ERROR`;
+- focused T-4.3 execution passed 8/8 tests;
+- full repository validation passed 92/92 test files and 465/465 tests plus build.
+
+This work remains research evidence and does not create a stable attack.
 ## T-4.4 — explicit admission decision
 
-After any justified execution, decide one of:
+After the reproducible T-4.3 execution, the explicit decision is:
 
-- `NO ADD`;
-- `REFINEMENT` of an existing stable attack/evidence path;
-- `DISTINCT RESEARCH CANDIDATE` requiring a separate later admission decision.
+**DISTINCT RESEARCH CANDIDATE**
 
+Rationale:
+
+- provider-side reconciliation of the original attempt is technically distinct from the duplicate-effect invariant already owned by `HP-REPLAY-003`;
+- T-4.3 makes caller outcome uncertainty and read-only recovery of the same original attempt first-class reproducible evidence;
+- the fixture does not demonstrate a new stable vulnerability, authorization bypass, duplicate protected effect or protocol defect;
+- therefore the result remains a research candidate and requires a separate later normal admission decision before any stable attack could exist.
+
+New stable attack admitted: **no**.
+
+The stable public corpus remains **23 attacks**.
+
+Release triggered: **no**.
+
+T-4.4 completion evidence is recorded in `docs/T4_3_PROVIDER_RECONCILIATION_EXECUTION_20260918.md` using immutable fixture commit `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`.
+
+T-4.5 is now the next step.
 Guardrails:
 
 - no automatic stable attack ID;
