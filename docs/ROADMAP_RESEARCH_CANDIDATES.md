@@ -62,7 +62,7 @@ This keeps the signal without prematurely turning the roadmap into speculative f
 
 ## RC-2 — Reddit MCP reconnect token-rotation refinement
 
-Status: **QUEUED / NOT YET EXECUTED**
+Status: **EXECUTION COMPLETE / RESULT RETURN PENDING**
 
 Detailed queue:
 
@@ -76,18 +76,21 @@ Preliminary overlap maps the governing negative invariant to stable `HP-RACE-002
 
 Current position:
 
-- classification: **REFINEMENT**;
-- no new stable ID justified at intake;
-- `HP-REPLAY-003` becomes governing only if a prior protected effect already occurred and the reconnect can duplicate the same logical action;
+- final classification: **HP-RACE-002 REFINEMENT / NO ADD**;
+- no new stable ID;
+- merged execution commit: `05677e5a00c45bcc20abe06b3622a72d4b7aa43b`;
+- direct Reddit comment: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/
+- the direct permalink was recorded after execution/merge and before public result return;
+- `HP-REPLAY-003` is not governing because the pre-interruption protected-effect count is `0`;
 - `HP-AUTH-006` is not governing because R-1 resumes the same interrupted logical action rather than authorizing a later distinct effect;
-- implementation is authorized only as a narrow deterministic research/regression fixture after the queue is merged;
-- final admission remains evidence-driven.
+- stable public corpus remains **23 attacks**;
+- result return is pending.
 
 The merged result must be returned to the originating Reddit discussion before the research loop is considered complete.
 
 ## RC-3 — Reddit same-name capability hot-deploy drift
 
-Status: **QUEUED / DISTINCTNESS UNRESOLVED**
+Status: **QUEUED / DISTINCTNESS UNRESOLVED / SOURCE FREEZE INCOMPLETE**
 
 Detailed queue:
 
@@ -98,13 +101,15 @@ Community feedback supplied a capability-version edge case in which approval is 
 Preliminary overlap:
 
 - `HP-APPROVAL-002` is relevant but currently mutates the tool identity itself;
-- `HP-VERSION-001` is adjacent but does not by itself settle stale approval under same-name capability drift.
+- `HP-VERSION-001` is adjacent but does not by itself settle stale approval under same-name capability drift;
+- `HP-AUTH-001` must be reviewed because semantic widening is already an owned stable invariant;
+- `HP-RACE-002` is a conditional overlap only if the hot-deploy transition is modeled during interruption/resume.
 
 Current position:
 
 - classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
 - no new stable `HP-*` ID reserved;
-- a deterministic capability-definition/digest fixture is permitted only after the queue is merged;
+- fixture implementation remains blocked until the exact direct Reddit comment permalink is recorded and the full overlap review includes `HP-AUTH-001` plus the conditional `HP-RACE-002` case;
 - a later stable ID requires normal distinctness/admission evidence;
 - the merged result must be returned to the originating Reddit discussion;
 - `EVIDENCE.md` remains gated on reproducible execution and public result return.

@@ -1984,6 +1984,8 @@ Detailed record: `docs/T4_5_PUBLIC_RESULT_RETURN_20260918.md`.
 
 R-1 has now completed deterministic local execution.
 
+- originating Reddit comment: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/
+- merged execution commit: `05677e5a00c45bcc20abe06b3622a72d4b7aa43b`;
 - execution record: `docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md`;
 - execution test: `tests/reddit-r1-token-rotation-execution.test.ts`;
 - initial token A authorization: accepted;
@@ -2004,7 +2006,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Two public community-supplied MCP handoff cases are now queued for evidence-driven research.
+Two public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and source freeze for result return; R-2 remains queued with its exact direct-comment permalink still pending.
 
 Detailed queue:
 
@@ -2015,12 +2017,15 @@ Research-candidate index:
 `docs/ROADMAP_RESEARCH_CANDIDATES.md`
 
 - R-1: token A is initially valid, the server rotates current state to token B during an interrupted handoff, and the client reconnects in the same handoff context with stale A.
-  - preliminary classification: **HP-RACE-002 REFINEMENT**;
-  - no new stable ID justified at intake;
-  - deterministic fixture and later normal admission required.
+  - final classification: **HP-RACE-002 REFINEMENT / NO ADD**;
+  - merged execution commit: `05677e5a00c45bcc20abe06b3622a72d4b7aa43b`;
+  - direct comment source frozen before public result return;
+  - public result return remains pending.
 - R-2: approval is issued against capability version A, then a hot deploy causes the same visible tool name to resolve to materially changed capability version B before execution.
   - preliminary classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
-  - overlap with `HP-APPROVAL-002` and `HP-VERSION-001` must be resolved through deterministic evidence;
+  - overlap must include `HP-APPROVAL-002`, `HP-VERSION-001`, `HP-AUTH-001` and conditional `HP-RACE-002` review;
+  - exact direct-comment permalink is still pending;
+  - fixture implementation remains blocked until source freeze and full overlap review are complete;
   - no stable ID is reserved.
 
 Required sequence for each case:

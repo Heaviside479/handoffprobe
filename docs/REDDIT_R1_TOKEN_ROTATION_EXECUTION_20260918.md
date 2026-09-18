@@ -12,9 +12,34 @@ The scenario is:
 
 This work tests whether reconnect/resume revalidates current authorization state or incorrectly trusts the pre-interruption authorization snapshot.
 
+## Source provenance
+
+Originating Reddit author:
+
+`u/Signal_Temporary6572`
+
+Direct comment permalink:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+Canonical comment URL:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/
+
+Exact supplied comment text:
+
+> what happens when a client reconnects mid-handoff after a transient network blip and the server already rotated its internal session token but the client still presents the old one, do you treat that as a replay or just a stale auth?
+
+The direct permalink was recorded after the deterministic execution had already been merged and before any public HandoffProbe result-return reply.
+
+That sequencing is recorded explicitly rather than rewriting the historical execution order.
+
+The HandoffProbe reproduction is not external confirmation.
+
 ## Baseline
 
 - base commit: `218e50ba4f19b77d8135a6bef2a8f4b8d7d4d248`;
+- merged execution commit: `05677e5a00c45bcc20abe06b3622a72d4b7aa43b`;
 - execution test: `tests/reddit-r1-token-rotation-execution.test.ts`;
 - stable public corpus before and after this research execution: **23 attacks**;
 - package version remains `0.4.0`;
