@@ -2010,7 +2010,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Two public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 remains queued with its exact direct-comment permalink still pending.
+Three public community-supplied MCP handoff cases are tracked: R-1 has completed deterministic execution and public result return with external response pending; R-2 remains blocked on its exact direct-comment permalink; R-3 has its source frozen and remains a distinctness-unresolved research candidate.
 
 Detailed queue:
 
@@ -2032,6 +2032,15 @@ Research-candidate index:
   - overlap must include `HP-APPROVAL-002`, `HP-VERSION-001`, `HP-AUTH-001` and conditional `HP-RACE-002` review;
   - exact direct-comment permalink is still pending;
   - fixture implementation remains blocked until source freeze and full overlap review are complete;
+  - no stable ID is reserved.
+- R-3: after a denied request, an agent enumerates visible tenants, switches to another independently authorized target and retries successfully.
+  - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
+  - preliminary classification: **RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**;
+  - closest stable neighbor: `HP-TARGET-001`;
+  - request-level authorization alone does not settle upstream task/intent target continuity;
+  - `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 are adjacent/conditional overlaps rather than assumed governing invariants;
+  - source is frozen before fixture implementation;
+  - fixture implementation remains blocked until the exact task-bound target set, independently authorized alternate target, deterministic retry shape and multi-target positive control are frozen;
   - no stable ID is reserved.
 
 Required sequence for each case:

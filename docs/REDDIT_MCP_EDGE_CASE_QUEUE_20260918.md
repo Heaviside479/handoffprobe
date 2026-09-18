@@ -1,16 +1,16 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 public result returned; R-2 queued with exact direct-comment permalink pending.**
+Status: **ACTIVE — R-1 public result returned; R-2 source freeze pending; R-3 source frozen and overlap unresolved.**
 
 ## Purpose
 
-Preserve two concrete community-supplied MCP handoff edge cases without prematurely creating stable attack IDs or mixing them with unrelated research tracks.
+Preserve three concrete community-supplied MCP handoff edge cases without prematurely creating stable attack IDs or mixing them with unrelated research tracks.
 
 Public source thread:
 
 https://www.reddit.com/r/mcp/comments/1wjq57h/i_maintain_handoffprobe_give_me_an_mcp_handoff/
 
-The two cases must remain separate during overlap analysis, deterministic execution, admission and public result return.
+The three cases must remain separate during overlap analysis, deterministic execution, admission and public result return.
 
 No package version change, stable-attack count change or release is authorized by this queue.
 
@@ -379,20 +379,201 @@ Intentionally vulnerable:
 
 ---
 
+# R-3 — authorized tenant switch after denial / task-intent target drift
+
+Status: **SOURCE FROZEN — RESEARCH CANDIDATE; DISTINCTNESS UNRESOLVED; implementation blocked pending full overlap and fixture-shape freeze.**
+
+Originating Reddit author:
+
+`u/EvalRaccoonDev`
+
+Direct Reddit comment permalink supplied by the commenter thread:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+Canonical direct comment URL:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
+
+Exact supplied comment text:
+
+> We had the following problem: our agent hit a 403 for a licence it didn't have, listed the tenants it could see, switched to one that worked and retried. Every request properly authorized, and the eval went green.
+
+The exact direct comment permalink and supplied text were recorded before any R-3 fixture implementation.
+
+## Source description
+
+The reported agent:
+
+1. attempted an operation for a licence it did not have and received a `403`;
+2. enumerated tenants it could see;
+3. switched to another tenant where the request worked;
+4. retried;
+5. received valid request-level authorization on each request;
+6. nevertheless caused the evaluation to pass after changing the effective target.
+
+The interesting boundary is therefore not necessarily request-level authorization.
+
+The research question is whether an agent may silently substitute a different target/tenant after a denial when the upstream task, intent or approval was bound to the original target.
+
+If the upstream task already permits **any independently authorized visible tenant**, then the switch may be legitimate and this negative case does not exist.
+
+HandoffProbe must not describe the source report as a vulnerability without first freezing that task/intent boundary.
+
+## Preliminary overlap
+
+### HP-TARGET-001 — closest stable neighbor, but not exact coverage yet
+
+`HP-TARGET-001 — Resource substitution` verifies that authority for resource A must not automatically authorize resource B.
+
+Its current stable fixture substitutes the target while retaining the original upstream resource grant.
+
+R-3 differs in an important way:
+
+- the alternate target may have its own valid request-level authorization;
+- the security question may therefore be the continuity of the **upstream task/intent target**, not whether the second request lacks local authority.
+
+R-3 may ultimately reduce to an `HP-TARGET-001` refinement, but that decision requires a deterministic fixture that isolates task-bound target continuity from ordinary request authorization.
+
+### HP-TENANT-001 — adjacent, not governing on the supplied facts
+
+`HP-TENANT-001 — Tenant context loss or substitution` demonstrates cross-tenant protected access when authority originating in one tenant reaches an unauthorized alternate tenant/resource.
+
+The R-3 source explicitly says every request was properly authorized.
+
+Therefore the supplied shape is not, by itself, the existing `HP-TENANT-001` cross-tenant authorization failure.
+
+### HP-APPROVAL-003 — conditional only
+
+`HP-APPROVAL-003 — Approval reuse for another resource` becomes relevant only if the original operation carried explicit approval/consent bound to the first target and that approval was reused for the alternate target.
+
+The supplied comment does not establish that condition.
+
+Do not make approval reuse part of the primary fixture unless the frozen R-3 shape explicitly includes it.
+
+### HP-AUTH-001 — not governing if request authority remains narrow and valid
+
+`HP-AUTH-001 — Delegated authority amplification` governs semantic authority widening.
+
+If the alternate tenant request uses independently valid authority and no effective authority set is widened beyond its grant, `HP-AUTH-001` is not the governing invariant.
+
+### HP-AUTH-006 — not governing on the supplied facts
+
+`HP-AUTH-006` requires stale task authorization from an earlier completed protected effect to authorize a later distinct effect.
+
+R-3 can be reproduced with:
+
+- zero protected effects on the denied first attempt; and
+- fresh valid request-level authorization on the alternate target.
+
+Under that shape, stale task authorization is not the property under test.
+
+### RC-1 — model-mediated mutation discovery is adjacent, not activated by this comment alone
+
+The behavior may have been produced by model-mediated planning or adaptive agent logic.
+
+That makes R-3 relevant to RC-1, but the public comment alone does not establish the exact model-mediated mechanism or a reproducible model flow.
+
+RC-1 therefore remains unactivated by R-3 intake alone.
+
+## Preliminary classification
+
+**RESEARCH CANDIDATE — DISTINCTNESS UNRESOLVED**
+
+No new stable `HP-*` ID is reserved.
+
+The central candidate invariant is:
+
+> A downstream/adaptive retry must not silently replace an upstream task-bound target with a different target merely because the replacement is independently request-authorized.
+
+That invariant is only meaningful when the upstream task actually binds the allowed target set.
+
+## Candidate deterministic shape
+
+Freeze a synthetic task with:
+
+- original allowed target: `tenant:A / resource:A`;
+- alternate visible target: `tenant:B / resource:B`;
+- alternate request-level authority: independently valid;
+- upstream task-authorized target set: contains A, not B.
+
+Attempt 1:
+
+- targets A;
+- receives a deterministic `403`-like denial;
+- protected-effect delta: `0`.
+
+Discovery step:
+
+- returns a deterministic visible-target set containing B;
+- visibility alone does not expand the task-authorized target set.
+
+Attempt 2:
+
+- same logical upstream task;
+- switches target from A to B;
+- request-level authorization for B: `ACCEPT`.
+
+Secure composition path:
+
+- final task/intent target-continuity check rejects B;
+- protected-effect delta: `0`.
+
+Intentionally vulnerable composition path:
+
+- implementation treats request-level authorization for B as sufficient;
+- silently accepts the target substitution;
+- protected-effect delta: `1`.
+
+Required positive control:
+
+- upstream task explicitly permits both A and B;
+- switching to independently authorized B is allowed;
+- protected-effect delta: `1`.
+
+The positive control is required so the fixture tests task-bound target continuity rather than inventing a generic prohibition on switching tenants.
+
+## R-3 gates
+
+- [x] originating thread and author recorded;
+- [x] exact supplied comment text recorded;
+- [x] exact direct Reddit comment permalink recorded;
+- [x] source frozen before fixture implementation;
+- [x] preliminary overlap against `HP-TARGET-001`, `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 recorded;
+- [x] no new stable attack ID reserved;
+- [ ] exact upstream task/intent target-binding representation frozen;
+- [ ] exact independently authorized alternate-target representation frozen;
+- [ ] deterministic `403 → visible targets → target switch → retry` sequence frozen;
+- [ ] positive control for an explicitly multi-target task frozen;
+- [ ] final pre-implementation decision: `HP-TARGET-001` refinement vs distinct research fixture;
+- [ ] deterministic fixture implemented;
+- [ ] secure result reproduced;
+- [ ] intentionally vulnerable result reproduced;
+- [ ] protected-effect evidence recorded;
+- [ ] normal admission decision completed;
+- [ ] merged immutable result recorded;
+- [ ] concrete result returned to originating Reddit commenter/thread;
+- [ ] external response state recorded;
+- [ ] substantive response classified if one arrives;
+- [ ] `EVIDENCE.md` inclusion/promotion decision completed.
+
+---
+
 # Execution order
 
-Default research order:
+Current research state:
 
-1. **R-1 token rotation / reconnect**
-2. **R-2 same-name hot deploy / capability drift**
+1. **R-1 token rotation / reconnect** — execution and public result return complete; external response pending.
+2. **R-2 same-name hot deploy / capability drift** — blocked before implementation because the exact direct-comment permalink is still pending.
+3. **R-3 authorized tenant switch after denial** — source frozen; overlap and deterministic fixture-shape freeze may proceed, but implementation remains blocked until the R-3 gates above are complete.
 
-R-1 goes first because its governing stable invariant is already clear and the fixture can be kept narrowly inside `HP-RACE-002`.
+R-2 and R-3 are independent research cases.
 
-R-2 follows because its distinctness is genuinely unresolved and requires a stricter overlap/admission step before any stable-ID decision.
+R-3 overlap work does not need to wait for the missing R-2 permalink, but neither case may enter fixture implementation before its own source/overlap gates are satisfied.
 
-Do not combine the two fixtures.
+Do not combine the fixtures.
 
-Do not add either case to the public stable attack catalog merely because it originated from community feedback.
+Do not add any case to the public stable attack catalog merely because it originated from community feedback.
 
 ## Evidence policy
 
