@@ -2026,6 +2026,25 @@ The MCP #3354 layer-separation refinement has now been executed locally and dete
 - No package-version change or release is triggered.
 - Next required step after merge: return the concrete result to AkiraTamai in MCP `#3354`, then update `EVIDENCE.md`, queue and roadmap with the public response state.
 
+#### MCP #3354 public result return — 2026-09-18
+
+The deterministic MCP #3354 refinement result has now been returned to AkiraTamai in the originating public thread.
+
+- merged HandoffProbe execution commit: `13e4a525b658077e235a769f6aff6d6e2754a33e`;
+- public result return: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791`;
+- execution-integrity binding for the widened effective request: `ACCEPT`;
+- independent semantic-authority result for that request: `REJECT`;
+- widened protected-effect delta: `0`;
+- classification remains **REFINEMENT**;
+- no new stable attack is admitted;
+- the stable public corpus remains **23 attacks**;
+- no package-version change or release is triggered;
+- HandoffProbe did not reproduce or claim conformance with AkiraTamai's ZK/TEE implementation;
+- external response to the returned result is **PENDING**;
+- the public HandoffProbe reply is not external confirmation;
+- silence must not be interpreted as agreement;
+- any later substantive AkiraTamai response must be classified and reflected in `EVIDENCE.md` before this research item is promoted beyond `Open research follow-up`.
+
 #### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17
 
 A separate MCP research signal arrived in `modelcontextprotocol/modelcontextprotocol#3354` and is intentionally **not** folded into A2A T-4.

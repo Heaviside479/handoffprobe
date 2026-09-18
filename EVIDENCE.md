@@ -249,6 +249,93 @@ This result does not establish:
 
 ---
 
+## 5. MCP #3354 execution-integrity / authorization-boundary comparison
+
+**Evidence level:** Open research follow-up
+**Status:** Reproducible HandoffProbe result returned publicly; external author response pending
+**Scope:** Deterministic local/synthetic execution-integrity and upstream-authorization composition comparison
+
+### External technical input
+
+AkiraTamai publicly confirmed the distinction between execution integrity and authorization of the effective inputs in MCP `#3354`.
+
+- [MCP #3354](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354)
+- [AkiraTamai boundary response](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5715753995)
+
+The frozen upstream demo basis remains:
+
+`ripple-node-lab/mcp-verifiable-tools-demo@66a959f79802d3751ba7edc0aec4c1c0e0ee2b36`
+
+HandoffProbe classified the seam as **REFINEMENT** because semantic downstream authority widening is already governed by stable `HP-AUTH-001`.
+
+### Reproducible HandoffProbe result
+
+Merged HandoffProbe result:
+
+- [merge commit](https://github.com/Heaviside479/handoffprobe/commit/13e4a525b658077e235a769f6aff6d6e2754a33e)
+- [`docs/MCP_3354_PROOF_AUTHORITY_EXECUTION_20260918.md`](docs/MCP_3354_PROOF_AUTHORITY_EXECUTION_20260918.md)
+- [`tests/mcp-3354-proof-authority-execution.test.ts`](tests/mcp-3354-proof-authority-execution.test.ts)
+
+The deterministic positive control observed:
+
+- execution-integrity binding: `ACCEPT`;
+- semantic authority: `ACCEPT`;
+- protected local synthetic effect: `1`.
+
+The deterministic widened case observed:
+
+- execution-integrity binding for the exact widened effective request: `ACCEPT`;
+- semantic authority: `REJECT`;
+- crossing decision: `action_digest_mismatch`;
+- MCP tool call: `0`;
+- protected local synthetic effect: `0`.
+
+The result demonstrates the narrow composition rule that valid execution-integrity evidence for an effective request must not be substituted for upstream authorization of that request.
+
+### Public result return
+
+The merged result was returned publicly to AkiraTamai in the originating MCP thread:
+
+- [HandoffProbe public result return](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791)
+
+The reply includes the immutable HandoffProbe merge commit, execution record, deterministic test, observed layer outcomes and scope limitations, and explicitly invites correction or counter-evidence.
+
+### Current external-review state
+
+External response to the returned HandoffProbe result: **PENDING**.
+
+As of this record, no substantive AkiraTamai response to the returned result has been recorded.
+
+The public result return itself is **not** external confirmation.
+
+Silence must not be interpreted as agreement.
+
+Until substantive external review is received, this item remains an **Open research follow-up** and must not be promoted to `External vector comparison + author review`.
+
+### Admission and release state
+
+- classification: **REFINEMENT**;
+- new stable attack: **no**;
+- stable public corpus: **23 attacks**;
+- package version change: **no**;
+- release triggered: **no**.
+
+### Limitations
+
+This result does not establish:
+
+- a vulnerability in MCP;
+- a vulnerability in Verifiable MCP;
+- Verifiable MCP conformance;
+- reproduction of AkiraTamai's ZK/TEE implementation;
+- production cryptographic assurance;
+- production-world effects;
+- MCP specification acceptance or endorsement;
+- external confirmation of the HandoffProbe result;
+- a new stable HandoffProbe attack.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
