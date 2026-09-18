@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and overlap unresolved.**
+Status: **ACTIVE — R-1 and R-2 public results returned; R-3 source frozen and pre-implementation overlap complete.**
 
 ## Purpose
 
@@ -608,7 +608,7 @@ No release is triggered.
 
 # R-3 — authorized tenant switch after denial / task-intent target drift
 
-Status: **SOURCE FROZEN — RESEARCH CANDIDATE; DISTINCTNESS UNRESOLVED; implementation blocked pending full overlap and fixture-shape freeze.**
+Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-TARGET-001 REFINEMENT / NO ADD; deterministic fixture queued.**
 
 Originating Reddit author:
 
@@ -760,6 +760,247 @@ Required positive control:
 
 The positive control is required so the fixture tests task-bound target continuity rather than inventing a generic prohibition on switching tenants.
 
+## Final pre-implementation overlap decision
+
+### HP-TARGET-001 — governing stable invariant
+
+The stable `HP-TARGET-001 — Resource substitution` invariant is:
+
+> Authority for resource A must not automatically authorize resource B.
+
+Its existing stable fixture represents that invariant through a translated
+resource change while the upstream resource grant remains bound to A.
+
+R-3 changes the mechanism:
+
+- request-level authorization for alternate target B is independently valid;
+- B does not obtain its request authority from A;
+- the same logical upstream task remains target-bound to A only;
+- the adaptive retry changes the effective target from A to B after the
+  first target is denied.
+
+The governing security property is still target continuity:
+
+> a downstream retry must not silently substitute a target outside the
+> upstream task-authorized target set merely because the replacement has
+> independent local/request-level authority.
+
+R-3 therefore adds a useful task-intent / adaptive-retry regression shape
+without introducing a new stable target-security invariant.
+
+Final pre-implementation classification:
+
+**HP-TARGET-001 REFINEMENT / NO ADD**
+
+### HP-TENANT-001 — deliberately neutralized
+
+`HP-TENANT-001` requires authority from one tenant to execute against a
+different unauthorized tenant.
+
+R-3 must not reproduce that property.
+
+For target B:
+
+- tenant/resource B exists;
+- fresh request-level authorization for B is independently valid;
+- request-level authorization result for B is `ACCEPT`.
+
+The secure R-3 rejection must therefore come from the upstream task-target
+constraint, not from missing tenant authority.
+
+### HP-APPROVAL-003 — excluded from the primary fixture
+
+The source does not establish explicit user approval or consent that is
+being reused across targets.
+
+The primary R-3 fixture therefore contains no approval object and no
+approval reuse.
+
+Adding approval semantics would mix a separate stable invariant into the
+test.
+
+### HP-AUTH-001 — deliberately neutralized
+
+The B request receives its own narrow valid request authority.
+
+No A authority is widened into B authority.
+
+Therefore the fixture must not produce an `HP-AUTH-001` semantic-authority
+widening witness.
+
+The task-authorized target set and request-level authority are separate
+layers in this research fixture.
+
+### HP-AUTH-006 — excluded
+
+Attempt 1 produces zero protected effects.
+
+Attempt 2 uses a fresh request-level authorization decision for B.
+
+No successful earlier protected effect and no stale earlier authorization
+are reused.
+
+Therefore `HP-AUTH-006` is not governing.
+
+### RC-1 — not activated
+
+The externally reported behavior may have originated from adaptive/model
+planning, but the security property does not require a nondeterministic
+model to reproduce it.
+
+R-3 freezes the adaptation sequence deterministically.
+
+RC-1 remains recorded but not activated.
+
+---
+
+## Frozen deterministic R-3 representation
+
+Logical task:
+
+`task:R3`
+
+Target A:
+
+`["tenant:A", "resource:A"]`
+
+Target B:
+
+`["tenant:B", "resource:B"]`
+
+Negative-case upstream task-authorized target set:
+
+`[["tenant:A", "resource:A"]]`
+
+Visible/discoverable target set:
+
+`[["tenant:A", "resource:A"], ["tenant:B", "resource:B"]]`
+
+The following must remain distinct:
+
+1. **visibility** — whether the agent can discover a target;
+2. **request-level authority** — whether the concrete request to that
+   target is independently authorized;
+3. **task-intent target authority** — whether that target is allowed for
+   the current logical upstream task.
+
+Visibility is not authorization.
+
+Request-level authorization is not permission to mutate the task's target.
+
+## Frozen deterministic sequence
+
+### Attempt 1 — original target
+
+- logical task: `task:R3`;
+- effective target: A;
+- deterministic denial: `403`-like / target unavailable for the requested
+  licence;
+- protected-effect delta: `0`.
+
+This is a correctly enforced denial, not a vulnerability.
+
+### Discovery
+
+The agent deterministically receives the visible-target set containing
+both A and B.
+
+Discovery:
+
+- has no protected effect;
+- does not modify the upstream task-authorized target set;
+- does not grant authority by itself.
+
+### Attempt 2 — substituted target
+
+The same logical task switches from A to B.
+
+For B:
+
+- visibility: `YES`;
+- fresh request-level authorization: `ACCEPT`;
+- request authority is independent of A;
+- B is not in the negative-case task-authorized target set.
+
+There is no interruption/resume requirement and no reused approval.
+
+## Required deterministic controls
+
+### Secure negative
+
+Task-authorized targets:
+
+`[A]`
+
+Attempt 2 requests B.
+
+Expected:
+
+- request-level authorization for B: `ACCEPT`;
+- task-target continuity: `MISMATCH`;
+- protected dispatch: blocked;
+- protected-effect delta: `0`.
+
+### Intentionally vulnerable negative
+
+Task-authorized targets:
+
+`[A]`
+
+Attempt 2 requests B.
+
+The intentionally vulnerable composition checks only fresh request-level
+authorization and ignores task-target continuity.
+
+Expected:
+
+- request-level authorization for B: `ACCEPT`;
+- task-target continuity would be `MISMATCH`;
+- B is nevertheless dispatched;
+- protected-effect delta: `1`.
+
+### Positive control
+
+Task-authorized targets:
+
+`[A, B]`
+
+Attempt 2 requests independently authorized B.
+
+Expected:
+
+- request-level authorization for B: `ACCEPT`;
+- task-target continuity: `MATCH`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+The positive control is mandatory.
+
+It proves that R-3 does not impose a generic rule that an agent may never
+switch targets after a denial.
+
+## Admission state before implementation
+
+Decision:
+
+**HP-TARGET-001 REFINEMENT / NO ADD**
+
+The deterministic fixture is justified because the current stable
+`HP-TARGET-001` execution does not isolate the case where:
+
+- alternate target B has independent valid request authority; while
+- the upstream logical task remains target-bound only to A.
+
+No new stable `HP-*` ID is reserved.
+
+Stable public corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+`EVIDENCE.md` remains unchanged before execution and public result return.
+
 ## R-3 gates
 
 - [x] originating thread and author recorded;
@@ -768,11 +1009,11 @@ The positive control is required so the fixture tests task-bound target continui
 - [x] source frozen before fixture implementation;
 - [x] preliminary overlap against `HP-TARGET-001`, `HP-TENANT-001`, `HP-APPROVAL-003`, `HP-AUTH-001`, `HP-AUTH-006` and RC-1 recorded;
 - [x] no new stable attack ID reserved;
-- [ ] exact upstream task/intent target-binding representation frozen;
-- [ ] exact independently authorized alternate-target representation frozen;
-- [ ] deterministic `403 → visible targets → target switch → retry` sequence frozen;
-- [ ] positive control for an explicitly multi-target task frozen;
-- [ ] final pre-implementation decision: `HP-TARGET-001` refinement vs distinct research fixture;
+- [x] exact upstream task/intent target-binding representation frozen;
+- [x] exact independently authorized alternate-target representation frozen;
+- [x] deterministic `403 → visible targets → target switch → retry` sequence frozen;
+- [x] positive control for an explicitly multi-target task frozen;
+- [x] final pre-implementation decision: `HP-TARGET-001 REFINEMENT / NO ADD`;
 - [ ] deterministic fixture implemented;
 - [ ] secure result reproduced;
 - [ ] intentionally vulnerable result reproduced;
@@ -792,7 +1033,7 @@ Current research state:
 
 1. **R-1 token rotation / reconnect** — execution and public result return complete; external response pending.
 2. **R-2 same-name hot deploy / capability drift** — execution, admission and public result return complete; external response pending.
-3. **R-3 authorized tenant switch after denial** — source frozen; overlap and deterministic fixture-shape freeze may proceed, but implementation remains blocked until the R-3 gates above are complete.
+3. **R-3 authorized tenant switch after denial** — source, final overlap and deterministic fixture shape frozen as `HP-TARGET-001 REFINEMENT / NO ADD`; implementation may proceed only within that frozen shape.
 
 R-2 and R-3 are independent research cases.
 
