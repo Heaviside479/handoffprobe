@@ -92,28 +92,49 @@ Active execution work for RC-2 is complete. Any later substantive external respo
 
 ## RC-3 — Reddit same-name capability hot-deploy drift
 
-Status: **QUEUED / DISTINCTNESS UNRESOLVED / SOURCE FREEZE INCOMPLETE**
+Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-APPROVAL-002 REFINEMENT / FIXTURE QUEUED**
 
 Detailed queue:
 
 `docs/REDDIT_MCP_EDGE_CASE_QUEUE_20260918.md#r-2--same-name-hot-deploy--capability-drift-after-approval`
 
-Community feedback supplied a capability-version edge case in which approval is issued for version A and the same visible tool name resolves to materially different version B before execution.
+Originating source:
 
-Preliminary overlap:
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/
 
-- `HP-APPROVAL-002` is relevant but currently mutates the tool identity itself;
-- `HP-VERSION-001` is adjacent but does not by itself settle stale approval under same-name capability drift;
-- `HP-AUTH-001` must be reviewed because semantic widening is already an owned stable invariant;
-- `HP-RACE-002` is a conditional overlap only if the hot-deploy transition is modeled during interruption/resume.
+Community feedback supplied a capability-drift edge case in which approval is issued for capability A and the same visible tool name resolves to materially different capability B before execution.
+
+Completed pre-implementation overlap:
+
+- `HP-APPROVAL-002` is the governing stable invariant: execution must remain bound to what was actually approved;
+- R-2 refines that invariant because the visible tool label remains unchanged while the security-relevant capability definition changes;
+- `HP-VERSION-001` is adjacent but not governing because the primary fixture contains no version negotiation, downgrade or translation;
+- `HP-AUTH-001` is deliberately neutralized by allowing both A and B in upstream semantic authority while explicit approval binds only A;
+- `HP-RACE-002` is excluded because the primary fixture has no interruption, reconnect, resume or retry.
+
+Frozen primary capability change:
+
+`["same-name-tool", "schema-v1", "read_only"]`
+
+→
+
+`["same-name-tool", "schema-v1", "protected_write"]`
+
+Frozen fixture binding:
+
+`SHA-256(UTF-8(JSON.stringify([toolName, inputSchemaId, effectClass])))`
 
 Current position:
 
-- classification: **RESEARCH CANDIDATE — ADMISSION UNRESOLVED**;
-- no new stable `HP-*` ID reserved;
-- fixture implementation remains blocked until the exact direct Reddit comment permalink is recorded and the full overlap review includes `HP-AUTH-001` plus the conditional `HP-RACE-002` case;
-- a later stable ID requires normal distinctness/admission evidence;
-- the merged result must be returned to the originating Reddit discussion;
+- pre-implementation classification: **HP-APPROVAL-002 REFINEMENT / NO ADD**;
+- exact Reddit source is frozen before implementation;
+- no new stable `HP-*` ID is reserved;
+- deterministic fixture implementation is now permitted within the frozen shape;
+- secure negative must observe upstream authority `ACCEPT`, approval mismatch and protected-effect delta `0`;
+- intentionally vulnerable negative must observe upstream authority `ACCEPT`, stale approval acceptance and protected-effect delta `1`;
+- positive control must approve B directly and produce protected-effect delta `1`;
+- post-execution admission must reconfirm the refinement classification;
+- any merged result must be returned to the originating Reddit discussion;
 - `EVIDENCE.md` remains gated on reproducible execution and public result return.
 
 ## RC-4 — Reddit authorized tenant switch after denial

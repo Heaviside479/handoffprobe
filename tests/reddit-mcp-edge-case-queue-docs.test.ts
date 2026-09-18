@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 public result returned; R-2 source freeze pending; R-3 source frozen and overlap unresolved.**',
+      'Status: **ACTIVE — R-1 public result returned; R-2 source frozen and pre-implementation overlap complete; R-3 source frozen and overlap unresolved.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -38,18 +38,22 @@ describe('Reddit MCP edge-case research queue', () => {
     );
   });
 
-  it('keeps same-name hot deploy admission unresolved', () => {
-    expect(queue).toContain('RESEARCH CANDIDATE — ADMISSION UNRESOLVED');
-    expect(queue).toContain('`HP-APPROVAL-002 — Tool substitution after approval`');
-    expect(queue).toContain('`HP-VERSION-001`');
-    expect(queue).toContain('### HP-AUTH-001 — semantic-widening overlap to resolve');
-    expect(queue).toContain('### HP-RACE-002 — conditional timing overlap');
-    expect(queue).toContain('Exact direct Reddit comment permalink:');
-    expect(queue).toContain('**PENDING**');
+  it('freezes R-2 as an HP-APPROVAL-002 refinement before execution', () => {
     expect(queue).toContain(
-      '- [ ] exact Reddit comment permalink recorded and source frozen before fixture implementation;',
+      'Status: **SOURCE FROZEN — PRE-IMPLEMENTATION OVERLAP COMPLETE; HP-APPROVAL-002 REFINEMENT / NO ADD; deterministic fixture queued.**',
     );
-    expect(queue).toContain('No new `HP-*` ID is reserved.');
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
+    expect(queue).toContain('### HP-APPROVAL-002 — governing stable invariant');
+    expect(queue).toContain('### HP-VERSION-001 — adjacent backlog, not governing');
+    expect(queue).toContain('### HP-AUTH-001 — deliberately neutralized in the primary fixture');
+    expect(queue).toContain('### HP-RACE-002 — excluded from the primary fixture');
+    expect(queue).toContain('`["same-name-tool", "schema-v1", "read_only"]`');
+    expect(queue).toContain('`["same-name-tool", "schema-v1", "protected_write"]`');
+    expect(queue).toContain('`JSON.stringify([toolName, inputSchemaId, effectClass])`');
+    expect(queue).toContain('**HP-APPROVAL-002 REFINEMENT / NO ADD**');
+    expect(queue).toContain('- [x] source frozen before fixture implementation;');
+    expect(queue).toContain('- [ ] deterministic fixture implemented;');
+    expect(queue).toContain('The stable public corpus remains **23 attacks**.');
   });
 
   it('freezes R-3 source while keeping target-drift admission unresolved', () => {
@@ -87,12 +91,13 @@ describe('Reddit MCP edge-case research queue', () => {
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
     expect(candidates).toContain(
-      'Status: **QUEUED / DISTINCTNESS UNRESOLVED / SOURCE FREEZE INCOMPLETE**',
+      'Status: **SOURCE FROZEN / OVERLAP COMPLETE / HP-APPROVAL-002 REFINEMENT / FIXTURE QUEUED**',
     );
     expect(roadmap).toContain('#### Reddit MCP community edge-case queue — 2026-09-18');
     expect(roadmap).toContain(
       'source → overlap → deterministic fixture → protected-effect evidence → admission → merge → Reddit result return → external-response classification → EVIDENCE.md decision',
     );
+    expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
   });
 
