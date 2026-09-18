@@ -1941,6 +1941,25 @@ T-4.2 is complete.
 - T-4.3 may implement only the smallest local deterministic synthetic fixture for original-attempt provider reconciliation.
 - Oga comment `#5728468834` confirms that no additional signed WitnessObservation fixture is needed unless a later concrete property requires one.
 
+#### T-4.3 / T-4.4 provider reconciliation execution and admission — 2026-09-18
+
+T-4.3 and T-4.4 are complete.
+
+- Execution evidence: `docs/T4_3_PROVIDER_RECONCILIATION_EXECUTION_20260918.md`.
+- Immutable fixture commit: `07d9c8bf38f1fa5bfa0d61f74d92ffe5232b53ba`.
+- The fixture is local, deterministic and synthetic and changes no production `src/` implementation or package metadata.
+- One protected synthetic effect occurs before the simulated caller-facing response loss.
+- Caller outcome remains explicitly `unknown` after response loss.
+- Blind fresh execution is blocked while that original outcome remains unresolved.
+- A read-only provider lookup for the same original attempt resolves the caller only when logical action identity, attempt identity and execution evidence validate.
+- Reconciliation itself records zero additional protected effects.
+- Missing or mismatched provider evidence remains `INCONCLUSIVE`; provider lookup failure remains `ERROR`.
+- Focused execution passed 8/8 tests; full repository validation passed 92/92 test files and 465/465 tests plus build.
+- T-4.4 decision: **DISTINCT RESEARCH CANDIDATE**.
+- The distinction is specifically provider-side original-attempt reconciliation and does not duplicate the stable `HP-REPLAY-003` duplicate-effect invariant.
+- No new stable attack is admitted, the stable public corpus remains 23 attacks, and no release is triggered.
+- T-4.5 is next: return the reproducible result to A2A `#1769` and the VATE implementation review thread with exact commit/evidence links, tested and untested scope, limitations and an invitation to correct the interpretation.
+- The post-T-3 A2A `#1937` signal did not materially determine this reconciliation fixture, so this result alone does not require a separate `#1937` reply.
 #### Global external evidence return-loop policy — 2026-09-17
 
 This policy applies to **all current and future external technical contributors/threads**, including but not limited to A2A `#1937`, A2A `#2079`, A2A `#1769`, MCP `#3354`, and later research inputs.
