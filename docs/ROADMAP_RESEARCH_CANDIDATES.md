@@ -148,7 +148,7 @@ Current position:
 
 ## RC-4 — Reddit authorized tenant switch after denial
 
-Status: **LOCAL EXECUTION COMPLETE / HP-TARGET-001 REFINEMENT / MERGE PENDING**
+Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**
 
 Detailed queue:
 
@@ -190,6 +190,9 @@ Current position:
 - intentionally vulnerable request-only path observes the same `MISMATCH` but protected-effect delta `1`;
 - repeated scenario summaries are deterministic;
 - post-execution classification remains **HP-TARGET-001 REFINEMENT / NO ADD**;
-- merge and public result return remain pending;
-- any reproducible merged result must be returned to the originating Reddit discussion;
-- `EVIDENCE.md` remains unchanged before public result return.
+- merged execution commit: `a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`;
+- public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/
+- external response state: **PENDING**;
+- evidence level: **Open research follow-up**;
+- the result remains **HP-TARGET-001 REFINEMENT / NO ADD**;
+- no new stable attack ID or release is triggered.

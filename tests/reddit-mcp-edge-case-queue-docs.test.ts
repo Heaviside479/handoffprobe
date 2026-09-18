@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all three community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1 and R-2 public results returned; R-3 local execution complete with merge/public result return pending.**',
+      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; external responses pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -62,7 +62,7 @@ describe('Reddit MCP edge-case research queue', () => {
       "We had the following problem: our agent hit a 403 for a licence it didn't have",
     );
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; external response PENDING.**',
     );
     expect(queue).toContain('### HP-TARGET-001 — governing stable invariant');
     expect(queue).toContain('**HP-TARGET-001 REFINEMENT / NO ADD**');
@@ -97,7 +97,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / HP-TARGET-001 REFINEMENT / MERGE PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
@@ -113,9 +113,11 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
   });
 
-  it('records R-1 and R-2 as open research after public result return', () => {
+  it('records R-1, R-2 and R-3 as open research after public result return', () => {
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
+
     expect(queue).toContain(
       '- [x] concrete result returned to originating Reddit commenter/thread;',
     );
@@ -124,8 +126,10 @@ describe('Reddit MCP edge-case research queue', () => {
 
     expect(evidence).toContain('## 6. Reddit R-1 token-rotation / reconnect refinement');
     expect(evidence).toContain('## 7. Reddit R-2 same-name capability hot-deploy refinement');
+    expect(evidence).toContain(
+      '## 8. Reddit R-3 authorized target-switch / task-target refinement',
+    );
     expect(evidence).toContain('**Evidence level:** Open research follow-up');
-    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
-    expect(evidence).not.toContain('Reddit authorized tenant switch after denial');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
   });
 });

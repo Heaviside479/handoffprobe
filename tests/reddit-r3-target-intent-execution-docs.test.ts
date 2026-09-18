@@ -41,28 +41,35 @@ describe('Reddit R-3 target-intent execution record', () => {
     );
   });
 
-  it('reconfirms HP-TARGET-001 refinement with no add', () => {
+  it('records completed R-3 public result return with external response pending', () => {
     expect(execution).toContain('Decision: **HP-TARGET-001 REFINEMENT / NO ADD**');
     expect(execution).toContain('stable attack count: **23**');
-    expect(execution).toContain('package version change: **no**');
-    expect(execution).toContain('release triggered: **no**');
 
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; external response PENDING.**',
     );
 
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / HP-TARGET-001 REFINEMENT / MERGE PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
 
-    expect(roadmap).toContain(
-      'post-execution classification remains **HP-TARGET-001 REFINEMENT / NO ADD**',
+    expect(execution).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
+    expect(execution).toContain('`a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`');
+
+    expect(queue).toContain(
+      '- [x] concrete result returned to originating Reddit commenter/thread;',
     );
+    expect(queue).toContain('- [x] external response state recorded as PENDING;');
   });
 
-  it('does not promote R-3 into external evidence before public return', () => {
-    expect(evidence).not.toContain('Reddit authorized tenant switch after denial');
+  it('records R-3 only as Open research follow-up while response is pending', () => {
+    expect(evidence).toContain(
+      '## 8. Reddit R-3 authorized target-switch / task-target refinement',
+    );
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
+    expect(evidence).toContain('The public result return itself is **not** external confirmation.');
 
-    expect(execution).toContain('Public result return is not external confirmation.');
+    expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
   });
 });
