@@ -4,7 +4,7 @@ HandoffProbe welcomes contributions that improve defensive testing of security-s
 
 ## Before contributing
 
-Read `PROJECT_CONTEXT.md` and the documents under `docs/`. The v0.3.0 release product scope remains deliberately narrow: A2A 1.0 -> MCP 2026-07-28 with exactly 22 stable attacks. Phase 9 crossing-corpus functionality remains repository research/conformance tooling unless a later evidence-backed release explicitly promotes a public runtime surface.
+Read `PROJECT_CONTEXT.md`, `AGENTS.md` and the relevant documents under `docs/`. The current verified public release is `handoffprobe@0.4.0` with 23 stable attacks: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`). The public protocol baseline remains A2A 1.0 -> MCP 2026-07-28. Repository research/conformance tooling is not automatically part of the stable public runtime surface.
 
 ## Good early contributions
 
@@ -57,7 +57,7 @@ These public reports must not contain secrets, private data or undisclosed vulne
 
 ## Code expectations
 
-Once the codebase is bootstrapped:
+For the current codebase:
 
 - add or update tests for behavior changes
 - keep changes focused
@@ -65,6 +65,10 @@ Once the codebase is bootstrapped:
 - do not commit secrets or real credentials
 - use local/synthetic fixtures for security tests
 - update docs when public behavior changes
+- preserve historical research/release records as historical snapshots
+- run focused tests plus `npm run check` before merge
+- run `npm run package:check` when package/release-facing surfaces change
+- do not create a new stable `HP-*` ID without the normal evidence/admission process
 
 ## Responsible security work
 
