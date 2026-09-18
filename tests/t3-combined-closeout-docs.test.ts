@@ -60,7 +60,7 @@ describe('T-3.8 combined A2A follow-up closeout', () => {
     expect(roadmap).toContain('Status: **COMPLETE — 2026-09-16; T-4.1 NEXT.**');
     expect(roadmap).toContain('Combined closeout: `docs/T3_8_COMBINED_CLOSEOUT_20260916.md`.');
     expect(roadmap).toContain('T-3 exit gate: **SATISFIED 2026-09-16.**');
-    expect(t4).toContain('Status: **T-4.1 complete 2026-09-17; T-4.2 NEXT.**');
+    expect(t4).toContain('Status: **T-4.2 complete 2026-09-18; T-4.3 NEXT.**');
     expect(readme).toContain('pending #2079 review and T-4 work remain explicitly open');
   });
 });

@@ -1,6 +1,6 @@
 # T-4.1 upstream material freeze — 2026-09-17
 
-Status: **COMPLETE — T-4.1 closed 2026-09-17; T-4.2 NEXT.**
+Status: **COMPLETE — T-4.1 closed 2026-09-17; T-4.2 completed 2026-09-18.**
 
 This record freezes the exact external inputs used for the T-4 comparison. It does not make an attack-admission decision, does not claim external HandoffProbe validation, and does not copy or adapt upstream code into HandoffProbe.
 
@@ -49,6 +49,29 @@ The clarified boundary is frozen as follows:
 - The WitnessObservation and VATE properties are treated as composable boundaries rather than one subsuming the other.
 
 HandoffProbe acknowledged and preserved that boundary in comment `#5719641899` and reported the `signed.json` freeze discrepancy. At the time this freeze record was prepared, no substantive reply to that follow-up had been observed.
+
+
+### Later author confirmation — 2026-09-17
+
+A later substantive reply arrived in A2A `#1769` at `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5722127484`.
+
+- Toshikatsu Oga / `ogasurfproject-jpg` explicitly confirmed the HandoffProbe boundary record from comment `#5719641899`.
+- He explicitly corrected the earlier `signed.json` reference: `signed.json` and `obs.json` are regenerated gitignored conformance vectors and are not pinned repository source.
+- He confirmed that the canonical WitnessObservation implementation pin remains `4d7c9c270c2846465fafdea9833869c5660c4ae2` and consists of tracked source and tests only.
+- He confirmed that `4828da51cf3c865b989ede27a0d15d2acc234e25` / `boundary_case.test.mjs` is a supplemental boundary test, not an implementation change, so it does not replace the canonical pin.
+- He offered a separately immutable signed record only if the later overlap analysis establishes a concrete need for one.
+- T-4.2 therefore begins without requesting an additional signed fixture. Any later request must be tied to a specific evidence gap found during overlap analysis.
+
+This is external author confirmation of the recorded scope and provenance boundaries. It is not a new stable attack, a HandoffProbe validation claim, or a release trigger.
+
+A subsequent A2A `#1769` confirmation arrived at `https://github.com/a2aproject/A2A/issues/1769#issuecomment-5728468834`.
+
+- Oga again confirmed `4d7c9c270c2846465fafdea9833869c5660c4ae2` as the canonical WitnessObservation pin.
+- He again confirmed that `signed.json` and `obs.json` are regenerated non-source material.
+- He again classified `4828da51cf3c865b989ede27a0d15d2acc234e25` as supplemental rather than the canonical pin.
+- He will not create an additional immutable signed fixture unless the HandoffProbe overlap analysis identifies a concrete property that requires one.
+- This reply introduces no new T-4 scope.
+
 
 ## 3. VATE provenance
 
