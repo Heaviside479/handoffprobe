@@ -62,7 +62,7 @@ This keeps the signal without prematurely turning the roadmap into speculative f
 
 ## RC-2 — Reddit MCP reconnect token-rotation refinement
 
-Status: **EXECUTION COMPLETE / RESULT RETURN PENDING**
+Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**
 
 Detailed queue:
 
@@ -84,9 +84,11 @@ Current position:
 - `HP-REPLAY-003` is not governing because the pre-interruption protected-effect count is `0`;
 - `HP-AUTH-006` is not governing because R-1 resumes the same interrupted logical action rather than authorizing a later distinct effect;
 - stable public corpus remains **23 attacks**;
-- result return is pending.
+- public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
+- external response state: **PENDING**;
+- evidence level: **Open research follow-up**.
 
-The merged result must be returned to the originating Reddit discussion before the research loop is considered complete.
+Active execution work for RC-2 is complete. Any later substantive external response must be classified faithfully before evidence promotion.
 
 ## RC-3 — Reddit same-name capability hot-deploy drift
 

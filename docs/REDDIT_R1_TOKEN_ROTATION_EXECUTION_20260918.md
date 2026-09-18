@@ -1,6 +1,6 @@
 # Reddit R-1 token-rotation / reconnect execution — 2026-09-18
 
-Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; external response PENDING.**
 
 ## Purpose
 
@@ -206,17 +206,34 @@ It does not establish:
 - production authentication assurance;
 - external reproduction or confirmation.
 
-## Next step
+## Public result return — 2026-09-18
 
-After this execution record and fixture are committed, reviewed by CI and merged:
+The reproducible merged result was returned to the originating Reddit comment:
 
-1. return the exact merged HandoffProbe result to the originating Reddit commenter/thread;
-2. link the immutable commit/test/execution record;
-3. report the secure `0`-effect and vulnerable `1`-effect outcomes;
-4. explain that the result is classified as an `HP-RACE-002` refinement rather than a new stable attack;
-5. state why the primary fixture is not `HP-REPLAY-003`;
-6. invite correction or counter-evidence;
-7. record the public result-return permalink and external response state;
-8. then decide whether `EVIDENCE.md` should receive an Open research follow-up entry.
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/
 
-The HandoffProbe result itself must not be described as external confirmation.
+Originating input:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/
+
+Merged execution commit:
+
+`05677e5a00c45bcc20abe06b3622a72d4b7aa43b`
+
+The public reply reports the deterministic secure and intentionally vulnerable outcomes, preserves the `HP-RACE-002 REFINEMENT / NO ADD` classification, distinguishes the fixture from `HP-REPLAY-003`, states that the reproduction is local/synthetic, and invites correction or counter-evidence.
+
+## Current external-response state
+
+External response:
+
+**PENDING**
+
+As of this closeout record, no substantive response to the returned result has been recorded.
+
+The HandoffProbe result itself is not external confirmation.
+
+Silence is not agreement or confirmation.
+
+`EVIDENCE.md` records the item as **Open research follow-up**.
+
+No new stable attack is added, the stable public corpus remains **23 attacks**, package version remains `0.4.0`, and no release is triggered.

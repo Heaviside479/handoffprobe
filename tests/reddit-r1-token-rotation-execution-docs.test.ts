@@ -30,7 +30,7 @@ describe('Reddit R-1 token-rotation execution closeout', () => {
     expect(execution).toContain('### HP-AUTH-006');
   });
 
-  it('records the exact R-1 source and immutable merged artifact before result return', () => {
+  it('records the exact R-1 source and immutable merged artifact', () => {
     expect(execution).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/');
     expect(execution).toContain('`05677e5a00c45bcc20abe06b3622a72d4b7aa43b`');
     expect(execution).toContain('The HandoffProbe reproduction is not external confirmation.');
@@ -40,20 +40,26 @@ describe('Reddit R-1 token-rotation execution closeout', () => {
     expect(queue).toContain('- [x] merged immutable result recorded;');
   });
 
-  it('updates the queue and roadmap while keeping result return pending', () => {
+  it('records completed public result return with external response pending', () => {
     expect(queue).toContain(
-      'Status: **EXECUTION COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; public result return NEXT.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — HP-RACE-002 REFINEMENT / NO ADD; external response PENDING.**',
     );
     expect(queue).toContain('- [x] deterministic fixture implemented;');
     expect(queue).toContain('- [x] normal admission decision completed;');
     expect(queue).toContain(
-      '- [ ] concrete result returned to originating Reddit commenter/thread;',
+      '- [x] concrete result returned to originating Reddit commenter/thread;',
     );
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
+    expect(execution).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
 
     expect(roadmap).toContain('#### Reddit R-1 token-rotation execution — 2026-09-18');
+    expect(roadmap).toContain('external response state: **PENDING**');
   });
 
-  it('does not prematurely promote R-1 into EVIDENCE.md', () => {
-    expect(evidence).not.toContain('Reddit R-1 token-rotation / reconnect execution');
+  it('records only Open research follow-up evidence while external response is pending', () => {
+    expect(evidence).toContain('## 6. Reddit R-1 token-rotation / reconnect refinement');
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
+    expect(evidence).toContain('**PENDING**');
+    expect(evidence).toContain('The public result return itself is **not** external confirmation.');
   });
 });

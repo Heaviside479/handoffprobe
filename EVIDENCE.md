@@ -336,6 +336,106 @@ This result does not establish:
 
 ---
 
+## 6. Reddit R-1 token-rotation / reconnect refinement
+
+**Evidence level:** Open research follow-up
+
+**Status:** Reproducible HandoffProbe result returned publicly; external commenter response pending
+**Scope:** Deterministic local/synthetic stale-session reconnect comparison
+
+### External technical input
+
+A Reddit contributor supplied a concrete interrupted-handoff edge case:
+
+- token A is initially current;
+- the server rotates current session state to B;
+- a transient interruption occurs;
+- the same logical action reconnects while still presenting stale A;
+- the contributor explicitly asked whether this should be treated as replay or stale authorization.
+
+Originating source:
+
+- [Reddit source comment](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakk8w2/)
+
+### Reproducible HandoffProbe result
+
+HandoffProbe reduced the case to a deterministic local synthetic fixture.
+
+Merged execution:
+
+- [merge commit](https://github.com/Heaviside479/handoffprobe/commit/05677e5a00c45bcc20abe06b3622a72d4b7aa43b)
+- [`docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md`](docs/REDDIT_R1_TOKEN_ROTATION_EXECUTION_20260918.md)
+- [`tests/reddit-r1-token-rotation-execution.test.ts`](tests/reddit-r1-token-rotation-execution.test.ts)
+
+Secure path:
+
+- token A initially accepted;
+- current server-side generation changes to B before any protected effect;
+- reconnect presents stale A;
+- current authorization: `REJECT`;
+- reason: `stale_session`;
+- MCP tool calls: `0`;
+- protected-effect delta: `0`.
+
+Intentionally vulnerable path:
+
+- current authorization still rejects stale A;
+- the pre-interruption authorization snapshot is reused;
+- MCP tool calls: `1`;
+- protected-effect delta: `1`.
+
+### Admission result
+
+Final classification:
+
+**HP-RACE-002 REFINEMENT / NO ADD**
+
+The fixture is governed by the existing partial-failure stale-execution invariant.
+
+`HP-REPLAY-003` is not governing for the primary fixture because the protected-effect count before interruption is exactly `0`.
+
+`HP-AUTH-006` is not governing because R-1 resumes the same interrupted logical protected action rather than authorizing a later distinct protected effect.
+
+No new stable attack was added.
+
+The stable public corpus remains **23 attacks**, package version remains `0.4.0`, and no release was triggered.
+
+### Public result return
+
+The merged reproducible result was returned to the originating Reddit discussion:
+
+- [HandoffProbe public result return](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/)
+
+The reply includes the observed secure and intentionally vulnerable outcomes, the admission classification, the replay boundary and the local/synthetic limitation, and explicitly invites correction or counter-evidence.
+
+### Current external-review state
+
+External response to the returned HandoffProbe result:
+
+**PENDING**
+
+No substantive external response has been recorded as of this closeout.
+
+The public result return itself is **not** external confirmation.
+
+Silence must not be interpreted as agreement.
+
+This item therefore remains an **Open research follow-up**.
+
+### Limitations
+
+This result does not establish:
+
+- a vulnerability in MCP;
+- a vulnerability in a real MCP client or server;
+- production session-token semantics;
+- a normative token-rotation design;
+- production authentication assurance;
+- external reproduction or confirmation;
+- a new stable HandoffProbe attack.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
@@ -343,6 +443,7 @@ Open work is intentionally separated from completed evidence.
 Current examples include:
 
 - A2A `#1769` / VATE T-4 has completed freeze, overlap analysis, reproducible execution/admission and public result return. WitnessObservation author review has been received from `ogasurfproject-jpg`; the VATE-specific external response from `Poke-nushi` remains pending before final T-4 closeout.
+- Reddit R-1 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 
