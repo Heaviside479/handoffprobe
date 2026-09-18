@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1 and R-2 public results returned; R-3 local execution complete with merge/public result return pending.**
+Status: **ACTIVE — R-1, R-2 and R-3 public results returned; external responses pending.**
 
 ## Purpose
 
@@ -608,7 +608,7 @@ No release is triggered.
 
 # R-3 — authorized tenant switch after denial / task-intent target drift
 
-Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; external response PENDING.**
 
 Originating Reddit author:
 
@@ -1061,10 +1061,29 @@ Package remains `0.4.0`.
 
 No release is triggered.
 
-The merged immutable result and public Reddit result return remain pending.
+Merged execution commit:
 
-`EVIDENCE.md` remains unchanged until the reproducible merged result is
-returned publicly.
+`a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`
+
+Public result-return comment:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/
+
+Originating source:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
+
+External response state:
+
+**PENDING**
+
+The public result return itself is not external confirmation.
+
+Silence is not agreement or confirmation.
+
+`EVIDENCE.md` now records R-3 at the strongest demonstrated level:
+
+**Open research follow-up**
 
 ## R-3 gates
 
@@ -1084,11 +1103,11 @@ returned publicly.
 - [x] intentionally vulnerable result reproduced;
 - [x] protected-effect evidence recorded;
 - [x] normal admission decision completed as `HP-TARGET-001 REFINEMENT / NO ADD`;
-- [ ] merged immutable result recorded;
-- [ ] concrete result returned to originating Reddit commenter/thread;
-- [ ] external response state recorded;
+- [x] merged immutable result recorded;
+- [x] concrete result returned to originating Reddit commenter/thread;
+- [x] external response state recorded as PENDING;
 - [ ] substantive response classified if one arrives;
-- [ ] `EVIDENCE.md` inclusion/promotion decision completed.
+- [x] `EVIDENCE.md` inclusion/promotion decision completed at Open research follow-up.
 
 ---
 
@@ -1098,7 +1117,7 @@ Current research state:
 
 1. **R-1 token rotation / reconnect** — execution and public result return complete; external response pending.
 2. **R-2 same-name hot deploy / capability drift** — execution, admission and public result return complete; external response pending.
-3. **R-3 authorized tenant switch after denial** — deterministic execution and admission complete as `HP-TARGET-001 REFINEMENT / NO ADD`; merge and public result return remain pending.
+3. **R-3 authorized tenant switch after denial** — deterministic execution, admission and public result return complete as `HP-TARGET-001 REFINEMENT / NO ADD`; external response pending.
 
 R-2 and R-3 are independent research cases.
 

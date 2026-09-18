@@ -580,6 +580,122 @@ This result does not establish:
 
 ---
 
+## 8. Reddit R-3 authorized target-switch / task-target refinement
+
+**Evidence level:** Open research follow-up
+
+**Status:** Reproducible HandoffProbe result returned publicly; external commenter response pending
+**Scope:** Deterministic local/synthetic target-continuity comparison
+
+### External technical input
+
+A Reddit contributor reported an adaptive retry case in which an agent:
+
+- received a `403` for an original target;
+- enumerated visible tenants;
+- switched to another target;
+- retried successfully;
+- had proper request-level authorization on each request.
+
+Originating source:
+
+- [Reddit source comment](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/)
+
+The HandoffProbe research question was whether independently valid request authority for alternate target B is sufficient when the same logical upstream task remains target-bound to A.
+
+### Reproducible HandoffProbe result
+
+Merged execution:
+
+- [merge commit](https://github.com/Heaviside479/handoffprobe/commit/a78fd7a961f197ddaf82bbea7fe3b15546c8efbf)
+- [`docs/REDDIT_R3_TARGET_INTENT_EXECUTION_20260918.md`](docs/REDDIT_R3_TARGET_INTENT_EXECUTION_20260918.md)
+- [`tests/reddit-r3-target-intent-execution.test.ts`](tests/reddit-r3-target-intent-execution.test.ts)
+
+Target B is evaluated through HandoffProbe's existing request-level authorization logic.
+
+Observed B request-level authorization:
+
+- authorization: `ACCEPT`;
+- rejection reasons: none;
+- tenant binding: match;
+- resource binding: match;
+- capability grant: match;
+- authority-not-amplified check: pass.
+
+Observed positive control:
+
+- upstream task permits A and B;
+- B request authorization: `ACCEPT`;
+- task-target continuity: `MATCH`;
+- protected-effect delta: `1`.
+
+Observed secure negative:
+
+- upstream task permits only A;
+- B request authorization: `ACCEPT`;
+- task-target continuity: `MISMATCH`;
+- protected dispatch blocked;
+- protected-effect delta: `0`.
+
+Observed intentionally vulnerable request-only negative:
+
+- upstream task permits only A;
+- B request authorization: `ACCEPT`;
+- task-target continuity: `MISMATCH`;
+- task-target mismatch ignored;
+- protected-effect delta: `1`.
+
+### Admission result
+
+Final classification:
+
+**HP-TARGET-001 REFINEMENT / NO ADD**
+
+The result refines the existing resource/target-substitution invariant.
+
+No new stable attack was added.
+
+The stable public corpus remains **23 attacks**, package version remains `0.4.0`, and no release was triggered.
+
+### Public result return
+
+The merged reproducible result was returned to the originating Reddit discussion:
+
+- [HandoffProbe public result return](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/)
+
+The reply reports the three observed execution paths, preserves the `HP-TARGET-001 REFINEMENT / NO ADD` classification, states the synthetic/local limitations, distinguishes request authorization from task-target authority, and invites correction or counter-evidence.
+
+### Current external-review state
+
+External response to the returned HandoffProbe result:
+
+**PENDING**
+
+No substantive external response has been recorded as of this closeout.
+
+The public result return itself is **not** external confirmation.
+
+Silence must not be interpreted as agreement.
+
+This item therefore remains an **Open research follow-up**.
+
+### Limitations
+
+This result does not establish:
+
+- an MCP specification vulnerability;
+- a vulnerability in a real MCP client/server;
+- that cross-tenant switching is inherently invalid;
+- that every retry must remain on the original target;
+- that visibility itself grants or violates authority;
+- production-world behavior;
+- external reproduction or confirmation;
+- a new stable HandoffProbe attack.
+
+The initial `403`-like denial and target-discovery stages are deterministic fixture-controlled research inputs rather than claims of separate external end-to-end network reproduction.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
@@ -588,6 +704,7 @@ Current examples include:
 
 - Reddit R-1 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
+- Reddit R-3 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - MCP #3354 has a reproducible public result return with external post-result author response still pending.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.

@@ -2020,7 +2020,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1 and R-2 have completed deterministic execution and public result return with external responses pending; R-3 has completed deterministic local execution and admission as an HP-TARGET-001 refinement, with merge and public result return pending.
+Three public community-supplied MCP handoff cases are tracked: R-1, R-2 and R-3 have completed deterministic execution, admission and public result return; their substantive external responses remain pending.
 
 Detailed queue:
 
@@ -2085,7 +2085,10 @@ Research-candidate index:
   - secure negative: task-target `MISMATCH`, protected-effect delta `0`;
   - intentionally vulnerable request-only path: task-target `MISMATCH` ignored, protected-effect delta `1`;
   - post-execution classification remains **HP-TARGET-001 REFINEMENT / NO ADD**;
-  - merge and public result return remain pending;
+  - merged execution commit: `a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`;
+  - public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/
+  - external response state: **PENDING**;
+  - evidence level: **Open research follow-up**;
   - no new stable ID is reserved.
 
 

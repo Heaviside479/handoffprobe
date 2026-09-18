@@ -1,6 +1,6 @@
 # Reddit R-3 authorized tenant switch / task-target drift execution — 2026-09-18
 
-Status: **LOCAL EXECUTION COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — HP-TARGET-001 REFINEMENT / NO ADD; external response PENDING.**
 
 ## Purpose
 
@@ -35,6 +35,7 @@ The HandoffProbe reproduction is local/synthetic and is not external confirmatio
 ## Baseline
 
 - base commit: `036688723189e990956a5f8b79ce7d0db1cffebd`;
+- merged execution commit: `a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`;
 - execution test: `tests/reddit-r3-target-intent-execution.test.ts`;
 - stable public corpus: **23 attacks**;
 - package version: `0.4.0`;
@@ -290,18 +291,56 @@ It does not establish:
 
 If the upstream task legitimately authorizes both A and B, the positive control shows that the B retry is allowed.
 
-## Remaining closeout
+## Public result return — 2026-09-18
 
-Before public result return:
+The merged reproducible R-3 result was returned to the originating Reddit discussion:
 
-1. the full repository validation must pass;
-2. this execution fixture and record must be merged;
-3. the immutable merge commit must be recorded;
-4. the concrete result must be returned to the originating Reddit discussion;
-5. correction or counter-evidence must be invited;
-6. external response state must be recorded;
-7. `EVIDENCE.md` inclusion must then be decided.
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/
 
-Public result return is not external confirmation.
+Originating input:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/
+
+Merged execution commit:
+
+`a78fd7a961f197ddaf82bbea7fe3b15546c8efbf`
+
+The public reply reports the observed three-path result:
+
+- positive control: B request authorization `ACCEPT`, task-target `MATCH`, protected-effect delta `1`;
+- secure negative: B request authorization `ACCEPT`, task-target `MISMATCH`, protected-effect delta `0`;
+- intentionally vulnerable request-only path: B request authorization `ACCEPT`, task-target `MISMATCH` ignored, protected-effect delta `1`.
+
+The reply preserves the classification:
+
+**HP-TARGET-001 REFINEMENT / NO ADD**
+
+It also preserves the fixture boundary:
+
+- the initial `403`-like denial and visible-target discovery are deterministic fixture-controlled inputs;
+- they are not claimed as separate external end-to-end network reproductions;
+- the result is local/synthetic;
+- no MCP specification or concrete implementation vulnerability is claimed;
+- correction, a broader real task boundary or counter-evidence is explicitly invited.
+
+## Current external-response state
+
+External response:
+
+**PENDING**
+
+As of this closeout record, no substantive response to the returned result has been recorded.
+
+The HandoffProbe result itself is not external confirmation.
 
 Silence is not agreement or confirmation.
+
+`EVIDENCE.md` records R-3 as **Open research follow-up**.
+
+No new stable attack is added.
+
+The stable public corpus remains **23 attacks**.
+
+Package version remains `0.4.0`.
+
+No release is triggered.
