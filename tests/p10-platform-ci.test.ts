@@ -24,21 +24,30 @@ describe('P10.4 platform CI candidate', () => {
     expect(attributes.trim()).toBe('* text=auto eol=lf');
   });
 
-  it('keeps Windows admission pending until GitHub-hosted evidence exists', () => {
+  it('records successful GitHub-hosted Windows admission evidence', () => {
     const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
     const record = readFileSync('docs/P10_4_WINDOWS_CI_20260919.md', 'utf8');
     const installation = readFileSync('docs/INSTALLATION.md', 'utf8');
+    const compatibility = readFileSync('docs/P10_1_COMPATIBILITY_BASELINE_20260915.md', 'utf8');
 
     expect(roadmap).toContain(
-      '- [ ] add Windows CI where practical and explicitly document exclusions where not;',
+      '- [x] add Windows CI where practical and explicitly document exclusions where not;',
     );
-    expect(record).toContain('Status: **ACTIVE — GitHub-hosted Windows validation pending**');
-    expect(record).toContain('`windows-latest`');
     expect(record).toContain(
-      'No Windows support claim is made until successful GitHub-hosted evidence exists.',
+      'Status: **COMPLETE — GitHub-hosted Windows validation passed 2026-09-19**',
     );
+    expect(record).toContain(
+      'https://github.com/Heaviside479/handoffprobe/actions/runs/35463848235',
+    );
+    expect(record).toContain('`Quality (windows-latest)`: success');
+    expect(record).toContain('`Quality (macos-latest)`: success');
+    expect(record).toContain('`Quality (ubuntu-latest)`: success');
     expect(installation).toContain(
-      'Windows is not currently validated or claimed as a supported environment',
+      'Windows is CI-verified on GitHub-hosted `windows-latest` with Node 24',
+    );
+    expect(compatibility).toContain('GitHub-hosted `windows-latest` + Node 24');
+    expect(compatibility).toContain(
+      'native Windows compatibility for the reusable composite GitHub Action is not claimed',
     );
   });
 

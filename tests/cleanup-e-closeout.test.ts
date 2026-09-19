@@ -36,10 +36,10 @@ describe('Cleanup E final repository verification', () => {
     );
   });
 
-  it('tracks completed macOS CI and remaining P10.4 work', () => {
+  it('tracks completed platform CI and remaining P10.4 work', () => {
     expect(roadmap).toContain('- [x] add macOS CI coverage;');
     expect(roadmap).toContain(
-      '- [ ] add Windows CI where practical and explicitly document exclusions where not;',
+      '- [x] add Windows CI where practical and explicitly document exclusions where not;',
     );
     expect(roadmap).toContain('- [ ] define the dependency upgrade process;');
     expect(roadmap).toContain(
