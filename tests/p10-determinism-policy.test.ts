@@ -54,7 +54,7 @@ describe('P10.3 determinism policy', () => {
     expect(policy).toContain('The package remains `0.3.0`.');
   });
 
-  it('marks only the P10.3 seed-handling roadmap item complete', () => {
+  it('tracks completed and open P10.3 roadmap items', () => {
     const roadmap = readFileSync(join(ROOT, 'docs/ROADMAP.md'), 'utf8');
 
     expect(roadmap).toContain(
@@ -63,7 +63,7 @@ describe('P10.3 determinism policy', () => {
     expect(roadmap).toContain('- [x] add reproducible performance benchmarks;');
     expect(roadmap).toContain('- [x] add concurrency tests;');
     expect(roadmap).toContain('- [x] harden structured diagnostic logs;');
-    expect(roadmap).toContain('- [ ] expand redaction regression tests;');
+    expect(roadmap).toContain('- [x] expand redaction regression tests;');
     expect(roadmap).toContain('- [ ] document benchmark environment and acceptable variance.');
   });
 });
