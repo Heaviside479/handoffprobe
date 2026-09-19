@@ -18,6 +18,12 @@ describe('P10.4 platform CI candidate', () => {
     expect(contents).toContain('run: npm run package:check');
   });
 
+  it('pins repository text checkouts to LF for cross-platform formatting', () => {
+    const attributes = readFileSync('.gitattributes', 'utf8');
+
+    expect(attributes.trim()).toBe('* text=auto eol=lf');
+  });
+
   it('keeps Windows admission pending until GitHub-hosted evidence exists', () => {
     const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
     const record = readFileSync('docs/P10_4_WINDOWS_CI_20260919.md', 'utf8');
