@@ -1358,7 +1358,8 @@ Exit gate: repeated runs remain trustworthy under load, concurrency and diagnost
 
 ### P10.4 — CI and platform reliability
 
-- [ ] enforce Linux CI coverage;
+- [x] enforce Linux CI coverage;
+  - Evidence: `.github/workflows/ci.yml` runs `ubuntu-latest` with Node 24 and executes `npm run check` plus `npm run package:check`; `docs/INSTALLATION.md` and the P10.1 compatibility baseline record Linux as CI-verified.
 - [ ] add macOS CI coverage;
 - [ ] add Windows CI where practical and explicitly document exclusions where not;
 - [ ] define the dependency upgrade process;
@@ -1368,7 +1369,7 @@ Exit gate: every claimed supported platform and runtime combination has an expli
 
 ### Repository cleanup and current-state reconciliation — 2026-09-18
 
-Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C and Cleanup D complete; Cleanup E reliability and final repository verification next.**
+Status: **COMPLETE — Cleanup A through Cleanup E completed 2026-09-19.**
 
 Persistent execution plan:
 
@@ -1386,7 +1387,7 @@ Completed:
 - [x] close obsolete PR #72 without merge;
 - [x] verify no open pull requests remain after Cleanup A.
 
-Next:
+Cleanup record and deferred follow-through:
 
 - [x] reconcile active documentation with the current v0.4.0 / 23-attack truth;
 - [x] compact the root README by removing duplicated long-form material while
@@ -1404,9 +1405,9 @@ Next:
       research files;
 - [x] audit all 16 divergent branches individually before any further deletion;
 - [x] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;
-- [ ] reconcile already-satisfied Phase 10 documentation/CI checkboxes where current
+- [x] reconcile already-satisfied Phase 10 documentation/CI checkboxes where current
       repository evidence supports completion;
-- [ ] run full repository and package gates before cleanup closeout.
+- [x] run full repository and package gates before cleanup closeout.
 
 Cleanup must preserve historical research provenance, stable attack identity,
 release immutability and evidence-level discipline.

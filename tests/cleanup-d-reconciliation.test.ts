@@ -32,8 +32,6 @@ describe('Cleanup D branch and issue reconciliation', () => {
     expect(roadmap).toContain(
       '- [x] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;',
     );
-    expect(roadmap).toContain(
-      'Cleanup C and Cleanup D complete; Cleanup E reliability and final repository verification next.',
-    );
+    expect(roadmap).toContain('Cleanup A through Cleanup E completed 2026-09-19.');
   });
 });

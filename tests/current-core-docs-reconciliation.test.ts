@@ -48,6 +48,6 @@ describe('Cleanup B.2 current core documentation', () => {
     expect(plan).toContain('## Cleanup B.2 — current core instruction documents');
     expect(plan).toContain('B.2 updates current-facing release/corpus/product truth');
     expect(plan).toContain('Cleanup B is now complete.');
-    expect(roadmap).toContain('Cleanup A and Cleanup B complete');
+    expect(roadmap).toContain('Cleanup A through Cleanup E completed 2026-09-19.');
   });
 });
