@@ -1,6 +1,6 @@
 # HandoffProbe repository cleanup and current-state reconciliation plan
 
-Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C documentation navigation next.**
+Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C completed 2026-09-19; Cleanup D issue and branch reconciliation next.**
 
 Date started: 2026-09-18
 
@@ -269,7 +269,7 @@ Completion record:
 
 # Cleanup C — documentation navigation
 
-Status: **PLANNED**
+Status: **COMPLETE — 2026-09-19**
 
 Goal:
 
@@ -334,6 +334,21 @@ Do not perform a mass file move solely for cosmetic organization.
 
 Moving historical documents would create large link churn and unnecessary regression
 risk. Index first; relocate only when a concrete maintenance benefit exists.
+
+Completion record:
+
+- created `docs/README.md` as the documentation navigation layer;
+- separated current product docs, active planning, research/evidence, historical
+  release records and supporting references;
+- linked every existing top-level file under `docs/` from the index;
+- added a discoverability link from the root `README.md`;
+- added regression coverage so newly added top-level docs cannot silently remain
+  outside the index;
+- did not mass-move or rename historical evidence;
+- did not change runtime behavior, stable attack identity, package version,
+  protocol baseline, report schema or release state.
+
+Cleanup C is complete.
 
 ---
 
@@ -445,6 +460,6 @@ When work continues in another chat, coding-agent session or contributor context
 
 Current next step:
 
-**Continue with Cleanup C by creating the repository documentation index
-`docs/README.md`, separating current product docs, active planning, research/evidence
-records and historical release records without mass-moving files.**
+**Continue with Cleanup D by auditing the 16 preserved divergent branches
+individually and reconciling stale GitHub issue #38 without losing unique history or
+the separately pending T-2.7 external-review state.**

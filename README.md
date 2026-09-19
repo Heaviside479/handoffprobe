@@ -234,6 +234,8 @@ Stable attack proposals should identify the handoff-specific invariant, secure b
 
 ## Documentation
 
+For the complete documentation map, see the [full documentation index](docs/README.md).
+
 Current product documentation:
 
 - [Installation](docs/INSTALLATION.md)

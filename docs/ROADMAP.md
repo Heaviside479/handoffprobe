@@ -1368,7 +1368,7 @@ Exit gate: every claimed supported platform and runtime combination has an expli
 
 ### Repository cleanup and current-state reconciliation — 2026-09-18
 
-Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C documentation navigation next.**
+Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C complete; Cleanup D issue and branch reconciliation next.**
 
 Persistent execution plan:
 
@@ -1388,7 +1388,7 @@ Completed:
 
 Next:
 
-- [ ] reconcile active documentation with the current v0.4.0 / 23-attack truth;
+- [x] reconcile active documentation with the current v0.4.0 / 23-attack truth;
 - [x] compact the root README by removing duplicated long-form material while
       preserving quick start, current release truth, safety, Action, evidence and
       commercial CTA;
@@ -1400,7 +1400,7 @@ Next:
       with current product, commercial and release truth;
 - [ ] rely on that same root README for npm presentation at the next otherwise
       justified normal release; do not publish a release solely for README cleanup;
-- [ ] add a documentation navigation/index layer rather than mass-moving historical
+- [x] add a documentation navigation/index layer rather than mass-moving historical
       research files;
 - [ ] audit all 16 divergent branches individually before any further deletion;
 - [ ] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;

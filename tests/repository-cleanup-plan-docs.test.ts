@@ -9,7 +9,7 @@ const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 describe('repository cleanup plan documentation', () => {
   it('persists the cleanup sequence in the repository', () => {
     expect(plan).toContain(
-      'Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C documentation navigation next.**',
+      'Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C completed 2026-09-19; Cleanup D issue and branch reconciliation next.**',
     );
 
     expect(plan).toContain('# Cleanup B — current documentation reconciliation');
@@ -59,7 +59,7 @@ describe('repository cleanup plan documentation', () => {
     expect(roadmap).toContain('`docs/REPOSITORY_CLEANUP_PLAN_20260918.md`');
 
     expect(roadmap).toContain(
-      'Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C documentation navigation next.**',
+      'Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C complete; Cleanup D issue and branch reconciliation next.**',
     );
 
     expect(roadmap).toContain(
