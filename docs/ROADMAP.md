@@ -1348,7 +1348,8 @@ Exit gate satisfied 2026-09-15: future changes can be classified as compatible, 
 
 - [x] define deterministic seed handling where randomized coverage is introduced;
   - Evidence: `docs/P10_3_DETERMINISM_BASELINE_20260915.md`.
-- [ ] add reproducible performance benchmarks;
+- [x] add reproducible performance benchmarks;
+  - Evidence: `docs/P10_3_PERFORMANCE_BENCHMARK_20260919.md` and `scripts/p10-performance-benchmark.ts`; first full-corpus baseline recorded on 2026-09-19.
 - [ ] add concurrency tests;
 - [ ] harden structured diagnostic logs;
 - [ ] expand redaction regression tests;

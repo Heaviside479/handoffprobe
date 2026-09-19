@@ -59,6 +59,6 @@ describe('Cleanup E final repository verification', () => {
     expect(plan).toContain(
       'Cleanup is complete. Return to Phase 10 reliability work with P10.3 reproducible',
     );
-    expect(roadmap).toContain('- [ ] add reproducible performance benchmarks;');
+    expect(roadmap).toContain('- [x] add reproducible performance benchmarks;');
   });
 });
