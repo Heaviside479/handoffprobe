@@ -1367,7 +1367,13 @@ Exit gate satisfied 2026-09-19: repeated runs remain trustworthy under load, con
   - Evidence: `.github/workflows/ci.yml` runs `ubuntu-latest` with Node 24 and executes `npm run check` plus `npm run package:check`; `docs/INSTALLATION.md` and the P10.1 compatibility baseline record Linux as CI-verified.
 - [x] add macOS CI coverage;
   - Evidence: `docs/P10_4_MACOS_CI_20260919.md`; PR #141 validated both `Quality (macos-latest)` and `Quality (ubuntu-latest)` successfully with Node 24 on 2026-09-19.
-- [ ] add Windows CI where practical and explicitly document exclusions where not;
+- [x] add Windows CI where practical and explicitly document exclusions where not;
+  - Evidence: `docs/P10_4_WINDOWS_CI_20260919.md`; PR #142 validated
+    `Quality (windows-latest)`, `Quality (macos-latest)` and
+    `Quality (ubuntu-latest)` successfully after explicit LF checkout
+    normalization on 2026-09-19. Native Windows compatibility for the reusable
+    composite GitHub Action remains explicitly unclaimed because it uses
+    `shell: bash`.
 - [ ] define the dependency upgrade process;
 - [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.
 

@@ -29,9 +29,9 @@ Recorded runtime evidence:
 | GitHub-hosted Ubuntu + Node 24         | CI verified                           |
 | GitHub-hosted `macos-latest` + Node 24 | CI verified under P10.4 on 2026-09-19 |
 | macOS 14.8.9 x86_64 + Node 24.17.0     | Locally validated                     |
-| Windows                                | Not currently validated or claimed    |
+| GitHub-hosted `windows-latest` + Node 24 | CI verified under P10.4 on 2026-09-19 |
 
-The current CI quality workflow runs an OS matrix of `ubuntu-latest` and `macos-latest` with Node 24. GitHub-hosted macOS CI was added and validated under P10.4 on 2026-09-19.
+The current CI quality workflow runs an OS matrix of `ubuntu-latest`, `macos-latest` and `windows-latest` with Node 24. GitHub-hosted macOS and Windows CI were added and validated under P10-4 on 2026-09-19.
 
 The reusable GitHub Action also configures Node 24 and uses `shell: bash`. Existing release evidence therefore supports the current GitHub-hosted Linux Action path. Native Windows Action compatibility is not claimed by this baseline.
 
@@ -92,7 +92,7 @@ HandoffProbe currently promises only what this evidence supports:
 - The public wire baseline is A2A `1.0` → MCP `2026-07-28`.
 - Linux is continuously CI verified through the GitHub-hosted Ubuntu quality workflow.
 - macOS is continuously CI verified through the GitHub-hosted `macos-latest` quality workflow and also has a recorded local validation on macOS 14.8.9 x86_64 with Node 24.17.0.
-- Windows is currently unverified and is not a compatibility claim.
+- Windows is continuously CI verified through the GitHub-hosted `windows-latest` quality workflow for the package/repository quality path; native Windows compatibility for the reusable composite GitHub Action is not claimed because that Action uses `shell: bash`.
 - Node versions outside `>=24 <25` are not supported.
 - Other A2A or MCP protocol versions are not implied to be compatible.
 - Platform-aware path handling in individual code paths is not evidence of full platform support.
