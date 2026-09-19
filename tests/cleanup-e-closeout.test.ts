@@ -26,7 +26,8 @@ describe('Cleanup E final repository verification', () => {
 
   it('reconciles Linux CI from repository evidence', () => {
     expect(roadmap).toContain('- [x] enforce Linux CI coverage;');
-    expect(ci).toContain('runs-on: ubuntu-latest');
+    expect(ci).toContain('- ubuntu-latest');
+    expect(ci).toContain('runs-on: ${{ matrix.os }}');
     expect(ci).toContain('node-version: 24');
     expect(ci).toContain('run: npm run check');
     expect(ci).toContain('run: npm run package:check');
