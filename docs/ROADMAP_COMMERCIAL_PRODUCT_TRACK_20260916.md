@@ -1,6 +1,6 @@
 # HandoffProbe commercial product track
 
-Status: **QUEUED / DEMAND-GATED**  
+Status: **ACTIVE — C-1 / Phase 13; C-2 through C-5 remain demand-gated**
 Date added: 2026-09-16
 
 ## Purpose
@@ -17,7 +17,7 @@ The authoritative product principles remain unchanged:
 - service-first commercial validation may run in parallel with open-source maturation;
 - no hosted SaaS before repeated organization-level demand.
 
-This track is intentionally additive. It does **not** change the currently active T-3 work, the queued T-4 work, the frozen T-2/Bayu review packet, the 22-stable-attack public corpus, current release semantics or Phase 13 commercial-validation gates.
+This track is intentionally additive. T-3 and T-4 are now complete, the T-2.7/Bayu review remains independently waiting for an external response, and the current verified public product is `handoffprobe@0.4.0` with 23 stable attacks. None of those updates weakens the existing Phase 13 commercial-validation or Cloud/SaaS demand gates.
 
 ## Relationship to existing roadmap phases
 
@@ -29,6 +29,17 @@ This commercial track overlays the existing roadmap rather than replacing it:
 - **C-6** adds long-term strategic optionality and acquisition-readiness hygiene without making a sale or exit a roadmap requirement.
 
 The existing Phase 13 Cloud / SaaS gate remains binding. HandoffProbe Cloud is not authorized merely because this document exists.
+
+## Current commercial checkpoint — 2026-09-18
+
+- C-1 / Phase 13 commercial validation is active.
+- CV-1 commercial web launch is complete.
+- CV-2 intake/email path is complete.
+- CV-3 payment is prepared and activates just in time after the first accepted written scope.
+- CV-4 report delivery is complete with synthetic end-to-end verification.
+- CV-5 distribution/conversion work can continue in parallel.
+- CV-6 remains the primary commercial proof target: first 3 paid accepted assessments.
+- C-2 and hosted recurring-product work remain blocked until the existing demand gates are satisfied.
 
 ---
 
@@ -281,8 +292,8 @@ If a future acquisition approach occurs, evaluate it against the alternative of 
 
 The intended sequence is:
 
-1. **now:** continue T-3, then existing T-4/reliability/research work according to the technical roadmap while Phase 13 commercial validation runs in parallel;
-2. **C-1:** obtain paid and repeat-use evidence through real authorized organization work;
+1. **now:** continue Phase 10 reliability hardening and real-integration product proof while Phase 13 / C-1 commercial validation runs in parallel; T-3 and T-4 remain closed unless genuinely new evidence justifies a separate follow-up;
+2. **C-1:** obtain paid and repeat-use evidence through real authorized organization work, beginning with the first accepted and paid Founding Security Assessments;
 3. **C-2:** identify one repeated organization-level job and pass the existing Cloud / SaaS gate;
 4. **C-3:** build only the smallest demanded Teams/Cloud workflow;
 5. **C-4:** prove recurring use and recurring willingness to pay before broad SaaS expansion;
@@ -291,10 +302,10 @@ The intended sequence is:
 
 ## Non-interference guardrails
 
-- T-3 remains the active technical track until its existing closeout is complete.
-- T-4 remains queued and retains its current start/exit gates.
+- T-3 and T-4 are complete; do not reopen them merely to keep a research queue active.
+- T-2.7/Bayu remains a separate external-review wait; lack of response must never be treated as validation.
 - This document does not authorize a new stable attack, release, SaaS build, pricing change or public claim.
-- The stable public corpus remains 22 attacks unless the normal admission/release process changes it.
+- The current verified public corpus remains 23 attacks at `handoffprobe@0.4.0` unless the normal admission/release process changes it.
 - Existing Phase 13, Phase 14 and Phase 15 requirements remain valid.
 - No current assessment offer, pricing or public landing-page claim changes merely because this commercial track exists.
 

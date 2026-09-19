@@ -8,17 +8,32 @@ Tagline:
 
 > **Adversarial security testing for AI agent handoffs.**
 
-## v0.1 problem
+## Current public state
+
+Current verified public release: `handoffprobe@0.4.0`
+
+- **23 stable attacks**
+- 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
+- A2A 1.0 -> MCP 2026-07-28
+- report schema `1`
+- Node.js `>=24 <25`
+- public npm CLI
+- reusable source-backed GitHub Action
+- Apache-2.0 Core
+- no paid AI service required for Core
+- Teams/Cloud remains demand-gated
+
+## Current problem
 
 An A2A implementation can be individually conformant and an MCP implementation can be individually valid while the handoff between them still violates the caller's original security intent.
 
 HandoffProbe tests that handoff.
 
-The initial compatibility baseline is **A2A 1.0 -> MCP 2026-07-28**.
+The current public compatibility baseline is **A2A 1.0 -> MCP 2026-07-28**.
 
 ## Primary user
 
-Early users are technical:
+Users and target users are technical:
 
 - AI/agent platform engineers
 - application security engineers
@@ -32,14 +47,18 @@ A developer should be able to answer:
 
 > If this agent delegates work and the downstream agent calls MCP tools, can authority, identity, consent, tenant, target, lifecycle or execution constraints change dangerously during the handoff?
 
-## v0.1 user experience
+## Current user experience
 
 1. Install/run HandoffProbe locally.
 2. Point it at a supported fixture/adapter or run the bundled vulnerable demo.
 3. Execute a predefined handoff attack suite.
 4. Receive terminal and JSON/Markdown findings with evidence.
 5. Reproduce failures with stable `HP-*` test IDs.
-6. Later, run the same suite in CI to prevent regressions.
+6. Run the same suite in CI or through the reusable GitHub Action to prevent regressions.
+
+The next major product proof is not simply another attack ID. It is reliable use
+against real owned or explicitly authorized agent-handoff systems through justified
+integration and adapter paths.
 
 ## Handoff admission rule
 
@@ -51,7 +70,7 @@ A core HandoffProbe check must be handoff/composition-specific. At least one mus
 
 A pure A2A MUST/SHOULD check is primarily the A2A TCK's job. A pure MCP server interaction/debug check is primarily the MCP Inspector's job. Narrow preflight checks are allowed only when necessary to prove the handoff preconditions.
 
-## v0.1 must-have capabilities
+## Current public capabilities
 
 - A2A 1.0 test harness (HTTP+JSON first)
 - MCP 2026-07-28 test harness
@@ -63,12 +82,12 @@ A pure A2A MUST/SHOULD check is primarily the A2A TCK's job. A pure MCP server i
 - severity and finding model
 - human-readable terminal report
 - JSON report for automation
-- minimum 12 high-quality P0 handoff-security tests
+- 23 stable handoff-security attacks: 12 P0 + 10 P1 + 1 advanced
 - intentionally vulnerable demo fixture
 - secure control fixture
 - documentation showing a complete reproducible failure
 
-## Explicit non-goals for v0.1
+## Current explicit non-goals
 
 - generic LLM red teaming
 - generic prompt-injection detection
