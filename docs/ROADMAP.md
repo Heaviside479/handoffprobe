@@ -1350,7 +1350,8 @@ Exit gate satisfied 2026-09-15: future changes can be classified as compatible, 
   - Evidence: `docs/P10_3_DETERMINISM_BASELINE_20260915.md`.
 - [x] add reproducible performance benchmarks;
   - Evidence: `docs/P10_3_PERFORMANCE_BENCHMARK_20260919.md` and `scripts/p10-performance-benchmark.ts`; first full-corpus baseline recorded on 2026-09-19.
-- [ ] add concurrency tests;
+- [x] add concurrency tests;
+  - Evidence: `docs/P10_3_CONCURRENCY_20260919.md` and `tests/p10-concurrency.test.ts`; concurrent race and full-corpus isolation validated on 2026-09-19.
 - [ ] harden structured diagnostic logs;
 - [ ] expand redaction regression tests;
 - [ ] document benchmark environment and acceptable variance.

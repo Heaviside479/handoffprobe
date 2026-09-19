@@ -61,7 +61,7 @@ describe('P10.3 determinism policy', () => {
       '- [x] define deterministic seed handling where randomized coverage is introduced;',
     );
     expect(roadmap).toContain('- [x] add reproducible performance benchmarks;');
-    expect(roadmap).toContain('- [ ] add concurrency tests;');
+    expect(roadmap).toContain('- [x] add concurrency tests;');
     expect(roadmap).toContain('- [ ] harden structured diagnostic logs;');
     expect(roadmap).toContain('- [ ] expand redaction regression tests;');
     expect(roadmap).toContain('- [ ] document benchmark environment and acceptable variance.');
