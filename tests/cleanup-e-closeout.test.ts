@@ -41,7 +41,7 @@ describe('Cleanup E final repository verification', () => {
     expect(roadmap).toContain(
       '- [x] add Windows CI where practical and explicitly document exclusions where not;',
     );
-    expect(roadmap).toContain('- [ ] define the dependency upgrade process;');
+    expect(roadmap).toContain('- [x] define the dependency upgrade process;');
     expect(roadmap).toContain(
       '- [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.',
     );
