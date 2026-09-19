@@ -1,6 +1,6 @@
 # HandoffProbe repository cleanup and current-state reconciliation plan
 
-Status: **ACTIVE — Cleanup A, B.1 and B.2 completed 2026-09-18; remaining Cleanup B architecture/product/commercial/changelog reconciliation next.**
+Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C documentation navigation next.**
 
 Date started: 2026-09-18
 
@@ -110,7 +110,7 @@ No force deletion is allowed merely to make the branch list shorter.
 
 # Cleanup B — current documentation reconciliation
 
-Status: **IN PROGRESS — B.1 and B.2 complete**
+Status: **COMPLETE — 2026-09-18**
 
 Goal:
 
@@ -169,6 +169,29 @@ documentation and immutable historical evidence.
 
 No runtime behavior, attack identity, protocol baseline, package version or release
 state changed through B.2.
+
+## Cleanup B.3 — architecture, product, commercial track and changelog
+
+Status: **COMPLETE — 2026-09-18**
+
+Reconciled:
+
+- `docs/ARCHITECTURE.md`;
+- `docs/PRODUCT.md`;
+- `docs/ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md`;
+- `CHANGELOG.md`.
+
+B.3 replaces the remaining active v0.1/planned-architecture framing with the
+current v0.4.0 / 23-attack product state, updates the commercial track from the
+obsolete T-3/T-4/22-attack checkpoint, and removes already-shipped foundation work
+from the `Unreleased` changelog section.
+
+Historical release and research documents remain unchanged as historical evidence.
+
+No runtime behavior, stable attack identity, protocol baseline, package version,
+report schema or release state changed through B.3.
+
+Cleanup B is now complete.
 
 ---
 
@@ -422,6 +445,6 @@ When work continues in another chat, coding-agent session or contributor context
 
 Current next step:
 
-**Continue Cleanup B with `docs/ARCHITECTURE.md`, `docs/PRODUCT.md`,
-`docs/ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md`, `CHANGELOG.md` and any
-remaining current-facing roadmap reconciliation.**
+**Continue with Cleanup C by creating the repository documentation index
+`docs/README.md`, separating current product docs, active planning, research/evidence
+records and historical release records without mass-moving files.**

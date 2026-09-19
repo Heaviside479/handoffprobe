@@ -44,9 +44,10 @@ describe('Cleanup B.2 current core documentation', () => {
     expect(security).not.toContain('HandoffProbe v0.3.0 release safety boundary');
   });
 
-  it('records B.2 completion in the persistent cleanup track', () => {
-    expect(plan).toContain('Cleanup A, B.1 and B.2 completed 2026-09-18');
+  it('preserves the completed B.2 record after Cleanup B closes', () => {
     expect(plan).toContain('## Cleanup B.2 — current core instruction documents');
-    expect(roadmap).toContain('B.2 current core docs complete');
+    expect(plan).toContain('B.2 updates current-facing release/corpus/product truth');
+    expect(plan).toContain('Cleanup B is now complete.');
+    expect(roadmap).toContain('Cleanup A and Cleanup B complete');
   });
 });

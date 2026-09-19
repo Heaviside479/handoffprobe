@@ -1,4 +1,20 @@
-# Planned Architecture
+# HandoffProbe Architecture
+
+Status: current product architecture
+
+Current verified public release: `handoffprobe@0.4.0`
+
+## Current public state
+
+- stable public corpus: **23 attacks**
+- stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
+- protocol baseline: A2A 1.0 -> MCP 2026-07-28
+- report schema: `1`
+- Node.js baseline: `>=24 <25`
+- public CLI: live
+- npm package: live
+- reusable GitHub Action: live
+- hosted Teams/Cloud: demand-gated
 
 ## Design goals
 
@@ -15,14 +31,14 @@
 
 ## Protocol baseline
 
-v0.1 targets:
+Current public baseline:
 
-- A2A 1.0 (HTTP+JSON first)
+- A2A 1.0
 - MCP 2026-07-28
 
 The architecture must not assume the pre-2026 MCP session model. Cross-run or state-handle concepts must be explicit application state, not an implicit MCP session.
 
-## Proposed high-level modules
+## High-level architecture
 
 ```text
 CLI
@@ -53,7 +69,7 @@ A2A Harness -> Handoff -> MCP Harness Attack Executor
 
 The **HandoffAdapter** is a first-class object. HandoffProbe exists to test how intent and security context are translated across this boundary.
 
-## Suggested repository shape
+## Repository shape
 
 ```text
 src/
@@ -90,13 +106,13 @@ tests/
   regression/
 ```
 
-This is a starting design, not a reason to create empty abstractions before they are needed.
+This remains a high-level architectural map rather than a requirement to create unused abstractions.
 
 ## Core domain objects
 
 ### AttackDefinition
 
-Should describe at minimum:
+A stable attack definition describes at minimum:
 
 - stable `HP-*` ID
 - name
@@ -204,7 +220,7 @@ HandoffProbe should prefer structured evidence over prose. Every failure should 
 
 ## Safe execution model
 
-v0.1 defaults to local fixtures and loopback targets. Fake tools should implement harmless side effects such as incrementing counters or writing temporary fixture state.
+The current public Core defaults to local fixtures and loopback targets. Fake tools should implement harmless side effects such as incrementing counters or writing temporary fixture state.
 
 If remote target support is introduced later:
 
