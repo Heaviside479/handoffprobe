@@ -2,7 +2,7 @@
 
 Date: 2026-09-19
 
-Status: **BASELINE RECORDED — 2026-09-19**
+Status: **COMPLETE — baseline and variance policy recorded 2026-09-19**
 
 ## Purpose
 
@@ -101,13 +101,47 @@ This first run demonstrates that the fixed benchmark harness can execute the com
 
 It does not yet establish a cross-machine, CI-wide or release-blocking timing threshold.
 
-## Variance and thresholds
+## Repeated same-machine variance evidence
 
-No timing pass/fail threshold is invented in this step.
+Three additional independent benchmark sessions were recorded on the same machine and environment.
 
-The separate P10.3 roadmap item for benchmark environment and acceptable variance remains open until repeated baseline runs provide evidence for a defensible tolerance.
+Secure target:
 
-GitHub-hosted CI timing must not be treated as identical to local macOS timing merely because both execute the same workload.
+- session medians: `180.680`, `163.824`, `169.589` ms;
+- median of medians: `169.589 ms`;
+- maximum cross-session median drift: `6.540%`;
+- maximum within-session coefficient of variation: `9.589%`.
+
+Vulnerable target:
+
+- session medians: `227.467`, `249.989`, `214.882` ms;
+- median of medians: `227.467 ms`;
+- maximum cross-session median drift: `9.901%`;
+- maximum within-session coefficient of variation: `13.823%`.
+
+All three sessions preserved the benchmark correctness guards:
+
+- secure: exactly `23 PASS / 0 FAIL / 0 ERROR`;
+- vulnerable: exactly `0 PASS / 23 FAIL / 0 ERROR`.
+
+## Acceptable variance policy
+
+For repeated local measurements on the same machine with the same frozen workload, HandoffProbe uses an advisory variance envelope of **15%**.
+
+A benchmark session is considered sufficiently stable for local comparison when:
+
+- within-session coefficient of variation is `<= 15%`; and
+- cross-session median drift is `<= 15%` relative to the median of the compared session medians.
+
+The 15% envelope is evidence-backed by the repeated 2026-09-19 measurements. The observed maxima were `13.823%` within-session variation and `9.901%` cross-session median drift.
+
+Exceeding the envelope does not mean a HandoffProbe security failure occurred. It means the timing evidence is not stable enough for comparison and should be repeated after reducing unrelated machine load. Repeated exceedance should trigger performance investigation.
+
+These thresholds are not absolute production-throughput guarantees and are not automatic release blockers.
+
+GitHub-hosted CI, different hardware, different operating systems or materially different runtime environments must not be judged against this local macOS timing baseline merely because they execute the same workload.
+
+Comparable benchmark evidence must always retain the recorded HandoffProbe version, protocol baseline, stable attack count, Node version, platform, architecture, OS release, CPU model and logical CPU count.
 
 ## Release effect
 
