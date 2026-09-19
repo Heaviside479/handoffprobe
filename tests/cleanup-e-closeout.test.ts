@@ -26,7 +26,8 @@ describe('Cleanup E final repository verification', () => {
 
   it('reconciles Linux CI from repository evidence', () => {
     expect(roadmap).toContain('- [x] enforce Linux CI coverage;');
-    expect(ci).toContain('runs-on: ubuntu-latest');
+    expect(ci).toContain('- ubuntu-latest');
+    expect(ci).toContain('runs-on: ${{ matrix.os }}');
     expect(ci).toContain('node-version: 24');
     expect(ci).toContain('run: npm run check');
     expect(ci).toContain('run: npm run package:check');
@@ -35,8 +36,8 @@ describe('Cleanup E final repository verification', () => {
     );
   });
 
-  it('does not overclaim unfinished P10.4 platform work', () => {
-    expect(roadmap).toContain('- [ ] add macOS CI coverage;');
+  it('tracks completed macOS CI and remaining P10.4 work', () => {
+    expect(roadmap).toContain('- [x] add macOS CI coverage;');
     expect(roadmap).toContain(
       '- [ ] add Windows CI where practical and explicitly document exclusions where not;',
     );

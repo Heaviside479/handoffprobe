@@ -20,17 +20,18 @@ The package contract remains:
 
 Recorded runtime evidence:
 
-| Environment | Evidence status |
-| --- | --- |
-| Node 24.x | Supported package runtime contract |
-| Node 24.17.0 | Locally verified on macOS |
-| Node below 24 | Not supported by the package contract |
-| Node 25 or newer | Not supported by the package contract |
-| GitHub-hosted Ubuntu + Node 24 | CI verified |
-| macOS 14.8.9 x86_64 + Node 24.17.0 | Locally validated |
-| Windows | Not currently validated or claimed |
+| Environment                            | Evidence status                       |
+| -------------------------------------- | ------------------------------------- |
+| Node 24.x                              | Supported package runtime contract    |
+| Node 24.17.0                           | Locally verified on macOS             |
+| Node below 24                          | Not supported by the package contract |
+| Node 25 or newer                       | Not supported by the package contract |
+| GitHub-hosted Ubuntu + Node 24         | CI verified                           |
+| GitHub-hosted `macos-latest` + Node 24 | CI verified under P10.4 on 2026-09-19 |
+| macOS 14.8.9 x86_64 + Node 24.17.0     | Locally validated                     |
+| Windows                                | Not currently validated or claimed    |
 
-The current CI quality workflow runs on `ubuntu-latest` with Node 24.
+The current CI quality workflow runs an OS matrix of `ubuntu-latest` and `macos-latest` with Node 24. GitHub-hosted macOS CI was added and validated under P10.4 on 2026-09-19.
 
 The reusable GitHub Action also configures Node 24 and uses `shell: bash`. Existing release evidence therefore supports the current GitHub-hosted Linux Action path. Native Windows Action compatibility is not claimed by this baseline.
 
@@ -42,13 +43,13 @@ The released HandoffProbe public protocol baseline remains:
 
 Current locked implementation dependencies:
 
-| Surface | Locked dependency or wire version |
-| --- | --- |
-| A2A wire protocol | `1.0` |
-| `@a2a-js/sdk` | `1.1.0` |
-| MCP wire protocol | `2026-07-28` |
-| `@modelcontextprotocol/client` | `2.0.0` |
-| `@modelcontextprotocol/server` | `2.0.0` |
+| Surface                        | Locked dependency or wire version |
+| ------------------------------ | --------------------------------- |
+| A2A wire protocol              | `1.0`                             |
+| `@a2a-js/sdk`                  | `1.1.0`                           |
+| MCP wire protocol              | `2026-07-28`                      |
+| `@modelcontextprotocol/client` | `2.0.0`                           |
+| `@modelcontextprotocol/server` | `2.0.0`                           |
 
 SDK package versions and protocol wire versions are separate compatibility dimensions. The A2A SDK version `1.1.0` does not change the HandoffProbe wire claim from A2A `1.0`.
 
@@ -90,7 +91,7 @@ HandoffProbe currently promises only what this evidence supports:
 - Node 24.x is the supported Node runtime line.
 - The public wire baseline is A2A `1.0` → MCP `2026-07-28`.
 - Linux is continuously CI verified through the GitHub-hosted Ubuntu quality workflow.
-- macOS has a recorded local validation on macOS 14.8.9 x86_64 with Node 24.17.0.
+- macOS is continuously CI verified through the GitHub-hosted `macos-latest` quality workflow and also has a recorded local validation on macOS 14.8.9 x86_64 with Node 24.17.0.
 - Windows is currently unverified and is not a compatibility claim.
 - Node versions outside `>=24 <25` are not supported.
 - Other A2A or MCP protocol versions are not implied to be compatible.

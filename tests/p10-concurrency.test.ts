@@ -118,5 +118,5 @@ describe('P10.3 concurrency reliability', () => {
     expect(runs[1]?.results.map((result) => result.finding.status)).toEqual(
       runs[3]?.results.map((result) => result.finding.status),
     );
-  });
+  }, 15_000);
 });

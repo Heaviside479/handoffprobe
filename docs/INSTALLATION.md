@@ -15,7 +15,7 @@ For supply-chain-sensitive use, independently confirm the exact registry version
 - Node.js `>=24 <25`
 - npm
 - Linux is CI-verified on the GitHub-hosted Ubuntu workflow with Node 24
-- macOS is locally validated on macOS 14.8.9 x86_64 with Node 24.17.0
+- macOS is CI-verified on GitHub-hosted `macos-latest` with Node 24 and locally validated on macOS 14.8.9 x86_64 with Node 24.17.0
 - Windows is not currently validated or claimed as a supported environment
 - an owned, synthetic or explicitly authorized target
 
