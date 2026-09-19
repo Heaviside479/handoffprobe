@@ -1356,9 +1356,10 @@ Exit gate satisfied 2026-09-15: future changes can be classified as compatible, 
   - Evidence: `docs/P10_3_STRUCTURED_DIAGNOSTICS_20260919.md` and `tests/p10-structured-diagnostics.test.ts`; deterministic secret-safe structured runtime diagnostics validated on 2026-09-19.
 - [x] expand redaction regression tests;
   - Evidence: `docs/P10_3_REDACTION_REGRESSION_20260919.md` and `tests/p10-redaction-regression.test.ts`; nested, normalized, inline, false-positive and idempotence redaction cases validated on 2026-09-19.
-- [ ] document benchmark environment and acceptable variance.
+- [x] document benchmark environment and acceptable variance.
+  - Evidence: `docs/P10_3_PERFORMANCE_BENCHMARK_20260919.md`; three independent same-machine sessions established an advisory 15% local variance envelope on 2026-09-19.
 
-Exit gate: repeated runs remain trustworthy under load, concurrency and diagnostic failure conditions.
+Exit gate satisfied 2026-09-19: repeated runs remain trustworthy under load, concurrency and diagnostic failure conditions, with benchmark environment and same-machine variance explicitly documented.
 
 ### P10.4 — CI and platform reliability
 

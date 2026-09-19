@@ -54,7 +54,7 @@ describe('P10.3 determinism policy', () => {
     expect(policy).toContain('The package remains `0.3.0`.');
   });
 
-  it('tracks completed and open P10.3 roadmap items', () => {
+  it('tracks completed P10.3 roadmap items', () => {
     const roadmap = readFileSync(join(ROOT, 'docs/ROADMAP.md'), 'utf8');
 
     expect(roadmap).toContain(
@@ -64,6 +64,20 @@ describe('P10.3 determinism policy', () => {
     expect(roadmap).toContain('- [x] add concurrency tests;');
     expect(roadmap).toContain('- [x] harden structured diagnostic logs;');
     expect(roadmap).toContain('- [x] expand redaction regression tests;');
-    expect(roadmap).toContain('- [ ] document benchmark environment and acceptable variance.');
+    expect(roadmap).toContain('- [x] document benchmark environment and acceptable variance.');
+  });
+
+  it('records the evidence-backed benchmark variance policy', () => {
+    const benchmark = readFileSync(
+      join(ROOT, 'docs/P10_3_PERFORMANCE_BENCHMARK_20260919.md'),
+      'utf8',
+    );
+
+    expect(benchmark).toContain('advisory variance envelope of **15%**');
+    expect(benchmark).toContain('within-session coefficient of variation is `<= 15%`');
+    expect(benchmark).toContain('cross-session median drift is `<= 15%`');
+    expect(benchmark).toContain('13.823%');
+    expect(benchmark).toContain('9.901%');
+    expect(benchmark).toContain('not automatic release blockers');
   });
 });
