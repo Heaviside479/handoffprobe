@@ -1374,7 +1374,12 @@ Exit gate satisfied 2026-09-19: repeated runs remain trustworthy under load, con
     normalization on 2026-09-19. Native Windows compatibility for the reusable
     composite GitHub Action remains explicitly unclaimed because it uses
     `shell: bash`.
-- [ ] define the dependency upgrade process;
+- [x] define the dependency upgrade process;
+  - Evidence: `docs/P10_4_DEPENDENCY_UPGRADE_PROCESS_20260919.md` defines
+    discovery, classification, exact-pin/lockfile handling, protocol-sensitive
+    review, local validation, required CI admission and rollback.
+    `.github/dependabot.yml` adds weekly npm and GitHub Actions update discovery
+    without auto-merge authorization.
 - [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.
 
 Exit gate: every claimed supported platform and runtime combination has an explicit verification path.
