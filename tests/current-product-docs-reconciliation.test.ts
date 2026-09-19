@@ -59,14 +59,14 @@ describe('Cleanup B.3 current product documentation', () => {
 
   it('records Cleanup B completion', () => {
     expect(plan).toContain(
-      'Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C and Cleanup D completed 2026-09-19; Cleanup E reliability and final repository verification next.**',
+      'Status: **COMPLETE — Cleanup A through Cleanup E completed by 2026-09-19.**',
     );
     expect(plan).toContain(
       '## Cleanup B.3 — architecture, product, commercial track and changelog',
     );
     expect(plan).toContain('Cleanup B is now complete.');
     expect(roadmap).toContain(
-      'Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C and Cleanup D complete; Cleanup E reliability and final repository verification next.**',
+      'Status: **COMPLETE — Cleanup A through Cleanup E completed 2026-09-19.**',
     );
   });
 });
