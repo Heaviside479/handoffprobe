@@ -31,14 +31,12 @@ describe('Cleanup C documentation navigation', () => {
     expect(rootReadme).toContain('[full documentation index](docs/README.md)');
   });
 
-  it('records Cleanup C completion and Cleanup D as next', () => {
+  it('records Cleanup C and Cleanup D completion with Cleanup E next', () => {
     expect(plan).toContain('Status: **COMPLETE — 2026-09-19**');
     expect(plan).toContain('Cleanup C is complete.');
-    expect(plan).toContain(
-      'Continue with Cleanup D by auditing the 16 preserved divergent branches',
-    );
+    expect(plan).toContain('Continue with Cleanup E by reconciling already-satisfied Phase 10');
     expect(roadmap).toContain(
-      'Cleanup C complete; Cleanup D issue and branch reconciliation next.',
+      'Cleanup C and Cleanup D complete; Cleanup E reliability and final repository verification next.',
     );
   });
 

@@ -1368,7 +1368,7 @@ Exit gate: every claimed supported platform and runtime combination has an expli
 
 ### Repository cleanup and current-state reconciliation — 2026-09-18
 
-Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C complete; Cleanup D issue and branch reconciliation next.**
+Status: **ACTIVE — Cleanup A and Cleanup B complete; Cleanup C and Cleanup D complete; Cleanup E reliability and final repository verification next.**
 
 Persistent execution plan:
 
@@ -1402,8 +1402,8 @@ Next:
       justified normal release; do not publish a release solely for README cleanup;
 - [x] add a documentation navigation/index layer rather than mass-moving historical
       research files;
-- [ ] audit all 16 divergent branches individually before any further deletion;
-- [ ] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;
+- [x] audit all 16 divergent branches individually before any further deletion;
+- [x] reconcile stale issue #38 against completed T-2.1–T-2.6 and pending T-2.7;
 - [ ] reconcile already-satisfied Phase 10 documentation/CI checkboxes where current
       repository evidence supports completion;
 - [ ] run full repository and package gates before cleanup closeout.
@@ -2008,6 +2008,7 @@ T-4.3 and T-4.4 are complete.
 - No new stable attack is admitted, the stable public corpus remains 23 attacks, and no release is triggered.
 - T-4.5 is next: return the reproducible result to A2A `#1769` and the VATE implementation review thread with exact commit/evidence links, tested and untested scope, limitations and an invitation to correct the interpretation.
 - The post-T-3 A2A `#1937` signal did not materially determine this reconciliation fixture, so this result alone does not require a separate `#1937` reply.
+
 #### T-4.5 public result return — 2026-09-18
 
 The reproducible T-4 result has now been returned to the external contributors.
@@ -2138,7 +2139,6 @@ Research-candidate index:
   - external response state: **PENDING**;
   - evidence level: **Open research follow-up**;
   - no new stable ID is reserved.
-
 
 Required sequence for each case:
 
