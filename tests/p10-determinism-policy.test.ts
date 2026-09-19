@@ -62,7 +62,7 @@ describe('P10.3 determinism policy', () => {
     );
     expect(roadmap).toContain('- [x] add reproducible performance benchmarks;');
     expect(roadmap).toContain('- [x] add concurrency tests;');
-    expect(roadmap).toContain('- [ ] harden structured diagnostic logs;');
+    expect(roadmap).toContain('- [x] harden structured diagnostic logs;');
     expect(roadmap).toContain('- [ ] expand redaction regression tests;');
     expect(roadmap).toContain('- [ ] document benchmark environment and acceptable variance.');
   });
