@@ -16,4 +16,23 @@ describe('P10.4 platform CI candidate', () => {
     expect(contents).toContain('run: npm run check');
     expect(contents).toContain('run: npm run package:check');
   });
+
+  it('records successful GitHub-hosted macOS admission evidence', () => {
+    const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
+    const record = readFileSync('docs/P10_4_MACOS_CI_20260919.md', 'utf8');
+    const installation = readFileSync('docs/INSTALLATION.md', 'utf8');
+
+    expect(roadmap).toContain('- [x] add macOS CI coverage;');
+    expect(record).toContain(
+      'Status: **COMPLETE — GitHub-hosted macOS validation passed 2026-09-19**',
+    );
+    expect(record).toContain(
+      'https://github.com/Heaviside479/handoffprobe/actions/runs/35461542344',
+    );
+    expect(record).toContain('`Quality (macos-latest)`: success');
+    expect(record).toContain('`Quality (ubuntu-latest)`: success');
+    expect(installation).toContain(
+      'macOS is CI-verified on GitHub-hosted `macos-latest` with Node 24',
+    );
+  });
 });

@@ -36,8 +36,8 @@ describe('Cleanup E final repository verification', () => {
     );
   });
 
-  it('does not overclaim unfinished P10.4 platform work', () => {
-    expect(roadmap).toContain('- [ ] add macOS CI coverage;');
+  it('tracks completed macOS CI and remaining P10.4 work', () => {
+    expect(roadmap).toContain('- [x] add macOS CI coverage;');
     expect(roadmap).toContain(
       '- [ ] add Windows CI where practical and explicitly document exclusions where not;',
     );
