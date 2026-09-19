@@ -1,6 +1,6 @@
 # HandoffProbe repository cleanup and current-state reconciliation plan
 
-Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C completed 2026-09-19; Cleanup D issue and branch reconciliation next.**
+Status: **ACTIVE — Cleanup A and Cleanup B completed 2026-09-18; Cleanup C and Cleanup D completed 2026-09-19; Cleanup E reliability and final repository verification next.**
 
 Date started: 2026-09-18
 
@@ -149,7 +149,6 @@ Rules:
   look current;
 - distinguish historical snapshot facts from current product truth;
 - preserve exact external-source provenance.
-
 
 ## Cleanup B.2 — current core instruction documents
 
@@ -354,40 +353,78 @@ Cleanup C is complete.
 
 # Cleanup D — issue and branch reconciliation
 
-Status: **PLANNED**
+Status: **COMPLETE — 2026-09-19**
 
-## Divergent branches
+## Divergent branch audit
 
-Audit all 16 preserved divergent branches individually.
+All 16 preserved divergent branches were individually audited against current
+`origin/main`, including patch-equivalence checks, branch-tip freezes, file-level
+comparison and special review of unique historical content.
 
-Special care:
+Final disposition:
 
-`docs/model-mediated-mutation-roadmap-20260917`
+### Deleted as superseded
 
-contains substantial branch-only history and must not be deleted without a complete
-comparison.
+15 remote branches were deleted after their audited tips were reverified unchanged:
 
-## GitHub issues
+- `chore/marketing-repo-pointer-20260910`
+- `docs/commercial-product-track-20260916`
+- `docs/commercial-validation-20260912`
+- `docs/handoff-contract-research-20260908`
+- `docs/handoffprobe-name-migration-20260821`
+- `docs/model-mediated-mutation-roadmap-20260917`
+- `docs/point-growth-to-central-marketing-20260901`
+- `docs/project-foundation-20260821`
+- `docs/release-roadmap-v0.1.1-v0.2.0-20260908`
+- `docs/research-gap-audit-20260821`
+- `docs/semantic-authority-followup-20260912`
+- `docs/t4-witness-observation-queue-20260916`
+- `fix/qs-6.16.0-20260908`
+- `release/v0.1.x`
+- `release/v0.1.1-security-maintenance`
 
-Current contributor issues #22, #23 and #24 remain potentially useful contributor
-tasks unless later review proves otherwise.
+The deletion was performed as one atomic remote update after exact audited branch
+tips were reverified.
+
+### Historical branch retained
+
+`roadmap/v0.3.0-postrelease-github-discovery`
+
+was intentionally retained at:
+
+`7446452d1e5f1d4e3a0e0d900ec8ae9abd0c8543`
+
+Its branch-only document records a historical v0.3.0 post-publication/GitHub-native
+discovery execution plan that is not present on current `main`. It remains historical
+evidence and is not current product truth.
+
+Final remote branch inventory after Cleanup D:
+
+- `main`
+- `roadmap/v0.3.0-postrelease-github-discovery`
+
+## GitHub issue reconciliation
 
 Issue #38:
 
 `Evaluate protocol-neutral Handoff Contract integrity model after v0.1.1`
 
-is stale relative to the completed T-2.1 through T-2.6 work.
+was closed as completed on 2026-09-19 because its original evaluation purpose was
+superseded by the completed T-2.1 through T-2.6 work.
 
-Before changing or closing issue #38:
+The closeout explicitly preserves the independent T-2.7 state:
 
-- reconcile it against the current T-2 record;
-- preserve the outstanding T-2.7 Bayu external-review state;
-- never turn absence of external response into validation.
+**WAITING FOR RESPONSE from Bayu.**
 
-Likely outcome:
+Closing issue #38 does not complete T-2.7, does not imply external confirmation and
+does not treat silence as validation. If no substantive review arrives within the
+documented review window, the permitted closeout remains:
 
-update or close #38 as superseded/completed except for the separately recorded T-2.7
-external-review state.
+`NO EXTERNAL REVIEW RECEIVED`
+
+Cleanup D did not modify contributor issues #22, #23 or #24.
+
+Cleanup D is complete.
 
 ---
 
@@ -460,6 +497,6 @@ When work continues in another chat, coding-agent session or contributor context
 
 Current next step:
 
-**Continue with Cleanup D by auditing the 16 preserved divergent branches
-individually and reconciling stale GitHub issue #38 without losing unique history or
-the separately pending T-2.7 external-review state.**
+**Continue with Cleanup E by reconciling already-satisfied Phase 10
+documentation/CI checkboxes and then running the final repository and package
+verification gates.**
