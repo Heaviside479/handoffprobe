@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IMPLEMENTATION CANDIDATE — protected validation pending**
+Status: **COMPLETE — 2026-09-20**
 
 ## Purpose
 
@@ -81,14 +81,53 @@ P11.5 does not:
 - create or move a Git tag;
 - create a GitHub Release.
 
+## Protected completion evidence
+
+Implementation PR: `#166 — Add P11.5 release user guidance`.
+
+Exact implementation head:
+
+`ee9a16b14b92c90de378539f9ffd66c8216bec81`
+
+Exact protected base before merge:
+
+`8d9954d300c6bc22be944f2d48c3c055170d192b`
+
+Protected PR validation completed successfully:
+
+- HandoffProbe run `35528805437`;
+- Dependency Review run `35528805432`;
+- Release Candidate run `35528805429`;
+- CI run `35528805466`, including:
+  - Quality (`ubuntu-latest`) job `106125605428`;
+  - Quality (`windows-latest`) job `106125605635`;
+  - Quality (`macos-latest`) job `106125605636`.
+
+The pre-PR local quality gate also passed with 125 test files and 626 tests,
+followed by a successful build.
+
+PR #166 merged normally through branch protection on 2026-09-20 at
+`2026-09-20T18:26:18Z`.
+
+Merge commit and resulting `main` SHA:
+
+`bcdd4b0129b470f9c3a37620298c269f7f680235`
+
+The implementation changed 11 documentation/documentation-regression files
+only. It did not change runtime code, package metadata, workflows, the package
+version, the stable attack corpus or publication state.
+
+No npm package was staged or published, no Git tag was created or moved, and no
+GitHub Release was created by P11.5.
+
 ## Completion gate
 
-P11.5 is complete only after:
+P11.5 completion evidence now demonstrates that:
 
-- all four guides are present and internally consistent;
-- root and docs navigation expose them;
-- installation and usage cross-link them;
-- automated documentation tests pass;
-- the full repository quality gate passes;
-- protected pull-request validation succeeds;
-- the change is merged normally through branch protection.
+- [x] all four guides are present and internally consistent;
+- [x] root and docs navigation expose them;
+- [x] installation and usage cross-link them;
+- [x] automated documentation tests pass;
+- [x] the full repository quality gate passes;
+- [x] protected pull-request validation succeeded;
+- [x] the implementation merged normally through branch protection.

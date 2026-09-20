@@ -59,14 +59,17 @@ describe('P11.5 release user guidance', () => {
     }
   });
 
-  it('records P11.5 without claiming protected completion early', () => {
+  it('records protected completion evidence after the implementation merge', () => {
     expect(roadmap).toContain('### P11.5 — release user guidance');
-    expect(roadmap).toContain(
-      'Status: **IMPLEMENTATION CANDIDATE — protected validation pending**',
-    );
-    expect(roadmap).toContain('- [ ] pass protected pull-request validation;');
-    expect(roadmap).toContain('- [ ] merge through normal branch protection.');
-    expect(record).toContain('Status: **IMPLEMENTATION CANDIDATE — protected validation pending**');
+    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-20**');
+    expect(roadmap).toContain('- [x] pass protected pull-request validation;');
+    expect(roadmap).toContain('- [x] merge through normal branch protection.');
+    expect(record).toContain('Status: **COMPLETE — 2026-09-20**');
+    expect(record).toContain('Implementation PR: `#166 — Add P11.5 release user guidance`.');
+    expect(record).toContain('ee9a16b14b92c90de378539f9ffd66c8216bec81');
+    expect(record).toContain('bcdd4b0129b470f9c3a37620298c269f7f680235');
+    expect(record).toContain('35528805429');
+    expect(record).toContain('35528805466');
   });
 
   it('preserves the no-publication boundary', () => {
