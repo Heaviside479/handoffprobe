@@ -1618,7 +1618,7 @@ provenance produced by its real Trusted Publishing path.
 
 ### P11.5 — release user guidance
 
-Status: **IMPLEMENTATION CANDIDATE — protected validation pending**
+Status: **COMPLETE — 2026-09-20**
 
 - [x] provide a dedicated user-facing upgrade guide;
 - [x] provide a dedicated migration guide grounded in the versioned-contract policy;
@@ -1628,8 +1628,13 @@ Status: **IMPLEMENTATION CANDIDATE — protected validation pending**
 - [x] link the guides from the root README and documentation index;
 - [x] cross-link the guides from installation and usage documentation;
 - [x] add automated documentation coverage for guide presence, navigation and release boundaries;
-- [ ] pass protected pull-request validation;
-- [ ] merge through normal branch protection.
+- [x] pass protected pull-request validation;
+  - Evidence: PR #166 head `ee9a16b14b92c90de378539f9ffd66c8216bec81`
+    passed HandoffProbe, Dependency Review, Release Candidate and all three
+    platform Quality jobs.
+- [x] merge through normal branch protection.
+  - Evidence: PR #166 merged to `main` as
+    `bcdd4b0129b470f9c3a37620298c269f7f680235` on 2026-09-20.
 
 Evidence: `docs/P11_5_RELEASE_USER_GUIDANCE_20260920.md`.
 
