@@ -1526,7 +1526,7 @@ authorize or perform publication and does not change `handoffprobe@0.4.0`.
 
 ### P11.2 — npm stage-only publication workflow
 
-Status: **IMPLEMENTATION CANDIDATE — protected PR and npm trust configuration pending**
+Status: **COMPLETE — 2026-09-20**
 
 - [x] declare HandoffProbe as npm dual-use content;
 - [x] include a root `DISCLOSURE` file in the npm package;
@@ -1537,16 +1537,26 @@ Status: **IMPLEMENTATION CANDIDATE — protected PR and npm trust configuration 
 - [x] allow CI to run only `npm stage publish`;
 - [x] prohibit direct `npm publish` and stage approval from CI;
 - [x] keep the current public package at `handoffprobe@0.4.0`;
-- [ ] pass the implementation through protected pull-request validation;
-- [ ] merge the implementation through normal branch protection;
-- [ ] configure npm trusted publishing for `npm-stage.yml` with stage-only permission;
-- [ ] read back and verify the exact npm trusted-publisher relationship;
-- [ ] require 2FA and disallow traditional publication tokens for the package.
+- [x] pass the implementation through protected pull-request validation;
+  - Evidence: PR #155 passed all required protected checks.
+- [x] merge the implementation through normal branch protection;
+  - Evidence: PR #155 merged as
+    `d60bf3d79a83fb1f5fdcd7ec7b397c5ad613ef89`.
+- [x] configure npm trusted publishing for `npm-stage.yml` with stage-only permission;
+  - Read-back: GitHub repository `Heaviside479/handoffprobe`, workflow
+    `npm-stage.yml`, permission `createStagedPackage`.
+- [x] read back and verify the exact npm trusted-publisher relationship;
+  - Verified with npm `11.19.1`; trust command exit code `0`.
+- [x] require 2FA and disallow traditional publication tokens for the package.
+  - npm Publishing access is set to `Require two-factor authentication and disallow tokens`.
 
 Evidence: `docs/P11_2_NPM_STAGE_PUBLICATION_20260920.md`.
 
-No package is staged as part of P11.2 implementation testing. The first live
-stage requires a separately admitted future release version.
+No package was staged as part of P11.2 validation. Final npm verification
+returned an empty staged-package list, while public `latest` remained
+`handoffprobe@0.4.0`.
+
+The first live stage requires a separately admitted future release version.
 
 ## Exit gate
 
