@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "runtime": {
+    "nodeEngine": ">=24 <25",
+    "ciNode": "24"
+  },
+  "ci": {
+    "platforms": ["ubuntu-latest", "macos-latest", "windows-latest"]
+  },
+  "protocols": {
+    "a2a": "1.0",
+    "mcp": "2026-07-28"
+  },
+  "protocolDependencies": {
+    "@a2a-js/sdk": "1.1.0",
+    "@modelcontextprotocol/client": "2.0.0",
+    "@modelcontextprotocol/server": "2.0.0"
+  },
+  "documentation": {
+    "compatibilityBaseline": "docs/P10_1_COMPATIBILITY_BASELINE_20260915.md"
+  }
+}
