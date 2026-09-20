@@ -1297,7 +1297,7 @@ R4 closeout is complete. T-4.1 is now unblocked as the next queued research step
 
 # Phase 10 — v0.5 reliability hardening
 
-Status: **ACTIVE — started 2026-09-15 after Release Tracks R1 (`v0.1.1`), R2 (`v0.2.0`) and R3 (`v0.3.0`) were completed and verified.**
+Status: **COMPLETE — reliability hardening closed 2026-09-20.**
 
 ## Goal
 
@@ -1443,18 +1443,40 @@ protocol-baseline change or runtime behavior change.
 
 ### P10.5 — reliability closeout
 
-- [ ] run the complete repository quality and security gates;
-- [ ] run package validation and exact payload inspection;
-- [ ] verify compatibility and fixture matrices against recorded evidence;
-- [ ] reconcile README, installation, usage, security and contributor documentation;
-- [ ] decide from completed scope whether a public patch/minor release is justified;
-- [ ] create a separate controlled release track if publication is justified.
+Status: **COMPLETE — 2026-09-20**
+
+- [x] run the complete repository quality and security gates;
+  - Evidence: 117 test files / 582 tests, compatibility check and build passed
+    on the merged Phase 10 base with no worktree drift.
+- [x] run package validation and exact payload inspection;
+  - Evidence: `handoffprobe@0.4.0` dry-run payload contains exactly 295 allowed
+    files with no forbidden repository material and no generated tarball left behind.
+- [x] verify compatibility and fixture matrices against recorded evidence;
+  - Evidence: compatibility matrix passed; the frozen Phase 9 corpus retained
+    its recorded SHA-256, all 14 manifest file digests and all 28 case identities.
+- [x] reconcile README, installation, usage, security and contributor documentation;
+  - Evidence: current release, 23-attack corpus, protocol/runtime baseline,
+    Action pin, CLI and safety/contributor contracts are mutually consistent.
+- [x] decide from completed scope whether a public patch/minor release is justified;
+  - Decision: **NO PUBLIC RELEASE JUSTIFIED**. The only runtime source change
+    since v0.4.0 is compatible internal structured diagnostic hardening and does
+    not change documented CLI behavior, schemas, attack corpus or protocol contract.
+- [x] create a separate controlled release track if publication is justified.
+  - Not triggered: publication is not justified by this closeout scope, so no
+    release track is created.
+
+Evidence: `docs/P10_5_RELIABILITY_CLOSEOUT_20260920.md`.
 
 ## Phase 10 exit gate
 
 HandoffProbe behaves like dependable developer infrastructure rather than a research prototype.
 
 Compatibility promises are explicit, public contracts are version-aware, supported environments are reproducibly tested, diagnostics remain safe, and reliability claims are backed by recorded evidence.
+
+Phase 10 exit gate satisfied 2026-09-20: the complete reliability scope is
+evidence-backed and validated, while release discipline correctly leaves the
+verified public version at `handoffprobe@0.4.0` until a separately justified
+release scope exists.
 
 ---
 
