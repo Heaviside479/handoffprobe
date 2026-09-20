@@ -78,17 +78,27 @@ describe('P11.4 release SBOM and provenance boundary', () => {
     expect(record).toContain('does not create a GitHub artifact attestation');
   });
 
-  it('records protected completion gates as pending', () => {
+  it('records protected completion gates as complete', () => {
     expect(roadmap).toContain('### P11.4 — release SBOM and provenance boundary');
+    expect(roadmap).toContain('Status: **COMPLETE**');
     expect(roadmap).toContain(
-      'Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**',
+      '- [x] pass the implementation through protected pull-request validation;',
     );
+    expect(roadmap).toContain('- [x] merge the implementation through normal branch protection;');
     expect(roadmap).toContain(
-      '- [ ] pass the implementation through protected pull-request validation;',
+      '- [x] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.',
     );
-    expect(roadmap).toContain(
-      '- [ ] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.',
-    );
+
+    expect(record).toContain('Status: **COMPLETE**');
+    expect(record).toContain('PR: `#164`');
+    expect(record).toContain('`849824f8a2af0216d368a63a3592eea362724c11`');
+    expect(record).toContain('`8cf9203638b56213494bfa0bee57f0e1b07cdffb`');
+    expect(record).toContain('protected Release Candidate run: `35524723680`');
+    expect(record).toContain('manual Release Candidate run: `35525048379`');
+    expect(record).toContain('`ca05e02bbabe6344adf10184feea591c6d571f6cbf708e49d43604308d6127b9`');
+    expect(record).toContain('`b095d287e0559f5e50a3f73fb70c673346827855ba1e2a6306bceab51eefb6f9`');
+    expect(record).toContain('artifact ID: `10609950031`');
+
     expect(docsIndex).toContain('P11_4_RELEASE_SBOM_PROVENANCE_20260920.md');
   });
 });

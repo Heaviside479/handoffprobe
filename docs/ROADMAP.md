@@ -1589,7 +1589,7 @@ mandatory Release Candidate gate.
 
 ### P11.4 — release SBOM and provenance boundary
 
-Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+Status: **COMPLETE**
 
 - [x] define the release SBOM as SPDX 2.3 for the package-lock runtime graph;
 - [x] omit development-only dependencies from the release SBOM;
@@ -1607,9 +1607,9 @@ Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
   path rather than temporary candidate artifacts;
 - [x] keep staging, publication, tag creation and GitHub Release creation
   outside this gate;
-- [ ] pass the implementation through protected pull-request validation;
-- [ ] merge the implementation through normal branch protection;
-- [ ] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.
+- [x] pass the implementation through protected pull-request validation;
+- [x] merge the implementation through normal branch protection;
+- [x] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.
 
 Evidence: `docs/P11_4_RELEASE_SBOM_PROVENANCE_20260920.md`.
 

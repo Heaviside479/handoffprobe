@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+Status: **COMPLETE**
 
 ## Purpose
 
@@ -162,6 +162,59 @@ P11.4 does not:
 - change runtime source;
 - change the stable 23-attack corpus;
 - add a runtime or development dependency.
+
+## Protected completion evidence
+
+Implementation pull request:
+
+- PR: `#164`;
+- implementation head:
+  `849824f8a2af0216d368a63a3592eea362724c11`;
+- protected Release Candidate run: `35524723680`;
+- Release Candidate job: `106114784151`;
+- result: success;
+- release artifact reproducibility: `PASS`;
+- PR release-SBOM SHA-256:
+  `6bad281d95908178d44acb2ca2e4ba3c89ab4b034ae76c3feb7841c5db897513`;
+- PR dependency-fingerprint SHA-256:
+  `b095d287e0559f5e50a3f73fb70c673346827855ba1e2a6306bceab51eefb6f9`;
+- dependency-fingerprint reproducibility: `PASS`.
+
+The implementation was merged normally through branch protection.
+
+Merged `main` evidence:
+
+- merge commit:
+  `8cf9203638b56213494bfa0bee57f0e1b07cdffb`;
+- manual Release Candidate run: `35525048379`;
+- Release Candidate job: `106115630976`;
+- event: `workflow_dispatch`;
+- branch: `main`;
+- result: success;
+- release artifact reproducibility: `PASS`;
+- merged-main release-SBOM SHA-256:
+  `ca05e02bbabe6344adf10184feea591c6d571f6cbf708e49d43604308d6127b9`;
+- merged-main dependency-fingerprint SHA-256:
+  `b095d287e0559f5e50a3f73fb70c673346827855ba1e2a6306bceab51eefb6f9`;
+- dependency-fingerprint reproducibility: `PASS`.
+
+The real SPDX document SHA differs between the pull-request and merged-main
+runs because npm preserves per-document creation metadata. The deterministic
+dependency fingerprint is identical across both protected executions.
+
+Merged-main SBOM artifact:
+
+- artifact:
+  `handoffprobe-release-sbom-8cf9203638b56213494bfa0bee57f0e1b07cdffb`;
+- artifact ID: `10609950031`;
+- size: `10829` bytes;
+- artifact archive digest:
+  `sha256:d8d59d350d29b65b06efc69a17aa1084819662f73f6141ab00f33dc2416263fd`;
+- expiration: `2026-09-27T17:12:08Z`;
+- upload result: success.
+
+No npm package was staged or published, and no Git tag or GitHub Release was
+created as part of P11.4 validation.
 
 ## Completion gate
 
