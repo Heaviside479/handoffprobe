@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+Status: **COMPLETE — 2026-09-20**
 
 ## Purpose
 
@@ -96,6 +96,53 @@ P11.3 does not:
 - create a GitHub Release;
 - change the stable 23-attack corpus;
 - change runtime source or public interfaces.
+
+
+## Completion evidence — 2026-09-20
+
+Protected implementation admission:
+
+- pull request: `#161`;
+- implementation head:
+  `bf1baec01227a0ae8fe22692a6713e8580edd8d2`;
+- all six pull-request checks completed successfully;
+- the protected Release Candidate job executed the new reproducibility gate;
+- protected merge commit:
+  `a50938eec77108fa4d2640109cc069c19001bc28`.
+
+Merged-main verification:
+
+- workflow: `Release Candidate`;
+- workflow run: `35520070640`;
+- job: `106102510361`;
+- event: `workflow_dispatch`;
+- exact `main` commit:
+  `a50938eec77108fa4d2640109cc069c19001bc28`;
+- workflow result: `success`;
+- reproducibility step result: `success`.
+
+Observed merged-main artifact digests:
+
+- Release Candidate SHA-256:
+  `a92c3debd5696e0189326384da95bb40cd1827beb6a633c9168292eb4440c013`;
+- rebuild A SHA-256:
+  `a92c3debd5696e0189326384da95bb40cd1827beb6a633c9168292eb4440c013`;
+- rebuild B SHA-256:
+  `a92c3debd5696e0189326384da95bb40cd1827beb6a633c9168292eb4440c013`;
+- workflow result:
+  `Release artifact reproducibility: PASS`.
+
+The merged-main run also completed payload inspection, clean installation,
+secure full-corpus execution and repository-cleanliness verification.
+
+No package version was changed, staged or published merely to validate P11.3.
+
+P11.3 therefore establishes byte-identical npm release-artifact generation
+for repeated isolated builds inside the defined Release Candidate environment.
+
+The documented limitations remain unchanged: this is not a claim of
+cross-platform byte identity, future-toolchain byte identity, provenance
+attestation or SBOM generation.
 
 ## Completion gate
 
