@@ -1380,9 +1380,18 @@ Exit gate satisfied 2026-09-19: repeated runs remain trustworthy under load, con
     review, local validation, required CI admission and rollback.
     `.github/dependabot.yml` adds weekly npm and GitHub Actions update discovery
     without auto-merge authorization.
-- [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.
+- [x] ensure compatibility-matrix checks fail visibly on unsupported drift.
+  - Evidence: `compatibility-matrix.json`,
+    `scripts/compatibility-matrix-check.ts` and
+    `tests/p10-compatibility-drift-gate.test.ts` pin the supported Node, CI
+    platform, A2A/MCP and protocol-SDK baseline and emit explicit diagnostics
+    for unsupported drift. `npm run compatibility:check` is part of
+    `npm run check`; PR #151 passed HandoffProbe, Dependency Review and
+    Linux/macOS/Windows Quality admission checks on 2026-09-20.
 
 Exit gate: every claimed supported platform and runtime combination has an explicit verification path.
+
+Exit gate satisfied 2026-09-20: Linux, macOS and Windows quality jobs verify the pinned Node 24 compatibility baseline, and unsupported runtime, platform, protocol, protocol-SDK or documented compatibility drift now fails visibly through the normal repository check.
 
 ### Repository cleanup and current-state reconciliation — 2026-09-18
 

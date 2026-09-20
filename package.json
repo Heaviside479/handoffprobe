@@ -22,10 +22,10 @@
   ],
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run secret:check && npm test && npm run build",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run secret:check && npm run compatibility:check && npm test && npm run build",
     "dev": "tsx src/cli.ts",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml compatibility-matrix.json package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml compatibility-matrix.json package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\"",
     "package:check": "npm pack --dry-run",
     "start": "node dist/cli.js",
@@ -34,7 +34,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lab:protocol": "tsx src/protocol-lab/run.ts",
     "secret:check": "tsx scripts/secret-safety.ts",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "compatibility:check": "tsx scripts/compatibility-matrix-check.ts"
   },
   "license": "Apache-2.0",
   "devDependencies": {

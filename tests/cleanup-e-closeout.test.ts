@@ -36,14 +36,14 @@ describe('Cleanup E final repository verification', () => {
     );
   });
 
-  it('tracks completed platform CI and remaining P10.4 work', () => {
+  it('tracks completed P10.4 platform and drift-gate work', () => {
     expect(roadmap).toContain('- [x] add macOS CI coverage;');
     expect(roadmap).toContain(
       '- [x] add Windows CI where practical and explicitly document exclusions where not;',
     );
     expect(roadmap).toContain('- [x] define the dependency upgrade process;');
     expect(roadmap).toContain(
-      '- [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.',
+      '- [x] ensure compatibility-matrix checks fail visibly on unsupported drift.',
     );
   });
 

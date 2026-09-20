@@ -65,7 +65,7 @@ describe('P10.4 dependency upgrade process', () => {
     expect(packageJson.version).toBe('0.4.0');
     expect(roadmap).toContain('- [x] define the dependency upgrade process;');
     expect(roadmap).toContain(
-      '- [ ] ensure compatibility-matrix checks fail visibly on unsupported drift.',
+      '- [x] ensure compatibility-matrix checks fail visibly on unsupported drift.',
     );
     expect(docsIndex).toContain('P10_4_DEPENDENCY_UPGRADE_PROCESS_20260919.md');
   });
