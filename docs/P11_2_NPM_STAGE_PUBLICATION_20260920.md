@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IMPLEMENTATION CANDIDATE — protected PR and npm trust configuration pending**
+Status: **COMPLETE — 2026-09-20**
 
 ## Purpose
 
@@ -89,6 +89,58 @@ The relationship must be read back and verified before P11.2 is closed.
 
 Package publishing access should then require two-factor authentication and
 disallow traditional publication tokens.
+
+
+## Completion evidence — 2026-09-20
+
+Implementation admission:
+
+- protected implementation PR: `#155`;
+- PR head:
+  `d45a0765d53865a3d0a6fc5e3dabdf7015f80d2a`;
+- all required protected checks completed successfully;
+- normal merge commit:
+  `d60bf3d79a83fb1f5fdcd7ec7b397c5ad613ef89`.
+
+Exact npm Trusted Publisher read-back was performed with npm `11.19.1`.
+
+Observed relationship:
+
+- type: `github`;
+- repository: `Heaviside479/handoffprobe`;
+- workflow file: `npm-stage.yml`;
+- permission: `createStagedPackage`;
+- direct trusted `npm publish` permission: absent;
+- trust read-back exit code: `0`.
+
+The npm package Publishing access setting is hardened to:
+
+`Require two-factor authentication and disallow tokens`
+
+This preserves interactive maintainer proof-of-presence for publication while
+traditional package publication tokens are disallowed.
+
+Final registry-state verification:
+
+- `npm stage list handoffprobe --json` returned `[]`;
+- staged-package list exit code: `0`;
+- public package version: `0.4.0`;
+- `latest` dist-tag: `0.4.0`;
+- no package was staged merely to validate P11.2.
+
+Therefore the first live `npm stage publish` remains deferred to a separately
+admitted future release version.
+
+P11.2 introduces publication infrastructure only.
+
+It does not:
+
+- change the current package version;
+- publish a new package version;
+- create a Git tag;
+- create a GitHub Release;
+- approve any staged package;
+- change the stable 23-attack corpus.
 
 ## Completion gate
 

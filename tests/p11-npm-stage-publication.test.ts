@@ -47,16 +47,26 @@ describe('P11.2 npm stage-only publication', () => {
     expect(record).toContain('must not stage `0.4.0`');
   });
 
-  it('records pending npm trust and package-access gates', () => {
+  it('records the completed npm trust and package-access gates', () => {
     expect(roadmap).toContain('### P11.2 — npm stage-only publication workflow');
+    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-20**');
     expect(roadmap).toContain(
-      '- [ ] configure npm trusted publishing for `npm-stage.yml` with stage-only permission;',
+      '- [x] configure npm trusted publishing for `npm-stage.yml` with stage-only permission;',
     );
     expect(roadmap).toContain(
-      '- [ ] read back and verify the exact npm trusted-publisher relationship;',
+      '- [x] read back and verify the exact npm trusted-publisher relationship;',
     );
     expect(roadmap).toContain(
-      '- [ ] require 2FA and disallow traditional publication tokens for the package.',
+      '- [x] require 2FA and disallow traditional publication tokens for the package.',
     );
+
+    expect(record).toContain('## Completion evidence — 2026-09-20');
+    expect(record).toContain('`d60bf3d79a83fb1f5fdcd7ec7b397c5ad613ef89`');
+    expect(record).toContain('permission: `createStagedPackage`');
+    expect(record).toContain('trust read-back exit code: `0`');
+    expect(record).toContain('`npm stage list handoffprobe --json` returned `[]`');
+    expect(record).toContain('public package version: `0.4.0`');
+    expect(record).toContain('`latest` dist-tag: `0.4.0`');
+    expect(record).toContain('`Require two-factor authentication and disallow tokens`');
   });
 });
