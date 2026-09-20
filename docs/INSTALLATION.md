@@ -137,6 +137,10 @@ Both the `v0.4.0` Action reference and the exact v0.4.0 release SHA were verifie
 
 Before v1.0, HandoffProbe follows pre-1.0 compatibility expectations. Read release notes before changing versions.
 
+For the complete update procedure, see [`UPGRADING.md`](UPGRADING.md). If a
+release changes a public contract, follow [`MIGRATION.md`](MIGRATION.md) as
+well.
+
 For the exact npm version:
 
 ```bash
@@ -146,6 +150,10 @@ npm install --save-dev --save-exact handoffprobe@0.4.0
 Do not assume report, configuration or protocol compatibility across future pre-1.0 versions unless the release notes state it.
 
 ## Troubleshooting
+
+The complete troubleshooting guide lives in
+[`TROUBLESHOOTING.md`](TROUBLESHOOTING.md). The common installation cases are
+kept here for quick access.
 
 ### npm reports that `handoffprobe` does not exist
 
@@ -192,5 +200,9 @@ Installation does not grant authorization to test third-party systems. Active te
 See:
 
 - [`USAGE.md`](USAGE.md) for CLI commands, reporters, configuration and exit codes;
+- [`UPGRADING.md`](UPGRADING.md) for safe version updates;
+- [`MIGRATION.md`](MIGRATION.md) for public-contract migrations;
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) for installation, CLI and CI failures;
+- [`FAQ.md`](FAQ.md) for common product and support questions;
 - [`../README.md`](../README.md) for the project overview and GitHub Action;
 - [`../SECURITY.md`](../SECURITY.md) for authorized-use and disclosure guidance.

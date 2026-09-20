@@ -128,6 +128,7 @@ The full CLI contract — including attack selection, severity thresholds, confi
 - [`docs/USAGE.md`](docs/USAGE.md)
 - [`docs/CLI_SPECIFICATION.md`](docs/CLI_SPECIFICATION.md)
 - [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
+- [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
 
 Keeping those details in their canonical documents avoids duplicating a second CLI manual in the repository landing page and npm README.
 
@@ -240,6 +241,10 @@ Current product documentation:
 
 - [Installation](docs/INSTALLATION.md)
 - [Usage](docs/USAGE.md)
+- [Upgrading](docs/UPGRADING.md)
+- [Migration guide](docs/MIGRATION.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [FAQ](docs/FAQ.md)
 - [Attack catalog](docs/ATTACK_CATALOG.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Threat model](docs/THREAT_MODEL.md)
