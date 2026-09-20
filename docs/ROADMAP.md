@@ -1482,6 +1482,8 @@ release scope exists.
 
 # Phase 11 — v0.9 release engineering
 
+Status: **ACTIVE — release engineering started 2026-09-20.**
+
 ## Deliverables
 
 - release automation
@@ -1496,6 +1498,26 @@ release scope exists.
 - FAQ
 - release candidate testing
 - external feedback round
+
+### P11.1 — non-publishing release-candidate automation
+
+Status: **IMPLEMENTATION CANDIDATE — protected PR validation pending**
+
+- [x] define a dedicated Release Candidate workflow;
+- [x] keep repository permissions read-only;
+- [x] prohibit npm publication, tag creation and GitHub Release creation;
+- [x] run the complete repository quality gates before packaging;
+- [x] build an actual npm tarball only in runner temporary storage;
+- [x] inspect the release payload for required and forbidden material;
+- [x] install and execute the exact candidate tarball in a clean temporary project;
+- [ ] pass the workflow on its protected implementation pull request;
+- [ ] merge the workflow through normal branch protection;
+- [ ] verify the workflow from `main`.
+
+Evidence: `docs/P11_1_RELEASE_CANDIDATE_AUTOMATION_20260920.md`.
+
+This first Phase 11 slice automates candidate validation only. It does not
+authorize or perform publication and does not change `handoffprobe@0.4.0`.
 
 ## Exit gate
 
