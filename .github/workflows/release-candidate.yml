@@ -63,6 +63,67 @@ jobs:
           echo "Candidate: $TARBALL"
           sha256sum "$TARBALL"
 
+      - name: Verify release artifact reproducibility
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          REPRO_ROOT="$RUNNER_TEMP/handoffprobe-reproducibility"
+          SOURCE_TAR="$REPRO_ROOT/source.tar"
+          BUILD_A="$REPRO_ROOT/build-a"
+          BUILD_B="$REPRO_ROOT/build-b"
+          OUT_A="$REPRO_ROOT/out-a"
+          OUT_B="$REPRO_ROOT/out-b"
+
+          rm -rf "$REPRO_ROOT"
+          mkdir -p "$BUILD_A" "$BUILD_B" "$OUT_A" "$OUT_B"
+
+          git archive "$GITHUB_SHA" > "$SOURCE_TAR"
+          tar -xf "$SOURCE_TAR" -C "$BUILD_A"
+          tar -xf "$SOURCE_TAR" -C "$BUILD_B"
+
+          (
+            cd "$BUILD_A"
+            npm ci
+            npm pack --pack-destination "$OUT_A"
+          )
+
+          (
+            cd "$BUILD_B"
+            npm ci
+            npm pack --pack-destination "$OUT_B"
+          )
+
+          REPRO_A="$OUT_A/handoffprobe-$PACKAGE_VERSION.tgz"
+          REPRO_B="$OUT_B/handoffprobe-$PACKAGE_VERSION.tgz"
+
+          test -f "$REPRO_A"
+          test -f "$REPRO_B"
+          test -f "$TARBALL"
+
+          SHA_A="$(sha256sum "$REPRO_A" | awk '{print $1}')"
+          SHA_B="$(sha256sum "$REPRO_B" | awk '{print $1}')"
+          RC_SHA="$(sha256sum "$TARBALL" | awk '{print $1}')"
+
+          echo "Release candidate SHA-256: $RC_SHA"
+          echo "Rebuild A SHA-256: $SHA_A"
+          echo "Rebuild B SHA-256: $SHA_B"
+
+          MANIFEST_A="$REPRO_ROOT/manifest-a.txt"
+          MANIFEST_B="$REPRO_ROOT/manifest-b.txt"
+
+          tar -tzf "$REPRO_A" | sort > "$MANIFEST_A"
+          tar -tzf "$REPRO_B" | sort > "$MANIFEST_B"
+
+          test "$SHA_A" = "$SHA_B"
+          test "$RC_SHA" = "$SHA_A"
+
+          cmp -s "$REPRO_A" "$REPRO_B"
+          cmp -s "$TARBALL" "$REPRO_A"
+          cmp -s "$MANIFEST_A" "$MANIFEST_B"
+
+          echo "Release artifact reproducibility: PASS"
+
       - name: Inspect release candidate payload
         shell: bash
         run: |
