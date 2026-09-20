@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all four community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 local execution complete; external responses pending.**',
+      'Status: **ACTIVE — R-1, R-2, R-3 and R-4 public results returned; external responses pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -100,7 +100,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('freezes R-4 x402 semantics and overlap before local execution', () => {
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — PROTOCOL SEMANTICS / NO ADD; external response PENDING.**',
     );
     expect(queue).toContain('`agents@0.21.0`');
     expect(queue).toContain('`@x402/core@2.24.0`');
@@ -129,7 +129,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain('## RC-5 — Reddit x402 paid-retry binding after 402');
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING**',
     );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
@@ -148,14 +148,15 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
     expect(roadmap).toContain(
-      'LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING',
+      'PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING',
     );
   });
 
-  it('records R-1, R-2 and R-3 as open research after public result return', () => {
+  it('records R-1, R-2, R-3 and R-4 as open research after public result return', () => {
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pal4fcr/');
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paly9up/');
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/');
 
     expect(queue).toContain(
       '- [x] concrete result returned to originating Reddit commenter/thread;',
@@ -168,10 +169,10 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(evidence).toContain(
       '## 8. Reddit R-3 authorized target-switch / task-target refinement',
     );
+    expect(evidence).toContain('## 9. Reddit R-4 x402 paid-retry request-binding semantics');
     expect(evidence).toContain('**Evidence level:** Open research follow-up');
     expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
-    expect(evidence).not.toContain(
-      'https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/',
-    );
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/');
   });
 });

@@ -198,7 +198,7 @@ Current position:
 - no new stable attack ID or release is triggered.
 ## RC-5 — Reddit x402 paid-retry binding after 402
 
-Status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**
+Status: **PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING**
 
 Detailed queue:
 
@@ -257,9 +257,25 @@ Local execution result:
 - final admission remains **PROTOCOL SEMANTICS / NO ADD**;
 - no wallet, payment, testnet or public endpoint was used.
 
+Merged execution commit:
+
+`d012c506a6e44680fb649ff8ab64fb32f41a9bae`
+
+Public result return:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/
+
+Evidence state:
+
+**Open research follow-up**
+
+External response:
+
+**PENDING**
+
 Next gate:
 
-`merge immutable execution result → Reddit result return → evidence decision`
+`classify substantive external response if one arrives`
 
 Live/public/testnet payment execution is outside this candidate's research boundary.
 R-4 must use deterministic local/synthetic payment semantics only.

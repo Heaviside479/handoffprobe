@@ -39,22 +39,27 @@ describe('Reddit R-4 x402 payment-binding execution record', () => {
     expect(execution).toContain('release triggered: **no**');
 
     expect(queue).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE — PROTOCOL SEMANTICS / NO ADD; external response PENDING.**',
     );
 
     expect(candidates).toContain(
-      'Status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING**',
     );
 
     expect(roadmap).toContain(
-      'LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING',
+      'PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING',
     );
   });
 
-  it('does not promote R-4 into evidence before public result return', () => {
-    expect(evidence).not.toContain(
-      'https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/',
+  it('records R-4 at Open research follow-up after public result return', () => {
+    expect(evidence).toContain('## 9. Reddit R-4 x402 paid-retry request-binding semantics');
+    expect(evidence).toContain('**Evidence level:** Open research follow-up');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
+    expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/');
+    expect(evidence).toContain(
+      'https://github.com/Heaviside479/handoffprobe/commit/d012c506a6e44680fb649ff8ab64fb32f41a9bae',
     );
+    expect(evidence).toContain('The public result return itself is **not** external confirmation.');
   });
 
   it('does not claim an external implementation vulnerability', () => {

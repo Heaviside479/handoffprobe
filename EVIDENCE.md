@@ -696,6 +696,138 @@ The initial `403`-like denial and target-discovery stages are deterministic fixt
 
 ---
 
+## 9. Reddit R-4 x402 paid-retry request-binding semantics
+
+**Evidence level:** Open research follow-up
+
+**Status:** Reproducible HandoffProbe result returned publicly; external commenter response pending
+**Scope:** Deterministic local/synthetic x402 payment-term versus MCP request-binding comparison
+
+### External technical input
+
+A Reddit contributor supplied a public MCP/x402 implementation and asked
+HandoffProbe to test the `analyze_property` flow, including the callback after
+HTTP 402 and the payment path.
+
+Originating source:
+
+- [Reddit source comment](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/)
+
+Supplied repository:
+
+- [Zak-bo/real-estate-x402](https://github.com/Zak-bo/real-estate-x402)
+
+Frozen external source commit:
+
+`4e99e87da0ccdf3ddcf067958de6b59eb4134414`
+
+The relevant frozen dependency baseline was:
+
+- `agents@0.21.0`;
+- `@x402/core@2.24.0`;
+- `@x402/evm@2.24.0`.
+
+Read-only package inspection established the composition boundary used by the
+fixture: x402 verification binds payment terms, while every MCP application
+argument is not automatically part of that payment-term binding.
+
+### Reproducible HandoffProbe result
+
+Merged execution:
+
+- [merge commit](https://github.com/Heaviside479/handoffprobe/commit/d012c506a6e44680fb649ff8ab64fb32f41a9bae)
+- [`docs/REDDIT_R4_X402_PAYMENT_BINDING_EXECUTION_20260920.md`](docs/REDDIT_R4_X402_PAYMENT_BINDING_EXECUTION_20260920.md)
+- [`tests/reddit-r4-x402-payment-binding-execution.test.ts`](tests/reddit-r4-x402-payment-binding-execution.test.ts)
+
+Observed unchanged paid retry:
+
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- effective property: `property:A`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+Observed x402-only property mutation:
+
+- property changes from `property:A` to `property:B`;
+- payment terms and synthetic payment proof remain unchanged;
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`;
+- classification: `EXPECTED X402-ONLY SEMANTICS`.
+
+Observed explicit request-bound composition control:
+
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- application request binding: `MISMATCH`;
+- protected dispatch: blocked;
+- protected-effect delta: `0`.
+
+### Admission result
+
+Final classification:
+
+**PROTOCOL SEMANTICS / NO ADD**
+
+The local result separates two properties:
+
+1. payment-term verification;
+2. optional application-level binding to one exact MCP request.
+
+The x402-only mutated-request path is not classified as a vulnerability.
+
+No new stable attack was added.
+
+The stable public corpus remains **23 attacks**, package version remains
+`0.4.0`, and no release was triggered.
+
+### Public result return
+
+The merged reproducible result was returned to the originating Reddit
+discussion:
+
+- [HandoffProbe public result return](https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/)
+
+The reply links the immutable execution record and deterministic test, explains
+the observed request-mutation behavior, preserves the local/synthetic
+limitations, and explicitly invites correction or counter-evidence.
+
+### Current external-review state
+
+External response to the returned HandoffProbe result:
+
+**PENDING**
+
+No substantive external response has been recorded as of this closeout.
+
+The public result return itself is **not** external confirmation.
+
+Silence must not be interpreted as agreement.
+
+This item therefore remains an **Open research follow-up**.
+
+### Limitations
+
+This result does not establish:
+
+- an x402 protocol vulnerability;
+- a vulnerability in `real-estate-x402`;
+- a Cloudflare Agents vulnerability;
+- a facilitator vulnerability;
+- successful live payment settlement;
+- successful Base Sepolia execution;
+- that every x402 payment must bind every MCP application argument;
+- production-world behavior;
+- external reproduction or confirmation;
+- a new stable HandoffProbe attack.
+
+No wallet, private key, testnet funds, real funds, public facilitator or public
+paid endpoint was used.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
@@ -705,6 +837,7 @@ Current examples include:
 - Reddit R-1 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-3 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
+- Reddit R-4 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - MCP #3354 has a reproducible public result return with external post-result author response still pending.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
