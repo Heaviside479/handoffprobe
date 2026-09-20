@@ -1587,6 +1587,35 @@ The local feasibility probe produced two byte-identical `handoffprobe@0.4.0`
 tarballs from separate clean source trees. P11.3 promotes that property into a
 mandatory Release Candidate gate.
 
+### P11.4 — release SBOM and provenance boundary
+
+Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+
+- [x] define the release SBOM as SPDX 2.3 for the package-lock runtime graph;
+- [x] omit development-only dependencies from the release SBOM;
+- [x] verify required direct runtime packages are represented;
+- [x] identify raw npm SBOM nondeterminism as `creationInfo` and
+  `documentNamespace`;
+- [x] preserve npm-generated SPDX document identity and creation metadata;
+- [x] derive a deterministic dependency comparison projection that excludes only
+  `creationInfo.created` and `documentNamespace`;
+- [x] pin Release Candidate npm to `11.19.1`, matching the stage workflow;
+- [x] generate two release SBOMs and require their dependency comparison
+  projections to be byte-identical;
+- [x] retain the merged-main SBOM as a short-lived workflow artifact;
+- [x] keep npm publication provenance tied to the actual Trusted Publishing
+  path rather than temporary candidate artifacts;
+- [x] keep staging, publication, tag creation and GitHub Release creation
+  outside this gate;
+- [ ] pass the implementation through protected pull-request validation;
+- [ ] merge the implementation through normal branch protection;
+- [ ] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.
+
+Evidence: `docs/P11_4_RELEASE_SBOM_PROVENANCE_20260920.md`.
+
+The first future public package after `0.4.0` must separately verify the npm
+provenance produced by its real Trusted Publishing path.
+
 ## Exit gate
 
 No known Critical or High HandoffProbe defect.
