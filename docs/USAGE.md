@@ -329,6 +329,10 @@ Neither HandoffProbe v0.4.0 nor the historical v0.3.0 release is a generic inter
 ## More documentation
 
 - [`INSTALLATION.md`](INSTALLATION.md) — installation and public package execution
+- [`UPGRADING.md`](UPGRADING.md) — safe version updates and verification
+- [`MIGRATION.md`](MIGRATION.md) — public-contract migration guidance
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) — CLI, configuration and CI troubleshooting
+- [`FAQ.md`](FAQ.md) — common product and usage questions
 - [`ATTACK_CATALOG.md`](ATTACK_CATALOG.md) — stable attack catalog
 - [`CLI_SPECIFICATION.md`](CLI_SPECIFICATION.md) — CLI contract
 - [`GITHUB_INTEGRATION_SPECIFICATION.md`](GITHUB_INTEGRATION_SPECIFICATION.md) — action and CI contract

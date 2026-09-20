@@ -1563,7 +1563,7 @@ The first live stage requires a separately admitted future release version.
 Status: **COMPLETE — 2026-09-20**
 
 - [x] define the reproducibility boundary as isolated repeated builds of the
-  exact candidate commit inside one Release Candidate environment;
+      exact candidate commit inside one Release Candidate environment;
 - [x] create two independent source trees from the exact `GITHUB_SHA`;
 - [x] run independent `npm ci` and `npm pack` operations;
 - [x] compare SHA-256 digests of both rebuilt npm tarballs;
@@ -1571,7 +1571,7 @@ Status: **COMPLETE — 2026-09-20**
 - [x] require the normal Release Candidate tarball to match the isolated rebuild;
 - [x] compare sorted npm package manifests;
 - [x] keep publication, staging, version changes and release creation outside
-  this gate;
+      this gate;
 - [x] pass the implementation through protected pull-request validation;
   - Evidence: PR #161 passed all six checks, including the Release Candidate gate.
 - [x] merge the implementation through normal branch protection;
@@ -1595,18 +1595,18 @@ Status: **COMPLETE**
 - [x] omit development-only dependencies from the release SBOM;
 - [x] verify required direct runtime packages are represented;
 - [x] identify raw npm SBOM nondeterminism as `creationInfo` and
-  `documentNamespace`;
+      `documentNamespace`;
 - [x] preserve npm-generated SPDX document identity and creation metadata;
 - [x] derive a deterministic dependency comparison projection that excludes only
-  `creationInfo.created` and `documentNamespace`;
+      `creationInfo.created` and `documentNamespace`;
 - [x] pin Release Candidate npm to `11.19.1`, matching the stage workflow;
 - [x] generate two release SBOMs and require their dependency comparison
-  projections to be byte-identical;
+      projections to be byte-identical;
 - [x] retain the merged-main SBOM as a short-lived workflow artifact;
 - [x] keep npm publication provenance tied to the actual Trusted Publishing
-  path rather than temporary candidate artifacts;
+      path rather than temporary candidate artifacts;
 - [x] keep staging, publication, tag creation and GitHub Release creation
-  outside this gate;
+      outside this gate;
 - [x] pass the implementation through protected pull-request validation;
 - [x] merge the implementation through normal branch protection;
 - [x] verify release-SBOM generation and the deterministic dependency fingerprint from merged `main`.
@@ -1615,6 +1615,27 @@ Evidence: `docs/P11_4_RELEASE_SBOM_PROVENANCE_20260920.md`.
 
 The first future public package after `0.4.0` must separately verify the npm
 provenance produced by its real Trusted Publishing path.
+
+### P11.5 — release user guidance
+
+Status: **IMPLEMENTATION CANDIDATE — protected validation pending**
+
+- [x] provide a dedicated user-facing upgrade guide;
+- [x] provide a dedicated migration guide grounded in the versioned-contract policy;
+- [x] provide a dedicated troubleshooting guide;
+- [x] provide a product and usage FAQ;
+- [x] keep current `handoffprobe@0.4.0` compatibility and release facts explicit;
+- [x] link the guides from the root README and documentation index;
+- [x] cross-link the guides from installation and usage documentation;
+- [x] add automated documentation coverage for guide presence, navigation and release boundaries;
+- [ ] pass protected pull-request validation;
+- [ ] merge through normal branch protection.
+
+Evidence: `docs/P11_5_RELEASE_USER_GUIDANCE_20260920.md`.
+
+P11.5 changes documentation and documentation regression coverage only. It does
+not change the package version, runtime behavior, stable attack corpus,
+protocol baseline or publication state.
 
 ## Exit gate
 
