@@ -2169,7 +2169,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Four public community-supplied MCP handoff cases are tracked: R-1, R-2 and R-3 have completed deterministic execution, admission and public result return; R-4 is frozen at intake pending protocol-semantics and overlap review; substantive external responses remain pending.
+Four public community-supplied MCP handoff cases are tracked: R-1, R-2, R-3 and R-4 have completed deterministic execution, admission and public result return; substantive external responses remain pending.
 
 Detailed queue:
 
@@ -2245,7 +2245,7 @@ Research-candidate index:
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/
   - supplied repository: https://github.com/Zak-bo/real-estate-x402
   - frozen external commit: `4e99e87da0ccdf3ddcf067958de6b59eb4134414`;
-  - status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**;
+  - status: **PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING**;
   - verified semantic boundary: x402 payment verification binds payment terms
     but does not automatically bind every MCP application argument;
   - exact locked packages inspected: `agents@0.21.0`,
@@ -2259,6 +2259,10 @@ Research-candidate index:
     as `EXPECTED X402-ONLY SEMANTICS`;
   - local execution: explicit request binding `MISMATCH` / effect `0`;
   - focused R-4 execution: `5/5` tests passed;
+  - merged execution commit: `d012c506a6e44680fb649ff8ab64fb32f41a9bae`;
+  - public result return: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/
+  - evidence level: **Open research follow-up**;
+  - external response state: **PENDING**;
   - no vulnerability conclusion has been made;
   - no live payment has been made;
   - live/testnet payment execution is explicitly outside the R-4 research boundary;

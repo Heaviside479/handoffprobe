@@ -1,16 +1,16 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 local execution complete; external responses pending.**
+Status: **ACTIVE — R-1, R-2, R-3 and R-4 public results returned; external responses pending.**
 
 ## Purpose
 
-Preserve three concrete community-supplied MCP handoff edge cases without prematurely creating stable attack IDs or mixing them with unrelated research tracks.
+Preserve four concrete community-supplied MCP handoff edge cases without prematurely creating stable attack IDs or mixing them with unrelated research tracks.
 
 Public source thread:
 
 https://www.reddit.com/r/mcp/comments/1wjq57h/i_maintain_handoffprobe_give_me_an_mcp_handoff/
 
-The three cases must remain separate during overlap analysis, deterministic execution, admission and public result return.
+The four cases must remain separate during overlap analysis, deterministic execution, admission and public result return.
 
 No package version change, stable-attack count change or release is authorized by this queue.
 
@@ -1113,7 +1113,7 @@ Silence is not agreement or confirmation.
 
 # R-4 — x402 paid-retry binding / request mutation after 402
 
-Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — PROTOCOL SEMANTICS / NO ADD; external response PENDING.**
 
 Originating Reddit author:
 
@@ -1655,6 +1655,51 @@ Agents or the supplied external project.
 `EVIDENCE.md` remains unchanged until the reproducible result is merged and
 returned publicly.
 
+## R-4 public result return — 2026-09-20
+
+Merged execution commit:
+
+`d012c506a6e44680fb649ff8ab64fb32f41a9bae`
+
+Immutable execution record:
+
+https://github.com/Heaviside479/handoffprobe/blob/d012c506a6e44680fb649ff8ab64fb32f41a9bae/docs/REDDIT_R4_X402_PAYMENT_BINDING_EXECUTION_20260920.md
+
+Immutable execution test:
+
+https://github.com/Heaviside479/handoffprobe/blob/d012c506a6e44680fb649ff8ab64fb32f41a9bae/tests/reddit-r4-x402-payment-binding-execution.test.ts
+
+The merged R-4 result was returned to the originating Reddit discussion:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/
+
+The public reply reports:
+
+- the unchanged paid retry accepted the synthetic payment proof and dispatched;
+- changing only the property from `property:A` to `property:B` while preserving
+  the same payment terms/proof also dispatched under x402-only semantics;
+- that result is explicitly classified as `EXPECTED X402-ONLY SEMANTICS`, not
+  as an x402 vulnerability;
+- the explicit request-bound composition control accepted the payment terms
+  but detected request-binding `MISMATCH` and blocked dispatch;
+- no wallet, testnet funds or live payment was used;
+- no claim of real payment settlement or vulnerability in the supplied project
+  was made;
+- correction or counter-evidence from the originating developer was explicitly
+  invited.
+
+External response state:
+
+**PENDING**
+
+No substantive response to the returned R-4 result has been recorded yet.
+
+The public result return itself is not external confirmation.
+
+Silence must not be interpreted as agreement or confirmation.
+
+`EVIDENCE.md` records R-4 at **Open research follow-up** only.
+
 ## R-4 gates
 
 - [x] originating thread, author and exact supplied comment text recorded;
@@ -1672,10 +1717,11 @@ returned publicly.
 - [x] implement deterministic positive and negative controls;
 - [x] reproduce and measure payment/dispatch/effect behavior;
 - [x] complete normal admission decision;
-- [ ] merge immutable execution evidence;
-- [ ] return the concrete result to the originating Reddit discussion;
+- [x] merge immutable execution evidence;
+- [x] return the concrete result to the originating Reddit discussion;
+- [x] external response state recorded as PENDING;
 - [ ] classify substantive external response if one arrives;
-- [ ] make the `EVIDENCE.md` inclusion/promotion decision.
+- [x] make the `EVIDENCE.md` inclusion/promotion decision at Open research follow-up.
 
 ---
 

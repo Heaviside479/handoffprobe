@@ -1,6 +1,6 @@
 # Reddit R-4 x402 paid-retry request-binding execution — 2026-09-20
 
-Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**
+Status: **PUBLIC RESULT RETURN COMPLETE — PROTOCOL SEMANTICS / NO ADD; external response PENDING.**
 
 ## Purpose
 
@@ -278,15 +278,56 @@ It does not establish:
 
 The public result must preserve those limitations.
 
-## Next gate
+## Public result return
 
-Before returning the result to Reddit:
+Merged execution commit:
 
-1. run repository regression validation;
-2. merge the immutable execution result;
-3. record the merged commit;
-4. return the concrete result to the originating Reddit comment;
-5. record the public result URL and external-response state;
-6. decide the appropriate `EVIDENCE.md` level.
+`d012c506a6e44680fb649ff8ab64fb32f41a9bae`
 
-Until that public return is complete, `EVIDENCE.md` remains unchanged.
+Immutable execution record:
+
+https://github.com/Heaviside479/handoffprobe/blob/d012c506a6e44680fb649ff8ab64fb32f41a9bae/docs/REDDIT_R4_X402_PAYMENT_BINDING_EXECUTION_20260920.md
+
+Immutable execution test:
+
+https://github.com/Heaviside479/handoffprobe/blob/d012c506a6e44680fb649ff8ab64fb32f41a9bae/tests/reddit-r4-x402-payment-binding-execution.test.ts
+
+Public result-return comment:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pay1b51/
+
+The public reply preserves the measured local result and explicitly states that:
+
+- no live payment was attempted;
+- the x402-only mutation result is expected protocol semantics rather than a
+  vulnerability finding;
+- an explicit application-level request binding blocks the changed-property
+  retry before dispatch;
+- the result does not establish a vulnerability in x402, Cloudflare Agents or
+  `real-estate-x402`;
+- correction or counter-evidence was invited from the originating developer.
+
+## Current external-review state
+
+External response to the returned HandoffProbe result:
+
+**PENDING**
+
+The public result return itself is not external confirmation.
+
+Silence must not be interpreted as agreement or confirmation.
+
+The strongest demonstrated evidence level is therefore:
+
+**Open research follow-up**
+
+No new stable attack is added.
+
+Stable public corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+The only remaining R-4 follow-up is to classify any substantive external
+response if one arrives.
