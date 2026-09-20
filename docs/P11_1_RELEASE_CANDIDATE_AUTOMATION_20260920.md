@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IMPLEMENTATION CANDIDATE — protected PR validation pending**
+Status: **COMPLETE — 2026-09-20**
 
 ## Purpose
 
@@ -72,13 +72,25 @@ The current public version remains `handoffprobe@0.4.0`.
 A later Phase 11 publication workflow must remain separately gated by an
 evidence-backed version decision and explicit release authorization.
 
+## Completion evidence
+
+P11.1 completed on 2026-09-20.
+
+- Local validation passed with 119 test files / 592 tests, the full repository
+  quality gate and package validation.
+- Protected implementation PR #153 passed all six checks, including the new
+  `Release Candidate` job.
+- PR #153 merged normally as
+  `5b48eb953a3005b338208896a607fa7e7afb37a3`.
+- The feature branch was removed locally and remotely after the merge.
+- Release Candidate workflow run `35501202431` was dispatched manually from
+  `main` at that exact merge commit and completed successfully.
+- The `main` verification passed repository quality gates, built and inspected
+  the npm tarball, installed and executed the exact candidate and confirmed a
+  clean repository worktree.
+- The public package remains `handoffprobe@0.4.0`; this closeout does not
+  authorize or perform publication.
+
 ## Completion gate
 
-P11.1 is complete only after:
-
-- local repository validation passes;
-- the workflow passes on its protected pull request;
-- the candidate is merged normally;
-- the workflow is verified from `main`.
-
-Until then this record remains an implementation candidate.
+All P11.1 completion requirements are satisfied.

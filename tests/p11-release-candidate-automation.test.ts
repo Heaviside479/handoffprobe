@@ -44,13 +44,20 @@ describe('P11.1 release-candidate automation', () => {
   });
 
   it('records the candidate state without changing the public release', () => {
-    expect(record).toContain(
-      'Status: **IMPLEMENTATION CANDIDATE — protected PR validation pending**',
-    );
+    expect(record).toContain('Status: **COMPLETE — 2026-09-20**');
+    expect(record).toContain('Protected implementation PR #153 passed all six checks');
+    expect(record).toContain('35501202431');
+    expect(record).toContain('5b48eb953a3005b338208896a607fa7e7afb37a3');
     expect(record).toContain('The current public version remains `handoffprobe@0.4.0`.');
     expect(record).toContain('It is **not publication authorization**.');
     expect(roadmap).toContain('Status: **ACTIVE — release engineering started 2026-09-20.**');
     expect(roadmap).toContain('### P11.1 — non-publishing release-candidate automation');
+    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-20**');
+    expect(roadmap).toContain(
+      '- [x] pass the workflow on its protected implementation pull request;',
+    );
+    expect(roadmap).toContain('- [x] merge the workflow through normal branch protection;');
+    expect(roadmap).toContain('- [x] verify the workflow from `main`.');
     expect(index).toContain(
       '[`P11_1_RELEASE_CANDIDATE_AUTOMATION_20260920.md`](P11_1_RELEASE_CANDIDATE_AUTOMATION_20260920.md)',
     );
