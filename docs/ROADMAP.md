@@ -1558,6 +1558,30 @@ returned an empty staged-package list, while public `latest` remained
 
 The first live stage requires a separately admitted future release version.
 
+### P11.3 — reproducible release artifact validation
+
+Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+
+- [x] define the reproducibility boundary as isolated repeated builds of the
+  exact candidate commit inside one Release Candidate environment;
+- [x] create two independent source trees from the exact `GITHUB_SHA`;
+- [x] run independent `npm ci` and `npm pack` operations;
+- [x] compare SHA-256 digests of both rebuilt npm tarballs;
+- [x] require both rebuilt tarballs to be byte-identical;
+- [x] require the normal Release Candidate tarball to match the isolated rebuild;
+- [x] compare sorted npm package manifests;
+- [x] keep publication, staging, version changes and release creation outside
+  this gate;
+- [ ] pass the implementation through protected pull-request validation;
+- [ ] merge the implementation through normal branch protection;
+- [ ] verify the reproducibility gate from merged `main`.
+
+Evidence: `docs/P11_3_REPRODUCIBLE_RELEASE_ARTIFACT_20260920.md`.
+
+The local feasibility probe produced two byte-identical `handoffprobe@0.4.0`
+tarballs from separate clean source trees. P11.3 promotes that property into a
+mandatory Release Candidate gate.
+
 ## Exit gate
 
 No known Critical or High HandoffProbe defect.
