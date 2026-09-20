@@ -198,7 +198,7 @@ Current position:
 - no new stable attack ID or release is triggered.
 ## RC-5 — Reddit x402 paid-retry binding after 402
 
-Status: **RECORDED / X402 SEMANTICS + OVERLAP FROZEN / LOCAL FIXTURE PENDING**
+Status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**
 
 Detailed queue:
 
@@ -246,9 +246,20 @@ Current position:
 - package remains `0.4.0`;
 - no release is triggered.
 
+Local execution result:
+
+- unchanged paid retry: payment `ACCEPT`, dispatch allowed, protected-effect delta `1`;
+- x402-only property mutation: payment `ACCEPT`, dispatch allowed,
+  protected-effect delta `1`, labelled `EXPECTED X402-ONLY SEMANTICS`;
+- explicit request-bound composition: payment `ACCEPT`, request binding
+  `MISMATCH`, dispatch blocked, protected-effect delta `0`;
+- focused execution: `5/5` tests passed;
+- final admission remains **PROTOCOL SEMANTICS / NO ADD**;
+- no wallet, payment, testnet or public endpoint was used.
+
 Next gate:
 
-`deterministic local fixture → measured result → final admission`
+`merge immutable execution result → Reddit result return → evidence decision`
 
 Live/public/testnet payment execution is outside this candidate's research boundary.
 R-4 must use deterministic local/synthetic payment semantics only.

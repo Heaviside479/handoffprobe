@@ -2245,7 +2245,7 @@ Research-candidate index:
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/
   - supplied repository: https://github.com/Zak-bo/real-estate-x402
   - frozen external commit: `4e99e87da0ccdf3ddcf067958de6b59eb4134414`;
-  - status: **X402 SEMANTICS + OVERLAP FROZEN / PROTOCOL SEMANTICS / NO ADD / LOCAL FIXTURE PENDING**;
+  - status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**;
   - verified semantic boundary: x402 payment verification binds payment terms
     but does not automatically bind every MCP application argument;
   - exact locked packages inspected: `agents@0.21.0`,
@@ -2254,6 +2254,11 @@ Research-candidate index:
   - final pre-implementation classification: **PROTOCOL SEMANTICS / NO ADD**;
   - deterministic fixture frozen with unchanged-retry, x402-only mutated-retry
     and explicit request-bound composition controls;
+  - local execution: unchanged retry payment `ACCEPT` / effect `1`;
+  - local execution: x402-only property mutation payment `ACCEPT` / effect `1`
+    as `EXPECTED X402-ONLY SEMANTICS`;
+  - local execution: explicit request binding `MISMATCH` / effect `0`;
+  - focused R-4 execution: `5/5` tests passed;
   - no vulnerability conclusion has been made;
   - no live payment has been made;
   - live/testnet payment execution is explicitly outside the R-4 research boundary;
