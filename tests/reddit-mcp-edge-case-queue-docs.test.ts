@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all four community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 semantics/overlap frozen; external responses pending.**',
+      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 local execution complete; external responses pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -100,7 +100,7 @@ describe('Reddit MCP edge-case research queue', () => {
 
   it('freezes R-4 x402 semantics and overlap before local execution', () => {
     expect(queue).toContain(
-      'Status: **PRE-IMPLEMENTATION FROZEN — X402 PAYMENT SEMANTICS VERIFIED / NO ADD; local fixture pending.**',
+      'Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**',
     );
     expect(queue).toContain('`agents@0.21.0`');
     expect(queue).toContain('`@x402/core@2.24.0`');
@@ -129,7 +129,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain('## RC-5 — Reddit x402 paid-retry binding after 402');
     expect(candidates).toContain(
-      'Status: **RECORDED / X402 SEMANTICS + OVERLAP FROZEN / LOCAL FIXTURE PENDING**',
+      'Status: **LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING**',
     );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
@@ -148,7 +148,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
     expect(roadmap).toContain(
-      'X402 SEMANTICS + OVERLAP FROZEN / PROTOCOL SEMANTICS / NO ADD / LOCAL FIXTURE PENDING',
+      'LOCAL EXECUTION COMPLETE / PROTOCOL SEMANTICS / NO ADD / MERGE + PUBLIC RESULT PENDING',
     );
   });
 

@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 semantics/overlap frozen; external responses pending.**
+Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 local execution complete; external responses pending.**
 
 ## Purpose
 
@@ -1113,7 +1113,7 @@ Silence is not agreement or confirmation.
 
 # R-4 — x402 paid-retry binding / request mutation after 402
 
-Status: **PRE-IMPLEMENTATION FROZEN — X402 PAYMENT SEMANTICS VERIFIED / NO ADD; local fixture pending.**
+Status: **LOCAL EXECUTION COMPLETE — PROTOCOL SEMANTICS / NO ADD; merge and public result return pending.**
 
 Originating Reddit author:
 
@@ -1590,6 +1590,71 @@ The fixture must measure separately:
 4. MCP callback dispatch;
 5. protected-effect delta.
 
+## Local execution result — 2026-09-20
+
+Execution test:
+
+`tests/reddit-r4-x402-payment-binding-execution.test.ts`
+
+Execution record:
+
+`docs/REDDIT_R4_X402_PAYMENT_BINDING_EXECUTION_20260920.md`
+
+Observed unchanged paid retry:
+
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- effective property: `property:A`;
+- protected dispatch: allowed;
+- protected-effect delta: `1`.
+
+Observed x402-only mutated retry:
+
+- property changes from `property:A` to `property:B`;
+- payment terms remain unchanged;
+- synthetic payment proof remains unchanged;
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- explicit application request binding: not required;
+- protected dispatch: allowed;
+- protected-effect delta: `1`;
+- result label: `EXPECTED X402-ONLY SEMANTICS`.
+
+Observed explicit request-bound composition control:
+
+- property changes from `property:A` to `property:B`;
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- application request binding: `MISMATCH`;
+- protected dispatch: blocked;
+- protected-effect delta: `0`.
+
+Focused execution:
+
+- `5/5` R-4 tests passed;
+- all three scenario summaries reproduced deterministically.
+
+Post-execution admission remains:
+
+**PROTOCOL SEMANTICS / NO ADD**
+
+No new stable attack ID is added.
+
+Stable public corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+No wallet, private key, blockchain, testnet funds, real funds, public
+facilitator or public paid endpoint was used.
+
+This local result does not establish a vulnerability in x402, Cloudflare
+Agents or the supplied external project.
+
+`EVIDENCE.md` remains unchanged until the reproducible result is merged and
+returned publicly.
+
 ## R-4 gates
 
 - [x] originating thread, author and exact supplied comment text recorded;
@@ -1604,9 +1669,9 @@ The fixture must measure separately:
 - [x] verify x402 protocol/library payment-binding semantics;
 - [x] complete final overlap review;
 - [x] freeze the minimal deterministic fixture;
-- [ ] implement deterministic positive and negative controls;
-- [ ] reproduce and measure payment/dispatch/effect behavior;
-- [ ] complete normal admission decision;
+- [x] implement deterministic positive and negative controls;
+- [x] reproduce and measure payment/dispatch/effect behavior;
+- [x] complete normal admission decision;
 - [ ] merge immutable execution evidence;
 - [ ] return the concrete result to the originating Reddit discussion;
 - [ ] classify substantive external response if one arrives;
