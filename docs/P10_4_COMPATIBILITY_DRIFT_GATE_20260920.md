@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **COMPLETE CANDIDATE — local validation passed 2026-09-20**
+Status: **COMPLETE CANDIDATE — protected PR admission passed 2026-09-20**
 
 ## Purpose
 
@@ -70,7 +70,8 @@ than a documentation-only warning.
 - the gate remains wired into the normal repository check.
 
 The candidate was locally validated with the full repository check and package
-dry-run before PR admission.
+dry-run before PR admission. PR #151 then passed all five required admission
+checks: HandoffProbe, Dependency Review and Linux/macOS/Windows Quality.
 
 ## Scope
 
@@ -90,5 +91,5 @@ Every currently claimed supported runtime/platform combination has an explicit
 verification path, and unsupported compatibility drift is now a visible
 repository/CI failure.
 
-P10.4 is complete once this candidate passes the normal protected PR admission
-checks and is merged.
+The P10.4 closeout candidate has passed protected PR admission and is ready to
+become repository truth through the normal merge of PR #151.
