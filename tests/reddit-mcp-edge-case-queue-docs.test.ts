@@ -10,7 +10,7 @@ const evidence = readFileSync('EVIDENCE.md', 'utf8');
 describe('Reddit MCP edge-case research queue', () => {
   it('tracks all four community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 intake frozen; external responses pending.**',
+      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 semantics/overlap frozen; external responses pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -22,9 +22,7 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(queue).toContain('# R-4 — x402 paid-retry binding / request mutation after 402');
     expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
     expect(queue).toContain('`4e99e87da0ccdf3ddcf067958de6b59eb4134414`');
-    expect(queue).toContain(
-      '**RESEARCH CANDIDATE — DISTINCTNESS / X402 REQUEST-BINDING SEMANTICS UNRESOLVED**',
-    );
+    expect(queue).toContain('**PROTOCOL SEMANTICS / NO ADD**');
     expect(queue).toContain('A live x402 payment is outside the R-4 research boundary.');
     expect(queue).toContain('All R-4 execution must remain local and synthetic.');
     expect(queue).toContain('Current stable public corpus: **23 attacks**.');
@@ -100,12 +98,39 @@ describe('Reddit MCP edge-case research queue', () => {
     );
   });
 
+  it('freezes R-4 x402 semantics and overlap before local execution', () => {
+    expect(queue).toContain(
+      'Status: **PRE-IMPLEMENTATION FROZEN — X402 PAYMENT SEMANTICS VERIFIED / NO ADD; local fixture pending.**',
+    );
+    expect(queue).toContain('`agents@0.21.0`');
+    expect(queue).toContain('`@x402/core@2.24.0`');
+    expect(queue).toContain('`@x402/evm@2.24.0`');
+    expect(queue).toContain(
+      'It does not by itself establish a cryptographic or protocol-level binding',
+    );
+    expect(queue).toContain(
+      '### HP-APPROVAL-001 — adjacent when explicit request consent exists, not governing here',
+    );
+    expect(queue).toContain('## Final pre-implementation classification');
+    expect(queue).toContain('**PROTOCOL SEMANTICS / NO ADD**');
+    expect(queue).toContain('### Positive control — unchanged paid retry');
+    expect(queue).toContain('### Protocol-only mutation control');
+    expect(queue).toContain('`EXPECTED X402-ONLY SEMANTICS`');
+    expect(queue).toContain('### Request-bound composition control');
+    expect(queue).toContain('- [x] verify x402 protocol/library payment-binding semantics;');
+    expect(queue).toContain('- [x] complete final overlap review;');
+    expect(queue).toContain('- [x] freeze the minimal deterministic fixture;');
+    expect(queue).toContain('Stable public corpus remains **23 attacks**.');
+  });
+
   it('records all Reddit tracks in the research-candidate index and main roadmap', () => {
     expect(candidates).toContain('## RC-2 — Reddit MCP reconnect token-rotation refinement');
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
     expect(candidates).toContain('## RC-5 — Reddit x402 paid-retry binding after 402');
-    expect(candidates).toContain('Status: **RECORDED / INTAKE FROZEN / OVERLAP REVIEW PENDING**');
+    expect(candidates).toContain(
+      'Status: **RECORDED / X402 SEMANTICS + OVERLAP FROZEN / LOCAL FIXTURE PENDING**',
+    );
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
@@ -122,7 +147,9 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
-    expect(roadmap).toContain('INTAKE FROZEN / PROTOCOL SEMANTICS + OVERLAP REVIEW PENDING');
+    expect(roadmap).toContain(
+      'X402 SEMANTICS + OVERLAP FROZEN / PROTOCOL SEMANTICS / NO ADD / LOCAL FIXTURE PENDING',
+    );
   });
 
   it('records R-1, R-2 and R-3 as open research after public result return', () => {

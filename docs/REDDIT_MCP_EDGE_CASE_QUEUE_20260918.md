@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 intake frozen; external responses pending.**
+Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 semantics/overlap frozen; external responses pending.**
 
 ## Purpose
 
@@ -1113,7 +1113,7 @@ Silence is not agreement or confirmation.
 
 # R-4 — x402 paid-retry binding / request mutation after 402
 
-Status: **INTAKE FROZEN — PROTOCOL SEMANTICS / OVERLAP REVIEW PENDING; no execution yet.**
+Status: **PRE-IMPLEMENTATION FROZEN — X402 PAYMENT SEMANTICS VERIFIED / NO ADD; local fixture pending.**
 
 Originating Reddit author:
 
@@ -1300,9 +1300,150 @@ Before execution:
 
 A live x402 payment is outside the R-4 research boundary.
 
-## Intake classification
+## Verified x402 / implementation semantics
 
-**RESEARCH CANDIDATE — DISTINCTNESS / X402 REQUEST-BINDING SEMANTICS UNRESOLVED**
+The supplied implementation is frozen at:
+
+`4e99e87da0ccdf3ddcf067958de6b59eb4134414`
+
+Its lockfile resolves the relevant packages to:
+
+- `agents@0.21.0`;
+- `@x402/core@2.24.0`;
+- `@x402/evm@2.24.0`.
+
+Exact published-package inspection was performed against those versions.
+
+For `agents@0.21.0`, the paid-tool wrapper:
+
+1. builds payment requirements from the configured scheme, recipient, price
+   and network;
+2. describes the MCP resource as `x402://<tool-name>`;
+3. reads the payment token from MCP `_meta["x402/payment"]` or the supported
+   HTTP payment headers;
+4. decodes the x402 payment payload;
+5. finds payment requirements matching the supplied payment payload;
+6. verifies the payment;
+7. only after successful verification invokes the MCP callback with the
+   arguments supplied on the paid retry;
+8. settles only after a successful callback result.
+
+The supplied example client:
+
+- sends one `analyze_property` request;
+- receives the x402 payment requirement;
+- creates a payment payload directly;
+- contains no separate user-confirmation or request-approval object;
+- retries using the same request object plus `_meta["x402/payment"]`.
+
+For x402 v2, the payment-requirement shape contains payment terms such as:
+
+- scheme;
+- network;
+- amount;
+- asset;
+- recipient;
+- timeout;
+- scheme-specific extra data.
+
+The MCP tool arguments are not themselves fields of the x402 v2 payment
+requirements.
+
+The payment-requirement matching layer therefore establishes payment-term
+compatibility.
+
+It does not by itself establish a cryptographic or protocol-level binding
+between the payment proof and every MCP application argument.
+
+This is an important semantic boundary.
+
+It is not, by itself, evidence of an x402 vulnerability.
+
+A paid service may intentionally charge the same price for any valid argument
+set accepted by one paid tool.
+
+An application that requires stronger request-specific consent must add that
+binding at the application/composition layer.
+
+## Final pre-implementation overlap decision
+
+### HP-APPROVAL-001 — adjacent when explicit request consent exists, not governing here
+
+`HP-APPROVAL-001 — Payload mutation after consent` protects this invariant:
+
+> Security-sensitive fields covered by approval must remain bound to the
+> executed action.
+
+That invariant becomes directly relevant if an application explicitly treats
+a payment confirmation or separate user decision as approval for one exact
+MCP argument set.
+
+The supplied R-4 implementation does not establish such an approval object.
+
+Its example client creates the payment payload directly after receiving the
+payment requirement.
+
+Therefore R-4 must not silently reinterpret payment authorization as
+application-level consent.
+
+`HP-APPROVAL-001` is an important composition analogy but is not the governing
+stable attack for the supplied implementation.
+
+### HP-APPROVAL-002 / HP-APPROVAL-003 — not governing
+
+The primary R-4 fixture does not contain:
+
+- approval issued for one tool and reused for another; or
+- resource-bound approval reused for another resource.
+
+Tool substitution remains outside the primary fixture.
+
+### HP-REPLAY-002 — not governing the primary fixture
+
+The first R-4 fixture stays inside one deterministic pre-settlement paid-retry
+flow.
+
+It does not move a completed payment authority into another run or independent
+execution context.
+
+Cross-context reuse remains a separate possible follow-up.
+
+### HP-TARGET-001 — deliberately not assumed
+
+Changing the analyzed property is not automatically unauthorized.
+
+The supplied `analyze_property` tool is read-only and charges one fixed tool
+price.
+
+R-4 therefore must not manufacture a target-authorization failure merely
+because the property argument changes.
+
+If a real application independently constrains which properties may be
+analyzed, ordinary target authorization remains a separate layer.
+
+### HP-REPLAY-001 / HP-REPLAY-003 — excluded from the primary fixture
+
+The primary fixture stops at one pre-settlement payment-proof use.
+
+It does not test:
+
+- reuse after successful settlement;
+- duplicate settlement;
+- duplicate protected execution after an ambiguous retry.
+
+Those are separate replay questions.
+
+## Final pre-implementation classification
+
+**PROTOCOL SEMANTICS / NO ADD**
+
+The demonstrated semantic boundary is:
+
+> x402 payment verification establishes payment authorization for matching
+> payment terms; it does not automatically promise that every application
+> argument is request-bound.
+
+That result does not create a new stable HandoffProbe security invariant.
 
 No new stable `HP-*` ID is reserved.
 
@@ -1312,7 +1453,142 @@ Package remains `0.4.0`.
 
 No release is triggered.
 
-`EVIDENCE.md` remains unchanged at intake.
+`EVIDENCE.md` remains unchanged before deterministic execution and public
+result return.
+
+## Frozen deterministic R-4 representation
+
+The local fixture must use HandoffProbe only.
+
+It must not use:
+
+- a wallet;
+- a private key;
+- testnet funds;
+- real funds;
+- the public paid endpoint;
+- the public facilitator.
+
+### Synthetic payment terms
+
+Freeze one deterministic synthetic payment requirement:
+
+- scheme: `exact`;
+- network: `eip155:84532`;
+- amount: fixed synthetic amount;
+- asset: fixed synthetic token identifier;
+- recipient: fixed synthetic recipient;
+- timeout: fixed;
+- tool identity: `analyze_property`.
+
+The synthetic proof represents:
+
+`PAYMENT TERMS VERIFIED`
+
+It does not represent:
+
+`EXACT MCP ARGUMENTS APPROVED`
+
+unless the composition layer explicitly adds that second invariant.
+
+### Request A
+
+Tool:
+
+`analyze_property`
+
+Arguments:
+
+- address: `property:A`;
+- condition: `average`;
+- purchase price: `175000`.
+
+Initial request:
+
+- no payment proof;
+- deterministic payment-required result;
+- protected-effect delta: `0`.
+
+### Positive control — unchanged paid retry
+
+Retry request:
+
+- same tool;
+- exact same arguments as request A;
+- valid synthetic payment proof for the frozen payment terms.
+
+Expected:
+
+- payment-term match: `MATCH`;
+- synthetic verification: `ACCEPT`;
+- callback dispatch: allowed;
+- executed property: `property:A`;
+- protected-effect delta: `1`.
+
+### Protocol-only mutation control
+
+Before the paid retry, change exactly one application argument:
+
+- address: `property:A` → `property:B`.
+
+Keep unchanged:
+
+- tool;
+- price/payment amount;
+- asset;
+- recipient;
+- network;
+- synthetic payment proof.
+
+Expected under x402-only payment semantics:
+
+- payment-term match: `MATCH`;
+- synthetic verification: `ACCEPT`;
+- callback dispatch: allowed;
+- executed property: `property:B`;
+- protected-effect delta: `1`.
+
+This result must be labelled:
+
+`EXPECTED X402-ONLY SEMANTICS`
+
+It must not be labelled a vulnerability.
+
+### Request-bound composition control
+
+Add an explicit synthetic application-layer request binding for request A.
+
+The binding covers the exact security-relevant MCP argument set.
+
+Retry with `property:B` while preserving A's binding.
+
+Expected:
+
+- payment-term match: `MATCH`;
+- synthetic payment verification: `ACCEPT`;
+- application request binding: `MISMATCH`;
+- callback dispatch: blocked;
+- protected-effect delta: `0`.
+
+This control demonstrates the additional composition property an application
+would need if payment confirmation is intended to authorize one exact request.
+
+It does not claim that x402 itself promises that property.
+
+### Determinism requirement
+
+All fixture paths must be repeated and return identical summaries.
+
+No network request, clock-sensitive payment, wallet operation, blockchain
+operation or model-mediated decision is allowed.
+
+The fixture must measure separately:
+
+1. payment-term matching;
+2. synthetic payment verification;
+3. optional application request binding;
+4. MCP callback dispatch;
+5. protected-effect delta.
 
 ## R-4 gates
 
@@ -1325,9 +1601,9 @@ No release is triggered.
 - [x] no vulnerability claim made from source inspection alone;
 - [x] no new stable attack ID reserved;
 - [x] live payment explicitly excluded from intake;
-- [ ] verify x402 protocol/library payment-binding semantics;
-- [ ] complete final overlap review;
-- [ ] freeze the minimal deterministic fixture;
+- [x] verify x402 protocol/library payment-binding semantics;
+- [x] complete final overlap review;
+- [x] freeze the minimal deterministic fixture;
 - [ ] implement deterministic positive and negative controls;
 - [ ] reproduce and measure payment/dispatch/effect behavior;
 - [ ] complete normal admission decision;
