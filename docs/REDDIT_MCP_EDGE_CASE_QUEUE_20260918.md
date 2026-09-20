@@ -1,6 +1,6 @@
 # Reddit MCP edge-case research queue — 2026-09-18
 
-Status: **ACTIVE — R-1, R-2 and R-3 public results returned; external responses pending.**
+Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 intake frozen; external responses pending.**
 
 ## Purpose
 
@@ -1108,6 +1108,233 @@ Silence is not agreement or confirmation.
 - [x] external response state recorded as PENDING;
 - [ ] substantive response classified if one arrives;
 - [x] `EVIDENCE.md` inclusion/promotion decision completed at Open research follow-up.
+
+---
+
+# R-4 — x402 paid-retry binding / request mutation after 402
+
+Status: **INTAKE FROZEN — PROTOCOL SEMANTICS / OVERLAP REVIEW PENDING; no execution yet.**
+
+Originating Reddit author:
+
+`u/Emotional-One-5005`
+
+Canonical direct Reddit comment URL:
+
+https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/
+
+Exact supplied comment text:
+
+> https://github.com/Zak-bo/real-estate-x402
+>
+> Just an analyze property tool but I’d like to see if it calls back and if the 402 payment goes through
+
+The originating commenter explicitly supplied the public repository and asked
+for the property-analysis / HTTP-402 payment path to be tested.
+
+## External implementation snapshot
+
+Repository:
+
+https://github.com/Zak-bo/real-estate-x402
+
+Default branch at intake:
+
+`shaders`
+
+Frozen external source commit:
+
+`4e99e87da0ccdf3ddcf067958de6b59eb4134414`
+
+Immutable source snapshot:
+
+https://github.com/Zak-bo/real-estate-x402/tree/4e99e87da0ccdf3ddcf067958de6b59eb4134414
+
+Read-only inspection of that snapshot establishes only the implementation
+shape. It does not establish a vulnerability.
+
+Observed implementation facts:
+
+- the server wraps an MCP server with `withX402`;
+- paid tools are registered through `paidTool`;
+- the configured x402 network is Base Sepolia;
+- the configured facilitator is `https://x402.org/facilitator`;
+- `analyze_property` is priced at `0.08`;
+- the public README describes the payment currency as testnet USDC;
+- the example client first calls `analyze_property` without payment;
+- the client reads the returned `_meta["x402/error"]` payment requirement;
+- the client creates one x402 payment payload;
+- the paid retry reuses the same MCP request and adds
+  `_meta["x402/payment"]`;
+- the repository also contains a dedicated payment test client.
+
+The public README states that an end-to-end paid request has been tested by
+the project, but HandoffProbe has not independently verified that claim at
+R-4 intake.
+
+## Governing research question
+
+The primary question is not merely whether a normal x402 payment succeeds.
+
+The security-relevant question is:
+
+> When a payment requirement is issued for request A, what security-relevant
+> parts of request A remain bound to the payment proof when the client sends
+> the paid retry?
+
+Candidate binding dimensions include:
+
+- MCP tool identity;
+- tool arguments;
+- effective resource / property target;
+- quoted price;
+- payment recipient;
+- network;
+- payment requirement / challenge identity;
+- logical request or execution context.
+
+R-4 must distinguish protocol-defined x402 payment semantics from additional
+composition-level binding that an MCP application may need.
+
+No claim may be made that x402 itself requires argument-level or
+resource-level binding until the protocol/library semantics are verified.
+
+## Preliminary overlap
+
+### HP-REPLAY-002 — adjacent candidate
+
+`HP-REPLAY-002 — Cross-context / cross-run replay` establishes that authority
+bound to one explicit execution context must not automatically authorize
+another context.
+
+R-4 becomes replay-like if the same payment proof can be moved into a
+security-relevantly different request or context.
+
+It is not yet classified as an `HP-REPLAY-002` refinement because the x402
+payment proof's normative binding dimensions have not yet been verified.
+
+### HP-APPROVAL-002 / HP-APPROVAL-003 — binding analogy only
+
+The approval attacks establish that consent must stay bound to the tool and
+resource that were actually approved.
+
+A payment proof is not automatically equivalent to user approval or consent.
+
+These attacks are therefore useful binding analogies but are not assumed to
+govern R-4.
+
+### HP-TARGET-001 — conditional neighbor
+
+If the paid retry changes the property/resource target while preserving the
+original payment proof, target continuity becomes relevant.
+
+The primary R-4 research must isolate payment/request binding from ordinary
+target authorization so that it does not simply duplicate `HP-TARGET-001`.
+
+### HP-REPLAY-001 / HP-REPLAY-003 — conditional only
+
+These become relevant only if a payment proof is reused after a completed
+paid execution or if retry ambiguity can cause duplicate protected effects.
+
+That is a separate question from the primary pre-execution request-mutation
+shape and must not be silently combined with it.
+
+## Frozen intake shape
+
+The first research shape is deliberately narrower than the full external
+application.
+
+Baseline request A:
+
+- tool: `analyze_property`;
+- arguments: deterministic property target A;
+- condition: fixed;
+- purchase price: fixed;
+- payment requirement: generated for request A.
+
+Positive control candidate:
+
+1. request A receives a payment requirement;
+2. one payment proof is created for that requirement;
+3. the paid retry preserves the exact tool and arguments of A;
+4. the payment path is evaluated.
+
+Primary negative candidate:
+
+1. request A receives a payment requirement;
+2. one payment proof is created for that requirement;
+3. before the paid retry, mutate exactly one security-relevant request field;
+4. keep the payment proof unchanged;
+5. observe payment verification, MCP dispatch and protected-effect behavior.
+
+The preferred first mutation is the effective property/resource target while
+keeping the same `analyze_property` tool and price.
+
+A tool-substitution variant and a post-success payment-replay variant remain
+separate follow-up candidates.
+
+## Execution boundary
+
+R-4 does not authorize any live payment or paid external execution.
+
+All R-4 execution must remain local and synthetic.
+
+The external repository may be inspected read-only, but HandoffProbe must not:
+
+- create or fund a wallet for R-4;
+- spend testnet USDC or any other token;
+- spend real-value funds;
+- submit a paid retry to the public external endpoint;
+- require a private key or seed phrase;
+- treat successful live payment as necessary evidence.
+
+Before execution:
+
+1. verify the relevant x402 protocol and library binding semantics from
+   public specifications and source;
+2. complete overlap analysis against the existing stable corpus;
+3. reproduce the payment requirement, payment proof and paid-retry behavior
+   with deterministic local/synthetic fixtures or mocks;
+4. measure dispatch and protected-effect behavior locally;
+5. keep all secrets and real payment credentials entirely out of R-4.
+
+A live x402 payment is outside the R-4 research boundary.
+
+## Intake classification
+
+**RESEARCH CANDIDATE — DISTINCTNESS / X402 REQUEST-BINDING SEMANTICS UNRESOLVED**
+
+No new stable `HP-*` ID is reserved.
+
+Stable public corpus remains **23 attacks**.
+
+Package remains `0.4.0`.
+
+No release is triggered.
+
+`EVIDENCE.md` remains unchanged at intake.
+
+## R-4 gates
+
+- [x] originating thread, author and exact supplied comment text recorded;
+- [x] canonical Reddit comment permalink recorded;
+- [x] supplied external repository recorded;
+- [x] external default branch recorded;
+- [x] immutable external source commit frozen;
+- [x] read-only payment flow inspected;
+- [x] no vulnerability claim made from source inspection alone;
+- [x] no new stable attack ID reserved;
+- [x] live payment explicitly excluded from intake;
+- [ ] verify x402 protocol/library payment-binding semantics;
+- [ ] complete final overlap review;
+- [ ] freeze the minimal deterministic fixture;
+- [ ] implement deterministic positive and negative controls;
+- [ ] reproduce and measure payment/dispatch/effect behavior;
+- [ ] complete normal admission decision;
+- [ ] merge immutable execution evidence;
+- [ ] return the concrete result to the originating Reddit discussion;
+- [ ] classify substantive external response if one arrives;
+- [ ] make the `EVIDENCE.md` inclusion/promotion decision.
 
 ---
 

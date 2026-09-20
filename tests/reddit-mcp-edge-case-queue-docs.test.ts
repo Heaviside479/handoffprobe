@@ -8,9 +8,9 @@ const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 const evidence = readFileSync('EVIDENCE.md', 'utf8');
 
 describe('Reddit MCP edge-case research queue', () => {
-  it('tracks all three community research cases with truthful source state', () => {
+  it('tracks all four community research cases with truthful source state', () => {
     expect(queue).toContain(
-      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; external responses pending.**',
+      'Status: **ACTIVE — R-1, R-2 and R-3 public results returned; R-4 intake frozen; external responses pending.**',
     );
     expect(queue).toContain(
       '# R-1 — token rotation during interrupted handoff / reconnect with stale token',
@@ -19,6 +19,14 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(queue).toContain(
       '# R-3 — authorized tenant switch after denial / task-intent target drift',
     );
+    expect(queue).toContain('# R-4 — x402 paid-retry binding / request mutation after 402');
+    expect(queue).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
+    expect(queue).toContain('`4e99e87da0ccdf3ddcf067958de6b59eb4134414`');
+    expect(queue).toContain(
+      '**RESEARCH CANDIDATE — DISTINCTNESS / X402 REQUEST-BINDING SEMANTICS UNRESOLVED**',
+    );
+    expect(queue).toContain('A live x402 payment is outside the R-4 research boundary.');
+    expect(queue).toContain('All R-4 execution must remain local and synthetic.');
     expect(queue).toContain('Current stable public corpus: **23 attacks**.');
     expect(queue).toContain('no new stable attack ID reserved');
   });
@@ -96,6 +104,8 @@ describe('Reddit MCP edge-case research queue', () => {
     expect(candidates).toContain('## RC-2 — Reddit MCP reconnect token-rotation refinement');
     expect(candidates).toContain('## RC-3 — Reddit same-name capability hot-deploy drift');
     expect(candidates).toContain('## RC-4 — Reddit authorized tenant switch after denial');
+    expect(candidates).toContain('## RC-5 — Reddit x402 paid-retry binding after 402');
+    expect(candidates).toContain('Status: **RECORDED / INTAKE FROZEN / OVERLAP REVIEW PENDING**');
     expect(candidates).toContain(
       'Status: **PUBLIC RESULT RETURN COMPLETE / EXTERNAL RESPONSE PENDING**',
     );
@@ -111,6 +121,8 @@ describe('Reddit MCP edge-case research queue', () => {
     );
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakp67i/');
     expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pakw6a1/');
+    expect(roadmap).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/');
+    expect(roadmap).toContain('INTAKE FROZEN / PROTOCOL SEMANTICS + OVERLAP REVIEW PENDING');
   });
 
   it('records R-1, R-2 and R-3 as open research after public result return', () => {
@@ -131,5 +143,8 @@ describe('Reddit MCP edge-case research queue', () => {
     );
     expect(evidence).toContain('**Evidence level:** Open research follow-up');
     expect(evidence).toContain('https://www.reddit.com/r/mcp/comments/1wjq57h/comment/pam978h/');
+    expect(evidence).not.toContain(
+      'https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/',
+    );
   });
 });

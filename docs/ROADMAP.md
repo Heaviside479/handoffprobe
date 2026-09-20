@@ -2169,7 +2169,7 @@ R-1 has now completed deterministic local execution.
 
 #### Reddit MCP community edge-case queue — 2026-09-18
 
-Three public community-supplied MCP handoff cases are tracked: R-1, R-2 and R-3 have completed deterministic execution, admission and public result return; their substantive external responses remain pending.
+Four public community-supplied MCP handoff cases are tracked: R-1, R-2 and R-3 have completed deterministic execution, admission and public result return; R-4 is frozen at intake pending protocol-semantics and overlap review; substantive external responses remain pending.
 
 Detailed queue:
 
@@ -2239,6 +2239,21 @@ Research-candidate index:
   - external response state: **PENDING**;
   - evidence level: **Open research follow-up**;
   - no new stable ID is reserved.
+
+- R-4: an MCP `analyze_property` implementation returns an x402 payment
+  requirement and the client retries with `_meta["x402/payment"]`.
+  - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/
+  - supplied repository: https://github.com/Zak-bo/real-estate-x402
+  - frozen external commit: `4e99e87da0ccdf3ddcf067958de6b59eb4134414`;
+  - status: **INTAKE FROZEN / PROTOCOL SEMANTICS + OVERLAP REVIEW PENDING**;
+  - primary question: whether a payment proof stays correctly scoped when the
+    security-relevant request changes between the 402 challenge and paid retry;
+  - no vulnerability conclusion has been made;
+  - no live payment has been made;
+  - live/testnet payment execution is explicitly outside the R-4 research boundary;
+  - all execution must remain deterministic and local/synthetic;
+  - no new stable ID is reserved;
+  - `EVIDENCE.md` remains unchanged at intake.
 
 Required sequence for each case:
 
