@@ -32,6 +32,9 @@ interface PackageManifest {
   publishConfig?: {
     access?: string;
   };
+  contentPolicy?: {
+    class?: string;
+  };
 }
 
 interface PackageLock {
@@ -81,6 +84,9 @@ describe('v0.4 package release metadata', () => {
     expect(manifest.publishConfig).toEqual({
       access: 'public',
     });
+    expect(manifest.contentPolicy).toEqual({
+      class: 'dual-use',
+    });
   });
 
   it('preserves the runtime and package surface', async () => {
@@ -99,7 +105,7 @@ describe('v0.4 package release metadata', () => {
         import: './dist/index.js',
       },
     });
-    expect(manifest.files).toEqual(['dist']);
+    expect(manifest.files).toEqual(['dist', 'DISCLOSURE']);
     expect(manifest.scripts?.prepack).toBe('npm run build');
     expect(manifest.scripts?.['assessment:report']).toBeUndefined();
   });

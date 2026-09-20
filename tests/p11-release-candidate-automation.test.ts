@@ -27,6 +27,7 @@ describe('P11.1 release-candidate automation', () => {
     expect(workflow).toContain(`PACKAGE_VERSION=$(node -p "require('./package.json').version")`);
     expect(workflow).toContain('npm pack --pack-destination');
     expect(workflow).toContain('sha256sum');
+    expect(workflow).toContain('grep -Fx "package/DISCLOSURE"');
     expect(workflow).toContain('npm install --ignore-scripts');
     expect(workflow).toContain('handoffprobe test --target secure');
   });

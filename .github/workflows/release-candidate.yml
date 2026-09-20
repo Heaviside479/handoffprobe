@@ -73,6 +73,7 @@ jobs:
           tar -tzf "$TARBALL" | sort > "$MANIFEST"
 
           grep -Fx "package/LICENSE" "$MANIFEST"
+          grep -Fx "package/DISCLOSURE" "$MANIFEST"
           grep -Fx "package/README.md" "$MANIFEST"
           grep -Fx "package/package.json" "$MANIFEST"
           grep -Fx "package/dist/cli.js" "$MANIFEST"
