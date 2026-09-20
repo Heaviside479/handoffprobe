@@ -1642,6 +1642,28 @@ P11.5 changes documentation and documentation regression coverage only. It does
 not change the package version, runtime behavior, stable attack corpus,
 protocol baseline or publication state.
 
+### P11.6 — external feedback round
+
+Status: **ACTIVE — fresh external feedback pending**
+
+- [x] open a dedicated public Phase 11 feedback thread for `handoffprobe@0.4.0`;
+  - Evidence: GitHub issue #168.
+- [x] request fresh feedback on installation, quick start, CLI/exit semantics,
+      GitHub Action guidance and the new release user guides;
+- [x] keep historical Phase 8/9 external review separate from this fresh round;
+- [x] define explicit feedback classification and release boundaries;
+- [x] record silence as `PENDING`, not validation;
+- [ ] receive and triage fresh external feedback, or close a clearly bounded
+      no-response outcome without treating silence as approval;
+- [ ] resolve or explicitly block on any fresh Critical or High HandoffProbe
+      defect discovered by the round;
+- [ ] close the round with evidence through protected pull-request validation.
+
+Evidence: `docs/P11_6_EXTERNAL_FEEDBACK_ROUND_20260920.md`.
+
+P11.6 does not change `handoffprobe@0.4.0`, runtime behavior, the stable attack
+corpus, protocol baseline or publication state.
+
 ## Exit gate
 
 No known Critical or High HandoffProbe defect.
