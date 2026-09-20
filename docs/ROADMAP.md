@@ -1501,7 +1501,7 @@ Status: **ACTIVE — release engineering started 2026-09-20.**
 
 ### P11.1 — non-publishing release-candidate automation
 
-Status: **IMPLEMENTATION CANDIDATE — protected PR validation pending**
+Status: **COMPLETE — 2026-09-20**
 
 - [x] define a dedicated Release Candidate workflow;
 - [x] keep repository permissions read-only;
@@ -1510,9 +1510,14 @@ Status: **IMPLEMENTATION CANDIDATE — protected PR validation pending**
 - [x] build an actual npm tarball only in runner temporary storage;
 - [x] inspect the release payload for required and forbidden material;
 - [x] install and execute the exact candidate tarball in a clean temporary project;
-- [ ] pass the workflow on its protected implementation pull request;
-- [ ] merge the workflow through normal branch protection;
-- [ ] verify the workflow from `main`.
+- [x] pass the workflow on its protected implementation pull request;
+  - Evidence: PR #153 passed all six checks, including `Release Candidate`.
+- [x] merge the workflow through normal branch protection;
+  - Evidence: PR #153 merged as
+    `5b48eb953a3005b338208896a607fa7e7afb37a3`.
+- [x] verify the workflow from `main`.
+  - Evidence: workflow run `35501202431` completed successfully on that exact
+    `main` commit.
 
 Evidence: `docs/P11_1_RELEASE_CANDIDATE_AUTOMATION_20260920.md`.
 
