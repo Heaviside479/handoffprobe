@@ -50,7 +50,7 @@ jobs:
           RC_DIR="$RUNNER_TEMP/handoffprobe-release-candidate"
           mkdir -p "$RC_DIR"
 
-          PACKAGE_VERSION=$(node -e "console.log(require("./package.json").version)")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
           npm pack --pack-destination "$RC_DIR"
 
           TARBALL="$RC_DIR/handoffprobe-$PACKAGE_VERSION.tgz"

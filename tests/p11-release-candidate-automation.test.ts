@@ -24,6 +24,7 @@ describe('P11.1 release-candidate automation', () => {
   it('builds and executes an actual package candidate', () => {
     expect(workflow).toContain('npm ci');
     expect(workflow).toContain('npm run check');
+    expect(workflow).toContain(`PACKAGE_VERSION=$(node -p "require('./package.json').version")`);
     expect(workflow).toContain('npm pack --pack-destination');
     expect(workflow).toContain('sha256sum');
     expect(workflow).toContain('npm install --ignore-scripts');
