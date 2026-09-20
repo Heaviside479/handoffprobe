@@ -1,0 +1,21 @@
+HandoffProbe Dual-Use Disclosure
+
+HandoffProbe is a defensive security testing tool for AI agent handoffs and
+cross-protocol agent systems, including A2A and MCP boundaries.
+
+The package contains adversarial test cases and intentionally vulnerable local
+fixtures that reproduce security failures involving identity, authorization,
+approval scope, credentials, target binding, lifecycle state, replay,
+concurrency, audit evidence, context binding, and related handoff behavior.
+
+These capabilities are intended for legitimate security engineering,
+development, research, testing, validation, and assessment of systems that the
+user owns or is authorized to test.
+
+The bundled vulnerable targets and fixtures exist to provide controlled,
+reproducible demonstrations of security failures. They are not intended for
+unauthorized access, credential theft, persistence, disruption, evasion,
+malware delivery, or testing systems without permission.
+
+Users are responsible for ensuring that their use of HandoffProbe is lawful
+and authorized.

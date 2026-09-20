@@ -1524,6 +1524,30 @@ Evidence: `docs/P11_1_RELEASE_CANDIDATE_AUTOMATION_20260920.md`.
 This first Phase 11 slice automates candidate validation only. It does not
 authorize or perform publication and does not change `handoffprobe@0.4.0`.
 
+### P11.2 — npm stage-only publication workflow
+
+Status: **IMPLEMENTATION CANDIDATE — protected PR and npm trust configuration pending**
+
+- [x] declare HandoffProbe as npm dual-use content;
+- [x] include a root `DISCLOSURE` file in the npm package;
+- [x] require `DISCLOSURE` in Release Candidate payload validation;
+- [x] define a manual, `main`-only npm staging workflow;
+- [x] pin an npm CLI version with staged-publishing support;
+- [x] use GitHub OIDC instead of a long-lived npm publication token;
+- [x] allow CI to run only `npm stage publish`;
+- [x] prohibit direct `npm publish` and stage approval from CI;
+- [x] keep the current public package at `handoffprobe@0.4.0`;
+- [ ] pass the implementation through protected pull-request validation;
+- [ ] merge the implementation through normal branch protection;
+- [ ] configure npm trusted publishing for `npm-stage.yml` with stage-only permission;
+- [ ] read back and verify the exact npm trusted-publisher relationship;
+- [ ] require 2FA and disallow traditional publication tokens for the package.
+
+Evidence: `docs/P11_2_NPM_STAGE_PUBLICATION_20260920.md`.
+
+No package is staged as part of P11.2 implementation testing. The first live
+stage requires a separately admitted future release version.
+
 ## Exit gate
 
 No known Critical or High HandoffProbe defect.
