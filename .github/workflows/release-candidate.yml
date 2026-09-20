@@ -36,6 +36,13 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Install pinned npm
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --global npm@11.19.1
+          test "$(npm --version)" = "11.19.1"
+
       - name: Install dependencies
         run: npm ci
 
@@ -123,6 +130,51 @@ jobs:
           cmp -s "$MANIFEST_A" "$MANIFEST_B"
 
           echo "Release artifact reproducibility: PASS"
+
+      - name: Generate and compare release SBOM
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SBOM_DIR="$RUNNER_TEMP/handoffprobe-release-sbom"
+          SBOM_A="$SBOM_DIR/release-a.spdx.json"
+          SBOM_B="$SBOM_DIR/release-b.spdx.json"
+          COMPARE_A="$SBOM_DIR/compare-a.json"
+          COMPARE_B="$SBOM_DIR/compare-b.json"
+
+          rm -rf "$SBOM_DIR"
+          mkdir -p "$SBOM_DIR"
+
+          ./node_modules/.bin/tsx scripts/release-sbom.ts \
+            --output "$SBOM_A" \
+            --comparison-output "$COMPARE_A"
+
+          ./node_modules/.bin/tsx scripts/release-sbom.ts \
+            --output "$SBOM_B" \
+            --comparison-output "$COMPARE_B"
+
+          test -s "$SBOM_A"
+          test -s "$SBOM_B"
+          test -s "$COMPARE_A"
+          test -s "$COMPARE_B"
+
+          cmp -s "$COMPARE_A" "$COMPARE_B"
+
+          SBOM_SHA="$(sha256sum "$SBOM_A" | awk '{print $1}')"
+          FINGERPRINT_SHA="$(sha256sum "$COMPARE_A" | awk '{print $1}')"
+
+          echo "Release SBOM SHA-256: $SBOM_SHA"
+          echo "Release SBOM dependency fingerprint SHA-256: $FINGERPRINT_SHA"
+          echo "Release SBOM dependency fingerprint reproducibility: PASS"
+
+      - name: Upload merged-main release SBOM
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: handoffprobe-release-sbom-${{ github.sha }}
+          path: ${{ runner.temp }}/handoffprobe-release-sbom/release-a.spdx.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Inspect release candidate payload
         shell: bash
