@@ -1560,7 +1560,7 @@ The first live stage requires a separately admitted future release version.
 
 ### P11.3 — reproducible release artifact validation
 
-Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
+Status: **COMPLETE — 2026-09-20**
 
 - [x] define the reproducibility boundary as isolated repeated builds of the
   exact candidate commit inside one Release Candidate environment;
@@ -1572,9 +1572,14 @@ Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**
 - [x] compare sorted npm package manifests;
 - [x] keep publication, staging, version changes and release creation outside
   this gate;
-- [ ] pass the implementation through protected pull-request validation;
-- [ ] merge the implementation through normal branch protection;
-- [ ] verify the reproducibility gate from merged `main`.
+- [x] pass the implementation through protected pull-request validation;
+  - Evidence: PR #161 passed all six checks, including the Release Candidate gate.
+- [x] merge the implementation through normal branch protection;
+  - Evidence: PR #161 merged as
+    `a50938eec77108fa4d2640109cc069c19001bc28`.
+- [x] verify the reproducibility gate from merged `main`.
+  - Evidence: workflow run `35520070640` succeeded on the exact merged
+    `main` commit and produced identical candidate/rebuild SHA-256 values.
 
 Evidence: `docs/P11_3_REPRODUCIBLE_RELEASE_ARTIFACT_20260920.md`.
 

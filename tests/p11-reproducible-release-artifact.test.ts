@@ -35,16 +35,20 @@ describe('P11.3 reproducible release artifact validation', () => {
     );
   });
 
-  it('records the protected P11.3 admission gates as pending', () => {
+  it('records the completed protected P11.3 admission gates', () => {
     expect(roadmap).toContain('### P11.3 — reproducible release artifact validation');
+    expect(roadmap).toContain('Status: **COMPLETE — 2026-09-20**');
     expect(roadmap).toContain(
-      'Status: **IMPLEMENTATION CANDIDATE — protected workflow evidence pending**',
+      '- [x] pass the implementation through protected pull-request validation;',
     );
-    expect(roadmap).toContain(
-      '- [ ] pass the implementation through protected pull-request validation;',
-    );
-    expect(roadmap).toContain('- [ ] merge the implementation through normal branch protection;');
-    expect(roadmap).toContain('- [ ] verify the reproducibility gate from merged `main`.');
+    expect(roadmap).toContain('- [x] merge the implementation through normal branch protection;');
+    expect(roadmap).toContain('- [x] verify the reproducibility gate from merged `main`.');
+    expect(record).toContain('## Completion evidence — 2026-09-20');
+    expect(record).toContain('workflow run: `35520070640`');
+    expect(record).toContain('job: `106102510361`');
+    expect(record).toContain('`a50938eec77108fa4d2640109cc069c19001bc28`');
+    expect(record).toContain('`a92c3debd5696e0189326384da95bb40cd1827beb6a633c9168292eb4440c013`');
+    expect(record).toContain('`Release artifact reproducibility: PASS`');
   });
 
   it('indexes the P11.3 evidence record', () => {
