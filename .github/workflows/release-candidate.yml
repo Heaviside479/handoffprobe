@@ -1,0 +1,116 @@
+name: Release Candidate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/release-candidate.yml
+      - package.json
+      - package-lock.json
+      - src/**
+      - tests/**
+      - scripts/**
+      - action.yml
+      - compatibility-matrix.json
+      - tsconfig.json
+      - tsconfig.build.json
+
+permissions:
+  contents: read
+
+jobs:
+  release-candidate:
+    name: Release Candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Repository quality gates
+        run: npm run check
+
+      - name: Build release candidate tarball
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RC_DIR="$RUNNER_TEMP/handoffprobe-release-candidate"
+          mkdir -p "$RC_DIR"
+
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          npm pack --pack-destination "$RC_DIR"
+
+          TARBALL="$RC_DIR/handoffprobe-$PACKAGE_VERSION.tgz"
+
+          test -f "$TARBALL"
+
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_ENV"
+          echo "TARBALL=$TARBALL" >> "$GITHUB_ENV"
+
+          echo "Candidate: $TARBALL"
+          sha256sum "$TARBALL"
+
+      - name: Inspect release candidate payload
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MANIFEST="$RUNNER_TEMP/handoffprobe-release-candidate-manifest.txt"
+
+          tar -tzf "$TARBALL" | sort > "$MANIFEST"
+
+          grep -Fx "package/LICENSE" "$MANIFEST"
+          grep -Fx "package/README.md" "$MANIFEST"
+          grep -Fx "package/package.json" "$MANIFEST"
+          grep -Fx "package/dist/cli.js" "$MANIFEST"
+          grep -Fx "package/dist/index.js" "$MANIFEST"
+
+          if grep -E "^package/(src|tests|docs|scripts|\.github)/" "$MANIFEST"; then
+            echo "Forbidden repository material found in release candidate."
+            exit 1
+          fi
+
+          if grep -E "^package/(package-lock\.json|compatibility-matrix\.json|action\.yml)$" "$MANIFEST"; then
+            echo "Forbidden release payload file found."
+            exit 1
+          fi
+
+          echo "Payload files: $(wc -l < "$MANIFEST" | tr -d " ")"
+
+      - name: Install and execute release candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          INSTALL_DIR="$RUNNER_TEMP/handoffprobe-release-candidate-install"
+          mkdir -p "$INSTALL_DIR"
+          cd "$INSTALL_DIR"
+
+          npm init --yes >/dev/null
+          npm install --ignore-scripts "$TARBALL"
+
+          VERSION_OUTPUT="$(./node_modules/.bin/handoffprobe --version)"
+          echo "$VERSION_OUTPUT"
+
+          test "$VERSION_OUTPUT" = "HandoffProbe $PACKAGE_VERSION"
+
+          ./node_modules/.bin/handoffprobe test --target secure
+
+      - name: Verify repository remained clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain --untracked-files=all)"
