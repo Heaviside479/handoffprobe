@@ -2245,9 +2245,15 @@ Research-candidate index:
   - source: https://www.reddit.com/r/mcp/comments/1wjq57h/comment/paxkn52/
   - supplied repository: https://github.com/Zak-bo/real-estate-x402
   - frozen external commit: `4e99e87da0ccdf3ddcf067958de6b59eb4134414`;
-  - status: **INTAKE FROZEN / PROTOCOL SEMANTICS + OVERLAP REVIEW PENDING**;
-  - primary question: whether a payment proof stays correctly scoped when the
-    security-relevant request changes between the 402 challenge and paid retry;
+  - status: **X402 SEMANTICS + OVERLAP FROZEN / PROTOCOL SEMANTICS / NO ADD / LOCAL FIXTURE PENDING**;
+  - verified semantic boundary: x402 payment verification binds payment terms
+    but does not automatically bind every MCP application argument;
+  - exact locked packages inspected: `agents@0.21.0`,
+    `@x402/core@2.24.0`, `@x402/evm@2.24.0`;
+  - supplied example contains no separate request-approval object;
+  - final pre-implementation classification: **PROTOCOL SEMANTICS / NO ADD**;
+  - deterministic fixture frozen with unchanged-retry, x402-only mutated-retry
+    and explicit request-bound composition controls;
   - no vulnerability conclusion has been made;
   - no live payment has been made;
   - live/testnet payment execution is explicitly outside the R-4 research boundary;

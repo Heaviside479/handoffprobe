@@ -198,7 +198,7 @@ Current position:
 - no new stable attack ID or release is triggered.
 ## RC-5 — Reddit x402 paid-retry binding after 402
 
-Status: **RECORDED / INTAKE FROZEN / OVERLAP REVIEW PENDING**
+Status: **RECORDED / X402 SEMANTICS + OVERLAP FROZEN / LOCAL FIXTURE PENDING**
 
 Detailed queue:
 
@@ -227,26 +227,28 @@ Current position:
 
 - exact Reddit source is frozen;
 - exact external repository snapshot is frozen;
-- source inspection is read-only;
-- no vulnerability conclusion has been made;
+- locked dependencies are `agents@0.21.0`, `@x402/core@2.24.0` and
+  `@x402/evm@2.24.0`;
+- exact published-package semantics have been inspected read-only;
+- x402 payment verification is payment-term binding, not automatic binding of
+  every MCP application argument;
+- the supplied example client contains no separate request-approval object;
+- `HP-APPROVAL-001` is adjacent only when an application adds explicit
+  request-specific consent;
+- `HP-APPROVAL-002`, `HP-APPROVAL-003`, `HP-REPLAY-002`,
+  `HP-REPLAY-001`, `HP-REPLAY-003` and `HP-TARGET-001` are not governing
+  the primary fixture;
+- final pre-implementation classification is **PROTOCOL SEMANTICS / NO ADD**;
+- no vulnerability conclusion has been made about x402 or the supplied project;
 - no live payment has been made;
 - no new stable `HP-*` ID is reserved;
-- `HP-REPLAY-002` is an adjacent candidate when proof crosses request/context;
-- `HP-APPROVAL-002` and `HP-APPROVAL-003` are binding analogies only because
-  payment is not automatically consent;
-- `HP-TARGET-001` is adjacent if the paid retry changes the effective
-  property/resource target;
-- `HP-REPLAY-001` and `HP-REPLAY-003` are conditional on post-success reuse or
-  duplicate-effect behavior;
-- x402 protocol/library binding semantics must be verified before the final
-  overlap classification;
 - stable public corpus remains **23 attacks**;
 - package remains `0.4.0`;
 - no release is triggered.
 
 Next gate:
 
-`protocol semantics → final overlap → deterministic local fixture`
+`deterministic local fixture → measured result → final admission`
 
 Live/public/testnet payment execution is outside this candidate's research boundary.
 R-4 must use deterministic local/synthetic payment semantics only.
