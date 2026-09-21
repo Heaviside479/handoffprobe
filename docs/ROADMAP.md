@@ -1810,7 +1810,7 @@ Implementation baseline:
 
 ## P12.1 — GA readiness audit
 
-Status: **ACTIVE CANDIDATE — local baseline complete; repository admission pending**
+Status: **COMPLETE — merged through protected PR #171 on 2026-09-21**
 
 Completed locally on 2026-09-21:
 
@@ -1827,7 +1827,7 @@ Completed locally on 2026-09-21:
 - [x] identify real GA gaps without converting them into assumed completion;
 - [x] complete roadmap reconciliation;
 - [x] pass complete repository validation after reconciliation;
-- [ ] merge through protected pull-request admission.
+- [x] merge through protected pull-request admission; PR #171 merged as `975591f96a8115b3b8f055915e3c8efb1f2ef66a`.
 
 Evidence:
 
@@ -1835,22 +1835,31 @@ Evidence:
 
 ## P12.2 — current threat model and limitations contract
 
-Status: **PENDING — next internal work package**
+Status: **ACTIVE CANDIDATE — local validation complete; repository admission pending**
 
 This work does not depend on external replies.
 
-- [ ] reconcile historical v0.1-only wording in `docs/THREAT_MODEL.md`;
-- [ ] review every current threat class against the actual 23-attack product;
-- [ ] retain the A2A 1.0 -> MCP 2026-07-28 supported boundary accurately;
-- [ ] reconcile later research-derived threat-model additions;
-- [ ] distinguish stable product guarantees from research observations;
-- [ ] create one current user-facing limitations contract;
-- [ ] distinguish bundled synthetic validation from production-world validation;
-- [ ] distinguish composition testing from generic A2A/MCP conformance;
-- [ ] state runtime, platform and protocol limitations explicitly;
-- [ ] state what HandoffProbe does not certify or guarantee;
-- [ ] preserve authorized-use and safe-default requirements;
-- [ ] add regression tests for current threat-model and limitations claims.
+- [x] reconcile historical v0.1-only wording in `docs/THREAT_MODEL.md`;
+- [x] review every current threat class against the actual 23-attack product;
+- [x] retain the A2A 1.0 -> MCP 2026-07-28 supported boundary accurately;
+- [x] reconcile later research-derived threat-model additions;
+- [x] distinguish stable product guarantees from research observations;
+- [x] create one current user-facing limitations contract;
+- [x] distinguish bundled synthetic validation from production-world validation;
+- [x] distinguish composition testing from generic A2A/MCP conformance;
+- [x] state runtime, platform and protocol limitations explicitly;
+- [x] state what HandoffProbe does not certify or guarantee;
+- [x] preserve authorized-use and safe-default requirements;
+- [x] add regression tests for current threat-model and limitations claims.
+
+Validation / admission:
+
+- [x] pass focused P12.2 and documentation-index regression;
+- [x] pass complete repository validation;
+- [x] pass package validation;
+- [ ] merge through protected pull-request admission.
+
+Evidence: `docs/P12_2_THREAT_MODEL_LIMITATIONS_20260921.md`.
 
 Exit gate:
 

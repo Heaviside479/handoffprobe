@@ -2,7 +2,11 @@
 
 ## Scope
 
-The v0.1 threat model covers a composed workflow where one component delegates via A2A 1.0 and a downstream agent reaches tools through MCP 2026-07-28.
+This threat model describes the current verified HandoffProbe public product boundary: `handoffprobe@0.4.0`, with 23 stable attacks across the A2A 1.0 -> MCP 2026-07-28 composition wedge.
+
+The current stable corpus consists of 12 P0 attacks, 10 P1 attacks and one advanced stable attack, `HP-AUTH-006`. Node.js `>=24 <25`, config schema `1` and report schema `1` remain the current public baseline.
+
+Research records and backlog candidates may describe additional threat classes without making those classes stable product coverage.
 
 ```text
 Original actor
@@ -85,6 +89,24 @@ HandoffProbe simulates protocol-level and integration-level manipulation in an a
 - selected protocol/interface version
 
 The project does not assume compromise of cryptographic primitives.
+
+## Current stable coverage
+
+The current stable corpus is intentionally narrower than the complete threat model.
+
+| Handoff property                                                               | Current stable IDs                                                     | State                    |
+| ------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------ |
+| Authorization continuity and freshness                                         | `HP-AUTH-001` through `HP-AUTH-006`                                    | Stable                   |
+| Identity and tenant continuity                                                 | `HP-ID-001`, `HP-ID-002`, `HP-TENANT-001`                              | Stable                   |
+| Target and tool binding                                                        | `HP-TARGET-001`, `HP-TARGET-002`, `HP-APPROVAL-002`, `HP-APPROVAL-003` | Stable                   |
+| Approved payload integrity                                                     | `HP-APPROVAL-001`                                                      | Stable                   |
+| Credential propagation and audience                                            | `HP-CRED-001`, `HP-CRED-002`                                           | Stable                   |
+| Replay and retry behavior                                                      | `HP-REPLAY-001`, `HP-REPLAY-002`, `HP-REPLAY-003`                      | Stable                   |
+| Lifecycle and concurrency                                                      | `HP-LIFECYCLE-001`, `HP-RACE-001`, `HP-RACE-002`                       | Stable                   |
+| Audit lineage                                                                  | `HP-AUDIT-001`                                                         | Stable                   |
+| State handle, cache, MRTR, routing, version, content and Agent Card candidates | No stable ID currently admitted                                        | Research or backlog only |
+
+The rows above account for the current 23 stable attacks. Threat classes outside those rows remain research or backlog unless they pass the normal evidence-backed admission process.
 
 ## Primary failure classes
 
@@ -187,6 +209,14 @@ External design discussion motivating this explicit boundary:
 
 This records a composition-security boundary, not a claim that the Verifiable MCP proposal, MCP itself or another project is vulnerable or non-conformant.
 
+## Current product limitations
+
+The threat model may intentionally describe threat classes that are broader than the current stable corpus. Their presence here does not imply stable product support.
+
+HandoffProbe is not a generic A2A conformance suite, generic MCP vulnerability scanner, generic prompt-injection product, production authorization provider, runtime firewall or security certification.
+
+Current user-facing support boundaries and non-claims are defined in `docs/LIMITATIONS.md`.
+
 ## Out of scope initially
 
 - generic model jailbreak quality
@@ -200,4 +230,4 @@ This records a composition-security boundary, not a claim that the Verifiable MC
 
 ## Safe-testing assumption
 
-All active tests must run against local fixtures, intentionally vulnerable demos, owned systems or targets for which the operator has explicit authorization. v0.1 should use harmless fake tools and synthetic data by default.
+All active tests must run against bundled or local fixtures, intentionally vulnerable demos, owned systems or targets for which the operator has explicit authorization. The current public Core defaults to harmless synthetic fixtures and synthetic effects. It does not grant or imply permission to scan arbitrary third-party systems.

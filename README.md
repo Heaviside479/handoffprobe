@@ -59,6 +59,8 @@ The admission rule is intentionally narrow: a stable HandoffProbe test must exer
 
 HandoffProbe is not intended to replace the official A2A conformance/inspection tools, MCP Inspector, a generic LLM red-team platform, an identity provider or a production runtime firewall.
 
+The current support boundary and product non-claims are documented in [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md).
+
 ## Quick start
 
 Requirements:
@@ -248,6 +250,7 @@ Current product documentation:
 - [Attack catalog](docs/ATTACK_CATALOG.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Threat model](docs/THREAT_MODEL.md)
+- [Limitations](docs/LIMITATIONS.md)
 - [CLI specification](docs/CLI_SPECIFICATION.md)
 - [GitHub integration specification](docs/GITHUB_INTEGRATION_SPECIFICATION.md)
 - [Evidence index](EVIDENCE.md)
