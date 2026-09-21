@@ -13,6 +13,99 @@ Strategy:
 - service-first commercial validation may run in parallel with open-source maturation
 - no hosted SaaS before repeated organization-level demand
 
+## Current execution model — authoritative from 2026-09-21
+
+Current verified public release: **`handoffprobe@0.4.0`**.
+
+Roadmap phase numbers describe product maturity and work sequencing. They do
+not require matching npm version numbers.
+
+From this checkpoint, HandoffProbe runs four coordinated but independently
+progressing work lanes.
+
+### Lane A — Core / GA technical spine
+
+Primary sequence:
+
+`P11 closeout -> P12 GA readiness -> v1 contract freeze -> GA candidate proof -> final GA decision`
+
+Internal technical work continues whenever its own prerequisites are satisfied.
+
+Waiting for an external reply must not create an idle development state.
+
+### Lane B — external evidence and adoption
+
+This lane includes:
+
+- P11.6 external release feedback;
+- external research/reviewer responses;
+- public result-return loops;
+- qualifying external product-use evidence;
+- adoption evidence needed for final GA claims.
+
+After an external request or result return has been sent, its state may remain
+`PENDING` while other internal work continues.
+
+External silence:
+
+- is never approval;
+- is never validation;
+- does not raise an evidence level;
+- does not block unrelated internal engineering;
+- blocks only a gate that explicitly requires the missing external evidence.
+
+A fresh reproducible Critical or High HandoffProbe defect is different: it
+immediately becomes a release blocker until resolved or explicitly
+dispositioned.
+
+### Lane C — research and attack admission
+
+Research continues independently of release numbering.
+
+Use the existing evidence discipline:
+
+`source -> freeze -> overlap -> deterministic fixture -> effect evidence -> admission decision -> result return -> external-response classification`
+
+Research volume alone does not expand the stable corpus.
+
+A new stable attack, adapter, protocol path or other public capability requires
+its own admission and release decision.
+
+### Lane D — commercial validation
+
+Phase 13 continues in parallel with Core maturation.
+
+Commercial progress does not require waiting for v1.0 and does not itself force
+a Core package-version change.
+
+Commercial evidence may contribute to external-use evidence only when it
+demonstrates actual HandoffProbe product use. Interest, page visits, inquiries
+or payment intent alone are not equivalent to technical product adoption.
+
+### Release-number policy from v0.4.0
+
+Use SemVer from actual shipped public scope rather than roadmap numbering.
+
+- `0.4.x`: compatible bug, security or maintenance fixes to the current public
+  contract when publication is justified;
+- `0.5.0` through `0.9.0`: only for independently justified backward-compatible
+  public capability additions before GA;
+- no intermediate minor version is required merely to consume the number;
+- `1.0.0-rc.N`: permitted once the internal GA candidate is technically ready
+  and a prerelease is useful for final installation, integration or external-use
+  validation;
+- a prerelease is not GA and does not satisfy missing external evidence merely
+  by existing;
+- `1.0.0`: only after the final Phase 12 GA gate is satisfied;
+- after GA, compatible new capabilities normally use `1.x` minor releases,
+  compatible fixes use `1.x.y` patch releases, and breaking accepted v1 public
+  contracts require a later major-version decision.
+
+Every release still requires a separate scope/SemVer audit and controlled
+publication track.
+
+---
+
 ## Current release sequence — authoritative from 2026-09-09
 
 The maintenance and minor-release sequence is complete:
@@ -1664,6 +1757,18 @@ Evidence: `docs/P11_6_EXTERNAL_FEEDBACK_ROUND_20260920.md`.
 P11.6 does not change `handoffprobe@0.4.0`, runtime behavior, the stable attack
 corpus, protocol baseline or publication state.
 
+External-wait execution rule:
+
+- P11.6 may remain `PENDING` while Phase 12 internal engineering continues;
+- P11.6 does not block P12.1 through the internal GA-candidate work;
+- a later external response is triaged when it arrives rather than requiring the
+  repository to remain idle;
+- silence must still be closed only as an explicitly bounded `NO RESPONSE`
+  outcome, never as successful validation;
+- any reproducible fresh Critical or High HandoffProbe defect immediately
+  blocks release progression until resolved or explicitly dispositioned;
+- P11.6 must be closed before final v1.0 GA authorization.
+
 ## Exit gate
 
 No known Critical or High HandoffProbe defect.
@@ -1673,6 +1778,17 @@ Public interfaces intended for v1 are frozen.
 ---
 
 # Phase 12 — HandoffProbe v1.0 GA
+
+Status: **ACTIVE — GA preparation in progress; v1.0 is not authorized**
+
+Current public release remains `handoffprobe@0.4.0`.
+
+Phase 12 is the technical path from the proven v0.4.0 product to a dependable
+v1 contract. It does not require artificial intermediate npm releases.
+
+Implementation baseline:
+
+`docs/P12_1_GA_READINESS_AUDIT_20260921.md`
 
 ## GA requirements
 
@@ -1692,17 +1808,260 @@ Public interfaces intended for v1 are frozen.
 - release automation proven
 - upgrade process documented
 
-## Rule
+## P12.1 — GA readiness audit
 
-Do not ship v1.0 because of time or marketing pressure.
+Status: **ACTIVE CANDIDATE — local baseline complete; repository admission pending**
 
-Ship when external users can reasonably depend on the tool.
+Completed locally on 2026-09-21:
+
+- [x] audit all 15 GA requirements against current repository evidence;
+- [x] preserve public `handoffprobe@0.4.0`;
+- [x] run the complete current repository gate;
+- [x] pass 126 test files / 633 tests;
+- [x] pass package dry-run;
+- [x] verify built CLI `0.4.0`;
+- [x] verify secure stable corpus at 23 PASS / 0 FAIL / 0 ERROR;
+- [x] verify config schema `1`;
+- [x] verify report schema `1`;
+- [x] keep the worktree clean after the execution baseline;
+- [x] identify real GA gaps without converting them into assumed completion;
+- [x] complete roadmap reconciliation;
+- [x] pass complete repository validation after reconciliation;
+- [ ] merge through protected pull-request admission.
+
+Evidence:
+
+`docs/P12_1_GA_READINESS_AUDIT_20260921.md`
+
+## P12.2 — current threat model and limitations contract
+
+Status: **PENDING — next internal work package**
+
+This work does not depend on external replies.
+
+- [ ] reconcile historical v0.1-only wording in `docs/THREAT_MODEL.md`;
+- [ ] review every current threat class against the actual 23-attack product;
+- [ ] retain the A2A 1.0 -> MCP 2026-07-28 supported boundary accurately;
+- [ ] reconcile later research-derived threat-model additions;
+- [ ] distinguish stable product guarantees from research observations;
+- [ ] create one current user-facing limitations contract;
+- [ ] distinguish bundled synthetic validation from production-world validation;
+- [ ] distinguish composition testing from generic A2A/MCP conformance;
+- [ ] state runtime, platform and protocol limitations explicitly;
+- [ ] state what HandoffProbe does not certify or guarantee;
+- [ ] preserve authorized-use and safe-default requirements;
+- [ ] add regression tests for current threat-model and limitations claims.
+
+Exit gate:
+
+A new user can determine exactly what HandoffProbe tests, what it does not test,
+what environments are supported, and which security claims the product does not
+make.
+
+## P12.3 — v1 public-contract freeze
+
+Status: **PENDING**
+
+This work does not depend on external replies.
+
+Explicitly inspect every intended v1 public surface:
+
+- [ ] Core/package-root exports;
+- [ ] CLI commands;
+- [ ] CLI options and defaults;
+- [ ] exit semantics `0 / 1 / 2 / 3`;
+- [ ] config schema version `1`;
+- [ ] JSON report schema version `1`;
+- [ ] stable finding/status/severity semantics;
+- [ ] GitHub Action inputs;
+- [ ] GitHub Action outputs;
+- [ ] stable `HP-*` identifiers and their security meaning;
+- [ ] Node.js compatibility contract;
+- [ ] A2A/MCP protocol compatibility contract;
+- [ ] release/tag immutability expectations.
+
+For every surface, record one result:
+
+- `FREEZE FOR V1`;
+- `CHANGE BEFORE V1`;
+- `NOT PUBLIC V1 CONTRACT`.
+
+Any `CHANGE BEFORE V1` item requires compatibility classification, migration
+guidance and regression coverage before the freeze completes.
+
+Exit gate:
+
+All intended v1 public interfaces have an explicit evidence-backed stability
+decision.
+
+## P12.4 — internal GA hardening and backlog disposition
+
+Status: **PENDING**
+
+This work continues even if P11.6 or other external threads remain `PENDING`.
+
+- [ ] run a package-root API stability audit;
+- [ ] add regression coverage for the frozen v1 public surface where gaps exist;
+- [ ] audit CLI/Action contract parity;
+- [ ] audit current package payload and public exports;
+- [ ] reconcile compatibility documentation with the v1 freeze;
+- [ ] review all deferred advanced attack candidates;
+- [ ] review current research queues for any issue that is genuinely required
+      before GA;
+- [ ] classify each relevant candidate as `PRE-GA REQUIRED`, `POST-GA`,
+      `RESEARCH ONLY` or `NO ADD`;
+- [ ] implement only evidence-backed pre-GA requirements;
+- [ ] do not inflate the stable corpus merely to make v1 appear larger;
+- [ ] rerun determinism, concurrency, redaction, performance and platform gates;
+- [ ] verify no known Critical or High HandoffProbe defect remains.
+
+A separately admitted backward-compatible public capability discovered here may
+justify a pre-GA minor release such as `0.5.0`. Documentation, CI or release
+hardening alone does not.
+
+## P12.5 — GA candidate and live release-engineering proof
+
+Status: **PENDING**
+
+Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
+
+This work may proceed while the asynchronous external-use gate is still
+collecting evidence.
+
+- [ ] freeze the exact candidate commit;
+- [ ] run the Release Candidate workflow from the exact candidate;
+- [ ] reproduce byte-identical candidate npm artifacts;
+- [ ] generate and verify the release SBOM;
+- [ ] exercise the real npm stage / Trusted Publishing path with a release
+      version that has been separately authorized;
+- [ ] verify npm provenance from the real publishing path;
+- [ ] install and execute the exact candidate externally;
+- [ ] verify the reusable GitHub Action externally from the candidate identity;
+- [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
+- [ ] decide whether prerelease publication materially improves final validation.
+
+If useful, an evidence-backed `1.0.0-rc.1` may be published here.
+
+Publishing `1.0.0-rc.1`:
+
+- is not v1 GA;
+- does not waive P11.6;
+- does not waive external-user evidence;
+- does not convert silence into validation;
+- may be used to obtain real installation, CI and integration feedback.
+
+Further candidate fixes may use `1.0.0-rc.2`, `1.0.0-rc.3`, and so on when
+SemVer prerelease progression is appropriate.
+
+## P12.6 — asynchronous external-use and adoption evidence
+
+Status: **ACTIVE IN PARALLEL**
+
+This lane must be worked, but it must not leave internal development idle.
+
+Qualifying evidence must be defined and recorded without turning platform
+counters into fictional users.
+
+Potential qualifying evidence includes independently attributable use such as:
+
+- an external developer running the package and reporting concrete results;
+- an external repository integrating the Action or CLI;
+- a real authorized assessment where HandoffProbe Core is actually used;
+- repeat use by an external developer or organization;
+- an external integration request backed by real implementation/use context.
+
+The following are signals but are not sufficient by themselves:
+
+- npm downloads;
+- GitHub clones;
+- page views;
+- stars;
+- an unanswered outreach message;
+- general praise;
+- technical discussion with no demonstrated product use.
+
+Tasks:
+
+- [ ] define the minimum GA evidence threshold;
+- [ ] continue targeted, non-spammy external onboarding;
+- [ ] make the current exact-version or RC path easy to reproduce;
+- [ ] capture qualifying evidence with source and scope;
+- [ ] distinguish reviewers, researchers, users and paying customers;
+- [ ] feed reproducible defects back into the technical spine immediately;
+- [ ] keep `PENDING` external threads asynchronous.
+
+If this evidence is not yet sufficient when the internal candidate is ready,
+continue product development, research and commercial validation rather than
+fabricating GA readiness.
+
+## P12.7 — final GA decision and coordinated publication
+
+Status: **PENDING**
+
+This is the only Phase 12 gate that authorizes final `1.0.0`.
+
+Before GA:
+
+- [ ] P11.6 is closed with honest external-response disposition;
+- [ ] every Phase 12 GA requirement has explicit evidence;
+- [ ] the v1 public-contract freeze is complete;
+- [ ] the current threat model and limitations contract are complete;
+- [ ] the required external-user evidence threshold is satisfied;
+- [ ] release automation and real publication provenance are proven;
+- [ ] no known Critical or High HandoffProbe defect remains;
+- [ ] full repository, package, security and compatibility gates pass;
+- [ ] exact GA package payload is inspected;
+- [ ] final release notes and migration guidance are complete;
+- [ ] exact release commit is frozen.
+
+Then make a fresh scope/SemVer decision.
+
+Possible results include:
+
+- continue prerelease validation;
+- publish a justified pre-v1 minor if new public capability requires it;
+- authorize `1.0.0`.
+
+If `1.0.0` is authorized, coordinate:
+
+- npm;
+- immutable annotated tag;
+- GitHub Release;
+- reusable GitHub Action / Marketplace presentation;
+- dedicated HandoffProbe site;
+- Heaviside Solutions project page;
+- exact-version external npm verification;
+- external Action verification;
+- post-publication evidence.
+
+No half-published GA state is accepted.
+
+## Phase 12 execution rule
+
+Do not stop internal development merely because an external response is
+pending.
+
+Do not ship v1.0 because of time, roadmap numbering or marketing pressure.
+
+Continue internal engineering, research and commercial validation whenever
+their own gates are satisfied.
+
+Ship v1.0 only when external users can reasonably depend on the accepted v1
+contract and every final GA gate has evidence.
 
 ---
 
 # Phase 13 — Commercial validation
 
 Status: **ACTIVE from 2026-09-12** — runs in parallel with continued open-source adoption and technical maturation; it does not require waiting for v1.0 GA.
+
+Phase 13 does not block Phase 12 internal engineering, and Phase 12 does not
+require Phase 13 revenue completion.
+
+A real customer assessment may contribute to Phase 12 external-use evidence
+only when HandoffProbe Core is actually used and the evidence can be recorded
+without exposing customer secrets. Commercial interest by itself is not a GA
+adoption claim.
 
 Implementation contract:
 
@@ -2550,9 +2909,17 @@ Phase 13 proves that real organizations will pay for value around HandoffProbe C
 
 # Phase 14 — HandoffProbe Cloud beta
 
-Conditional. **Do not begin until the Phase 13 Cloud / SaaS gate is met.**
+Status: **CONDITIONAL — demand gate not yet satisfied**
 
-Build only if centralized usage is repeatedly requested by real organizations.
+Do not begin Cloud merely because Core development or commercial validation is
+active.
+
+Start productization only when the Phase 13 Cloud / SaaS gate is met:
+
+- 3 independent organizations request materially the same centralized
+  capability; or
+- 2 paying customers request the same centralized capability with a credible
+  ongoing use case.
 
 Possible features:
 
@@ -2569,11 +2936,16 @@ Possible features:
 
 Core must remain independently useful.
 
+Phase 14 is a conditional commercial/product lane. Waiting for Cloud demand must
+not block Core research, post-GA maintenance or broader handoff work.
+
 ---
 
 # Phase 15 — Enterprise product
 
-Conditional capabilities:
+Status: **CONDITIONAL — build only from demonstrated organization demand**
+
+Potential capabilities:
 
 - SSO
 - SCIM if demanded
@@ -2588,15 +2960,30 @@ Conditional capabilities:
 - enterprise deployment options
 - security/compliance documentation
 
+Enterprise features require concrete customer or organization evidence.
+
+Phase 15 does not need to complete before Phase 16 technical work can proceed.
+
 ---
 
 # Phase 16 — Broader handoff coverage
 
-Only after the original wedge is proven.
+Status: **PLANNED — research may continue before GA; stable expansion remains evidence-gated**
+
+This is the long-term technical expansion lane after the original
+A2A -> MCP wedge is proven.
+
+It is independent of whether Cloud or Enterprise is built.
+
+Research, source freezing, overlap analysis and deterministic fixture work may
+continue before Phase 14 or Phase 15 and may also continue while external GA
+feedback is pending.
+
+Stable product admission remains evidence-gated.
 
 Candidates:
 
-- A2A → A2A
+- A2A -> A2A
 - additional MCP handoffs
 - approval handoffs
 - browser/tool execution
@@ -2610,6 +2997,12 @@ Candidates:
 Every module must still satisfy the HandoffProbe thesis:
 
 > security properties lost during a handoff
+
+Before v1 GA, any candidate promoted into the stable public product requires a
+normal admission decision and a fresh pre-GA release/SemVer review.
+
+After v1 GA, backward-compatible new handoff coverage should normally become a
+`1.x` minor release rather than requiring a new major version.
 
 ---
 
