@@ -1920,7 +1920,7 @@ decision.
 
 ## P12.4 — internal GA hardening and backlog disposition
 
-Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
+Status: **COMPLETE**
 
 This work continues even if P11.6 or other external threads remain `PENDING`.
 
@@ -1950,12 +1950,22 @@ Disposition:
 
 Evidence: `docs/P12_4_GA_HARDENING_BACKLOG_20260922.md`.
 
+Protected admission record:
+
+- PR `#175`;
+- candidate head `d80be8e5036512009ff6e40d4089d07719c1f094`;
+- protected merge commit `5ec9d06057b1a17ad3d299d79c9105a964018c0e`;
+- Dependency Review passed;
+- HandoffProbe passed;
+- Release Candidate passed;
+- CI passed.
+
 Validation / admission:
 
 - [x] pass focused P12.4 regression;
 - [x] pass complete repository validation;
 - [x] pass package validation;
-- [ ] merge through protected pull-request admission.
+- [x] merge through protected pull-request admission.
 
 A separately admitted backward-compatible public capability discovered here may
 justify a pre-GA minor release such as `0.5.0`. Documentation, CI or release

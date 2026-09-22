@@ -2,7 +2,7 @@
 
 Date: 2026-09-22
 
-Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
+Status: **COMPLETE**
 
 Base commit: `e56927fa1ef342b8ca978465dc17efe01758bd45`
 
@@ -187,6 +187,21 @@ The final P12.4 working state passed:
 
 No known reproduced unresolved Critical or High HandoffProbe product defect was identified by this review.
 
-Protected pull-request admission remains required before P12.4 becomes repository truth.
+Protected pull-request admission completed through PR `#175`.
 
 P12.5 remains the next technical phase after protected P12.4 admission.
+
+## Protected admission record
+
+P12.4 entered repository truth through protected PR `#175`.
+
+- candidate head: `d80be8e5036512009ff6e40d4089d07719c1f094`;
+- protected merge commit: `5ec9d06057b1a17ad3d299d79c9105a964018c0e`;
+- Dependency Review: passed;
+- HandoffProbe: passed;
+- Release Candidate: passed;
+- CI: passed.
+
+P12.4 is complete.
+
+P12.5 is the next technical phase.
