@@ -1920,24 +1920,42 @@ decision.
 
 ## P12.4 — internal GA hardening and backlog disposition
 
-Status: **PENDING**
+Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
 
 This work continues even if P11.6 or other external threads remain `PENDING`.
 
-- [ ] run a package-root API stability audit;
-- [ ] add regression coverage for the frozen v1 public surface where gaps exist;
-- [ ] audit CLI/Action contract parity;
-- [ ] audit current package payload and public exports;
-- [ ] reconcile compatibility documentation with the v1 freeze;
-- [ ] review all deferred advanced attack candidates;
-- [ ] review current research queues for any issue that is genuinely required
+- [x] run a package-root API stability audit;
+- [x] add regression coverage for the frozen v1 public surface where gaps exist;
+- [x] audit CLI/Action contract parity;
+- [x] audit current package payload and public exports;
+- [x] reconcile compatibility documentation with the v1 freeze;
+- [x] review all deferred advanced attack candidates;
+- [x] review current research queues for any issue that is genuinely required
       before GA;
-- [ ] classify each relevant candidate as `PRE-GA REQUIRED`, `POST-GA`,
+- [x] classify each relevant candidate as `PRE-GA REQUIRED`, `POST-GA`,
       `RESEARCH ONLY` or `NO ADD`;
-- [ ] implement only evidence-backed pre-GA requirements;
-- [ ] do not inflate the stable corpus merely to make v1 appear larger;
-- [ ] rerun determinism, concurrency, redaction, performance and platform gates;
-- [ ] verify no known Critical or High HandoffProbe defect remains.
+- [x] implement only evidence-backed pre-GA requirements;
+- [x] do not inflate the stable corpus merely to make v1 appear larger;
+- [x] rerun determinism, concurrency, redaction, performance and platform gates;
+- [x] verify no known Critical or High HandoffProbe defect remains.
+
+Disposition:
+
+- 0 `PRE-GA REQUIRED`;
+- 6 deferred backlog candidates classified `POST-GA`;
+- 2 deferred backlog candidates classified `RESEARCH ONLY`;
+- current reproduced research queues classified `NO ADD`;
+- stable corpus remains 23 attacks;
+- package remains `0.4.0`.
+
+Evidence: `docs/P12_4_GA_HARDENING_BACKLOG_20260922.md`.
+
+Validation / admission:
+
+- [x] pass focused P12.4 regression;
+- [x] pass complete repository validation;
+- [x] pass package validation;
+- [ ] merge through protected pull-request admission.
 
 A separately admitted backward-compatible public capability discovered here may
 justify a pre-GA minor release such as `0.5.0`. Documentation, CI or release
