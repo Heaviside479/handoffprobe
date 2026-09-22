@@ -38,6 +38,11 @@ describe('external GitHub thread traceability audit', () => {
     );
     expect(audit).toContain('https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36');
     expect(audit).toContain('9b63cb023fa966e6da54d252d2827990d2d7fdbe');
+    expect(audit).toContain(
+      'https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5777698218',
+    );
+    expect(audit).toContain('https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/37');
+    expect(audit).toContain('803935c0fbcd34ead12976a52a6ad857c09e9fdc');
     expect(roadmap).toContain('docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md');
   });
 

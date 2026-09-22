@@ -88,6 +88,16 @@ HandoffProbe published the reproducible comparison back into the A2A thread, inc
 
 - [HandoffProbe public comparison reply](https://github.com/a2aproject/A2A/issues/1937#issuecomment-5695896491)
 
+### Earlier upstream specification follow-up
+
+Before the direct author review, AkiraTamai supplied a substantive upstream specification follow-up:
+
+- [AkiraTamai specification follow-up](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397)
+- [upstream specification PR #36](https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36)
+- merged upstream commit `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
+
+That earlier change explicitly recorded the execution-integrity versus authorization-continuity separation at the upstream specification level. By itself it was not a direct HandoffProbe result review. The later direct author review below is the evidence that supports the scoped author-review promotion.
+
 ### External author review
 
 Arjun subsequently reviewed the comparison publicly and wrote that the results **appear consistent with the draft's intended runtime semantics**.
@@ -293,8 +303,8 @@ This result does not establish:
 
 ## 5. MCP #3354 execution-integrity / authorization-boundary comparison
 
-**Evidence level:** Open research follow-up
-**Status:** Reproducible HandoffProbe result returned publicly; substantive post-result external technical follow-up received; direct HandoffProbe result review not established
+**Evidence level:** External vector comparison + author review
+**Status:** Completed scoped external author review and proposal traceability update — 2026-09-22
 **Scope:** Deterministic local/synthetic execution-integrity and upstream-authorization composition comparison
 
 ### External technical input
@@ -305,7 +315,7 @@ AkiraTamai publicly confirmed the distinction between execution integrity and au
 - [HandoffProbe boundary comment](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5682996881)
 - [AkiraTamai boundary response](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5715753995)
 
-The frozen upstream demo basis remains:
+The frozen upstream demo basis used for the HandoffProbe execution remains:
 
 `ripple-node-lab/mcp-verifiable-tools-demo@66a959f79802d3751ba7edc0aec4c1c0e0ee2b36`
 
@@ -344,21 +354,39 @@ The merged result was returned publicly to AkiraTamai in the originating MCP thr
 
 The reply includes the immutable HandoffProbe merge commit, execution record, deterministic test, observed layer outcomes and scope limitations, and explicitly invites correction or counter-evidence.
 
-### Current external-review state
+### External author review
 
-Post-result external technical follow-up: **RECEIVED**.
+Direct post-result author review: **RECEIVED**.
 
-AkiraTamai published a substantive follow-up on 2026-09-22:
+- [AkiraTamai direct author review](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5777698218)
+- [authorization-continuity fixture PR #37](https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/37)
+- merged upstream commit `803935c0fbcd34ead12976a52a6ad857c09e9fdc`
 
-- [AkiraTamai post-result technical follow-up](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397)
-- [upstream implementation/spec PR #36](https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36)
-- upstream merge commit `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
+AkiraTamai directly replied to `@Heaviside479` after the HandoffProbe result return and confirmed that the HandoffProbe reading of the boundary is the intended one, with nothing to correct.
 
-The merged upstream specification now explicitly records the same layer separation exercised by the HandoffProbe refinement: execution-integrity evidence does not establish whether the caller was authorized to supply the committed inputs.
+The response also confirms the tested scope: the HandoffProbe run did not exercise the upstream ZK or TEE paths; the relevant comparison was the composition rule between execution integrity and authorization continuity.
 
-This is substantive upstream technical corroboration of the boundary, but it is **not** a direct review or independent rerun of the HandoffProbe result. AkiraTamai did not state that he reviewed the HandoffProbe execution artifact or reran the HandoffProbe test.
+The upstream negative fixture mirrors the comparison shape:
 
-The evidence level therefore remains **Open research follow-up** and is not promoted to `External vector comparison + author review`.
+- an in-scope call verifies and matches the approved commitment;
+- a schema-valid widened call also verifies;
+- the widened call is rejected by approved-commitment mismatch.
+
+This is scoped external author review of the comparison. It is not an independent rerun of HandoffProbe.
+
+The evidence level is therefore **External vector comparison + author review**.
+
+### Proposal and changelog traceability
+
+The MCP `#3354` issue description now explicitly frames the work as a **pre-SEP proposal**.
+
+The issue states an intent to continue the proposal discussion through the MCP Security IG / Contributor Discord and later link that work from an eventual Extensions Track SEP PR. This records planned proposal follow-up; it is not evidence that a SEP has been accepted.
+
+The issue text now explicitly includes the authorization-continuity boundary and describes `inputCommitment` as the interface point available to an external authority check.
+
+Changelog entry `2026-09-22-002` records edits following the authorization-continuity discussion, thanks `@Heaviside479`, links the HandoffProbe boundary discussion and public result return, and links the merged negative fixture in PR #37.
+
+This is external technical impact and traceability evidence. It does not establish HandoffProbe adoption, endorsement, MCP standardization, SEP acceptance or independent HandoffProbe reproduction.
 
 ### Admission and release state
 
@@ -375,11 +403,14 @@ This result does not establish:
 - a vulnerability in MCP;
 - a vulnerability in Verifiable MCP;
 - Verifiable MCP conformance;
-- reproduction of AkiraTamai's ZK/TEE implementation;
+- reproduction of the upstream ZK or TEE implementation by HandoffProbe;
+- independent external rerun of HandoffProbe;
 - production cryptographic assurance;
 - production-world effects;
-- MCP specification acceptance or endorsement;
-- external confirmation of the HandoffProbe result;
+- HandoffProbe adoption;
+- endorsement of HandoffProbe;
+- MCP specification acceptance;
+- SEP acceptance or standardization;
 - a new stable HandoffProbe attack.
 
 ---
@@ -842,7 +873,6 @@ Current examples include:
 - Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-3 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-4 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
-- MCP #3354 has a reproducible public result return and a substantive post-result upstream technical follow-up; direct review or rerun of the HandoffProbe result is not established, so the evidence level remains Open research follow-up.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 

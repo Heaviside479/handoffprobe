@@ -1,6 +1,6 @@
 # MCP #3354 — Verifiable MCP / authority-boundary research queue
 
-Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; substantive post-result technical follow-up received; direct HandoffProbe result review not established.**
+Status: **PUBLIC RESULT RETURN COMPLETE — REFINEMENT; DIRECT AUTHOR REVIEW RECEIVED 2026-09-22; PROPOSAL / CHANGELOG TRACEABILITY RECORDED.**
 Date queued: 2026-09-17
 
 ## Purpose
@@ -114,7 +114,7 @@ The stable public corpus remains **23 attacks**.
 
 No package version change or release is triggered.
 
-Public result return to AkiraTamai in MCP `#3354` completed after merge. A substantive post-result upstream technical follow-up was received on 2026-09-22; direct HandoffProbe result review or rerun is not established.
+Public result return to AkiraTamai in MCP `#3354` completed after merge. Direct scoped author review was received on 2026-09-22. Independent HandoffProbe rerun is not established.
 
 ## Public result return — 2026-09-18
 
@@ -139,23 +139,77 @@ The reply records separately:
 
 External response state:
 
-**SUBSTANTIVE POST-RESULT TECHNICAL FOLLOW-UP RECEIVED — DIRECT HANDOFFPROBE RESULT REVIEW NOT ESTABLISHED**
+**DIRECT AUTHOR REVIEW RECEIVED — EXTERNAL VECTOR COMPARISON + AUTHOR REVIEW**
 
-External follow-up:
+Earlier upstream specification follow-up:
 
 `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397`
 
-Associated upstream PR:
+Associated upstream PR #36:
 
 `https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36`
 
-Merged upstream commit:
+Merged upstream PR #36 commit:
 
 `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
 
-The merged specification now explicitly records that execution-integrity proof does not establish whether the caller was authorized to supply the committed inputs.
+Direct AkiraTamai author review:
 
-This corroborates the researched boundary at the upstream specification level. It does not establish that AkiraTamai reviewed or reran the HandoffProbe result, and it is not independent HandoffProbe reproduction.
+`https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5777698218`
+
+Authorization-continuity negative fixture:
+
+`https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/37`
+
+Merged PR #37 commit:
+
+`803935c0fbcd34ead12976a52a6ad857c09e9fdc`
+
+AkiraTamai directly confirmed that the HandoffProbe interpretation of the boundary is the intended one and identified nothing to correct.
+
+He also confirmed the scope note: the HandoffProbe run did not exercise the ZK or TEE paths, while the composition rule was the relevant tested boundary.
+
+The merged upstream negative fixture mirrors the HandoffProbe comparison:
+
+- approved in-scope call: proof valid and approved commitment matches;
+- schema-valid widened call: proof valid;
+- widened call: rejected by approved-commitment mismatch.
+
+This satisfies the scoped author-review condition for **External vector comparison + author review**.
+
+It does not constitute independent HandoffProbe reproduction.
+
+## Proposal / changelog traceability — 2026-09-22
+
+The MCP `#3354` issue now explicitly describes itself as a pre-SEP proposal.
+
+Its current description explicitly includes the authorization-continuity non-guarantee and identifies `inputCommitment` as the contact point between execution integrity and an external authority check.
+
+Changelog entry `2026-09-22-002`:
+
+- thanks `@Heaviside479`;
+- links the HandoffProbe boundary discussion;
+- links the AkiraTamai boundary response;
+- links the HandoffProbe public result return;
+- records the authorization-continuity edits;
+- links merged negative fixture PR #37.
+
+The issue also states an intent to continue proposal discussion through the MCP Security IG / Contributor Discord and to link that work from an eventual Extensions Track SEP PR.
+
+This is external technical impact and traceability evidence only.
+
+It does not establish:
+
+- HandoffProbe adoption;
+- endorsement;
+- MCP standardization;
+- SEP acceptance;
+- independent HandoffProbe reproduction;
+- a new stable attack.
+
+Classification remains **REFINEMENT**.
+
+Stable public corpus remains **23 attacks**.
 
 ## External result-return gate
 
@@ -169,6 +223,6 @@ If HandoffProbe later has a reproducible result worth showing:
 - [x] preserve the distinction between execution integrity and authorization;
 - [x] describe exactly what was and was not tested;
 - [x] invite correction if the Verifiable MCP interpretation is wrong;
-- [x] record and classify the substantive AkiraTamai post-result technical follow-up; direct HandoffProbe result review remains unestablished.
+- [x] record and classify the direct AkiraTamai post-result author review and the resulting proposal / changelog traceability.
 
-The research item is not complete merely because it is documented here. Completion requires an explicit later decision of `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`, plus the public evidence-based follow-up above if HandoffProbe actually produces a reproducible result.
+The research item is complete at **REFINEMENT / External vector comparison + author review**. No new stable attack is admitted, the stable public corpus remains **23 attacks**, and no package-version change or release is triggered.
