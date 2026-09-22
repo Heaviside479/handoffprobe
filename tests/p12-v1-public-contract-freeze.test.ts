@@ -154,14 +154,16 @@ describe('P12.3 v1 public-contract freeze', () => {
     expect(evidence).toContain('Published tags are never moved or rewritten');
   });
 
-  it('closes P12.2 and activates P12.3 without claiming repository admission', () => {
+  it('records completed P12.2 and P12.3 repository admission', () => {
     expect(phase12).toContain(
       'Status: **COMPLETE — merged through protected PR #172 on 2026-09-21**',
     );
     expect(phase12).toContain(
-      'Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**',
+      'Status: **COMPLETE — merged through protected PR #173 on 2026-09-22**',
     );
-    expect(phase12).toContain('- [ ] merge through protected pull-request admission.');
+    expect(phase12).toContain(
+      '- [x] merge through protected pull-request admission; PR #173 merged as `cc15661e9cdf5b77c3ff62599f2fbf5282f67d6c`.',
+    );
   });
 
   it('indexes the P12.3 evidence record', () => {

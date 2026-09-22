@@ -2,7 +2,7 @@
 
 Date: 2026-09-21
 
-Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
+Status: **COMPLETE — merged through protected PR #173 on 2026-09-22**
 
 Base commit: `e426d761dd245dc9c8ce2a6f96c3023170c387f7`
 
@@ -125,7 +125,20 @@ Local validation completed successfully on 2026-09-22:
 - exact intended five-file scope preserved;
 - `git diff --check` passed.
 
-Protected pull-request admission remains required before P12.3 becomes repository truth.
+Protected pull-request admission completed on 2026-09-22 through PR #173.
+
+Implementation commit: `0754af6d0ed75b78ca7463af663519fac00fe3c1`.
+
+Protected merge commit: `cc15661e9cdf5b77c3ff62599f2fbf5282f67d6c`.
+
+All required PR workflows passed before merge:
+
+- Dependency Review;
+- HandoffProbe;
+- Release Candidate;
+- CI.
+
+The P12.3 repository-admission gate is fulfilled.
 
 ## Next gate
 
