@@ -33,6 +33,11 @@ describe('external GitHub thread traceability audit', () => {
     expect(audit).toContain('PR #103 → A2A #2079');
     expect(audit).toContain('PR #121 → A2A #1769 and VATE #2');
     expect(audit).toContain('PR #115 → MCP #3354');
+    expect(audit).toContain(
+      'https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397',
+    );
+    expect(audit).toContain('https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36');
+    expect(audit).toContain('9b63cb023fa966e6da54d252d2827990d2d7fdbe');
     expect(roadmap).toContain('docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md');
   });
 

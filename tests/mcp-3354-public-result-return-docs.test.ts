@@ -9,6 +9,10 @@ const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 const mergeCommit = '13e4a525b658077e235a769f6aff6d6e2754a33e';
 const resultReturn =
   'https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791';
+const externalFollowup =
+  'https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397';
+const upstreamPr = 'https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36';
+const upstreamMerge = '9b63cb023fa966e6da54d252d2827990d2d7fdbe';
 
 describe('MCP #3354 public result-return evidence', () => {
   it('records the immutable merged execution and public result return', () => {
@@ -18,6 +22,11 @@ describe('MCP #3354 public result-return evidence', () => {
     expect(queue).toContain(resultReturn);
     expect(roadmap).toContain(mergeCommit);
     expect(roadmap).toContain(resultReturn);
+    expect(evidence).toContain(externalFollowup);
+    expect(evidence).toContain(upstreamPr);
+    expect(evidence).toContain(upstreamMerge);
+    expect(queue).toContain(externalFollowup);
+    expect(roadmap).toContain(externalFollowup);
   });
 
   it('keeps the evidence level open until substantive external review exists', () => {
@@ -28,7 +37,7 @@ describe('MCP #3354 public result-return evidence', () => {
     const section = evidence.slice(start, end);
 
     expect(section).toContain('**Evidence level:** Open research follow-up');
-    expect(section).toContain('External response to the returned HandoffProbe result: **PENDING**');
+    expect(section).toContain('Post-result external technical follow-up: **RECEIVED**');
     expect(section).toContain('The public result return itself is **not** external confirmation.');
     expect(section).toContain('Silence must not be interpreted as agreement.');
     expect(section).not.toContain('**Evidence level:** External vector comparison + author review');
@@ -36,12 +45,12 @@ describe('MCP #3354 public result-return evidence', () => {
 
   it('records the completed return gates while leaving response classification open', () => {
     expect(queue).toContain(
-      'Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; external response PENDING.**',
+      'Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; substantive post-result technical follow-up received; direct HandoffProbe result review not established.**',
     );
 
     expect(queue).toContain('- [x] reply to AkiraTamai in MCP `#3354`;');
     expect(queue).toContain(
-      '- [ ] record and classify any substantive AkiraTamai response before further implementation that depends on it.',
+      '- [x] record and classify the substantive AkiraTamai post-result technical follow-up; direct HandoffProbe result review remains unestablished.',
     );
   });
 
@@ -55,7 +64,9 @@ describe('MCP #3354 public result-return evidence', () => {
 
   it('records the same pending external-review state in the roadmap', () => {
     expect(roadmap).toContain('#### MCP #3354 public result return — 2026-09-18');
-    expect(roadmap).toContain('- external response to the returned result is **PENDING**;');
+    expect(roadmap).toContain(
+      '- substantive post-result external technical follow-up received on 2026-09-22:',
+    );
     expect(roadmap).toContain('- the public HandoffProbe reply is not external confirmation;');
   });
 });

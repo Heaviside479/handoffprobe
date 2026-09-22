@@ -294,7 +294,7 @@ This result does not establish:
 ## 5. MCP #3354 execution-integrity / authorization-boundary comparison
 
 **Evidence level:** Open research follow-up
-**Status:** Reproducible HandoffProbe result returned publicly; external author response pending
+**Status:** Reproducible HandoffProbe result returned publicly; substantive post-result external technical follow-up received; direct HandoffProbe result review not established
 **Scope:** Deterministic local/synthetic execution-integrity and upstream-authorization composition comparison
 
 ### External technical input
@@ -346,15 +346,19 @@ The reply includes the immutable HandoffProbe merge commit, execution record, de
 
 ### Current external-review state
 
-External response to the returned HandoffProbe result: **PENDING**.
+Post-result external technical follow-up: **RECEIVED**.
 
-As of this record, no substantive AkiraTamai response to the returned result has been recorded.
+AkiraTamai published a substantive follow-up on 2026-09-22:
 
-The public result return itself is **not** external confirmation.
+- [AkiraTamai post-result technical follow-up](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397)
+- [upstream implementation/spec PR #36](https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36)
+- upstream merge commit `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
 
-Silence must not be interpreted as agreement.
+The merged upstream specification now explicitly records the same layer separation exercised by the HandoffProbe refinement: execution-integrity evidence does not establish whether the caller was authorized to supply the committed inputs.
 
-Until substantive external review is received, this item remains an **Open research follow-up** and must not be promoted to `External vector comparison + author review`.
+This is substantive upstream technical corroboration of the boundary, but it is **not** a direct review or independent rerun of the HandoffProbe result. AkiraTamai did not state that he reviewed the HandoffProbe execution artifact or reran the HandoffProbe test.
+
+The evidence level therefore remains **Open research follow-up** and is not promoted to `External vector comparison + author review`.
 
 ### Admission and release state
 
@@ -838,7 +842,7 @@ Current examples include:
 - Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-3 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-4 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
-- MCP #3354 has a reproducible public result return with external post-result author response still pending.
+- MCP #3354 has a reproducible public result return and a substantive post-result upstream technical follow-up; direct review or rerun of the HandoffProbe result is not established, so the evidence level remains Open research follow-up.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 

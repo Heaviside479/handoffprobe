@@ -1,6 +1,6 @@
 # MCP #3354 — Verifiable MCP / authority-boundary research queue
 
-Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; external response PENDING.**
+Status: **PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT; substantive post-result technical follow-up received; direct HandoffProbe result review not established.**
 Date queued: 2026-09-17
 
 ## Purpose
@@ -114,7 +114,7 @@ The stable public corpus remains **23 attacks**.
 
 No package version change or release is triggered.
 
-Public result return to AkiraTamai in MCP `#3354` completed after merge; external response classification remains pending.
+Public result return to AkiraTamai in MCP `#3354` completed after merge. A substantive post-result upstream technical follow-up was received on 2026-09-22; direct HandoffProbe result review or rerun is not established.
 
 ## Public result return — 2026-09-18
 
@@ -139,11 +139,23 @@ The reply records separately:
 
 External response state:
 
-**PENDING**
+**SUBSTANTIVE POST-RESULT TECHNICAL FOLLOW-UP RECEIVED — DIRECT HANDOFFPROBE RESULT REVIEW NOT ESTABLISHED**
 
-No substantive external response to the returned HandoffProbe result has been recorded at this point.
+External follow-up:
 
-The result return itself is not external confirmation and silence is not agreement.
+`https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397`
+
+Associated upstream PR:
+
+`https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36`
+
+Merged upstream commit:
+
+`9b63cb023fa966e6da54d252d2827990d2d7fdbe`
+
+The merged specification now explicitly records that execution-integrity proof does not establish whether the caller was authorized to supply the committed inputs.
+
+This corroborates the researched boundary at the upstream specification level. It does not establish that AkiraTamai reviewed or reran the HandoffProbe result, and it is not independent HandoffProbe reproduction.
 
 ## External result-return gate
 
@@ -157,6 +169,6 @@ If HandoffProbe later has a reproducible result worth showing:
 - [x] preserve the distinction between execution integrity and authorization;
 - [x] describe exactly what was and was not tested;
 - [x] invite correction if the Verifiable MCP interpretation is wrong;
-- [ ] record and classify any substantive AkiraTamai response before further implementation that depends on it.
+- [x] record and classify the substantive AkiraTamai post-result technical follow-up; direct HandoffProbe result review remains unestablished.
 
 The research item is not complete merely because it is documented here. Completion requires an explicit later decision of `NO ADD / REFINEMENT / DISTINCT RESEARCH CANDIDATE`, plus the public evidence-based follow-up above if HandoffProbe actually produces a reproducible result.
