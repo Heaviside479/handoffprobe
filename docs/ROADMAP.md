@@ -1835,7 +1835,7 @@ Evidence:
 
 ## P12.2 — current threat model and limitations contract
 
-Status: **ACTIVE CANDIDATE — local validation complete; repository admission pending**
+Status: **COMPLETE — merged through protected PR #172 on 2026-09-21**
 
 This work does not depend on external replies.
 
@@ -1857,7 +1857,7 @@ Validation / admission:
 - [x] pass focused P12.2 and documentation-index regression;
 - [x] pass complete repository validation;
 - [x] pass package validation;
-- [ ] merge through protected pull-request admission.
+- [x] merge through protected pull-request admission; PR #172 merged as `e426d761dd245dc9c8ce2a6f96c3023170c387f7`.
 
 Evidence: `docs/P12_2_THREAT_MODEL_LIMITATIONS_20260921.md`.
 
@@ -1869,25 +1869,25 @@ make.
 
 ## P12.3 — v1 public-contract freeze
 
-Status: **PENDING**
+Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
 
 This work does not depend on external replies.
 
 Explicitly inspect every intended v1 public surface:
 
-- [ ] Core/package-root exports;
-- [ ] CLI commands;
-- [ ] CLI options and defaults;
-- [ ] exit semantics `0 / 1 / 2 / 3`;
-- [ ] config schema version `1`;
-- [ ] JSON report schema version `1`;
-- [ ] stable finding/status/severity semantics;
-- [ ] GitHub Action inputs;
-- [ ] GitHub Action outputs;
-- [ ] stable `HP-*` identifiers and their security meaning;
-- [ ] Node.js compatibility contract;
-- [ ] A2A/MCP protocol compatibility contract;
-- [ ] release/tag immutability expectations.
+- [x] Core/package-root exports;
+- [x] CLI commands;
+- [x] CLI options and defaults;
+- [x] exit semantics `0 / 1 / 2 / 3`;
+- [x] config schema version `1`;
+- [x] JSON report schema version `1`;
+- [x] stable finding/status/severity semantics;
+- [x] GitHub Action inputs;
+- [x] GitHub Action outputs;
+- [x] stable `HP-*` identifiers and their security meaning;
+- [x] Node.js compatibility contract;
+- [x] A2A/MCP protocol compatibility contract;
+- [x] release/tag immutability expectations.
 
 For every surface, record one result:
 
@@ -1897,6 +1897,21 @@ For every surface, record one result:
 
 Any `CHANGE BEFORE V1` item requires compatibility classification, migration
 guidance and regression coverage before the freeze completes.
+
+Decision result:
+
+- 13 / 13 listed public surfaces: `FREEZE FOR V1`;
+- 0: `CHANGE BEFORE V1`;
+- 0: `NOT PUBLIC V1 CONTRACT`.
+
+Evidence: `docs/P12_3_V1_PUBLIC_CONTRACT_FREEZE_20260921.md`.
+
+Validation / admission:
+
+- [x] pass focused P12.3 contract regression;
+- [x] pass complete repository validation;
+- [x] pass package validation;
+- [ ] merge through protected pull-request admission.
 
 Exit gate:
 

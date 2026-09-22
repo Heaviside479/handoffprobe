@@ -64,12 +64,12 @@ describe('P12.2 integration', () => {
     expect(readme).toContain('[Limitations](docs/LIMITATIONS.md)');
   });
 
-  it('closes P12.1 and activates P12.2', () => {
+  it('records completed P12.1 and P12.2 repository admission', () => {
     expect(phase12).toContain(
       'Status: **COMPLETE — merged through protected PR #171 on 2026-09-21**',
     );
     expect(phase12).toContain(
-      'Status: **ACTIVE CANDIDATE — local validation complete; repository admission pending**',
+      'Status: **COMPLETE — merged through protected PR #172 on 2026-09-21**',
     );
   });
 
