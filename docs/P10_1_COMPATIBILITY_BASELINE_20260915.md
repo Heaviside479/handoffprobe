@@ -102,7 +102,9 @@ HandoffProbe currently promises only what this evidence supports:
 
 The supported compatibility baseline is now explicit, reproducible and reviewable without relying on undocumented assumptions.
 
-P10.1 is complete. Broader CI platform coverage belongs to P10.4.\n\n## P12.4 v1 freeze reconciliation — 2026-09-22
+P10.1 is complete. Broader CI platform coverage belongs to P10.4.
+
+## P12.4 v1 freeze reconciliation — 2026-09-22
 
 The P10.1 evidence above remains a historical record of the earlier `0.3.0` / 22-attack baseline.
 
@@ -122,4 +124,3 @@ The reusable GitHub Action continues to configure Node 24 and `shell: bash`. Rep
 Other Node lines and other A2A/MCP protocol revisions remain outside the frozen v1 compatibility promise unless separately admitted.
 
 This reconciliation does not rewrite the historical P10.1 evidence and does not authorize a version, runtime or protocol expansion.
-\n
