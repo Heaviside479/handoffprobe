@@ -1973,17 +1973,17 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **PENDING**
+Status: **IN PROGRESS — candidate / reproducibility / SBOM proof complete**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
 This work may proceed while the asynchronous external-use gate is still
 collecting evidence.
 
-- [ ] freeze the exact candidate commit;
-- [ ] run the Release Candidate workflow from the exact candidate;
-- [ ] reproduce byte-identical candidate npm artifacts;
-- [ ] generate and verify the release SBOM;
+- [x] freeze the exact candidate commit;
+- [x] run the Release Candidate workflow from the exact candidate;
+- [x] reproduce byte-identical candidate npm artifacts;
+- [x] generate and verify the release SBOM;
 - [ ] exercise the real npm stage / Trusted Publishing path with a release
       version that has been separately authorized;
 - [ ] verify npm provenance from the real publishing path;
@@ -1991,6 +1991,21 @@ collecting evidence.
 - [ ] verify the reusable GitHub Action externally from the candidate identity;
 - [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [ ] decide whether prerelease publication materially improves final validation.
+
+Current candidate proof:
+
+- frozen candidate: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`;
+- Release Candidate workflow run: `35769245125` — success;
+- byte-identical candidate / rebuild SHA-256: `00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad`;
+- release SBOM SHA-256: `e9c4bca76dab4c7a437f5a1726a81d12aa196d9565f4a2cc8d62063c28c9ada0`;
+- deterministic dependency fingerprint: `d23f8358252fd51097bbbb582803fa050aa8476c84d645a1a4c90af992db5d10`;
+- retained SBOM artifact ID: `10713541739`;
+- independent retained-artifact verification: passed;
+- package remains `0.4.0`;
+- stable corpus remains 23 attacks;
+- no npm stage, publication, version change, tag or GitHub Release has been authorized or performed.
+
+Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 
 If useful, an evidence-backed `1.0.0-rc.1` may be published here.
 
