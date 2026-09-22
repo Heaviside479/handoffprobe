@@ -2817,7 +2817,7 @@ The audit covers every external thread returned by the HandoffProbe-specific mai
 - A2A #2079 — completed external vector comparison + author review;
 - A2A #1769 — completed T-4 scoped author review;
 - VATE #2 — completed VATE-specific acknowledgement with an immutable external technical record; no independent rerun;
-- MCP #3354 — reproducible result returned; external post-result response still **PENDING**, so evidence remains **Open research follow-up**;
+- MCP #3354 — reproducible result returned; substantive post-result upstream technical follow-up received, but no direct HandoffProbe result review or rerun is established, so evidence remains **Open research follow-up**;
 - MCP TypeScript SDK #2777 — HandoffProbe-related comment only; no fixture, admission or Evidence promotion.
 
 MCP Registry #1579 is explicitly excluded because the Heaviside479 comment there concerns MCPShip rather than HandoffProbe.
@@ -2898,10 +2898,14 @@ The deterministic MCP #3354 refinement result has now been returned to AkiraTama
 - the stable public corpus remains **23 attacks**;
 - no package-version change or release is triggered;
 - HandoffProbe did not reproduce or claim conformance with AkiraTamai's ZK/TEE implementation;
-- external response to the returned result is **PENDING**;
+- substantive post-result external technical follow-up received on 2026-09-22: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397`;
+- associated upstream PR: `https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36`;
+- upstream merge commit: `9b63cb023fa966e6da54d252d2827990d2d7fdbe`;
+- the merged upstream specification explicitly separates execution integrity from authorization to supply the committed inputs;
+- this is upstream specification corroboration, not a direct review or independent rerun of the HandoffProbe result;
 - the public HandoffProbe reply is not external confirmation;
-- silence must not be interpreted as agreement;
-- any later substantive AkiraTamai response must be classified and reflected in `EVIDENCE.md` before this research item is promoted beyond `Open research follow-up`.
+- evidence therefore remains **Open research follow-up** and is not promoted to `External vector comparison + author review`;
+- no new stable attack is admitted and the stable public corpus remains **23 attacks**.
 
 #### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17
 
