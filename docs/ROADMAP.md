@@ -1973,7 +1973,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **IN PROGRESS — candidate / reproducibility / SBOM proof complete**
+Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer proof complete**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -1987,8 +1987,8 @@ collecting evidence.
 - [ ] exercise the real npm stage / Trusted Publishing path with a release
       version that has been separately authorized;
 - [ ] verify npm provenance from the real publishing path;
-- [ ] install and execute the exact candidate externally;
-- [ ] verify the reusable GitHub Action externally from the candidate identity;
+- [x] install and execute the exact candidate externally;
+- [x] verify the reusable GitHub Action externally from the candidate identity;
 - [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [ ] decide whether prerelease publication materially improves final validation.
 
@@ -2001,6 +2001,10 @@ Current candidate proof:
 - deterministic dependency fingerprint: `d23f8358252fd51097bbbb582803fa050aa8476c84d645a1a4c90af992db5d10`;
 - retained SBOM artifact ID: `10713541739`;
 - independent retained-artifact verification: passed;
+- exact-candidate external consumer install: passed with 23 PASS / 0 FAIL / 0 ERROR;
+- external reconstructed tarball matched the Release Candidate SHA-256 exactly;
+- separate consumer Action audit: PR `#10`, run `35772627004`, job `106897794363` — success;
+- external Action report artifact ID: `10714971132`;
 - package remains `0.4.0`;
 - stable corpus remains 23 attacks;
 - no npm stage, publication, version change, tag or GitHub Release has been authorized or performed.

@@ -22,7 +22,7 @@ describe('P12.5 GA candidate proof', () => {
   it('records byte-identical candidate artifact proof', () => {
     const digest = '00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad';
 
-    expect(evidence.split(digest)).toHaveLength(4);
+    expect(evidence).toContain(digest);
     expect(evidence).toContain('Release artifact reproducibility: PASS');
     expect(evidence).toContain('The candidate payload contained 296 files.');
   });
@@ -33,29 +33,57 @@ describe('P12.5 GA candidate proof', () => {
     expect(evidence).toContain('artifact ID: `10713541739`');
     expect(evidence).toContain('afd785ff2dc92596f8fa745e9c4d4bfa40adf6fd1fd6e9ae6da62f16eeaed253');
     expect(evidence).toContain('runtime package count: 74');
-    expect(evidence).toContain('Independent verification observed:');
   });
 
-  it('marks exactly the four completed P12.5 gates', () => {
-    expect(p12_5).toContain(
-      'Status: **IN PROGRESS — candidate / reproducibility / SBOM proof complete**',
+  it('records exact-candidate external installation proof', () => {
+    expect(evidence).toContain('## External exact-candidate installation and execution');
+    expect(evidence).toContain('observed cross-environment digest equality: yes');
+    expect(evidence).toContain('selected attacks: 23');
+    expect(evidence).toContain('PASS: 23');
+    expect(evidence).toContain('FAIL: 0');
+    expect(evidence).toContain('ERROR: 0');
+  });
+
+  it('records separate consumer Action verification', () => {
+    expect(evidence).toContain('audit PR: `#10`');
+    expect(evidence).toContain('workflow run: `35772627004`');
+    expect(evidence).toContain('workflow job: `106897794363`');
+    expect(evidence).toContain('artifact ID: `10714971132`');
+    expect(evidence).toContain(
+      'sha256:4148969be14058898bc7add363518e5e7e8eeb1024a333ba56a572d0c29477ca',
     );
+    expect(evidence).toContain('closed unmerged');
+    expect(evidence).toContain('not independent adoption');
+  });
+
+  it('marks exactly six completed P12.5 gates', () => {
+    expect(p12_5).toContain(
+      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer proof complete**',
+    );
+
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
     expect(p12_5).toContain('- [x] run the Release Candidate workflow from the exact candidate;');
     expect(p12_5).toContain('- [x] reproduce byte-identical candidate npm artifacts;');
     expect(p12_5).toContain('- [x] generate and verify the release SBOM;');
+    expect(p12_5).toContain('- [x] install and execute the exact candidate externally;');
+    expect(p12_5).toContain(
+      '- [x] verify the reusable GitHub Action externally from the candidate identity;',
+    );
 
-    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(4);
-    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(6);
+    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(6);
+    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(4);
   });
 
-  it('keeps publication and external-validation gates open', () => {
+  it('keeps publication and remaining validation gates open', () => {
     expect(p12_5).toContain('- [ ] exercise the real npm stage / Trusted Publishing path');
     expect(p12_5).toContain('- [ ] verify npm provenance from the real publishing path;');
-    expect(p12_5).toContain('- [ ] install and execute the exact candidate externally;');
     expect(p12_5).toContain(
-      '- [ ] verify the reusable GitHub Action externally from the candidate identity;',
+      '- [ ] verify upgrade/migration/troubleshooting guidance against the candidate;',
     );
+    expect(p12_5).toContain(
+      '- [ ] decide whether prerelease publication materially improves final validation.',
+    );
+
     expect(evidence).toContain('- authorize `1.0.0-rc.1`;');
     expect(evidence).toContain('- authorize `1.0.0`;');
     expect(evidence).toContain('The public package remains `handoffprobe@0.4.0`.');
