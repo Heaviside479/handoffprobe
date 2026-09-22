@@ -20,15 +20,15 @@ The package contract remains:
 
 Recorded runtime evidence:
 
-| Environment                            | Evidence status                       |
-| -------------------------------------- | ------------------------------------- |
-| Node 24.x                              | Supported package runtime contract    |
-| Node 24.17.0                           | Locally verified on macOS             |
-| Node below 24                          | Not supported by the package contract |
-| Node 25 or newer                       | Not supported by the package contract |
-| GitHub-hosted Ubuntu + Node 24         | CI verified                           |
-| GitHub-hosted `macos-latest` + Node 24 | CI verified under P10.4 on 2026-09-19 |
-| macOS 14.8.9 x86_64 + Node 24.17.0     | Locally validated                     |
+| Environment                              | Evidence status                       |
+| ---------------------------------------- | ------------------------------------- |
+| Node 24.x                                | Supported package runtime contract    |
+| Node 24.17.0                             | Locally verified on macOS             |
+| Node below 24                            | Not supported by the package contract |
+| Node 25 or newer                         | Not supported by the package contract |
+| GitHub-hosted Ubuntu + Node 24           | CI verified                           |
+| GitHub-hosted `macos-latest` + Node 24   | CI verified under P10.4 on 2026-09-19 |
+| macOS 14.8.9 x86_64 + Node 24.17.0       | Locally validated                     |
 | GitHub-hosted `windows-latest` + Node 24 | CI verified under P10.4 on 2026-09-19 |
 
 The current CI quality workflow runs an OS matrix of `ubuntu-latest`, `macos-latest` and `windows-latest` with Node 24. GitHub-hosted macOS and Windows CI were added and validated under P10-4 on 2026-09-19.
@@ -102,4 +102,24 @@ HandoffProbe currently promises only what this evidence supports:
 
 The supported compatibility baseline is now explicit, reproducible and reviewable without relying on undocumented assumptions.
 
-P10.1 is complete. Broader CI platform coverage belongs to P10.4.
+P10.1 is complete. Broader CI platform coverage belongs to P10.4.\n\n## P12.4 v1 freeze reconciliation — 2026-09-22
+
+The P10.1 evidence above remains a historical record of the earlier `0.3.0` / 22-attack baseline.
+
+The current frozen v1 candidate baseline is now:
+
+- source/package version `0.4.0`;
+- 23 stable attacks;
+- Node.js `>=24 <25`;
+- repository CI on `ubuntu-latest`, `macos-latest` and `windows-latest` with Node 24;
+- A2A `1.0` -> MCP `2026-07-28`;
+- `@a2a-js/sdk@1.1.0`;
+- `@modelcontextprotocol/client@2.0.0`;
+- `@modelcontextprotocol/server@2.0.0`.
+
+The reusable GitHub Action continues to configure Node 24 and `shell: bash`. Repository/package Windows CI does not independently prove native Windows compatibility for that composite Action.
+
+Other Node lines and other A2A/MCP protocol revisions remain outside the frozen v1 compatibility promise unless separately admitted.
+
+This reconciliation does not rewrite the historical P10.1 evidence and does not authorize a version, runtime or protocol expansion.
+\n
