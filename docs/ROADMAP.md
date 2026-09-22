@@ -1869,7 +1869,7 @@ make.
 
 ## P12.3 — v1 public-contract freeze
 
-Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**
+Status: **COMPLETE — merged through protected PR #173 on 2026-09-22**
 
 This work does not depend on external replies.
 
@@ -1911,7 +1911,7 @@ Validation / admission:
 - [x] pass focused P12.3 contract regression;
 - [x] pass complete repository validation;
 - [x] pass package validation;
-- [ ] merge through protected pull-request admission.
+- [x] merge through protected pull-request admission; PR #173 merged as `cc15661e9cdf5b77c3ff62599f2fbf5282f67d6c`.
 
 Exit gate:
 
