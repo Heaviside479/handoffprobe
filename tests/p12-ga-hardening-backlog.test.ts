@@ -185,15 +185,17 @@ describe('P12.4 internal GA hardening and backlog disposition', () => {
     expect(redditQueue).toContain('PROTOCOL SEMANTICS / NO ADD; external response PENDING');
   });
 
-  it('records completed P12.4 local validation while protected admission remains pending', () => {
-    expect(roadmap).toContain(
-      'Status: **ACTIVE CANDIDATE — local validation complete; protected pull-request admission pending**',
-    );
+  it('records completed P12.4 protected admission', () => {
+    expect(roadmap).toContain('Status: **COMPLETE**');
     expect(roadmap).toContain('- 0 `PRE-GA REQUIRED`;');
     expect(roadmap).toContain('- 6 deferred backlog candidates classified `POST-GA`;');
     expect(roadmap).toContain('- 2 deferred backlog candidates classified `RESEARCH ONLY`;');
     expect(roadmap).toContain('- [x] pass complete repository validation;');
     expect(roadmap).toContain('- [x] pass package validation;');
+    expect(roadmap).toContain('- [x] merge through protected pull-request admission.');
+    expect(evidence).toContain(
+      'protected merge commit: `5ec9d06057b1a17ad3d299d79c9105a964018c0e`',
+    );
   });
 
   it('indexes the P12.4 evidence record', () => {
