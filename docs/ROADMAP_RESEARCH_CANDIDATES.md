@@ -196,6 +196,7 @@ Current position:
 - evidence level: **Open research follow-up**;
 - the result remains **HP-TARGET-001 REFINEMENT / NO ADD**;
 - no new stable attack ID or release is triggered.
+
 ## RC-5 — Reddit x402 paid-retry binding after 402
 
 Status: **PUBLIC RESULT RETURN COMPLETE / PROTOCOL SEMANTICS / NO ADD / EXTERNAL RESPONSE PENDING**
@@ -279,3 +280,48 @@ Next gate:
 
 Live/public/testnet payment execution is outside this candidate's research boundary.
 R-4 must use deterministic local/synthetic payment semantics only.
+
+## RC-6 — LangGraph durable admission decision across resume
+
+Status: **FROZEN / OVERLAP COMPLETE — REFINEMENT / COMPOSITION / NO NEW STABLE ID**
+
+Detailed research record:
+
+`docs/LANGGRAPH_8102_REPLAY_RESUME_SIGNAL_20260922.md`
+
+Originating source:
+
+https://github.com/langchain-ai/langgraph/issues/8102
+
+External technical comment:
+
+https://github.com/langchain-ai/langgraph/issues/8102#issuecomment-5774538909
+
+The external signal asks how a pre-execution admission decision should behave across interrupt, retry and crash/recovery boundaries, including proposal-versus-effective-call preservation, stable decision provenance and exactly-once side-effect behavior.
+
+Current overlap result:
+
+- stale reuse of a decision for the same interrupted logical action is primarily an `HP-RACE-002` refinement;
+- duplicate execution after retry/crash ambiguity is primarily an `HP-REPLAY-003` refinement;
+- `HP-AUTH-006` remains adjacent only when a later **distinct** protected effect is attempted;
+- approval attacks remain conditionally adjacent when the effective call differs from the approved/proposed action;
+- decision provenance is adjacent to `HP-AUDIT-001`;
+- no distinct stable failure class has yet been demonstrated.
+
+Current position:
+
+- classification: **REFINEMENT / COMPOSITION / NO NEW STABLE ID**;
+- no new `HP-*` ID reserved;
+- stable corpus remains **23 attacks**;
+- public package remains `0.4.0`;
+- no release triggered;
+- no claim that LangGraph is vulnerable;
+- no claim that the proposed hook is implemented;
+- no external HandoffProbe validation claim;
+- no public result return yet.
+
+Possible next research step:
+
+a deterministic synthetic fixture may compare clean resume, changed effective call, changed authority/policy state, crash/recovery duplicate-effect handling and explicitly fresh reauthorization.
+
+Fixture work must preserve logical action identity, attempt identity, admission-decision identity and protected-effect evidence separately.
