@@ -2817,7 +2817,7 @@ The audit covers every external thread returned by the HandoffProbe-specific mai
 - A2A #2079 — completed external vector comparison + author review;
 - A2A #1769 — completed T-4 scoped author review;
 - VATE #2 — completed VATE-specific acknowledgement with an immutable external technical record; no independent rerun;
-- MCP #3354 — reproducible result returned; substantive post-result upstream technical follow-up received, but no direct HandoffProbe result review or rerun is established, so evidence remains **Open research follow-up**;
+- MCP #3354 — reproducible result returned; direct AkiraTamai author review received; authorization-continuity fixture PR #37 merged and pre-SEP proposal changelog traceability recorded; evidence is **External vector comparison + author review** without independent HandoffProbe rerun;
 - MCP TypeScript SDK #2777 — HandoffProbe-related comment only; no fixture, admission or Evidence promotion.
 
 MCP Registry #1579 is explicitly excluded because the Heaviside479 comment there concerns MCPShip rather than HandoffProbe.
@@ -2884,9 +2884,9 @@ The MCP #3354 layer-separation refinement has now been executed locally and dete
 - No package-version change or release is triggered.
 - Next required step after merge: return the concrete result to AkiraTamai in MCP `#3354`, then update `EVIDENCE.md`, queue and roadmap with the public response state.
 
-#### MCP #3354 public result return — 2026-09-18
+#### MCP #3354 public result return and external author review — 2026-09-18 / 2026-09-22
 
-The deterministic MCP #3354 refinement result has now been returned to AkiraTamai in the originating public thread.
+The deterministic MCP #3354 refinement result was returned to AkiraTamai in the originating public thread and later received direct scoped author review.
 
 - merged HandoffProbe execution commit: `13e4a525b658077e235a769f6aff6d6e2754a33e`;
 - public result return: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791`;
@@ -2895,16 +2895,24 @@ The deterministic MCP #3354 refinement result has now been returned to AkiraTama
 - widened protected-effect delta: `0`;
 - classification remains **REFINEMENT**;
 - no new stable attack is admitted;
-- the stable public corpus remains **23 attacks**;
+- stable public corpus remains **23 attacks**;
 - no package-version change or release is triggered;
-- HandoffProbe did not reproduce or claim conformance with AkiraTamai's ZK/TEE implementation;
-- substantive post-result external technical follow-up received on 2026-09-22: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397`;
-- associated upstream PR: `https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36`;
-- upstream merge commit: `9b63cb023fa966e6da54d252d2827990d2d7fdbe`;
-- the merged upstream specification explicitly separates execution integrity from authorization to supply the committed inputs;
-- this is upstream specification corroboration, not a direct review or independent rerun of the HandoffProbe result;
-- the public HandoffProbe reply is not external confirmation;
-- evidence therefore remains **Open research follow-up** and is not promoted to `External vector comparison + author review`;
+- HandoffProbe did not reproduce or claim conformance with the upstream ZK or TEE implementation;
+- upstream specification follow-up: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397`;
+- associated upstream PR #36: `https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36`;
+- upstream PR #36 merge commit: `9b63cb023fa966e6da54d252d2827990d2d7fdbe`;
+- direct AkiraTamai author review: `https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5777698218`;
+- authorization-continuity negative fixture PR #37: `https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/37`;
+- PR #37 merge commit: `803935c0fbcd34ead12976a52a6ad857c09e9fdc`;
+- AkiraTamai confirmed that the HandoffProbe boundary reading is the intended one and identified nothing to correct;
+- the upstream negative fixture mirrors the comparison shape: in-scope proof verification plus commitment match, versus widened schema-valid proof verification followed by approved-commitment mismatch rejection;
+- the MCP #3354 issue description now explicitly frames the work as a pre-SEP proposal;
+- the issue now explicitly documents authorization continuity and `inputCommitment` as the interface available to an external authority check;
+- changelog `2026-09-22-002` thanks `@Heaviside479`, links the HandoffProbe discussion/result trail and links PR #37;
+- the issue states an intent to continue proposal discussion through the MCP Security IG / Contributor Discord and an eventual Extensions Track SEP process;
+- this proposal/changelog state is external impact and traceability evidence, not HandoffProbe adoption, endorsement, SEP acceptance or standardization;
+- no independent external HandoffProbe rerun is established;
+- evidence is now **External vector comparison + author review**;
 - no new stable attack is admitted and the stable public corpus remains **23 attacks**.
 
 #### MCP #3354 / Verifiable MCP authority-boundary signal — 2026-09-17

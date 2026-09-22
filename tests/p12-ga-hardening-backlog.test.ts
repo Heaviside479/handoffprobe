@@ -176,7 +176,9 @@ describe('P12.4 internal GA hardening and backlog disposition', () => {
   });
 
   it('preserves existing research results as refinements or no-add decisions', () => {
-    expect(mcpQueue).toContain('PUBLIC RESULT RETURN COMPLETE 2026-09-18 — REFINEMENT');
+    expect(mcpQueue).toContain(
+      'PUBLIC RESULT RETURN COMPLETE — REFINEMENT; DIRECT AUTHOR REVIEW RECEIVED 2026-09-22; PROPOSAL / CHANGELOG TRACEABILITY RECORDED.',
+    );
     expect(mcpQueue).toContain('No new stable attack is admitted');
 
     expect(redditQueue).toContain('HP-RACE-002 REFINEMENT / NO ADD; external response PENDING');

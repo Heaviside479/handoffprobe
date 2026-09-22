@@ -38,7 +38,7 @@ Two number collisions were checked separately:
 | A2A #2079                | translation-boundary comment + pinned cA2A comparison                         | complete      | giskard09 author confirmation received                                                                          | External vector comparison + author review                   | PR #103                            |
 | A2A #1769                | Phase 9 evidence comment + T-4 WitnessObservation/VATE work                   | complete      | Oga and Poke-nushi reviews received                                                                             | External vector comparison + author review                   | PR #121                            |
 | VATE #2                  | VATE-specific T-4 result return                                               | complete      | VATE technical acknowledgement/record received                                                                  | Same completed T-4 scoped author-review evidence             | PR #121                            |
-| MCP #3354                | execution-integrity/authorization boundary comment + deterministic refinement | complete      | substantive post-result upstream technical follow-up received; no direct HandoffProbe result review established | Open research follow-up                                      | PR #115                            |
+| MCP #3354                | execution-integrity/authorization boundary comment + deterministic refinement | complete      | direct AkiraTamai author review received; authorization-continuity fixture and proposal changelog trace recorded | External vector comparison + author review                   | PR #115                            |
 | MCP TypeScript SDK #2777 | comment only on schema-valid vs safe-to-present peer declarations             | none          | no substantive response recorded                                                                                | comment-only signal; no HandoffProbe research/admission work | none by design                     |
 
 ## A2A #1937
@@ -213,16 +213,31 @@ Public result return:
 
 https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5731012791
 
-Post-audit update — 2026-09-22:
+Post-result upstream specification follow-up:
 
-- AkiraTamai substantive technical follow-up: https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397
-- associated upstream PR: https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36
-- merged upstream commit: `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
-- the merged upstream specification explicitly records that execution-integrity proof does not establish whether the caller was authorized to supply those inputs.
+- https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5775696397
+- https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/36
+- merge commit `9b63cb023fa966e6da54d252d2827990d2d7fdbe`
 
-This is substantive upstream specification corroboration after the HandoffProbe result return. It is not evidence that AkiraTamai reviewed the HandoffProbe execution artifact or independently reran the HandoffProbe test.
+Direct post-result author review:
 
-Current evidence state remains: **Open research follow-up**.
+- https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3354#issuecomment-5777698218
+- https://github.com/ripple-node-lab/mcp-verifiable-tools-demo/pull/37
+- merge commit `803935c0fbcd34ead12976a52a6ad857c09e9fdc`
+
+AkiraTamai directly confirmed that the HandoffProbe reading of the execution-integrity versus authorization-continuity boundary is the intended one and identified nothing to correct.
+
+The merged upstream negative fixture represents the same comparison shape: an approved in-scope call verifies and matches the approved commitment, while a schema-valid widened call still verifies at the proof layer and is rejected by approved-commitment mismatch.
+
+The MCP `#3354` issue now frames the work as a pre-SEP proposal. Its description explicitly records the authorization-continuity boundary and the `inputCommitment` interface to an external authority check.
+
+Changelog entry `2026-09-22-002` thanks `@Heaviside479`, links the HandoffProbe boundary discussion and public result, and links the merged authorization-continuity fixture PR #37.
+
+The issue also records an intent to continue proposal discussion through the MCP Security IG / Contributor Discord and an eventual Extensions Track SEP process. This is proposal traceability only and does not establish SEP acceptance or standardization.
+
+Current evidence state: **External vector comparison + author review**.
+
+This author review is scoped technical confirmation. It is not independent HandoffProbe reproduction, adoption, endorsement or certification.
 
 Canonical internal closeout:
 
