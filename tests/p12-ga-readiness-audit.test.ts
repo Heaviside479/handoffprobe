@@ -90,9 +90,16 @@ describe('current roadmap execution model', () => {
   });
 
   it('allows an RC to support validation without mislabeling it as GA', () => {
-    expect(phase12).toContain('an evidence-backed `1.0.0-rc.1` may be published here');
-    expect(phase12).toContain('is not v1 GA');
-    expect(phase12).toContain('does not convert silence into validation');
+    expect(phase12).toContain(
+      'an evidence-backed `1.0.0-rc.1` materially improves final validation',
+    );
+    expect(phase12).toContain('it remains a prerelease and does not waive P11.6 or P12.6');
+    expect(phase12).toContain(
+      'the decision does not itself authorize a version change, npm stage, npm publication, tag or GitHub Release',
+    );
+    expect(phase12).toContain(
+      'the concrete prerelease version transition remains a separately controlled step',
+    );
   });
 
   it('keeps Cloud and Enterprise demand-gated without blocking technical expansion', () => {
