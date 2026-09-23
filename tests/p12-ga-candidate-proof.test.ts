@@ -56,9 +56,24 @@ describe('P12.5 GA candidate proof', () => {
     expect(evidence).toContain('not independent adoption');
   });
 
-  it('marks exactly six completed P12.5 gates', () => {
+  it('records exact-candidate user-guidance execution proof', () => {
+    expect(evidence).toContain('## Upgrade, migration and troubleshooting guidance verification');
+    expect(evidence).toContain('00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad');
+    expect(evidence).toContain('JSON report schema: `1`');
+    expect(evidence).toContain('JSON selected attack count: 23');
+    expect(evidence).toContain('vulnerable `HP-AUTH-001` demonstration: exit `1`');
+    expect(evidence).toContain('invalid configuration: exit `2`');
+    expect(evidence).toContain('output-write failure: exit `3`');
+    expect(evidence).toContain('Markdown report path: success');
+    expect(evidence).toContain('1ea17074fdcf6c34ef522adfba5809cf367d44c3');
+    expect(evidence).toContain('2f72e59c9239a9d0b74a26072dfb650e9af155da');
+    expect(evidence).toContain('6d4d6ab11d748ea0a61df54f122dd14fde2ec027');
+    expect(evidence).toContain('source identity from package-version identity');
+  });
+
+  it('marks exactly seven completed P12.5 gates', () => {
     expect(p12_5).toContain(
-      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer proof complete**',
+      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance proof complete**',
     );
 
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
@@ -70,16 +85,17 @@ describe('P12.5 GA candidate proof', () => {
       '- [x] verify the reusable GitHub Action externally from the candidate identity;',
     );
 
-    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(6);
-    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(4);
+    expect(p12_5).toContain(
+      '- [x] verify upgrade/migration/troubleshooting guidance against the candidate;',
+    );
+
+    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(7);
+    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(3);
   });
 
   it('keeps publication and remaining validation gates open', () => {
     expect(p12_5).toContain('- [ ] exercise the real npm stage / Trusted Publishing path');
     expect(p12_5).toContain('- [ ] verify npm provenance from the real publishing path;');
-    expect(p12_5).toContain(
-      '- [ ] verify upgrade/migration/troubleshooting guidance against the candidate;',
-    );
     expect(p12_5).toContain(
       '- [ ] decide whether prerelease publication materially improves final validation.',
     );

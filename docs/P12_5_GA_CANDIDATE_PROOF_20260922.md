@@ -2,7 +2,7 @@
 
 Date: 2026-09-22
 
-Status: **IN PROGRESS — candidate, reproducibility, SBOM and external consumer proof complete**
+Status: **IN PROGRESS — candidate, reproducibility, SBOM, external consumer and user-guidance proof complete**
 
 Frozen candidate commit: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
 
@@ -194,6 +194,56 @@ After successful verification, audit PR `#10` was closed unmerged and its tempor
 
 This is maintainer-created external consumer verification. It proves resolution and execution from a separate repository but is not independent adoption or external-user evidence.
 
+## Upgrade, migration and troubleshooting guidance verification
+
+The exact frozen candidate was reconstructed again from:
+
+`63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
+
+using pinned npm `11.19.1`.
+
+The rebuilt candidate tarball SHA-256 remained:
+
+`00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad`
+
+which exactly matched the previously retained Release Candidate artifact.
+
+The candidate was installed into a fresh isolated consumer environment and the user-facing guidance paths from:
+
+- `docs/UPGRADING.md`;
+- `docs/MIGRATION.md`;
+- `docs/TROUBLESHOOTING.md`;
+
+were exercised directly.
+
+Observed user-guidance verification:
+
+- installed identity: `HandoffProbe 0.4.0`;
+- stable attack listing: 23 attacks;
+- secure full corpus: 23 PASS / 0 FAIL / 0 ERROR;
+- JSON report schema: `1`;
+- JSON selected attack count: 23;
+- vulnerable `HP-AUTH-001` demonstration: exit `1`;
+- invalid configuration: exit `2`;
+- output-write failure: exit `3`;
+- Markdown report path: success;
+- package version remained `0.4.0`;
+- stable corpus remained 23 attacks.
+
+The three guidance files were also compared by Git blob identity between the frozen candidate and current protected `main`.
+
+Observed blob identities:
+
+- `docs/UPGRADING.md`: `1ea17074fdcf6c34ef522adfba5809cf367d44c3`;
+- `docs/MIGRATION.md`: `2f72e59c9239a9d0b74a26072dfb650e9af155da`;
+- `docs/TROUBLESHOOTING.md`: `6d4d6ab11d748ea0a61df54f122dd14fde2ec027`.
+
+For all three files, candidate and current-main blob identities matched exactly.
+
+This verification distinguishes source identity from package-version identity: the frozen P12.5 candidate and the already published npm release both report package version `0.4.0`, but the P12.5 candidate remains identified by exact commit `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`.
+
+The verification did not publish or stage a package, change a version, create a tag, create a GitHub Release or claim npm provenance.
+
 ## P12.5 completion state
 
 Completed:
@@ -209,7 +259,7 @@ Still open:
 
 - [ ] exercise the real npm stage / Trusted Publishing path with a release version that has been separately authorized;
 - [ ] verify npm provenance from the real publishing path;
-- [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
+- [x] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [ ] decide whether prerelease publication materially improves final validation.
 
 ## Release boundary

@@ -1973,7 +1973,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer proof complete**
+Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance proof complete**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -1989,7 +1989,7 @@ collecting evidence.
 - [ ] verify npm provenance from the real publishing path;
 - [x] install and execute the exact candidate externally;
 - [x] verify the reusable GitHub Action externally from the candidate identity;
-- [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
+- [x] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [ ] decide whether prerelease publication materially improves final validation.
 
 Current candidate proof:
