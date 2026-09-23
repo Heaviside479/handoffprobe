@@ -2,7 +2,7 @@
 
 Date: 2026-09-22
 
-Status: **IN PROGRESS — candidate, reproducibility, SBOM, external consumer and user-guidance proof complete**
+Status: **IN PROGRESS — candidate, reproducibility, SBOM, external consumer, user-guidance and prerelease-decision proof complete**
 
 Frozen candidate commit: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
 
@@ -244,6 +244,36 @@ This verification distinguishes source identity from package-version identity: t
 
 The verification did not publish or stage a package, change a version, create a tag, create a GitHub Release or claim npm provenance.
 
+## Prerelease publication decision
+
+Decision date: 2026-09-23.
+
+Decision: **an evidence-backed `1.0.0-rc.1` materially improves final validation before v1 GA.**
+
+The prerelease has a concrete validation purpose:
+
+- exercise the real registry-backed installation path under an intended v1 prerelease identity;
+- exercise the prepared npm Trusted Publishing stage path with a separately authorized release version;
+- obtain publication provenance from the real trusted-publishing path;
+- allow real npm installation, CI and integration testing without declaring v1 GA;
+- provide a stable prerelease identity for additional external feedback while P11.6 and P12.6 remain independently open.
+
+The decision is based on the P12.5 evidence already completed: exact candidate freeze, reproducible artifact proof, SBOM proof, isolated consumer installation, external reusable Action verification and user-guidance verification.
+
+This decision does **not** itself:
+
+- authorize changing the package version to `1.0.0-rc.1`;
+- authorize npm stage publication;
+- authorize npm publication;
+- authorize `1.0.0`;
+- create or move a Git tag;
+- create a GitHub Release;
+- waive P11.6;
+- waive P12.6;
+- convert absence of external feedback into validation.
+
+A concrete prerelease version transition and any real npm stage action remain separately controlled steps.
+
 ## P12.5 completion state
 
 Completed:
@@ -253,14 +283,14 @@ Completed:
 - [x] reproduce byte-identical candidate npm artifacts;
 - [x] generate and verify the release SBOM;
 - [x] install and execute the exact candidate externally;
-- [x] verify the reusable GitHub Action externally from the candidate identity.
+- [x] verify the reusable GitHub Action externally from the candidate identity;
+- [x] verify upgrade/migration/troubleshooting guidance against the candidate;
+- [x] decide whether prerelease publication materially improves final validation.
 
 Still open:
 
 - [ ] exercise the real npm stage / Trusted Publishing path with a release version that has been separately authorized;
 - [ ] verify npm provenance from the real publishing path;
-- [x] verify upgrade/migration/troubleshooting guidance against the candidate;
-- [ ] decide whether prerelease publication materially improves final validation.
 
 ## Release boundary
 

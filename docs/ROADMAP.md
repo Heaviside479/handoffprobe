@@ -1973,7 +1973,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance proof complete**
+Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance / prerelease decision complete**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -1990,7 +1990,7 @@ collecting evidence.
 - [x] install and execute the exact candidate externally;
 - [x] verify the reusable GitHub Action externally from the candidate identity;
 - [x] verify upgrade/migration/troubleshooting guidance against the candidate;
-- [ ] decide whether prerelease publication materially improves final validation.
+- [x] decide whether prerelease publication materially improves final validation.
 
 Current candidate proof:
 
@@ -2011,15 +2011,13 @@ Current candidate proof:
 
 Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 
-If useful, an evidence-backed `1.0.0-rc.1` may be published here.
+Prerelease decision completed 2026-09-23:
 
-Publishing `1.0.0-rc.1`:
-
-- is not v1 GA;
-- does not waive P11.6;
-- does not waive external-user evidence;
-- does not convert silence into validation;
-- may be used to obtain real installation, CI and integration feedback.
+- an evidence-backed `1.0.0-rc.1` materially improves final validation;
+- its purpose is real registry installation, CI, integration, Trusted Publishing and provenance validation before v1 GA;
+- it remains a prerelease and does not waive P11.6 or P12.6;
+- the decision does not itself authorize a version change, npm stage, npm publication, tag or GitHub Release;
+- the concrete prerelease version transition remains a separately controlled step.
 
 Further candidate fixes may use `1.0.0-rc.2`, `1.0.0-rc.3`, and so on when
 SemVer prerelease progression is appropriate.

@@ -71,9 +71,9 @@ describe('P12.5 GA candidate proof', () => {
     expect(evidence).toContain('source identity from package-version identity');
   });
 
-  it('marks exactly seven completed P12.5 gates', () => {
+  it('marks exactly eight completed P12.5 gates', () => {
     expect(p12_5).toContain(
-      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance proof complete**',
+      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance / prerelease decision complete**',
     );
 
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
@@ -89,16 +89,35 @@ describe('P12.5 GA candidate proof', () => {
       '- [x] verify upgrade/migration/troubleshooting guidance against the candidate;',
     );
 
-    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(7);
-    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(3);
+    expect(p12_5).toContain(
+      '- [x] decide whether prerelease publication materially improves final validation.',
+    );
+
+    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(8);
+    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(2);
+  });
+
+  it('records the prerelease validation decision without authorizing publication', () => {
+    expect(evidence).toContain('## Prerelease publication decision');
+    expect(evidence).toContain(
+      'an evidence-backed `1.0.0-rc.1` materially improves final validation before v1 GA',
+    );
+    expect(evidence).toContain(
+      'exercise the real registry-backed installation path under an intended v1 prerelease identity',
+    );
+    expect(evidence).toContain(
+      'obtain publication provenance from the real trusted-publishing path',
+    );
+    expect(evidence).toContain('authorize changing the package version to `1.0.0-rc.1`');
+    expect(evidence).toContain('authorize npm stage publication');
+    expect(evidence).toContain(
+      'A concrete prerelease version transition and any real npm stage action remain separately controlled steps.',
+    );
   });
 
   it('keeps publication and remaining validation gates open', () => {
     expect(p12_5).toContain('- [ ] exercise the real npm stage / Trusted Publishing path');
     expect(p12_5).toContain('- [ ] verify npm provenance from the real publishing path;');
-    expect(p12_5).toContain(
-      '- [ ] decide whether prerelease publication materially improves final validation.',
-    );
 
     expect(evidence).toContain('- authorize `1.0.0-rc.1`;');
     expect(evidence).toContain('- authorize `1.0.0`;');
