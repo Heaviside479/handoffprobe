@@ -2870,6 +2870,31 @@ This policy applies to **all current and future external technical contributors/
 - For non-GitHub sources such as Reddit, preserve the exact source permalink, public result-return permalink and immutable HandoffProbe artifact instead.
 - This policy is designed to keep `EVIDENCE.md` auditable: external input → frozen material → HandoffProbe comparison → reproducible artifact → public result return → external response state → scoped evidence classification.
 
+#### Sanction Gate #2 stale-authority / effect-time signal — 2026-09-23
+
+A new external technical traceability signal is frozen at:
+
+`docs/SANCTION_GATE_2_STALE_AUTHORITY_SIGNAL_20260923.md`
+
+- external record: https://github.com/math-r-association/sanction-gate/issues/2
+- originating proposal: https://github.com/a2aproject/A2A/issues/2250
+- external author: `01ehex`;
+- the Sanction Gate issue explicitly records that the stale-authority / effect-time boundary was raised by `@Heaviside479`;
+- the external decomposition separates authentic artifact validity, current authority for the exact action/context and final effective-action binding;
+- candidate future vector: sanction admitted -> held before effect -> sanction withdrawn or superseded -> same action resumes -> zero protected effects;
+- same-action stale-state resume is primarily an `HP-RACE-002` refinement;
+- `HP-AUTH-006` is adjacent but not governing because it requires an earlier completed effect and a later distinct effect;
+- no reference implementation or validated Sanction Gate conformance result exists at this freeze point;
+- classification: **EXTERNAL TECHNICAL VALIDATION / TRACEABILITY SIGNAL — REFINEMENT / NO NEW STABLE ID**;
+- no adoption, conformance or independent HandoffProbe reproduction is claimed;
+- no new stable attack is admitted;
+- stable public corpus remains **23 attacks**;
+- public package remains `0.4.0`;
+- no release is triggered;
+- future direct comparison is gated on concrete withdrawal ordering, execution-boundary semantics and a reference implementation or executable conformance vector.
+
+Any later reproducible HandoffProbe comparison must be returned to the Sanction Gate issue with exact immutable evidence and explicit limitations.
+
 #### MCP #3354 freeze / overlap decision — 2026-09-18
 
 The queued Verifiable MCP authority-boundary signal has now completed its first HandoffProbe freeze and overlap gate.

@@ -325,3 +325,46 @@ Possible next research step:
 a deterministic synthetic fixture may compare clean resume, changed effective call, changed authority/policy state, crash/recovery duplicate-effect handling and explicitly fresh reauthorization.
 
 Fixture work must preserve logical action identity, attempt identity, admission-decision identity and protected-effect evidence separately.
+
+## RC-7 — Sanction Gate sanction currency at effect time
+
+Status: **FROZEN / OVERLAP COMPLETE — EXTERNAL TECHNICAL VALIDATION / TRACEABILITY SIGNAL — NO NEW STABLE ID**
+
+Detailed research record:
+
+`docs/SANCTION_GATE_2_STALE_AUTHORITY_SIGNAL_20260923.md`
+
+External source:
+
+https://github.com/math-r-association/sanction-gate/issues/2
+
+Originating A2A proposal:
+
+https://github.com/a2aproject/A2A/issues/2250
+
+The external Sanction Gate record promotes the stale-authority / effect-time boundary raised by `@Heaviside479` into a first-class external issue and separates artifact validity, current authority and final effective-action binding.
+
+Candidate vector once external semantics exist:
+
+`sanction admitted -> action held before effect -> sanction withdrawn or superseded -> same action resumes -> zero protected effects`
+
+Current overlap result:
+
+- same-action stale-state resume is primarily an `HP-RACE-002` refinement;
+- `HP-AUTH-006` remains adjacent but is not governing because its stable scenario requires an earlier completed protected effect followed by a later distinct effect;
+- effective-action binding may overlap existing target, approval and semantic-authority invariants;
+- no distinct stable failure class has been demonstrated.
+
+Current position:
+
+- classification: **EXTERNAL TECHNICAL VALIDATION / TRACEABILITY SIGNAL — REFINEMENT / NO NEW STABLE ID**;
+- no new `HP-*` ID reserved;
+- stable corpus remains **23 attacks**;
+- public package remains `0.4.0`;
+- no release triggered;
+- no reference implementation exists at freeze time;
+- no validated Sanction Gate conformance result exists;
+- no independent HandoffProbe reproduction exists;
+- no adoption claim is made.
+
+Future direct comparison is gated on concrete withdrawal ordering, execution-boundary semantics and a reference implementation or executable conformance vector.
