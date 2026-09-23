@@ -2,7 +2,7 @@
 
 Date: 2026-09-22
 
-Status: **IN PROGRESS — candidate freeze, Release Candidate execution, artifact reproducibility and SBOM proof complete**
+Status: **IN PROGRESS — candidate, reproducibility, SBOM and external consumer proof complete**
 
 Frozen candidate commit: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
 
@@ -114,6 +114,86 @@ Secure full-corpus result:
 
 This isolated CI installation supports the candidate workflow proof but is not counted as completion of the separate P12.5 external-installation gate.
 
+## External exact-candidate installation and execution
+
+The frozen candidate was then exercised from an isolated consumer environment outside the HandoffProbe working repository.
+
+The source archive was fetched directly from GitHub for exact commit:
+
+`63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
+
+Observed external build and installation evidence:
+
+- source package version: `0.4.0`;
+- release npm used for reconstruction: `11.19.1`;
+- clean dependency installation: passed;
+- candidate package construction: passed;
+- package file count: 296;
+- external tarball SHA-256: `00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad`;
+- Release Candidate workflow tarball SHA-256: `00c2bfd715cd3b7634c299ef1656ba39a477597023533c4be1d0b13fb79b27ad`;
+- observed cross-environment digest equality: yes.
+
+The exact reconstructed tarball was then installed into a second clean consumer directory.
+
+Observed installed identity:
+
+`HandoffProbe 0.4.0`
+
+External secure full-corpus execution produced:
+
+- selected attacks: 23;
+- PASS: 23;
+- FAIL: 0;
+- ERROR: 0;
+- TOTAL: 23;
+- security gate: PASS.
+
+The original HandoffProbe working repository remained on protected `main`, clean and unchanged throughout the external-consumer exercise.
+
+This is controlled maintainer-created consumer evidence. It is not independent third-party adoption and does not satisfy P12.6 by itself.
+
+## External reusable GitHub Action consumer verification
+
+The exact frozen candidate Action was also exercised from the existing separate consumer-audit repository:
+
+`Heaviside479/handoffprobe-action-audit-20260830-134434`
+
+External consumer identity:
+
+- candidate Action reference: `Heaviside479/handoffprobe@63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`;
+- audit PR: `#10`;
+- audit commit: `4fe1410f55c21ab48c91b57d987b742a764598a0`;
+- workflow: `HandoffProbe P12.5 Candidate External Consumer Audit`;
+- workflow run: `35772627004`;
+- workflow job: `106897794363`;
+- workflow conclusion: `success`.
+
+Verified Action outputs:
+
+- exit code: `0`;
+- result: `pass`;
+- report path: present;
+- summary path: present;
+- report schema: `1`;
+- HandoffProbe version: `0.4.0`;
+- selected attacks: 23;
+- PASS: 23;
+- FAIL: 0;
+- ERROR: 0;
+- TOTAL: 23.
+
+Retained consumer artifact:
+
+- artifact ID: `10714971132`;
+- artifact name: `handoffprobe-p12-5-candidate-report`;
+- artifact size: 3196 bytes;
+- artifact digest: `sha256:4148969be14058898bc7add363518e5e7e8eeb1024a333ba56a572d0c29477ca`;
+- expiration: 2026-09-29.
+
+After successful verification, audit PR `#10` was closed unmerged and its temporary branch was deleted.
+
+This is maintainer-created external consumer verification. It proves resolution and execution from a separate repository but is not independent adoption or external-user evidence.
+
 ## P12.5 completion state
 
 Completed:
@@ -121,14 +201,14 @@ Completed:
 - [x] freeze the exact candidate commit;
 - [x] run the Release Candidate workflow from the exact candidate;
 - [x] reproduce byte-identical candidate npm artifacts;
-- [x] generate and verify the release SBOM.
+- [x] generate and verify the release SBOM;
+- [x] install and execute the exact candidate externally;
+- [x] verify the reusable GitHub Action externally from the candidate identity.
 
 Still open:
 
 - [ ] exercise the real npm stage / Trusted Publishing path with a release version that has been separately authorized;
 - [ ] verify npm provenance from the real publishing path;
-- [ ] install and execute the exact candidate externally;
-- [ ] verify the reusable GitHub Action externally from the candidate identity;
 - [ ] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [ ] decide whether prerelease publication materially improves final validation.
 
