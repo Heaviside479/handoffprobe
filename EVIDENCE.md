@@ -873,6 +873,7 @@ Current examples include:
 - Reddit R-2 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-3 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
 - Reddit R-4 has completed deterministic execution, admission and public result return; the originating commenter's substantive response remains pending.
+- Sanction Gate #2 is frozen as an open design-level **external technical validation / traceability signal** derived from the stale-authority / effect-time boundary raised in A2A #2250. No reference implementation, validated conformance result, HandoffProbe execution or independent reproduction exists yet. Future direct comparison is gated on concrete Sanction Gate execution-boundary semantics plus a reference implementation or executable conformance vector.
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) and [`docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md`](docs/T4_A2A_WITNESS_OBSERVATION_QUEUE_20260916.md) for the authoritative work sequencing.
 
