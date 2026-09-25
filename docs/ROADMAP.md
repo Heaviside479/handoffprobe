@@ -1973,7 +1973,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance / prerelease decision complete**
+Status: **IN PROGRESS — 1.0.0-rc.1 source candidate prepared; npm stage / provenance still open**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -2005,9 +2005,10 @@ Current candidate proof:
 - external reconstructed tarball matched the Release Candidate SHA-256 exactly;
 - separate consumer Action audit: PR `#10`, run `35772627004`, job `106897794363` — success;
 - external Action report artifact ID: `10714971132`;
-- package remains `0.4.0`;
+- public npm package remains `handoffprobe@0.4.0`;
+- repository candidate version transition to `1.0.0-rc.1` was separately authorized on 2026-09-25 and prepared for protected admission;
 - stable corpus remains 23 attacks;
-- no npm stage, publication, version change, tag or GitHub Release has been authorized or performed.
+- no npm stage, npm publication, prerelease tag or GitHub Release has been authorized or performed.
 
 Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 
@@ -2017,7 +2018,9 @@ Prerelease decision completed 2026-09-23:
 - its purpose is real registry installation, CI, integration, Trusted Publishing and provenance validation before v1 GA;
 - it remains a prerelease and does not waive P11.6 or P12.6;
 - the decision does not itself authorize a version change, npm stage, npm publication, tag or GitHub Release;
-- the concrete prerelease version transition remains a separately controlled step.
+- at that decision checkpoint, the concrete prerelease version transition remained a separately controlled step.
+
+On 2026-09-25, the version transition to `1.0.0-rc.1` was separately authorized and prepared in source/package metadata. That authorization covers the version transition only. npm stage, npm publication, prerelease tag creation and GitHub Release creation remain separately controlled.
 
 Further candidate fixes may use `1.0.0-rc.2`, `1.0.0-rc.3`, and so on when
 SemVer prerelease progression is appropriate.

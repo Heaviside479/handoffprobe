@@ -68,7 +68,7 @@ describe('v0.4 package release metadata', () => {
     const manifest = await readJson<PackageManifest>('package.json');
 
     expect(manifest.name).toBe('handoffprobe');
-    expect(manifest.version).toBe('0.4.0');
+    expect(manifest.version).toBe('1.0.0-rc.1');
     expect('private' in manifest).toBe(false);
     expect(manifest.description).toBe('Adversarial security testing for AI agent handoffs');
     expect(manifest.license).toBe('Apache-2.0');
@@ -114,14 +114,14 @@ describe('v0.4 package release metadata', () => {
     const lock = await readJson<PackageLock>('package-lock.json');
 
     expect(lock.name).toBe('handoffprobe');
-    expect(lock.version).toBe('0.4.0');
+    expect(lock.version).toBe('1.0.0-rc.1');
     expect(lock.packages?.['']?.name).toBe('handoffprobe');
-    expect(lock.packages?.['']?.version).toBe('0.4.0');
+    expect(lock.packages?.['']?.version).toBe('1.0.0-rc.1');
   });
 
   it('keeps exported CLI identity synchronized with npm metadata', () => {
     expect(PRODUCT_NAME).toBe('HandoffProbe');
     expect(PACKAGE_NAME).toBe('handoffprobe');
-    expect(VERSION).toBe('0.4.0');
+    expect(VERSION).toBe('1.0.0-rc.1');
   });
 });

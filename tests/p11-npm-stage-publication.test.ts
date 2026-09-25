@@ -42,7 +42,7 @@ describe('P11.2 npm stage-only publication', () => {
       version?: string;
     };
 
-    expect(manifest.version).toBe('0.4.0');
+    expect(manifest.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(record).toContain('The public package remains `handoffprobe@0.4.0`.');
     expect(record).toContain('must not stage `0.4.0`');
   });

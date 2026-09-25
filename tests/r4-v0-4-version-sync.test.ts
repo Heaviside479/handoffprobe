@@ -2,33 +2,23 @@ import { readFile } from 'node:fs/promises';
 
 import { describe, expect, it } from 'vitest';
 
-import { VERSION } from '../src/index.js';
-
 async function read(path: string): Promise<string> {
   return readFile(path, 'utf8');
 }
 
-describe('R4 v0.4.0 version synchronization', () => {
-  it('synchronizes candidate package and exported versions', async () => {
-    const manifest = JSON.parse(await read('package.json')) as { version: string };
-    const lock = JSON.parse(await read('package-lock.json')) as {
-      version: string;
-      packages?: Record<string, { version?: string }>;
-    };
-
-    expect(manifest.version).toBe('0.4.0');
-    expect(lock.version).toBe('0.4.0');
-    expect(lock.packages?.['']?.version).toBe('0.4.0');
-    expect(VERSION).toBe('0.4.0');
-  });
-
-  it('synchronizes terminal, JSON and Markdown reporter version expectations', async () => {
-    const reporters = await read('tests/cli-reporters.test.ts');
+describe('R4 v0.4.0 historical version synchronization', () => {
+  it('preserves the historical v0.4.0 candidate synchronization record', async () => {
     const record = await read('docs/R4_V0_4_0_VERSION_SYNC_20260916.md');
 
-    expect(reporters).toContain("expect(first).toContain('Version: 0.4.0');");
-    expect(reporters).toContain("expect(parsed.handoffProbeVersion).toBe('0.4.0');");
-    expect(reporters).toContain("expect(first).toContain('- Version: 0.4.0');");
+    expect(record).toContain(
+      'R4.2 COMPLETE — candidate version metadata synchronized to `0.4.0`; nothing published or tagged.',
+    );
+    expect(record).toContain('source candidate version: `0.4.0`');
+    expect(record).toContain('public npm version remains `handoffprobe@0.3.0` until publication');
+  });
+
+  it('preserves historical reporter-version synchronization evidence', async () => {
+    const record = await read('docs/R4_V0_4_0_VERSION_SYNC_20260916.md');
 
     expect(record).toContain('terminal, JSON and Markdown reporter version expectations');
   });
@@ -46,7 +36,7 @@ describe('R4 v0.4.0 version synchronization', () => {
     );
   });
 
-  it('keeps the admitted 23-attack capability tied to this candidate', async () => {
+  it('keeps the admitted 23-attack capability tied to the historical candidate', async () => {
     const record = await read('docs/R4_V0_4_0_VERSION_SYNC_20260916.md');
 
     expect(record).toContain('HP-AUTH-006 — Stale task authorization reused for later effect');

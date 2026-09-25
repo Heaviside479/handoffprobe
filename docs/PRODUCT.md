@@ -12,6 +12,8 @@ Tagline:
 
 Current verified public release: `handoffprobe@0.4.0`
 
+Repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published.
+
 - **23 stable attacks**
 - 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
 - A2A 1.0 -> MCP 2026-07-28

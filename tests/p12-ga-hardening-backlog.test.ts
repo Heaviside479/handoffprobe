@@ -111,7 +111,7 @@ describe('P12.4 internal GA hardening and backlog disposition', () => {
   });
 
   it('keeps the frozen npm root export and runtime boundary', () => {
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(packageJson.engines.node).toBe('>=24 <25');
     expect(packageJson.exports).toEqual({
       '.': {

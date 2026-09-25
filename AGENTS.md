@@ -24,13 +24,14 @@ Before making product or architecture changes, read:
 ## Current repository truth
 
 - verified public release: `handoffprobe@0.4.0`
+- repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published
 - stable public corpus: **23 attacks**
 - stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
 - protocol baseline: A2A 1.0 -> MCP 2026-07-28
 - report schema: `1`
 - Node.js baseline: `>=24 <25`
 - public npm package and reusable GitHub Action already exist
-- Phase 10 reliability hardening is active
+- Phase 12 v1 GA preparation is active; npm stage/provenance and external-evidence gates remain open
 - Phase 13 commercial validation may run in parallel
 - Teams/Cloud remains demand-gated
 

@@ -73,7 +73,7 @@ describe('P12.5 GA candidate proof', () => {
 
   it('marks exactly eight completed P12.5 gates', () => {
     expect(p12_5).toContain(
-      'Status: **IN PROGRESS — candidate / reproducibility / SBOM / external consumer / user-guidance / prerelease decision complete**',
+      'Status: **IN PROGRESS — 1.0.0-rc.1 source candidate prepared; npm stage / provenance still open**',
     );
 
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
@@ -111,7 +111,12 @@ describe('P12.5 GA candidate proof', () => {
     expect(evidence).toContain('authorize changing the package version to `1.0.0-rc.1`');
     expect(evidence).toContain('authorize npm stage publication');
     expect(evidence).toContain(
-      'A concrete prerelease version transition and any real npm stage action remain separately controlled steps.',
+      'A concrete prerelease version transition and any real npm stage action remained separately controlled steps at this decision checkpoint.',
+    );
+    expect(evidence).toContain('## Separate RC version-transition authorization');
+    expect(evidence).toContain('Authorization date: 2026-09-25.');
+    expect(evidence).toContain(
+      'The repository version transition to `1.0.0-rc.1` was separately authorized',
     );
   });
 

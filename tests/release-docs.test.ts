@@ -18,6 +18,15 @@ interface ReleaseState {
     a2a: string;
     mcp: string;
   };
+  candidate: {
+    version: string;
+    status: string;
+    authorizedDate: string;
+    npmStage: boolean;
+    npmPublished: boolean;
+    gitTagCreated: boolean;
+    githubReleaseCreated: boolean;
+  };
 }
 
 const releaseState = JSON.parse(read('docs/RELEASE_STATE.json')) as ReleaseState;
@@ -33,9 +42,22 @@ describe('current release documentation contract', () => {
   const releaseNotes = read('docs/V0_4_0_RELEASE_NOTES.md');
   const closeout = read('docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md');
 
-  it('keeps package metadata aligned with the central release state', () => {
-    expect(packageJson.version).toBe(releaseState.version);
+  it('keeps source candidate metadata aligned with the candidate state', () => {
+    expect(packageJson.version).toBe(releaseState.candidate.version);
     expect(packageJson.engines.node).toBe('>=24 <25');
+
+    expect(releaseState.candidate.version).toBe('1.0.0-rc.1');
+    expect(releaseState.candidate.status).toBe('prepared-not-published');
+    expect(releaseState.candidate.authorizedDate).toBe('2026-09-25');
+
+    expect(releaseState.candidate.npmStage).toBe(false);
+    expect(releaseState.candidate.npmPublished).toBe(false);
+    expect(releaseState.candidate.gitTagCreated).toBe(false);
+    expect(releaseState.candidate.githubReleaseCreated).toBe(false);
+  });
+
+  it('keeps the verified public release state separate from the source candidate', () => {
+    expect(releaseState.version).toBe('0.4.0');
     expect(releaseState.status).toBe('released-and-verified');
     expect(releaseState.stableAttacks).toBe(
       releaseState.p0Attacks + releaseState.p1Attacks + releaseState.advancedAttacks,

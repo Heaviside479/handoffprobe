@@ -48,7 +48,7 @@ describe('Cleanup E final repository verification', () => {
   });
 
   it('keeps current public product truth unchanged', () => {
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(product).toContain('**23 stable attacks**');
     expect(architecture).toContain('report schema: `1`');
     expect(plan).toContain(

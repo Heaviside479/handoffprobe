@@ -35,7 +35,7 @@ describe('P11.6 external feedback round', () => {
     );
     expect(record).toContain('npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test');
     expect(record).toContain('23 PASS, 0 FAIL, 0 ERROR');
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
   });
 
   it('defines evidence-based feedback classification', () => {

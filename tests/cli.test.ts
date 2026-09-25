@@ -50,7 +50,7 @@ describe('runCli', () => {
     const exitCode = await runCli(['--version'], capture.io);
 
     expect(exitCode).toBe(0);
-    expect(capture.stdout).toEqual(['HandoffProbe 0.4.0']);
+    expect(capture.stdout).toEqual(['HandoffProbe 1.0.0-rc.1']);
     expect(capture.stderr).toEqual([]);
   });
 
