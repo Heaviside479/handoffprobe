@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active
-Current checkpoint: 2026-09-16
+Current checkpoint: 2026-09-25
 
 Strategy:
 
@@ -1757,6 +1757,30 @@ Evidence: `docs/P11_6_EXTERNAL_FEEDBACK_ROUND_20260920.md`.
 P11.6 does not change `handoffprobe@0.4.0`, runtime behavior, the stable attack
 corpus, protocol baseline or publication state.
 
+### 2026-09-25 external-signal review
+
+Current external signals have been classified without inflating their evidence
+level:
+
+- MCP #3354 contains an explicit external confirmation of the HandoffProbe
+  boundary analysis and an upstream spec/demo change influenced by that
+  evidence;
+- A2A #1769 contains an external acknowledgement of the pinned HandoffProbe
+  execution record, while explicitly stating that HandoffProbe was not rerun;
+- VATE issue #2 now provides a fixed reproduction path that HandoffProbe can
+  independently exercise and return results against;
+- the Burs-IA VATE review is a useful research-quality signal but is not
+  HandoffProbe product-use evidence;
+- HandoffProbe issue #168 still has zero external comments, so direct P11.6
+  release feedback remains `PENDING`.
+
+These cross-thread research signals remain separate from the dedicated P11.6
+release-feedback classification.
+
+Current evidence ledger:
+
+`docs/P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`.
+
 External-wait execution rule:
 
 - P11.6 may remain `PENDING` while Phase 12 internal engineering continues;
@@ -2012,6 +2036,24 @@ Current candidate proof:
 
 Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 
+2026-09-25 repository-candidate admission and stage preflight:
+
+- PR #186 merged the `1.0.0-rc.1` repository candidate to protected `main`;
+- merge commit:
+  `1fc3228fc8fd21ef5ddb43919aa7886a0269b41f`;
+- post-merge Ubuntu, macOS and Windows quality/package validation passed;
+- public npm remains `0.4.0`;
+- npm `latest` remains `0.4.0`;
+- `1.0.0-rc.1` was still available in the public registry during preflight;
+- planned prerelease dist-tag is `next`, not `latest`;
+- local `npm stage list handoffprobe --json` returned `E401` because local npm
+  authentication was invalid;
+- that local readback failure is not evidence that GitHub OIDC Trusted
+  Publishing is broken;
+- no npm stage workflow was dispatched and no package was staged or published.
+
+The npm stage remains separately authorization-gated.
+
 Prerelease decision completed 2026-09-23:
 
 - an evidence-backed `1.0.0-rc.1` materially improves final validation;
@@ -2028,6 +2070,29 @@ SemVer prerelease progression is appropriate.
 ## P12.6 — asynchronous external-use and adoption evidence
 
 Status: **ACTIVE IN PARALLEL**
+
+Current external-signal ledger:
+
+`docs/P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`
+
+As of 2026-09-25, external technical response, reviewer acknowledgement and an
+upstream change influenced by HandoffProbe evidence are present. These are
+useful signals, but no qualifying independent HandoffProbe execution or
+integration is claimed from those responses.
+
+The fixed VATE reproduction path was successfully executed on 2026-09-25.
+Package identity, three-case results, 23 boundary probes and saved-run
+verification all matched the upstream reproduction contract. Public result
+return remains the next research-loop action, followed by exact-RC onboarding
+once the prerelease becomes publicly installable.
+
+Evidence:
+
+`docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`
+
+Public VATE result return completed 2026-09-25:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
 
 This lane must be worked, but it must not leave internal development idle.
 
@@ -2054,6 +2119,12 @@ The following are signals but are not sufficient by themselves:
 
 Tasks:
 
+- [x] establish a current external-signal ledger and classify known external
+      responses without promoting technical discussion into product-use evidence;
+- [x] reproduce the pinned VATE A2A evidence-review package and preserve exact
+      package identity, runtime, commands, exits and observed three-case results;
+- [x] return the completed VATE reproduction publicly with exact evidence;
+- [ ] classify any substantive upstream response to the VATE result return;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
 - [ ] make the current exact-version or RC path easy to reproduce;

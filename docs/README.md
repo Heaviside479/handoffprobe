@@ -85,6 +85,7 @@ product, reliability and commercial-validation gates.
 - [`P12_3_V1_PUBLIC_CONTRACT_FREEZE_20260921.md`](P12_3_V1_PUBLIC_CONTRACT_FREEZE_20260921.md)
 - [`P12_4_GA_HARDENING_BACKLOG_20260922.md`](P12_4_GA_HARDENING_BACKLOG_20260922.md)
 - [`P12_5_GA_CANDIDATE_PROOF_20260922.md`](P12_5_GA_CANDIDATE_PROOF_20260922.md)
+- [`P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`](P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md)
 - [`REPOSITORY_CLEANUP_PLAN_20260918.md`](REPOSITORY_CLEANUP_PLAN_20260918.md)
 - [`ROADMAP.md`](ROADMAP.md)
 - [`ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md`](ROADMAP_COMMERCIAL_PRODUCT_TRACK_20260916.md)
@@ -92,9 +93,10 @@ product, reliability and commercial-validation gates.
 
 ## Research / evidence records
 
-These files preserve experiments, external inputs, execution evidence,
-admission decisions and research provenance. Historical conclusions remain
-historical evidence and are not silently rewritten as current product truth.
+- [`VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`](VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md)
+  These files preserve experiments, external inputs, execution evidence,
+  admission decisions and research provenance. Historical conclusions remain
+  historical evidence and are not silently rewritten as current product truth.
 
 - [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
 - [`EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md`](EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md)
