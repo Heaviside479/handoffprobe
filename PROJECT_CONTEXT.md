@@ -20,6 +20,11 @@ Build the best developer-first open-source defensive test engine for security fa
 
 - Current verified release: `handoffprobe@0.4.0`
 - Repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published
+- RC repository candidate merged to protected `main` on 2026-09-25 via PR #186
+- External evidence lane: active; technical response and reviewer acknowledgement
+  are recorded, but qualifying independent HandoffProbe use is not yet claimed
+- RC npm-stage preflight: `latest` remains `0.4.0`; planned prerelease tag is
+  `next`; local stage-list inspection currently needs npm re-authentication
 - Stable public corpus: **23 attacks**
 - Stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
 - Protocol baseline: A2A 1.0 -> MCP 2026-07-28

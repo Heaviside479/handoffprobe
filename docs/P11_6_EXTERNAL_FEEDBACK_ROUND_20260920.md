@@ -90,6 +90,34 @@ Actionable feedback should be classified as one of:
 Any claimed defect must be reproduced or otherwise evidenced before a code or
 release conclusion is recorded.
 
+## 2026-09-25 cross-thread signal review
+
+A current inbox and GitHub-thread review found useful HandoffProbe-adjacent
+external signals, but none is silently relabeled as direct P11.6 release
+feedback.
+
+Recorded separately:
+
+- MCP #3354: external technical confirmation plus an upstream spec/demo change
+  influenced by HandoffProbe evidence;
+- A2A #1769: external acknowledgement of the pinned HandoffProbe execution
+  record, with an explicit statement that HandoffProbe was not rerun;
+- VATE issue #2: a new fixed reproduction opportunity for the next public
+  result-return loop;
+- Burs-IA VATE review: a research-quality signal about evidence wording and
+  evaluation-order claims, not HandoffProbe use.
+
+The dedicated HandoffProbe feedback issue #168 still has zero external comments
+as of 2026-09-25.
+
+Therefore the P11.6 direct release-feedback state remains:
+
+`PENDING`
+
+Full classification and the immediate external-evidence queue are preserved in:
+
+`docs/P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`.
+
 ## Completion gate
 
 P11.6 remains active while the external response state is `PENDING`.

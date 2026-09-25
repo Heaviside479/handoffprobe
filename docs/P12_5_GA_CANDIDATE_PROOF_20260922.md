@@ -293,6 +293,39 @@ This authorization does **not** authorize:
 
 The public npm release remains `handoffprobe@0.4.0` until a later publication action is separately authorized and successfully verified.
 
+## 2026-09-25 repository-candidate admission and stage preflight
+
+The separately authorized repository version transition was admitted through
+protected PR #186.
+
+Observed merged state:
+
+- protected `main` merge commit:
+  `1fc3228fc8fd21ef5ddb43919aa7886a0269b41f`;
+- source/package candidate: `handoffprobe@1.0.0-rc.1`;
+- post-merge HandoffProbe workflow: passed;
+- post-merge CI quality and package validation: passed on Ubuntu, macOS and
+  Windows;
+- public npm version remained `0.4.0`;
+- npm `latest` remained `0.4.0`;
+- `1.0.0-rc.1` was not already present in the public registry;
+- intended prerelease dist-tag for a later authorized stage: `next`.
+
+The read-only local command:
+
+`npm stage list handoffprobe --json`
+
+returned npm `E401` because local npm authentication was invalid.
+
+This result is classified narrowly as a local authenticated-readback problem. It
+does not establish a GitHub OIDC Trusted Publishing failure because no stage
+workflow was dispatched.
+
+No npm stage, publication, prerelease Git tag or GitHub Release occurred during
+this preflight.
+
+The real npm stage remains separately authorization-gated.
+
 ## P12.5 completion state
 
 Completed:
