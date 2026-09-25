@@ -225,9 +225,13 @@ was executed by the HandoffProbe maintainer.
 
 It does not by itself satisfy P11.6 or P12.6.
 
-## Next action
+## Public result return
 
-Return the reproduction result publicly to VATE issue #2 with:
+The completed reproduction was returned publicly to VATE issue #2:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
+
+The public report includes:
 
 - pinned guide commit;
 - package SHA-256;
@@ -236,9 +240,12 @@ Return the reproduction result publicly to VATE issue #2 with:
 - exit statuses;
 - three case outcomes;
 - the reproduced R52 Task-completion/original-effect distinction;
-- explicit scope boundary.
+- explicit scope boundary;
+- immutable HandoffProbe reproduction-record and signal-ledger links.
 
-Then preserve any upstream response separately.
+## Next action
+
+Preserve and classify any substantive upstream response separately.
 
 ## Release boundary
 

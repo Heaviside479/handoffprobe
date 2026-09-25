@@ -2090,6 +2090,10 @@ Evidence:
 
 `docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`
 
+Public VATE result return completed 2026-09-25:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
+
 This lane must be worked, but it must not leave internal development idle.
 
 Qualifying evidence must be defined and recorded without turning platform
@@ -2119,7 +2123,8 @@ Tasks:
       responses without promoting technical discussion into product-use evidence;
 - [x] reproduce the pinned VATE A2A evidence-review package and preserve exact
       package identity, runtime, commands, exits and observed three-case results;
-- [ ] return the completed VATE reproduction publicly and classify any response;
+- [x] return the completed VATE reproduction publicly with exact evidence;
+- [ ] classify any substantive upstream response to the VATE result return;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
 - [ ] make the current exact-version or RC path easy to reproduce;

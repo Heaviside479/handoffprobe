@@ -46,4 +46,13 @@ describe('VATE A2A evidence reproduction record', () => {
     expect(roadmap).toContain('docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md');
     expect(index).toContain('VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md');
   });
+
+  it('preserves the permanent public result-return link', () => {
+    const resultUrl =
+      'https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177';
+
+    expect(record).toContain(resultUrl);
+    expect(ledger).toContain(resultUrl);
+    expect(roadmap).toContain(resultUrl);
+  });
 });

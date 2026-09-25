@@ -103,8 +103,8 @@ The guide explicitly states that it is not an external-SUT conformance result.
 
 Classification:
 
-**external research reproduction — successfully executed; public result return
-pending.**
+**external research reproduction — successfully executed; public result
+returned.**
 
 Completed on 2026-09-25:
 
@@ -133,11 +133,14 @@ Evidence:
 
 `docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`
 
+Public result return:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
+
 Next action:
 
-1. return the exact reproduction result publicly to VATE issue #2;
-2. preserve the upstream response if one arrives;
-3. classify any later HandoffProbe-specific external execution separately.
+1. preserve and classify any substantive upstream response if one arrives;
+2. classify any later HandoffProbe-specific external execution separately.
 
 This reproduction strengthens the research/result-return loop but is not
 P12.6 external HandoffProbe product-use evidence because it was executed by the
@@ -240,7 +243,7 @@ Classification of that result:
 
 ## Immediate work queue
 
-1. [REPRODUCED] Return the completed VATE reproduction publicly with exact evidence.
+1. [COMPLETED] VATE reproduction returned publicly with exact evidence.
 2. Preserve MCP #3354 as an external technical-response/upstream-change signal.
 3. Preserve A2A #1769 as reviewer acknowledgement, not external execution.
 4. After an RC is publicly installable, invite relevant external reviewers to
