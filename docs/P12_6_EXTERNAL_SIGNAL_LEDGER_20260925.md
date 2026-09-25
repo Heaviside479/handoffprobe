@@ -103,18 +103,45 @@ The guide explicitly states that it is not an external-SUT conformance result.
 
 Classification:
 
-**external research reproduction opportunity — execution pending.**
+**external research reproduction — successfully executed; public result return
+pending.**
 
-Immediate action:
+Completed on 2026-09-25:
 
-1. reproduce the published fixed input independently;
-2. preserve package digest, runtime versions, exact command and exit status;
-3. record observed results or errors without repairing failures into passes;
-4. return the result publicly when the evidence is complete;
-5. classify any overlap with HandoffProbe separately from VATE conformance.
+- fixed ZIP size matched: `234820` bytes;
+- fixed ZIP SHA-256 matched:
+  `ec9b2286a18f5500f10a10281dfe6e2620b9aa31b5045ce0748bb89c8308fd31`;
+- Python `3.13.15`;
+- Node.js `v24.17.0`;
+- npm `11.13.0`;
+- package check: exit `0`, `PASS`;
+- live three-case exchange: exit `0`, `PASS`;
+- saved-run verification: exit `0`, `PASS`;
+- R17: `CONFIRMED_SUCCESS / OBSERVED_LOCAL_BYTES / DO_NOT_REPEAT`;
+- R52: `INDETERMINATE / UNKNOWN / QUERY_SAME_ATTEMPT`;
+- R86: `INCOMPLETE / REPORTED_ONLY / QUERY_SAME_ATTEMPT`;
+- 23 runtime boundary probes executed;
+- 72 request/response pairs reconciled;
+- 131 received files rechecked;
+- all three received assessments recomputed.
 
-This activity can strengthen the research/result-return loop but is not
-automatically P12.6 HandoffProbe product-use evidence.
+The R52 run reproduced the intended distinction that an evidence-review Task may
+reach `TASK_STATE_COMPLETED` while the original operation effect remains
+`UNKNOWN`.
+
+Evidence:
+
+`docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`
+
+Next action:
+
+1. return the exact reproduction result publicly to VATE issue #2;
+2. preserve the upstream response if one arrives;
+3. classify any later HandoffProbe-specific external execution separately.
+
+This reproduction strengthens the research/result-return loop but is not
+P12.6 external HandoffProbe product-use evidence because it was executed by the
+HandoffProbe maintainer.
 
 ## Signal 4 — Burs-IA VATE corpus review
 
@@ -213,7 +240,7 @@ Classification of that result:
 
 ## Immediate work queue
 
-1. Execute the VATE fixed reproduction and return evidence-backed results.
+1. [REPRODUCED] Return the completed VATE reproduction publicly with exact evidence.
 2. Preserve MCP #3354 as an external technical-response/upstream-change signal.
 3. Preserve A2A #1769 as reviewer acknowledgement, not external execution.
 4. After an RC is publicly installable, invite relevant external reviewers to

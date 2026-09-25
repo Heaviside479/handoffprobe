@@ -23,9 +23,9 @@ describe('P12.6 external signal ledger', () => {
 
   it('records the VATE reproduction as the immediate research action', () => {
     expect(ledger).toContain('VATE reproduction opportunity');
-    expect(ledger).toContain('execution pending');
-    expect(ledger).toContain('package digest, runtime versions, exact command and exit status');
-    expect(roadmap).toContain('fixed VATE reproduction path');
+    expect(ledger).toContain('successfully executed; public result return');
+    expect(ledger).toContain('ec9b2286a18f5500f10a10281dfe6e2620b9aa31b5045ce0748bb89c8308fd31');
+    expect(roadmap).toContain('fixed VATE reproduction path was successfully executed');
   });
 
   it('keeps direct P11.6 feedback pending', () => {

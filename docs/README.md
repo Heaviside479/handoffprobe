@@ -93,9 +93,10 @@ product, reliability and commercial-validation gates.
 
 ## Research / evidence records
 
-These files preserve experiments, external inputs, execution evidence,
-admission decisions and research provenance. Historical conclusions remain
-historical evidence and are not silently rewritten as current product truth.
+- [`VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`](VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md)
+  These files preserve experiments, external inputs, execution evidence,
+  admission decisions and research provenance. Historical conclusions remain
+  historical evidence and are not silently rewritten as current product truth.
 
 - [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
 - [`EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md`](EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md)

@@ -2080,8 +2080,15 @@ upstream change influenced by HandoffProbe evidence are present. These are
 useful signals, but no qualifying independent HandoffProbe execution or
 integration is claimed from those responses.
 
-Immediate evidence work starts with the fixed VATE reproduction path, followed
-by exact-RC onboarding once the prerelease becomes publicly installable.
+The fixed VATE reproduction path was successfully executed on 2026-09-25.
+Package identity, three-case results, 23 boundary probes and saved-run
+verification all matched the upstream reproduction contract. Public result
+return remains the next research-loop action, followed by exact-RC onboarding
+once the prerelease becomes publicly installable.
+
+Evidence:
+
+`docs/VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`
 
 This lane must be worked, but it must not leave internal development idle.
 
@@ -2110,6 +2117,9 @@ Tasks:
 
 - [x] establish a current external-signal ledger and classify known external
       responses without promoting technical discussion into product-use evidence;
+- [x] reproduce the pinned VATE A2A evidence-review package and preserve exact
+      package identity, runtime, commands, exits and observed three-case results;
+- [ ] return the completed VATE reproduction publicly and classify any response;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
 - [ ] make the current exact-version or RC path easy to reproduce;
