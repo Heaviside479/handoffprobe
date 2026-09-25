@@ -12,11 +12,12 @@ Current deterministic protocol baseline:
 
 HandoffProbe is local-first, deterministic and open source. The bundled test path requires no paid AI service, telemetry or signup.
 
-## Current release
+## Current status
 
 | | |
 | --- | --- |
-| Release | `handoffprobe@0.4.0` |
+| Public release | `handoffprobe@0.4.0` |
+| Repository candidate | `handoffprobe@1.0.0-rc.1` — not yet published |
 | Stable corpus | **23 stable attacks total** |
 | Composition | 12 P0 + 10 P1 + 1 advanced |
 | Latest stable addition | `HP-AUTH-006` |
@@ -25,7 +26,9 @@ HandoffProbe is local-first, deterministic and open source. The bundled test pat
 | Node.js | `>=24 <25` |
 | License | Apache-2.0 |
 
-Release metadata for this source/package is **`handoffprobe@0.4.0`**.
+Public release metadata remains **`handoffprobe@0.4.0`**.
+
+This repository currently carries **`handoffprobe@1.0.0-rc.1`** as an unpublished release candidate. No npm stage, npm publication, prerelease tag or GitHub Release has been created for it yet.
 
 HandoffProbe v0.4.0 is the current verified public release. The package, `v0.4.0` tag, GitHub Release and reusable Action were verified after publication.
 

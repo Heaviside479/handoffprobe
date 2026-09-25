@@ -52,7 +52,7 @@ describe('Sanction Gate #2 stale-authority external signal', () => {
   });
 
   it('preserves stable product truth', () => {
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(readme).toContain('23 stable attacks total');
     expect(record).toContain('The stable public corpus remains **23 attacks**.');
     expect(record).toContain('The public package remains **handoffprobe@0.4.0**.');

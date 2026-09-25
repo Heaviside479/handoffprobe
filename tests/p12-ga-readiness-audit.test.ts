@@ -98,7 +98,13 @@ describe('current roadmap execution model', () => {
       'the decision does not itself authorize a version change, npm stage, npm publication, tag or GitHub Release',
     );
     expect(phase12).toContain(
-      'the concrete prerelease version transition remains a separately controlled step',
+      'at that decision checkpoint, the concrete prerelease version transition remained a separately controlled step',
+    );
+    expect(phase12).toContain(
+      'On 2026-09-25, the version transition to `1.0.0-rc.1` was separately authorized and prepared in source/package metadata.',
+    );
+    expect(phase12).toContain(
+      'npm stage, npm publication, prerelease tag creation and GitHub Release creation remain separately controlled',
     );
   });
 

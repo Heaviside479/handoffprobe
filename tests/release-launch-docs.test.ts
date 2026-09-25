@@ -90,7 +90,7 @@ describe('v0.1 research and launch documentation', () => {
       'docs/RESEARCH_ARTICLE.md',
       'docs/LAUNCH_EXAMPLES.md',
       'docs/RELEASE_CHECKLIST.md',
-      'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
+      'Public release metadata remains **`handoffprobe@0.4.0`**.',
     ]) {
       expect(readme).toContain(text);
     }

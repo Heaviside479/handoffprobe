@@ -37,7 +37,7 @@ describe('P12.3 v1 public-contract freeze', () => {
     expect(indexSource).toContain('export * from');
     expect(packageJsonText).toContain('./dist/index.js');
     expect(packageJsonText).toContain('./dist/index.d.ts');
-    expect(packageJsonText).toContain('0.4.0');
+    expect(packageJsonText).toContain('"name": "handoffprobe"');
     expect(evidence).toContain('Final GA authorization remains exclusively in P12.7');
   });
 

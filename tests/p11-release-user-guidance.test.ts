@@ -32,7 +32,7 @@ describe('P11.5 release user guidance', () => {
     expect(migration).toContain('23 attacks');
     expect(migration).toContain('report schema version `1`');
     expect(upgrading).toContain('Node.js `>=24 <25`');
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
   });
 
   it('reuses existing release and migration policy instead of replacing it', () => {

@@ -272,7 +272,26 @@ This decision does **not** itself:
 - waive P12.6;
 - convert absence of external feedback into validation.
 
-A concrete prerelease version transition and any real npm stage action remain separately controlled steps.
+A concrete prerelease version transition and any real npm stage action remained separately controlled steps at this decision checkpoint.
+
+## Separate RC version-transition authorization
+
+Authorization date: 2026-09-25.
+
+The repository version transition to `1.0.0-rc.1` was separately authorized after the prerelease decision above.
+
+The authorized scope is limited to preparing the source/package candidate identity, current-state documentation and matching regression coverage.
+
+This authorization does **not** authorize:
+
+- npm stage publication;
+- npm publication;
+- prerelease tag creation;
+- GitHub Release creation;
+- `1.0.0` GA;
+- waiver of P11.6 or P12.6.
+
+The public npm release remains `handoffprobe@0.4.0` until a later publication action is separately authorized and successfully verified.
 
 ## P12.5 completion state
 
@@ -294,7 +313,7 @@ Still open:
 
 ## Release boundary
 
-This evidence does not:
+At the 2026-09-23 decision checkpoint, this evidence did not:
 
 - authorize `1.0.0-rc.1`;
 - authorize `1.0.0`;
@@ -307,6 +326,8 @@ This evidence does not:
 - waive P11.6;
 - waive P12.6 external-use evidence;
 - add a stable attack.
+
+The release-boundary list above records what the 2026-09-23 decision itself did not authorize. The later 2026-09-25 authorization covers only the repository version transition to `1.0.0-rc.1`; npm stage, npm publication, prerelease tag creation and GitHub Release creation remain unauthorized.
 
 The public package remains `handoffprobe@0.4.0`.
 

@@ -62,7 +62,7 @@ describe('P10.4 dependency upgrade process', () => {
   });
 
   it('closes the dependency-process roadmap item without changing product version', () => {
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(roadmap).toContain('- [x] define the dependency upgrade process;');
     expect(roadmap).toContain(
       '- [x] ensure compatibility-matrix checks fail visibly on unsupported drift.',

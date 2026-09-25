@@ -14,6 +14,7 @@ describe('compact README developer experience contract', () => {
 
     for (const text of [
       'handoffprobe@0.4.0',
+      'handoffprobe@1.0.0-rc.1',
       '23 stable attacks total',
       'HP-AUTH-006',
       'A2A 1.0 → MCP 2026-07-28',
@@ -74,8 +75,9 @@ describe('compact README developer experience contract', () => {
   it('keeps exact release metadata', async () => {
     const readme = await readReadme();
 
+    expect(readme).toContain('Public release metadata remains **`handoffprobe@0.4.0`**.');
     expect(readme).toContain(
-      'Release metadata for this source/package is **`handoffprobe@0.4.0`**.',
+      'This repository currently carries **`handoffprobe@1.0.0-rc.1`** as an unpublished release candidate.',
     );
   });
 });

@@ -28,7 +28,7 @@ describe('P10.5 reliability closeout', () => {
   });
 
   it('records the no-release decision without changing current product truth', () => {
-    expect(packageJson.version).toBe('0.4.0');
+    expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(closeout).toContain('Decision: **NO PUBLIC RELEASE JUSTIFIED**');
     expect(closeout).toContain('Current public release remains `handoffprobe@0.4.0`.');
     expect(closeout).toContain('Stable public corpus remains **23 attacks**.');

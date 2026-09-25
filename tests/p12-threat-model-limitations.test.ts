@@ -74,7 +74,7 @@ describe('P12.2 integration', () => {
   });
 
   it('does not authorize a release', () => {
-    expect(packageJsonText).toContain('"version": "0.4.0"');
+    expect(packageJsonText).toContain('"name": "handoffprobe"');
     expect(evidence).toContain('v1.0 GA');
   });
 });

@@ -12,6 +12,13 @@ Current verified public product:
 - report schema `1`
 - Node.js `>=24 <25`
 
+Current repository candidate:
+
+- `handoffprobe@1.0.0-rc.1`
+- version transition authorized and prepared on 2026-09-25
+- not yet staged or published
+- no prerelease tag or GitHub Release yet
+
 Useful repository-level entry points:
 
 - [Project README](../README.md)

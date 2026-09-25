@@ -11,5 +11,14 @@
   "protocolBaseline": {
     "a2a": "1.0",
     "mcp": "2026-07-28"
+  },
+  "candidate": {
+    "version": "1.0.0-rc.1",
+    "status": "prepared-not-published",
+    "authorizedDate": "2026-09-25",
+    "npmStage": false,
+    "npmPublished": false,
+    "gitTagCreated": false,
+    "githubReleaseCreated": false
   }
 }

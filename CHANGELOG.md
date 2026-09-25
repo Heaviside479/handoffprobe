@@ -6,6 +6,10 @@ All notable project changes will be documented here.
 
 No new public package release is currently authorized.
 
+Repository candidate `1.0.0-rc.1` was prepared after the separate version-transition authorization on 2026-09-25. It is not yet staged or published, and no prerelease tag or GitHub Release exists for it. The public npm release remains `0.4.0`.
+
+The candidate preserves the 23-attack stable corpus and frozen v1 public contract while the remaining npm stage, provenance and external-evidence gates continue.
+
 Post-v0.4.0 repository work includes reliability hardening, research/evidence
 follow-ups, commercial validation and documentation reconciliation. Those activities
 do not by themselves constitute a new stable capability or justify a version bump.
