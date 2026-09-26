@@ -118,6 +118,25 @@ Full classification and the immediate external-evidence queue are preserved in:
 
 `docs/P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`.
 
+## 2026-09-26 external package-use signal
+
+HandoffProbe issue #185 provides a fresh independently attributable external
+execution of the public `handoffprobe@0.4.0` package and a concrete
+model-expressiveness research report:
+
+https://github.com/Heaviside479/handoffprobe/issues/185
+
+This is meaningful P12.6 external-use evidence and research input.
+
+It is not silently counted as a response to the dedicated P11.6 request because
+the issue does not present itself as feedback on the P11.6 onboarding, CLI,
+GitHub Action or release-guide questions.
+
+Issue #168 still has zero external comments as of 2026-09-26.
+
+P11.6 therefore remains `PENDING` and separate from the AACP-017 research /
+external-use classification.
+
 ## Completion gate
 
 P11.6 remains active while the external response state is `PENDING`.

@@ -65,6 +65,21 @@ Untrusted model or content behavior is relevant only when it can be reduced to a
 
 Research in this area remains non-stable unless separately admitted.
 
+## Predicate and value-constraint limitation
+
+The current stable semantic-authority implementation does not claim general
+equivalence or canonical normalization for arbitrary numeric, logical or
+policy-language predicates across different representations.
+
+Stable attacks evaluate their documented concrete invariants. A syntactic
+predicate rewrite that is semantically equivalent in a particular domain is
+not automatically recognized as equivalent unless the relevant stable model
+explicitly represents that semantic relation.
+
+AACP-017 tracks an external `handoffprobe@0.4.0` reproduction of this
+expressiveness boundary. It is research input, not a 24th stable attack and not
+a report that the existing 23 attacks behave incorrectly.
+
 ## Runtime and platform limitations
 
 The current package runtime contract is `Node.js >=24 <25`.

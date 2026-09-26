@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active
-Current checkpoint: 2026-09-25
+Current checkpoint: 2026-09-26
 
 Strategy:
 
@@ -2094,6 +2094,33 @@ Public VATE result return completed 2026-09-25:
 
 https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
 
+2026-09-26 live follow-up:
+
+- Poke-nushi acknowledged the reproduction and created a durable VATE
+  HandoffProbe reproduction record linked from the A2A guide and VATE roadmap;
+- this is author acknowledgement of an external-research reproduction, not an
+  independent HandoffProbe rerun, adoption, VATE conformance or production
+  validation;
+- HandoffProbe issue #185 now supplies independently attributable external
+  execution of published `handoffprobe@0.4.0`, including a full-corpus report
+  and a pinned predicate-level authority reproducer;
+- the exact AACP-017 reproducer was rerun by the HandoffProbe maintainer and its
+  documented model-expressiveness observation reproduced;
+- this matches one potential P12.6 qualifying-evidence example: an external
+  developer running the package and reporting concrete results;
+- external integration, repeated use and adoption remain unestablished;
+- the minimum GA external-evidence threshold remains undefined, so P12.6 is not
+  closed;
+- stable corpus remains **23 attacks**.
+
+AACP-017 evidence:
+
+`docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`
+
+Public AACP-017 result return:
+
+https://github.com/Heaviside479/handoffprobe/issues/185#issuecomment-5846617504
+
 This lane must be worked, but it must not leave internal development idle.
 
 Qualifying evidence must be defined and recorded without turning platform
@@ -2124,7 +2151,9 @@ Tasks:
 - [x] reproduce the pinned VATE A2A evidence-review package and preserve exact
       package identity, runtime, commands, exits and observed three-case results;
 - [x] return the completed VATE reproduction publicly with exact evidence;
-- [ ] classify any substantive upstream response to the VATE result return;
+- [x] classify the substantive upstream response to the VATE result return;
+- [x] capture the first current independently attributable external public-package
+      execution with source and scope through issue #185 / AACP-017;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
 - [ ] make the current exact-version or RC path easy to reproduce;

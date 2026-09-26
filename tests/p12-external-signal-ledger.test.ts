@@ -22,7 +22,7 @@ describe('P12.6 external signal ledger', () => {
   });
 
   it('records the VATE reproduction as the immediate research action', () => {
-    expect(ledger).toContain('VATE reproduction opportunity');
+    expect(ledger).toContain('VATE reproduction and author acknowledgement');
     expect(ledger).toContain('successfully executed; public result');
     expect(ledger).toContain('ec9b2286a18f5500f10a10281dfe6e2620b9aa31b5045ce0748bb89c8308fd31');
     expect(roadmap).toContain('fixed VATE reproduction path was successfully executed');

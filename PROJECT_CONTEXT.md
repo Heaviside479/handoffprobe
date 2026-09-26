@@ -1,6 +1,6 @@
 # HandoffProbe — Canonical Project Context
 
-Last updated: 2026-09-25
+Last updated: 2026-09-26
 
 This file is the central context for future contributors, coding agents and project discussions.
 
@@ -21,8 +21,10 @@ Build the best developer-first open-source defensive test engine for security fa
 - Current verified release: `handoffprobe@0.4.0`
 - Repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published
 - RC repository candidate merged to protected `main` on 2026-09-25 via PR #186
-- External evidence lane: active; technical response and reviewer acknowledgement
-  are recorded, but qualifying independent HandoffProbe use is not yet claimed
+- External evidence lane: active; independently attributable execution of the
+  published `handoffprobe@0.4.0` package is now recorded through issue #185,
+  while integration, repeated use, adoption and the minimum GA evidence
+  threshold remain unclaimed
 - RC npm-stage preflight: `latest` remains `0.4.0`; planned prerelease tag is
   `next`; local stage-list inspection currently needs npm re-authentication
 - Stable public corpus: **23 attacks**

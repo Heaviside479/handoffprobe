@@ -209,6 +209,33 @@ External design discussion motivating this explicit boundary:
 
 This records a composition-security boundary, not a claim that the Verifiable MCP proposal, MCP itself or another project is vulnerable or non-conformant.
 
+## Predicate-level authority representation boundary
+
+The threat model includes payload limits such as amount or recipient, but the
+current stable semantic-authority path is not a general predicate-equivalence
+solver.
+
+Current stable authority evidence reasons about concrete protected operations
+and operation-set relationships. It does not claim that arbitrary policy or
+numeric predicates expressed in different syntactic forms are normalized to a
+canonical semantic relation.
+
+External AACP-017 research demonstrates this representation boundary under an
+opaque-identifier encoding: `amount < 5000` and the integer-cent-equivalent
+`amount <= 4999` are represented differently, as is the genuinely wider
+`amount <= 5000`.
+
+This is currently a research-model boundary, not evidence that an existing
+stable attack is defective and not a declaration that predicate continuity is
+permanently out of scope.
+
+Any future stable coverage requires the normal handoff-specific overlap and
+admission process.
+
+External source:
+
+https://github.com/Heaviside479/handoffprobe/issues/185
+
 ## Current product limitations
 
 The threat model may intentionally describe threat classes that are broader than the current stable corpus. Their presence here does not imply stable product support.
