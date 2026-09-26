@@ -2,7 +2,7 @@
 
 Date: 2026-09-26
 
-Status: **EXTERNAL HANDOFFPROBE EXECUTION REPORTED AND MAINTAINER REPRODUCED — OVERLAP / ADMISSION REVIEW PENDING**
+Status: **EXTERNAL HANDOFFPROBE EXECUTION REPRODUCED — OVERLAP REVIEW COMPLETE / NO ADD**
 
 ## External source
 
@@ -88,21 +88,25 @@ P12.6 remains open because the minimum GA evidence threshold is still undefined.
 
 ## Research decision
 
-AACP-017 is recorded as a **research input / candidate pending overlap review**.
+AACP-017 was initially recorded as research input pending normal overlap review.
 
-The closest stable neighbor is `HP-AUTH-001`, but no final refinement,
-model-extension or distinct-candidate classification is made by this record.
+That review is now complete:
 
-Before any implementation or stable admission, the project must determine:
+`docs/AACP_017_OVERLAP_ADMISSION_DECISION_20260926.md`
 
-1. whether predicate normalization is handoff-specific rather than generic
-   policy-language equivalence;
-2. what predicate domains and canonical semantics can be modeled soundly;
-3. whether a secure and intentionally vulnerable composition can demonstrate a
-   distinct end-to-end security invariant;
-4. whether the result is already governed by `HP-AUTH-001`;
-5. whether deterministic evidence can distinguish equivalent normalization from
-   actual authority widening without unsafe inference.
+Admission result:
+
+**NO ADD — the governing security invariant remains owned by stable
+`HP-AUTH-001`.**
+
+AACP-017 demonstrates a representation / expressiveness boundary in the current
+semantic-authority model. It does not establish a distinct handoff-specific
+security invariant and does not reserve a new stable attack ID.
+
+Any future implementation work is limited to bounded `HP-AUTH-001` refinement
+research behind the separate proof gate defined in the admission decision.
+General predicate or policy-language normalization remains outside the current
+stable contract.
 
 ## Public result return
 
@@ -116,8 +120,8 @@ The reply confirms:
 - the exact pinned AACP-017 reproducer was reproduced locally;
 - the current stable semantic-authority path does not claim general arbitrary
   predicate equivalence;
-- AACP-017 remains research input pending normal overlap/admission review
-  against `HP-AUTH-001`;
+- the subsequent overlap/admission review classifies AACP-017 as
+  `HP-AUTH-001`-owned representation research with **NO ADD**;
 - the existing stable corpus remains **23 attacks**.
 
 No adoption, integration or stable-attack claim is made by this reply.

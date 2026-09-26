@@ -371,11 +371,15 @@ Future direct comparison is gated on concrete withdrawal ordering, execution-bou
 
 ## RC-8 — AACP-017 predicate-level authority normalization
 
-Status: **EXTERNAL REPRODUCTION / OVERLAP REVIEW PENDING — NO NEW STABLE ID**
+Status: **OVERLAP REVIEW COMPLETE — NO ADD / HP-AUTH-001-OWNED / BOUNDED REFINEMENT RESEARCH ONLY**
 
 Detailed signal record:
 
 `docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`
+
+Overlap / admission decision:
+
+`docs/AACP_017_OVERLAP_ADMISSION_DECISION_20260926.md`
 
 External source:
 
@@ -407,15 +411,20 @@ Current position:
 - exact external reproducer pinned;
 - external public-package execution is independently attributable;
 - maintainer-side reproducer check completed successfully;
-- closest stable neighbor is `HP-AUTH-001`;
-- final overlap classification is not yet made;
+- governing stable invariant belongs to `HP-AUTH-001`;
+- overlap / admission review is complete;
+- admission result is **NO ADD**;
+- AACP-017 remains bounded `HP-AUTH-001` refinement research only;
 - no new stable `HP-*` ID is reserved;
 - stable corpus remains **23 attacks**;
+- no runtime implementation is authorized by this decision;
 - no package-version change or release is triggered by this research input.
 
-Activation gate:
+Refinement gate:
 
 Do not implement predicate normalization merely because this external example
-exists. First establish a handoff-specific security invariant, a sound and
-bounded predicate domain, deterministic equivalence/widening evidence and the
-relationship to existing `HP-AUTH-001` coverage.
+exists. The governing invariant is already owned by `HP-AUTH-001`. Any future
+runtime refinement requires a separate proof establishing a sound and bounded
+predicate domain, deterministic equivalence/widening evidence, concrete
+handoff-specific authority evidence and safe ERROR behavior for unsupported or
+ambiguous predicates.

@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 const read = (path: string) => readFileSync(path, 'utf8');
 
 const signal = read('docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md');
+const decision = read('docs/AACP_017_OVERLAP_ADMISSION_DECISION_20260926.md');
 const ledger = read('docs/P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md');
 const roadmap = read('docs/ROADMAP.md');
 const research = read('docs/ROADMAP_RESEARCH_CANDIDATES.md');
@@ -45,6 +46,27 @@ describe('AACP-017 external signal and 2026-09-26 follow-up', () => {
     expect(research).toContain('RC-8 — AACP-017 predicate-level authority normalization');
     expect(research).toContain('NO NEW STABLE ID');
     expect(catalog).toContain('predicate-equivalence solver');
+  });
+
+  it('pins the completed AACP-017 overlap/admission decision', () => {
+    expect(decision).toContain(
+      'COMPLETE — NO ADD / HP-AUTH-001-OWNED / BOUNDED REFINEMENT RESEARCH ONLY',
+    );
+    expect(decision).toContain(
+      'NO ADD — retain stable `HP-AUTH-001`; do not reserve a new `HP-*` ID.',
+    );
+    expect(decision).toContain('keeps the stable corpus at **23 attacks**');
+    expect(decision).toContain('No runtime change is authorized by this overlap decision.');
+    expect(decision).toContain(
+      'bounded `HP-AUTH-001` refinement research only, behind a separate proof gate.',
+    );
+
+    expect(signal).toContain('OVERLAP REVIEW COMPLETE / NO ADD');
+    expect(research).toContain(
+      'OVERLAP REVIEW COMPLETE — NO ADD / HP-AUTH-001-OWNED / BOUNDED REFINEMENT RESEARCH ONLY',
+    );
+    expect(roadmap).toContain('complete the AACP-017 overlap/admission review: **NO ADD**');
+    expect(index).toContain('AACP_017_OVERLAP_ADMISSION_DECISION_20260926.md');
   });
 
   it('records the model limitation in current contracts', () => {
