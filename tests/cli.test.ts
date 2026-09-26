@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { VERSION } from '../src/index.js';
 import type { CliIo } from '../src/cli/run-cli.js';
 import { runCli } from '../src/cli/run-cli.js';
 
@@ -50,7 +51,7 @@ describe('runCli', () => {
     const exitCode = await runCli(['--version'], capture.io);
 
     expect(exitCode).toBe(0);
-    expect(capture.stdout).toEqual(['HandoffProbe 1.0.0-rc.1']);
+    expect(capture.stdout).toEqual([`HandoffProbe ${VERSION}`]);
     expect(capture.stderr).toEqual([]);
   });
 

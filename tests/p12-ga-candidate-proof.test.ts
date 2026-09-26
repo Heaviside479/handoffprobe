@@ -71,9 +71,9 @@ describe('P12.5 GA candidate proof', () => {
     expect(evidence).toContain('source identity from package-version identity');
   });
 
-  it('marks exactly eight completed P12.5 gates', () => {
+  it('marks all ten P12.5 gates complete', () => {
     expect(p12_5).toContain(
-      'Status: **IN PROGRESS — 1.0.0-rc.1 source candidate prepared; npm stage / provenance still open**',
+      'Status: **COMPLETE — live RC.1 Trusted Publishing, public prerelease and provenance verified; repository advanced to RC.2 correction candidate**',
     );
 
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
@@ -93,8 +93,11 @@ describe('P12.5 GA candidate proof', () => {
       '- [x] decide whether prerelease publication materially improves final validation.',
     );
 
-    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(8);
-    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(2);
+    expect(p12_5).toContain('- [x] exercise the real npm stage / Trusted Publishing path');
+    expect(p12_5).toContain('- [x] verify npm provenance from the real publishing path;');
+
+    expect(p12_5.match(/- \[x\]/g) ?? []).toHaveLength(10);
+    expect(p12_5.match(/- \[ \]/g) ?? []).toHaveLength(0);
   });
 
   it('records the prerelease validation decision without authorizing publication', () => {
@@ -120,13 +123,27 @@ describe('P12.5 GA candidate proof', () => {
     );
   });
 
-  it('keeps publication and remaining validation gates open', () => {
-    expect(p12_5).toContain('- [ ] exercise the real npm stage / Trusted Publishing path');
-    expect(p12_5).toContain('- [ ] verify npm provenance from the real publishing path;');
-
-    expect(evidence).toContain('- authorize `1.0.0-rc.1`;');
-    expect(evidence).toContain('- authorize `1.0.0`;');
-    expect(evidence).toContain('The public package remains `handoffprobe@0.4.0`.');
+  it('records successful live prerelease publication without claiming GA', () => {
+    expect(evidence).toContain('## 2026-09-26 live npm staged publication and provenance proof');
+    expect(evidence).toContain('workflow run ID: `36248869620`');
+    expect(evidence).toContain('3c220007-493b-4d09-bb99-ac90ef129912');
+    expect(evidence).toContain('b35fe00b060b9ce64895ae80f3ca56007fd4e96f');
+    expect(evidence).toContain('https://slsa.dev/provenance/v1');
+    expect(evidence).toContain('HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK');
+    expect(evidence).toContain(
+      'Current stable npm release (`latest`) remains `handoffprobe@0.4.0`.',
+    );
+    expect(evidence).toContain(
+      'Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.1`.',
+    );
+    expect(evidence).not.toContain(
+      'P12.5 remains incomplete until its separately gated publication',
+    );
+    expect(evidence).toContain(
+      'The verified public v1 prerelease is `handoffprobe@1.0.0-rc.1` under `next`.',
+    );
+    expect(evidence).toContain('The repository package version is `handoffprobe@1.0.0-rc.2`.');
+    expect(evidence).toContain('does not authorize `1.0.0` GA');
     expect(evidence).toContain('The stable public corpus remains 23 attacks.');
   });
 

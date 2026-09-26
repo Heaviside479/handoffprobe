@@ -4,11 +4,11 @@ HandoffProbe is a local-first defensive security CLI for testing security proper
 
 ## Release status
 
-HandoffProbe v0.4.0 is the current verified public release.
+HandoffProbe v0.4.0 is the current stable npm release under `latest`.
 
-Source/package metadata and public npm availability are synchronized at `0.4.0`.
+The repository package version is `1.0.0-rc.2`. V1 release candidates use the npm `next` dist-tag and are prereleases, not GA. The registry is authoritative for the exact version currently resolved by `next`.
 
-For supply-chain-sensitive use, independently confirm the exact registry version with `npm view handoffprobe@0.4.0 version`. The v0.3.0 package, tag and release remain historical release evidence.
+The stable installation examples below intentionally pin `0.4.0`. For supply-chain-sensitive use, independently confirm the exact registry version with `npm view handoffprobe@0.4.0 version`. The v0.3.0 package, tag and release remain historical release evidence.
 
 ## Requirements
 
@@ -49,6 +49,17 @@ HandoffProbe 0.4.0
 ```
 
 Using the exact version keeps first-run and CI reproduction deterministic.
+
+### V1 prerelease channel
+
+Inspect the moving prerelease channel before use:
+
+~~~bash
+npm view handoffprobe dist-tags --json
+npm exec --yes --package=handoffprobe@next -- handoffprobe --version
+~~~
+
+`next` is intentionally movable. For reproducible CI or evidence collection, resolve the prerelease version first and then pin that exact version.
 
 ## Install into a project
 

@@ -17,7 +17,7 @@ The authoritative product principles remain unchanged:
 - service-first commercial validation may run in parallel with open-source maturation;
 - no hosted SaaS before repeated organization-level demand.
 
-This track is intentionally additive. T-3 and T-4 are now complete, the T-2.7/Bayu review remains independently waiting for an external response, and the current verified public product is `handoffprobe@0.4.0` with 23 stable attacks. None of those updates weakens the existing Phase 13 commercial-validation or Cloud/SaaS demand gates.
+This track is intentionally additive. T-3 and T-4 are now complete, the T-2.7/Bayu review remains independently waiting for an external response, and the current stable npm product (`latest`) is `handoffprobe@0.4.0` with 23 stable attacks. None of those updates weakens the existing Phase 13 commercial-validation or Cloud/SaaS demand gates.
 
 ## Relationship to existing roadmap phases
 
