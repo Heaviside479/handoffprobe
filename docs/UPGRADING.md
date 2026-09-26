@@ -1,6 +1,6 @@
 # Upgrading HandoffProbe
 
-Status: current user guidance for `handoffprobe@0.4.0`.
+Status: stable-channel guidance for `handoffprobe@0.4.0` plus v1 prerelease validation.
 
 ## Goal
 
@@ -18,7 +18,7 @@ For an installed CLI:
 handoffprobe --version
 ```
 
-For the exact current public release in the registry:
+For the exact current stable (`latest`) release in the registry:
 
 ```bash
 npm view handoffprobe@0.4.0 version

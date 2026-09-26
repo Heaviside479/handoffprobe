@@ -10,9 +10,11 @@ Tagline:
 
 ## Current public state
 
-Current verified public release: `handoffprobe@0.4.0`
+Current stable npm release (`latest`): `handoffprobe@0.4.0`
 
-Repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published.
+Current repository package version: `handoffprobe@1.0.0-rc.2` — v1 prerelease candidate, not GA.
+
+V1 prereleases use the npm `next` dist-tag. `handoffprobe@1.0.0-rc.1` is the first live prerelease whose staged Trusted Publishing, provenance and clean consumer execution were verified.
 
 - **23 stable attacks**
 - 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)

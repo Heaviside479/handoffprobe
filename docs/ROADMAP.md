@@ -15,7 +15,11 @@ Strategy:
 
 ## Current execution model — authoritative from 2026-09-21
 
-Current verified public release: **`handoffprobe@0.4.0`**.
+Current stable npm release (`latest`): **`handoffprobe@0.4.0`**.
+
+Verified public v1 prerelease (`next`): **`handoffprobe@1.0.0-rc.1`**.
+
+Current repository package version: **`handoffprobe@1.0.0-rc.2`**.
 
 Roadmap phase numbers describe product maturity and work sequencing. They do
 not require matching npm version numbers.
@@ -1997,7 +2001,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **IN PROGRESS — 1.0.0-rc.1 source candidate prepared; npm stage / provenance still open**
+Status: **COMPLETE — live RC.1 Trusted Publishing, public prerelease and provenance verified; repository advanced to RC.2 correction candidate**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -2008,9 +2012,9 @@ collecting evidence.
 - [x] run the Release Candidate workflow from the exact candidate;
 - [x] reproduce byte-identical candidate npm artifacts;
 - [x] generate and verify the release SBOM;
-- [ ] exercise the real npm stage / Trusted Publishing path with a release
+- [x] exercise the real npm stage / Trusted Publishing path with a release
       version that has been separately authorized;
-- [ ] verify npm provenance from the real publishing path;
+- [x] verify npm provenance from the real publishing path;
 - [x] install and execute the exact candidate externally;
 - [x] verify the reusable GitHub Action externally from the candidate identity;
 - [x] verify upgrade/migration/troubleshooting guidance against the candidate;
@@ -2029,10 +2033,10 @@ Current candidate proof:
 - external reconstructed tarball matched the Release Candidate SHA-256 exactly;
 - separate consumer Action audit: PR `#10`, run `35772627004`, job `106897794363` — success;
 - external Action report artifact ID: `10714971132`;
-- public npm package remains `handoffprobe@0.4.0`;
+- at this candidate-proof checkpoint, the stable public npm package remained `handoffprobe@0.4.0`;
 - repository candidate version transition to `1.0.0-rc.1` was separately authorized on 2026-09-25 and prepared for protected admission;
 - stable corpus remains 23 attacks;
-- no npm stage, npm publication, prerelease tag or GitHub Release has been authorized or performed.
+- at this candidate-proof checkpoint, no npm stage, npm publication, prerelease tag or GitHub Release had yet been authorized or performed.
 
 Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 
@@ -2044,7 +2048,7 @@ Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
 - post-merge Ubuntu, macOS and Windows quality/package validation passed;
 - public npm remains `0.4.0`;
 - npm `latest` remains `0.4.0`;
-- `1.0.0-rc.1` was still available in the public registry during preflight;
+- `1.0.0-rc.1` was not yet present in the public registry during preflight;
 - planned prerelease dist-tag is `next`, not `latest`;
 - local `npm stage list handoffprobe --json` returned `E401` because local npm
   authentication was invalid;
@@ -2052,7 +2056,34 @@ Evidence: `docs/P12_5_GA_CANDIDATE_PROOF_20260922.md`.
   Publishing is broken;
 - no npm stage workflow was dispatched and no package was staged or published.
 
-The npm stage remains separately authorization-gated.
+At this 2026-09-25 preflight checkpoint, the npm stage remained separately authorization-gated.
+
+2026-09-26 live prerelease publication proof:
+
+- npm Stage workflow run `36248869620`: success;
+- source commit:
+  `f2e4bbae5149ca6dc2b084776163dc6452a654db`;
+- `handoffprobe@1.0.0-rc.1` staged through GitHub OIDC Trusted Publishing;
+- staged package ID:
+  `3c220007-493b-4d09-bb99-ac90ef129912`;
+- maintainer approval published the staged package successfully;
+- npm `next` resolves to `1.0.0-rc.1`;
+- npm `latest` remains `0.4.0`;
+- published shasum:
+  `b35fe00b060b9ce64895ae80f3ca56007fd4e96f`;
+- npm registry metadata exposes SLSA provenance v1 and a registry signature;
+- clean public consumer install reports `HandoffProbe 1.0.0-rc.1`;
+- full secure corpus reports 23 PASS / 0 FAIL / 0 ERROR;
+- `npm audit signatures` completed successfully;
+- final marker: `HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK`;
+- no prerelease Git tag or GitHub Release has been created;
+- `1.0.0` GA remains unauthorized.
+
+RC.1's npm-visible README retained pre-publication candidate wording because
+that README was frozen inside the immutable published package. RC.1 is not
+unpublished or replaced. The repository advances to `1.0.0-rc.2` to correct
+release-facing metadata and harden prerelease dist-tag safety before further
+external validation.
 
 Prerelease decision completed 2026-09-23:
 
@@ -2062,7 +2093,11 @@ Prerelease decision completed 2026-09-23:
 - the decision does not itself authorize a version change, npm stage, npm publication, tag or GitHub Release;
 - at that decision checkpoint, the concrete prerelease version transition remained a separately controlled step.
 
-On 2026-09-25, the version transition to `1.0.0-rc.1` was separately authorized and prepared in source/package metadata. That authorization covers the version transition only. npm stage, npm publication, prerelease tag creation and GitHub Release creation remain separately controlled.
+On 2026-09-25, the version transition to `1.0.0-rc.1` was separately
+authorized and prepared in source/package metadata. At that checkpoint the
+authorization covered the version transition only. The subsequent 2026-09-26
+stage/publication proof is recorded above; prerelease tag creation and GitHub
+Release creation remain separately controlled.
 
 Further candidate fixes may use `1.0.0-rc.2`, `1.0.0-rc.3`, and so on when
 SemVer prerelease progression is appropriate.
@@ -2998,11 +3033,16 @@ A new external technical traceability signal is frozen at:
 - same-action stale-state resume is primarily an `HP-RACE-002` refinement;
 - `HP-AUTH-006` is adjacent but not governing because it requires an earlier completed effect and a later distinct effect;
 - no reference implementation or validated Sanction Gate conformance result exists at this freeze point;
+- 2026-09-26 follow-up from `01ehex` confirms that withdrawal ordering and
+  execution-boundary semantics are still unwritten, no comparison vector exists
+  yet and no timeline is available;
+- follow-up:
+  https://github.com/math-r-association/sanction-gate/issues/2#issuecomment-5847135938
 - classification: **EXTERNAL TECHNICAL VALIDATION / TRACEABILITY SIGNAL — REFINEMENT / NO NEW STABLE ID**;
 - no adoption, conformance or independent HandoffProbe reproduction is claimed;
 - no new stable attack is admitted;
 - stable public corpus remains **23 attacks**;
-- public package remains `0.4.0`;
+- stable npm `latest` remains `0.4.0`; public prerelease `next` is `1.0.0-rc.1`;
 - no release is triggered;
 - future direct comparison is gated on concrete withdrawal ordering, execution-boundary semantics and a reference implementation or executable conformance vector.
 

@@ -354,6 +354,59 @@ Classification of that result:
 - it does not authorize bypassing the Trusted Publishing path with a
   traditional publication token.
 
+## RC.1 live prerelease publication — 2026-09-26
+
+The first public v1 prerelease is now independently registry-verifiable:
+
+- package: `handoffprobe@1.0.0-rc.1`;
+- npm dist-tag: `next`;
+- npm stable `latest`: `0.4.0`;
+- stage workflow run: `36248869620` — success;
+- stage ID: `3c220007-493b-4d09-bb99-ac90ef129912`;
+- published shasum:
+  `b35fe00b060b9ce64895ae80f3ca56007fd4e96f`;
+- SLSA provenance predicate:
+  `https://slsa.dev/provenance/v1`;
+- clean published-package execution:
+  `23 PASS / 0 FAIL / 0 ERROR`;
+- publication verification:
+  `HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK`.
+
+This resolves the P12.5 live stage/provenance engineering proof. It is
+maintainer-created release evidence, not third-party adoption, and therefore
+does not itself satisfy P12.6.
+
+The repository has moved to `handoffprobe@1.0.0-rc.2` for a metadata /
+release-safety correction candidate. RC.2 does not change the stable security
+corpus or create new P12.6 product-use evidence.
+
+## Sanction Gate #2 follow-up — 2026-09-26
+
+External follow-up:
+
+https://github.com/math-r-association/sanction-gate/issues/2#issuecomment-5847135938
+
+`01ehex` agrees that the future work should remain a comparison of the boundary
+rather than a conformance or adoption claim.
+
+The external maintainer also states that:
+
+- withdrawal ordering semantics are not yet written;
+- execution-boundary semantics are not yet written;
+- there is currently no Sanction Gate vector available for comparison;
+- no timeline is provided;
+- issue #2 remains the natural location for a future comparison if such a
+  vector is published.
+
+Classification remains:
+
+**EXTERNAL TECHNICAL VALIDATION / TRACEABILITY SIGNAL — WAIT FOR EXECUTABLE
+SEMANTICS / NO NEW STABLE ID**
+
+No response from HandoffProbe is required at this point. The next action is to
+wait for a concrete executable vector or implementation rather than continue
+the thread without new evidence.
+
 ## Immediate work queue
 
 1. [COMPLETED] VATE reproduction returned publicly with exact evidence.
@@ -361,20 +414,20 @@ Classification of that result:
    classified without promotion to adoption or conformance.
 3. [COMPLETED] First current independently attributable external public-package
    execution captured through HandoffProbe issue #185.
-4. Perform the normal AACP-017 overlap/admission review before any model or
-   stable-corpus implementation decision.
+4. [COMPLETED] AACP-017 overlap/admission review completed: **NO ADD**;
+   governing invariant remains `HP-AUTH-001`; no runtime change authorized.
 5. Preserve MCP #3354 and A2A #1769 at their already demonstrated evidence
    levels.
 6. Do not interrupt the current A2A #1769 Poke-nushi / ogasurfproject-jpg
    field-mapping exchange unless a concrete HandoffProbe question or vector is
    directed back to this project.
-7. After an RC is publicly installable, invite relevant external reviewers to
-   run the exact RC package and update issue #168 with the exact prerelease
-   installation path.
+7. Invite relevant external reviewers to run the exact public prerelease and
+   update issue #168 with an exact-version installation path. Prefer the immutable
+   published version over the moving `next` tag for evidence collection.
 8. Define the minimum GA external-evidence threshold explicitly.
-9. Resolve local npm authentication only for required local registry inspection;
-   do not replace the OIDC stage workflow with a traditional direct-publish
-   path.
+9. [COMPLETED] Local npm authentication was refreshed only for registry/stage
+   inspection and maintainer approval; the GitHub OIDC staged-publishing path was
+   preserved.
 10. Keep npm stage, publication, prerelease tag creation and GitHub Release
     creation separately authorized.
 
@@ -391,6 +444,8 @@ This ledger:
 - does not authorize `1.0.0`;
 - does not add a stable attack.
 
-The verified public npm release remains `handoffprobe@0.4.0`.
+The stable npm `latest` release remains `handoffprobe@0.4.0`.
 
-The repository candidate remains `handoffprobe@1.0.0-rc.1`.
+The verified public prerelease is `handoffprobe@1.0.0-rc.1` under `next`.
+
+The repository candidate is `handoffprobe@1.0.0-rc.2`.

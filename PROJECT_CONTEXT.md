@@ -18,8 +18,9 @@ Build the best developer-first open-source defensive test engine for security fa
 
 ## Current public product state
 
-- Current verified release: `handoffprobe@0.4.0`
-- Repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published
+- Current stable npm release (`latest`): `handoffprobe@0.4.0`
+- Current repository package version: `handoffprobe@1.0.0-rc.2`
+- V1 prereleases use npm `next`; RC.1 completed live Trusted Publishing and provenance verification on 2026-09-26
 - RC repository candidate merged to protected `main` on 2026-09-25 via PR #186
 - External evidence lane: active; independently attributable execution of the
   published `handoffprobe@0.4.0` package is now recorded through issue #185,

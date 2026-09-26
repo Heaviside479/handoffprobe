@@ -10,7 +10,7 @@ on:
       tag:
         description: npm dist-tag for the staged version
         required: true
-        default: latest
+        default: next
         type: string
       confirm:
         description: Type STAGE to continue
@@ -69,6 +69,21 @@ jobs:
           test "$CONTENT_CLASS" = "dual-use"
           test -f DISCLOSURE
           test -s DISCLOSURE
+
+          case "$PACKAGE_VERSION" in
+            *-*)
+              if [ "$REQUESTED_TAG" != "next" ]; then
+                echo "Prerelease versions must use npm dist-tag next."
+                exit 1
+              fi
+              ;;
+            *)
+              if [ "$REQUESTED_TAG" != "latest" ]; then
+                echo "Stable versions must use npm dist-tag latest."
+                exit 1
+              fi
+              ;;
+          esac
 
           if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version >/dev/null 2>&1; then
             echo "Refusing to stage an already-published version: $PACKAGE_NAME@$PACKAGE_VERSION"

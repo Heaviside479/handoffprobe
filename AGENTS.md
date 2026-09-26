@@ -23,7 +23,9 @@ Before making product or architecture changes, read:
 
 ## Current repository truth
 
-- verified public release: `handoffprobe@0.4.0`
+- stable npm release (`latest`): `handoffprobe@0.4.0`
+- repository package version: `handoffprobe@1.0.0-rc.2`
+- v1 prereleases use npm `next` and are not GA
 - repository candidate: `handoffprobe@1.0.0-rc.1` — prepared, not yet published
 - stable public corpus: **23 attacks**
 - stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)

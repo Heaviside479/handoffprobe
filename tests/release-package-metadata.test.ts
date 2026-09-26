@@ -63,12 +63,12 @@ async function readJson<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, 'utf8')) as T;
 }
 
-describe('v0.4 package release metadata', () => {
+describe('current package release metadata', () => {
   it('locks the public npm identity and registry metadata', async () => {
     const manifest = await readJson<PackageManifest>('package.json');
 
     expect(manifest.name).toBe('handoffprobe');
-    expect(manifest.version).toBe('1.0.0-rc.1');
+    expect(manifest.version).toBe('1.0.0-rc.2');
     expect('private' in manifest).toBe(false);
     expect(manifest.description).toBe('Adversarial security testing for AI agent handoffs');
     expect(manifest.license).toBe('Apache-2.0');
@@ -114,14 +114,14 @@ describe('v0.4 package release metadata', () => {
     const lock = await readJson<PackageLock>('package-lock.json');
 
     expect(lock.name).toBe('handoffprobe');
-    expect(lock.version).toBe('1.0.0-rc.1');
+    expect(lock.version).toBe('1.0.0-rc.2');
     expect(lock.packages?.['']?.name).toBe('handoffprobe');
-    expect(lock.packages?.['']?.version).toBe('1.0.0-rc.1');
+    expect(lock.packages?.['']?.version).toBe('1.0.0-rc.2');
   });
 
   it('keeps exported CLI identity synchronized with npm metadata', () => {
     expect(PRODUCT_NAME).toBe('HandoffProbe');
     expect(PACKAGE_NAME).toBe('handoffprobe');
-    expect(VERSION).toBe('1.0.0-rc.1');
+    expect(VERSION).toBe('1.0.0-rc.2');
   });
 });

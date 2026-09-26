@@ -4,20 +4,26 @@ This file is the navigation layer for the documentation corpus under `docs/`.
 It complements the root `README.md`; it does not replace the project landing page
 or duplicate the canonical content of the documents linked below.
 
-Current verified public product:
+Current stable npm product:
 
-- `handoffprobe@0.4.0`
+- `handoffprobe@0.4.0` under npm `latest`
 - 23 stable attacks
 - A2A 1.0 -> MCP 2026-07-28
 - report schema `1`
 - Node.js `>=24 <25`
 
-Current repository candidate:
+Current repository package version:
 
-- `handoffprobe@1.0.0-rc.1`
-- version transition authorized and prepared on 2026-09-25
-- not yet staged or published
-- no prerelease tag or GitHub Release yet
+- `handoffprobe@1.0.0-rc.2`
+- prerelease candidate, not GA
+- v1 prereleases use npm dist-tag `next`
+- exact current `next` resolution must be read from the npm registry
+
+Verified prerelease publication proof:
+
+- `handoffprobe@1.0.0-rc.1` published 2026-09-26 through npm staged Trusted Publishing
+- registry provenance and signatures verified
+- clean consumer execution passed with 23 PASS / 0 FAIL / 0 ERROR
 
 Useful repository-level entry points:
 

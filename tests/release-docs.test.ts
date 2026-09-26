@@ -46,9 +46,9 @@ describe('current release documentation contract', () => {
     expect(packageJson.version).toBe(releaseState.candidate.version);
     expect(packageJson.engines.node).toBe('>=24 <25');
 
-    expect(releaseState.candidate.version).toBe('1.0.0-rc.1');
-    expect(releaseState.candidate.status).toBe('prepared-not-published');
-    expect(releaseState.candidate.authorizedDate).toBe('2026-09-25');
+    expect(releaseState.candidate.version).toBe('1.0.0-rc.2');
+    expect(releaseState.candidate.status).toBe('prepared-for-prerelease-validation');
+    expect(releaseState.candidate.authorizedDate).toBe('2026-09-26');
 
     expect(releaseState.candidate.npmStage).toBe(false);
     expect(releaseState.candidate.npmPublished).toBe(false);

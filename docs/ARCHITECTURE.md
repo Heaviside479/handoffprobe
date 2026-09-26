@@ -2,7 +2,9 @@
 
 Status: current product architecture
 
-Current verified public release: `handoffprobe@0.4.0`
+Current stable npm release (`latest`): `handoffprobe@0.4.0`
+
+Current repository package version: `handoffprobe@1.0.0-rc.2`
 
 ## Current public state
 
