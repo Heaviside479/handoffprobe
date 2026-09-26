@@ -2117,6 +2117,15 @@ AACP-017 evidence:
 
 `docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`
 
+AACP-017 overlap / admission decision:
+
+`docs/AACP_017_OVERLAP_ADMISSION_DECISION_20260926.md`
+
+Decision: **NO ADD**. The governing invariant remains stable `HP-AUTH-001`;
+AACP-017 remains bounded semantic-authority representation/refinement research.
+No runtime change, new stable ID, package-version change or release is
+authorized by this decision.
+
 Public AACP-017 result return:
 
 https://github.com/Heaviside479/handoffprobe/issues/185#issuecomment-5846617504
@@ -2154,6 +2163,9 @@ Tasks:
 - [x] classify the substantive upstream response to the VATE result return;
 - [x] capture the first current independently attributable external public-package
       execution with source and scope through issue #185 / AACP-017;
+- [x] complete the AACP-017 overlap/admission review: **NO ADD**;
+      `HP-AUTH-001` owns the governing invariant and any future bounded
+      predicate refinement requires a separate proof gate;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
 - [ ] make the current exact-version or RC path easy to reproduce;
