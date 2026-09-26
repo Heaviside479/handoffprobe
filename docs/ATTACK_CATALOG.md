@@ -18,6 +18,12 @@ The stable direct `invoice.read` -> `invoice.update` mutation remains the regres
 
 Evidence includes upstream, translated and effective downstream operation sets, trusted-enforcement state, the authority relation (`equal`, `narrower` or `broader`) and concrete widening witness operations where present.
 
+The current stable semantic-authority representation is not a general
+predicate-equivalence solver. AACP-017 tracks external research on
+semantics-preserving predicate re-encoding versus genuine widening. That work
+does not change `HP-AUTH-001` or reserve a new stable attack unless a later
+overlap/admission decision establishes a distinct handoff-specific invariant.
+
 Property: composition_responsibility / spec-linked where applicable.
 
 ### HP-AUTH-002 — Missing scope fails open at handoff

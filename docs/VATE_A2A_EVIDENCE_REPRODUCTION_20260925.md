@@ -243,9 +243,27 @@ The public report includes:
 - explicit scope boundary;
 - immutable HandoffProbe reproduction-record and signal-ledger links.
 
-## Next action
+## Upstream acknowledgement
 
-Preserve and classify any substantive upstream response separately.
+Poke-nushi acknowledged the returned reproduction on 2026-09-26:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5841835511
+
+VATE added a durable reproduction record:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/blob/89a0b5314f4619383e10406a342ac9b6df3bec78/docs/interop/handoffprobe-a2a-reproduction.md
+
+The VATE response states that the record is linked from the A2A guide and
+roadmap and highlights R52 as a concrete reproduction of review-Task completion
+while the original operation effect remains `UNKNOWN`.
+
+Classification:
+
+**AUTHOR ACKNOWLEDGEMENT OF THE REPRODUCTION RECORD**
+
+The VATE maintainer did not independently rerun HandoffProbe for this record.
+The acknowledgement is not VATE conformance, HandoffProbe adoption,
+certification or production validation.
 
 ## Release boundary
 

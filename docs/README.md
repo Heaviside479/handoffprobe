@@ -93,6 +93,7 @@ product, reliability and commercial-validation gates.
 
 ## Research / evidence records
 
+- [`AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`](AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md)
 - [`VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md`](VATE_A2A_EVIDENCE_REPRODUCTION_20260925.md)
   These files preserve experiments, external inputs, execution evidence,
   admission decisions and research provenance. Historical conclusions remain

@@ -1,6 +1,6 @@
 # P12.6 external signal ledger
 
-Date: 2026-09-25
+Initial date: 2026-09-25\n\nLast live review: 2026-09-26
 
 Status: **ACTIVE — external signals classified; no P12.6 product-use gate claimed**
 
@@ -84,7 +84,7 @@ Current 2026-09-25 follow-up discussion continues to reinforce the distinction
 between A2A Task completion and the original operation effect, but no external
 HandoffProbe run has been demonstrated in that thread.
 
-## Signal 3 — VATE reproduction opportunity
+## Signal 3 — VATE reproduction and author acknowledgement
 
 Source:
 
@@ -137,14 +137,29 @@ Public result return:
 
 https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5837858177
 
-Next action:
+Upstream response received on 2026-09-26:
 
-1. preserve and classify any substantive upstream response if one arrives;
-2. classify any later HandoffProbe-specific external execution separately.
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5841835511
+
+Poke-nushi created a durable VATE reproduction record:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/blob/89a0b5314f4619383e10406a342ac9b6df3bec78/docs/interop/handoffprobe-a2a-reproduction.md
+
+The response states that the HandoffProbe maintainer reproduction was recorded,
+linked from the VATE A2A guide and roadmap, and that the R52 distinction is
+particularly useful.
+
+Classification:
+
+**author acknowledgement of the returned external-research reproduction.**
+
+The VATE maintainer did not independently rerun HandoffProbe. This does not
+establish VATE conformance, HandoffProbe adoption, production validation or
+independent external HandoffProbe execution.
 
 This reproduction strengthens the research/result-return loop but is not
-P12.6 external HandoffProbe product-use evidence because it was executed by the
-HandoffProbe maintainer.
+P12.6 external HandoffProbe product-use evidence because the VATE package was
+executed by the HandoffProbe maintainer.
 
 ## Signal 4 — Burs-IA VATE corpus review
 
@@ -173,39 +188,137 @@ This is not HandoffProbe product use and must not be counted toward P12.6.
 The wording lesson should be retained for future HandoffProbe evidence claims:
 claim only the ordering or effect boundary actually observed by the evidence.
 
+### 2026-09-26 Burs-IA / LUMEN follow-up
+
+The earlier Burs-IA three-case corpus review later progressed into an external
+VATE SUT-result exercise against pinned VATE commit
+`cb04cb53a33456327c21cd8bb5b26e087e2efff1`.
+
+Public follow-up:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5841045090
+
+Canonical public package:
+
+https://github.com/Poke-nushi/Verifiable-Agent-Trust-Envelope/issues/2#issuecomment-5842127880
+
+Reported VATE results:
+
+- `compare`: 3 passed / 73 failed / 0 skipped / 76 total;
+- the 73 failures are the intentionally unsubmitted remainder of the corpus;
+- `verify-bundle`: 54 passed / 0 failed;
+- public SUT result, comparison report, implementation report, bundle
+  verification and derivation material were published;
+- an initially incorrect descriptor comparison was preserved and corrected
+  rather than hidden.
+
+Updated classification:
+
+**external VATE SUT / ecosystem research evidence.**
+
+This materially strengthens the external VATE review ecosystem, but it is not
+HandoffProbe execution, HandoffProbe adoption or evidence for the P12.6
+HandoffProbe-use threshold. No direct HandoffProbe test is justified from this
+bundle alone.
+
+## Signal 5 — HandoffProbe issue #185 / AACP-017
+
+Source:
+
+https://github.com/Heaviside479/handoffprobe/issues/185
+
+Pinned external reproducer:
+
+https://github.com/arjun2075/aacp017-handoffprobe-repro/tree/31c3afc0e4253e77e3242fe46c3099ae9d6e1549
+
+The external developer reports executing the public `handoffprobe@0.4.0`
+package without source modification.
+
+Reported current-product result:
+
+- secure bundled corpus: `23 / 23 PASS`;
+- vulnerable bundled corpus: `23 / 23 FAIL`;
+- existing stable attacks behaved as documented.
+
+The submitted AACP-017 reproducer then isolates a predicate-level authority
+representation question. Under an opaque-identifier encoding, the current
+semantic-authority algebra places both `amount < 5000 -> amount <= 4999` and
+`amount < 5000 -> amount <= 5000` into the same changed-identifier failure
+class, even though the first transformation is semantics-preserving over
+integer cents.
+
+The exact external reproducer was independently rerun by the HandoffProbe
+maintainer on 2026-09-26 and reproduced its documented observation.
+
+Evidence:
+
+`docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`
+
+Public result return:
+
+https://github.com/Heaviside479/handoffprobe/issues/185#issuecomment-5846617504
+
+Classification:
+
+**independently attributable external HandoffProbe package execution + research
+input.**
+
+This is current P12.6 evidence of an external developer running the public
+package and reporting concrete results.
+
+It is not:
+
+- HandoffProbe adoption;
+- external integration;
+- repeated use;
+- a customer or paid assessment;
+- a defect claim against the current 23 stable attacks;
+- a stable-attack admission.
+
+AACP-017 enters overlap/admission review as a research input. The stable corpus
+remains 23.
+
 ## P11.6 current state
 
 Canonical P11.6 feedback thread:
 
 https://github.com/Heaviside479/handoffprobe/issues/168
 
-Observed on 2026-09-25:
+Observed through 2026-09-26:
 
 - issue remains open;
 - external comment count remains `0`;
-- direct fresh installation / CLI / Action / release-guide feedback remains
-  `PENDING`.
+- direct fresh installation / CLI / Action / release-guide feedback in issue
+  #168 remains `PENDING`;
+- issue #185 is a fresh external public-package execution and research report,
+  but it is not silently relabeled as a response to the dedicated P11.6
+  onboarding / CLI / Action / release-guide request.
 
-The MCP, A2A and VATE research responses above are not silently relabeled as
-P11.6 release feedback.
+The MCP, A2A, VATE and AACP-017 signals above are therefore classified in their
+own evidence lanes.
 
-P11.6 therefore remains active.
+P11.6 remains active.
 
 ## P12.6 current state
 
-The current signals demonstrate useful external technical attention and
-upstream response, but they do **not** yet demonstrate independently
-attributable external HandoffProbe execution or integration.
+The current signals now include one independently attributable external
+execution of the published HandoffProbe package.
 
 Therefore:
 
 - external technical response: **present**;
 - external reviewer acknowledgement: **present**;
 - upstream change influenced by HandoffProbe evidence: **present**;
-- independently attributable external HandoffProbe execution: **not yet
-  established by these signals**;
-- independently attributable HandoffProbe integration: **not yet established
-  by these signals**;
+- independently attributable external HandoffProbe execution: **present via
+  issue #185 / AACP-017**;
+- independently attributable HandoffProbe integration: **not yet established**;
+- repeated external use: **not yet established**;
+- adoption: **not claimed**;
+- commercial HandoffProbe intent or customer evidence from these signals:
+  **not established**;
+- P12.6 has at least one instance matching the roadmap example of an external
+  developer running the package and reporting concrete results;
+- the minimum GA evidence threshold remains undefined;
 - P12.6 external-use gate: **not claimed complete**.
 
 ## RC.1 stage preflight — 2026-09-25
@@ -244,18 +357,26 @@ Classification of that result:
 ## Immediate work queue
 
 1. [COMPLETED] VATE reproduction returned publicly with exact evidence.
-2. Preserve MCP #3354 as an external technical-response/upstream-change signal.
-3. Preserve A2A #1769 as reviewer acknowledgement, not external execution.
-4. After an RC is publicly installable, invite relevant external reviewers to
-   run the exact RC package rather than merely discuss HandoffProbe evidence.
-5. After an RC is publicly installable, update HandoffProbe issue #168 with the
-   exact prerelease installation path and request direct CLI / Action / docs
-   feedback.
-6. Resolve local npm authentication only for required local registry inspection;
+2. [COMPLETED] VATE maintainer acknowledgement and durable reproduction record
+   classified without promotion to adoption or conformance.
+3. [COMPLETED] First current independently attributable external public-package
+   execution captured through HandoffProbe issue #185.
+4. Perform the normal AACP-017 overlap/admission review before any model or
+   stable-corpus implementation decision.
+5. Preserve MCP #3354 and A2A #1769 at their already demonstrated evidence
+   levels.
+6. Do not interrupt the current A2A #1769 Poke-nushi / ogasurfproject-jpg
+   field-mapping exchange unless a concrete HandoffProbe question or vector is
+   directed back to this project.
+7. After an RC is publicly installable, invite relevant external reviewers to
+   run the exact RC package and update issue #168 with the exact prerelease
+   installation path.
+8. Define the minimum GA external-evidence threshold explicitly.
+9. Resolve local npm authentication only for required local registry inspection;
    do not replace the OIDC stage workflow with a traditional direct-publish
    path.
-7. Keep npm stage, publication, prerelease tag creation and GitHub Release
-   creation separately authorized.
+10. Keep npm stage, publication, prerelease tag creation and GitHub Release
+    creation separately authorized.
 
 ## Release boundary
 

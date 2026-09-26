@@ -1,6 +1,6 @@
 # HandoffProbe roadmap — additive research candidates
 
-Status: **ACTIVE INDEX — 2026-09-17**
+Status: **ACTIVE INDEX — 2026-09-26**
 
 This file is an additive roadmap extension. It does **not** replace or override `docs/ROADMAP.md`, existing release tracks, T-series work, Phase 10 reliability work, the Phase 13 commercial-validation gate, or any existing attack-admission decision.
 
@@ -368,3 +368,54 @@ Current position:
 - no adoption claim is made.
 
 Future direct comparison is gated on concrete withdrawal ordering, execution-boundary semantics and a reference implementation or executable conformance vector.
+
+## RC-8 — AACP-017 predicate-level authority normalization
+
+Status: **EXTERNAL REPRODUCTION / OVERLAP REVIEW PENDING — NO NEW STABLE ID**
+
+Detailed signal record:
+
+`docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`
+
+External source:
+
+https://github.com/Heaviside479/handoffprobe/issues/185
+
+Pinned external reproducer:
+
+`arjun2075/aacp017-handoffprobe-repro@31c3afc0e4253e77e3242fe46c3099ae9d6e1549`
+
+The external report uses published `handoffprobe@0.4.0`, reports all 23 stable
+attacks behaving as documented, and isolates a predicate-representation
+expressiveness question.
+
+Research shape:
+
+`amount < 5000 -> amount <= 4999`
+
+is semantics-preserving over integer cents, while:
+
+`amount < 5000 -> amount <= 5000`
+
+is a genuine widening.
+
+Under the external opaque-identifier encoding, the current set-based authority
+algebra places both changed identifiers in the same failure class.
+
+Current position:
+
+- exact external reproducer pinned;
+- external public-package execution is independently attributable;
+- maintainer-side reproducer check completed successfully;
+- closest stable neighbor is `HP-AUTH-001`;
+- final overlap classification is not yet made;
+- no new stable `HP-*` ID is reserved;
+- stable corpus remains **23 attacks**;
+- no package-version change or release is triggered by this research input.
+
+Activation gate:
+
+Do not implement predicate normalization merely because this external example
+exists. First establish a handoff-specific security invariant, a sound and
+bounded predicate domain, deterministic equivalence/widening evidence and the
+relationship to existing `HP-AUTH-001` coverage.

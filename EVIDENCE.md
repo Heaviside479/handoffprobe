@@ -863,6 +863,86 @@ paid endpoint was used.
 
 ---
 
+## 10. AACP-017 predicate-level authority external reproduction
+
+**Evidence level:** Open research follow-up — independent external package
+execution established
+
+**Status:** External reproduction received and maintainer reproducer check
+completed; overlap/admission review pending
+
+**Scope:** Published `handoffprobe@0.4.0` plus a pinned predicate-level
+semantic-authority reproducer
+
+### External execution
+
+External HandoffProbe issue:
+
+https://github.com/Heaviside479/handoffprobe/issues/185
+
+Pinned external reproducer:
+
+https://github.com/arjun2075/aacp017-handoffprobe-repro/tree/31c3afc0e4253e77e3242fe46c3099ae9d6e1549
+
+The external author reports:
+
+- public `handoffprobe@0.4.0` used without source modification;
+- secure bundled corpus: `23 / 23 PASS`;
+- vulnerable bundled corpus: `23 / 23 FAIL`;
+- the existing 23 attacks behaved as documented;
+- Node.js `24.21.0`;
+- a standalone reproducer for predicate-level authority normalization.
+
+The exact standalone reproducer was also executed by the HandoffProbe
+maintainer on 2026-09-26 from its pinned commit and reproduced the documented
+same-class observation.
+
+### Research question
+
+The submitted comparison distinguishes:
+
+- unchanged: `amount < 5000 -> amount < 5000`;
+- semantics-preserving over integer cents:
+  `amount < 5000 -> amount <= 4999`;
+- actual widening: `amount < 5000 -> amount <= 5000`.
+
+Under the submitted opaque-identifier encoding, the current semantic-authority
+algebra reports both changed identifiers as outside the upstream set.
+
+This is a model-expressiveness question. The external report does not claim
+incorrect behavior in an existing stable attack.
+
+### Public result return
+
+The maintainer-side reproduction and classification were returned to the
+external contributor:
+
+https://github.com/Heaviside479/handoffprobe/issues/185#issuecomment-5846617504
+
+The reply preserves the predicate-model limitation, `HP-AUTH-001` overlap
+review and stable-corpus boundary.
+
+### Current classification
+
+- independently attributable external HandoffProbe package execution:
+  **ESTABLISHED**;
+- P12.6 qualifying-evidence example: **PRESENT**;
+- adoption: **NOT CLAIMED**;
+- integration: **NOT ESTABLISHED**;
+- repeated use: **NOT ESTABLISHED**;
+- stable attack admission: **NO**;
+- stable corpus: **23 attacks**;
+- research state: **OVERLAP / ADMISSION REVIEW PENDING**.
+
+Detailed signal record:
+
+[`docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md`](docs/AACP_017_PREDICATE_AUTHORITY_SIGNAL_20260926.md)
+
+The minimum GA external-evidence threshold remains undefined, so this external
+execution does not by itself close P12.6.
+
+---
+
 ## Open technical follow-ups
 
 Open work is intentionally separated from completed evidence.
