@@ -73,7 +73,7 @@ describe('P12.5 GA candidate proof', () => {
 
   it('marks all ten P12.5 gates complete', () => {
     expect(p12_5).toContain(
-      'Status: **COMPLETE — live RC.1 Trusted Publishing, public prerelease and provenance verified; repository advanced to RC.2 correction candidate**',
+      'Status: **COMPLETE — RC.2 Trusted Publishing, public prerelease, provenance, GitHub Prerelease and tagged Action verification complete**',
     );
 
     expect(p12_5).toContain('- [x] freeze the exact candidate commit;');
@@ -134,15 +134,23 @@ describe('P12.5 GA candidate proof', () => {
       'Current stable npm release (`latest`) remains `handoffprobe@0.4.0`.',
     );
     expect(evidence).toContain(
-      'Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.1`.',
+      'Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.2`.',
     );
     expect(evidence).not.toContain(
       'P12.5 remains incomplete until its separately gated publication',
     );
     expect(evidence).toContain(
-      'The verified public v1 prerelease is `handoffprobe@1.0.0-rc.1` under `next`.',
+      'The verified public v1 prerelease is `handoffprobe@1.0.0-rc.2` under `next`.',
     );
     expect(evidence).toContain('The repository package version is `handoffprobe@1.0.0-rc.2`.');
+    expect(evidence).toContain(
+      '## 2026-09-28 RC.2 public prerelease and tagged Action verification',
+    );
+    expect(evidence).toContain('workflow run: `36402476070`');
+    expect(evidence).toContain('b47b2fcc-924e-4a1c-a9e2-7f55d14b634c');
+    expect(evidence).toContain('53852a5efc18a97ff74d575aed2a5ee5c7d5d176');
+    expect(evidence).toContain('`v1.0.0-rc.2`');
+    expect(evidence).toContain('external tagged Action workflow run: `36405018499` — success');
     expect(evidence).toContain('does not authorize `1.0.0` GA');
     expect(evidence).toContain('The stable public corpus remains 23 attacks.');
   });

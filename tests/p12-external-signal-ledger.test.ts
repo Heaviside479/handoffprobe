@@ -50,7 +50,22 @@ describe('P12.6 external signal ledger', () => {
     expect(ledger).toContain('https://slsa.dev/provenance/v1');
     expect(ledger).toContain('HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK');
     expect(ledger).toContain('does not itself satisfy P12.6');
-    expect(ledger).toContain('The repository candidate is `handoffprobe@1.0.0-rc.2`.');
+    expect(ledger).toContain(
+      'The verified public prerelease is `handoffprobe@1.0.0-rc.2` under `next`.',
+    );
+  });
+
+  it('records RC.2 publication and tagged Action proof without promoting it to adoption', () => {
+    expect(ledger).toContain(
+      '## RC.2 live prerelease publication and tagged Action verification — 2026-09-28',
+    );
+    expect(ledger).toContain('36402476070');
+    expect(ledger).toContain('b47b2fcc-924e-4a1c-a9e2-7f55d14b634c');
+    expect(ledger).toContain('53852a5efc18a97ff74d575aed2a5ee5c7d5d176');
+    expect(ledger).toContain('36405018499');
+    expect(ledger).toContain('verified maintainer-created RC release-engineering');
+    expect(ledger).toContain('does not by itself increase the');
+    expect(ledger).toContain('complete P12.6 or authorize');
   });
 
   it('records the Sanction Gate wait-state follow-up', () => {

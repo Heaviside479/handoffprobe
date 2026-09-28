@@ -26,7 +26,7 @@ Before making product or architecture changes, read:
 - stable npm release (`latest`): `handoffprobe@0.4.0`
 - repository package version: `handoffprobe@1.0.0-rc.2`
 - v1 prereleases use npm `next` and are not GA
-- verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.1`
+- verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.2`
 - stable public corpus: **23 attacks**
 - stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
 - protocol baseline: A2A 1.0 -> MCP 2026-07-28

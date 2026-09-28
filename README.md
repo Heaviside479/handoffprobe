@@ -35,7 +35,7 @@ HandoffProbe v1 release candidates use the npm `next` dist-tag. Because `next` i
 npm view handoffprobe dist-tags --json
 ```
 
-`handoffprobe@1.0.0-rc.1` completed the real npm staged Trusted Publishing path on 2026-09-26. Registry provenance, signatures, clean installation and the 23/23 secure corpus execution were verified. The repository package version has advanced to **`handoffprobe@1.0.0-rc.2`** for release-facing metadata correction and further prerelease validation.
+`handoffprobe@1.0.0-rc.2` is the verified public v1 prerelease under `next`. Published on 2026-09-28 through npm staged Trusted Publishing, it passed registry, provenance, signature, clean-install, 23/23 secure-corpus, annotated-tag, GitHub Prerelease and tagged-Action verification. `1.0.0` GA remains separately gated.
 
 HandoffProbe v0.4.0 remains the reviewed stable (`latest`) release. Its package, `v0.4.0` tag, GitHub Release and reusable Action were verified after publication.
 

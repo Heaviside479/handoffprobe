@@ -2,13 +2,13 @@
 
 Date: 2026-09-22
 
-Status: **COMPLETE — candidate, staged Trusted Publishing, public prerelease, provenance and clean consumer verification complete**
+Status: **COMPLETE — RC.2 Trusted Publishing, public prerelease, provenance, GitHub Prerelease and tagged Action verification complete**
 
 Frozen candidate commit: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
 
 Current stable npm release (`latest`) remains `handoffprobe@0.4.0`.
 
-Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.1`.
+Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.2`.
 
 Current repository package version: `handoffprobe@1.0.0-rc.2`.
 
@@ -441,6 +441,66 @@ RC.2:
 RC.1 remains immutable historical publication evidence and is not unpublished
 or rewritten.
 
+### 2026-09-28 RC.2 public prerelease and tagged Action verification
+
+The separately authorized RC.2 release path was completed from protected `main`.
+
+Observed release identity:
+
+- source commit: `6e23275162d95661d55d0d36d1723c5d18361e0b`;
+- package: `handoffprobe@1.0.0-rc.2`;
+- npm Stage workflow run: `36402476070` — success;
+- stage ID: `b47b2fcc-924e-4a1c-a9e2-7f55d14b634c`;
+- staged and published shasum:
+  `53852a5efc18a97ff74d575aed2a5ee5c7d5d176`;
+- npm dist-tag: `next`;
+- stable npm `latest` remained `0.4.0`.
+
+The exact staged tarball was downloaded before approval and verified to retain:
+
+- package version `1.0.0-rc.2`;
+- CLI bin mapping `handoffprobe -> ./dist/cli.js`;
+- executable CLI entrypoint with `#!/usr/bin/env node`;
+- successful clean consumer installation;
+- `HandoffProbe 1.0.0-rc.2`.
+
+After maintainer proof-of-presence approval, public registry verification observed:
+
+- npm `next` -> `1.0.0-rc.2`;
+- npm `latest` -> `0.4.0`;
+- exact published shasum matched the staged artifact;
+- clean public install: passed;
+- secure corpus: `23 PASS / 0 FAIL / 0 NOT_APPLICABLE / 0 INCONCLUSIVE / 0 ERROR`;
+- security gate: PASS;
+- dependency audit: 0 vulnerabilities.
+
+Post-publication signature/provenance verification observed:
+
+- `npm audit signatures`: exit `0`;
+- consumer graph: 84 packages with verified registry signatures;
+- consumer graph: 10 packages with verified attestations;
+- HandoffProbe registry attestation predicate:
+  `https://slsa.dev/provenance/v1`;
+- final marker:
+  `HANDOFFPROBE_RC2_SIGNATURE_PROVENANCE_VERIFY=OK`.
+
+GitHub release-surface verification observed:
+
+- immutable annotated tag: `v1.0.0-rc.2`;
+- tag target: `6e23275162d95661d55d0d36d1723c5d18361e0b`;
+- GitHub Release: `HandoffProbe v1.0.0-rc.2`;
+- release state: prerelease, not draft;
+- external tagged Action workflow run: `36405018499` — success;
+- Action reference:
+  `Heaviside479/handoffprobe@v1.0.0-rc.2`;
+- verified Action output: exit code `0`, result `pass`;
+- the temporary external-Action verification branch was deleted locally and remotely after the successful run.
+
+Issue #168 was updated to expose separate stable and v1-prerelease feedback lanes.
+
+This is maintainer-created release-engineering evidence. It does not establish
+independent adoption, does not complete P12.6 and does not authorize `1.0.0` GA.
+
 ## P12.5 completion state
 
 Completed:
@@ -480,18 +540,19 @@ did not authorize. The 2026-09-25 authorization covered only the repository
 version transition to `1.0.0-rc.1`; at that checkpoint npm stage, npm
 publication, prerelease tag creation and GitHub Release creation remained
 unauthorized. The separately authorized 2026-09-26 staged publication proof is
-recorded above. Prerelease Git tag and GitHub Release creation remain separately
-controlled.
+recorded above. At those historical checkpoints, prerelease Git tag and GitHub
+Release creation remained separately controlled. They were later separately
+authorized and completed for RC.2 on 2026-09-28.
 
 The stable npm `latest` channel remains `handoffprobe@0.4.0`.
 
-The verified public v1 prerelease is `handoffprobe@1.0.0-rc.1` under `next`.
+The verified public v1 prerelease is `handoffprobe@1.0.0-rc.2` under `next`.
 
 The repository package version is `handoffprobe@1.0.0-rc.2`.
 
 The stable public corpus remains 23 attacks.
 
 P12.5 is complete. Remaining GA work continues under the independently tracked
-P11.6 / P12.6 external-evidence gates and the final GA decision. Prerelease Git
-tag creation, GitHub Release creation and `1.0.0` GA remain separately
-controlled.
+P11.6 / P12.6 external-evidence gates and the final GA decision. RC.2 npm
+publication, provenance, annotated tag, GitHub Prerelease and tagged Action
+verification are complete; `1.0.0` GA remains separately controlled.

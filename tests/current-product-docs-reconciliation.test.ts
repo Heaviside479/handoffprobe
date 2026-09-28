@@ -23,6 +23,7 @@ describe('Cleanup B.3 current product documentation', () => {
   it('describes the current public product', () => {
     expect(product).toContain('Current stable npm release (`latest`): `handoffprobe@0.4.0`');
     expect(product).toContain('**23 stable attacks**');
+    expect(product).toContain('current verified public prerelease is `handoffprobe@1.0.0-rc.2`');
     expect(product).toContain('`HP-AUTH-006`');
     expect(product).toContain('reusable source-backed GitHub Action');
     expect(product).toContain('Teams/Cloud remains demand-gated');

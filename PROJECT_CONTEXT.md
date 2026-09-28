@@ -1,6 +1,6 @@
 # HandoffProbe — Canonical Project Context
 
-Last updated: 2026-09-26
+Last updated: 2026-09-28
 
 This file is the central context for future contributors, coding agents and project discussions.
 
@@ -20,14 +20,15 @@ Build the best developer-first open-source defensive test engine for security fa
 
 - Current stable npm release (`latest`): `handoffprobe@0.4.0`
 - Current repository package version: `handoffprobe@1.0.0-rc.2`
-- V1 prereleases use npm `next`; RC.1 completed live Trusted Publishing and provenance verification on 2026-09-26
-- RC repository candidate merged to protected `main` on 2026-09-25 via PR #186
+- V1 prereleases use npm `next`; `handoffprobe@1.0.0-rc.2` is the verified public prerelease and remains non-GA
+- RC.2 release source was admitted to protected `main` through PR #190 at commit `6e23275162d95661d55d0d36d1723c5d18361e0b`
+- RC.2 completed staged Trusted Publishing, public registry verification, SLSA provenance verification, annotated `v1.0.0-rc.2` tagging, GitHub Prerelease creation and external tagged-Action verification on 2026-09-28
 - External evidence lane: active; independently attributable execution of the
   published `handoffprobe@0.4.0` package is now recorded through issue #185,
   while integration, repeated use, adoption and the minimum GA evidence
   threshold remain unclaimed
-- RC npm-stage preflight: `latest` remains `0.4.0`; planned prerelease tag is
-  `next`; local stage-list inspection currently needs npm re-authentication
+- npm channel state: stable `latest` remains `0.4.0`; prerelease `next` resolves
+  to `1.0.0-rc.2`
 - Stable public corpus: **23 attacks**
 - Stable composition: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)
 - Protocol baseline: A2A 1.0 -> MCP 2026-07-28

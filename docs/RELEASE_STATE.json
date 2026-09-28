@@ -14,27 +14,31 @@
   },
   "candidate": {
     "version": "1.0.0-rc.2",
-    "status": "prepared-for-prerelease-validation",
+    "status": "published-prerelease-and-verified",
     "authorizedDate": "2026-09-26",
-    "npmStage": false,
-    "npmPublished": false,
-    "gitTagCreated": false,
-    "githubReleaseCreated": false,
+    "npmStage": true,
+    "npmPublished": true,
+    "gitTagCreated": true,
+    "githubReleaseCreated": true,
     "basedOnPublishedPrerelease": "1.0.0-rc.1"
   },
   "prerelease": {
-    "version": "1.0.0-rc.1",
+    "version": "1.0.0-rc.2",
     "status": "published-and-verified",
-    "publishedDate": "2026-09-26",
+    "publishedDate": "2026-09-28",
     "npmTag": "next",
     "npmStage": true,
     "npmPublished": true,
     "provenanceVerified": true,
     "registrySignaturesVerified": true,
-    "stageRunId": "36248869620",
-    "stageId": "3c220007-493b-4d09-bb99-ac90ef129912",
-    "shasum": "b35fe00b060b9ce64895ae80f3ca56007fd4e96f",
-    "gitTagCreated": false,
-    "githubReleaseCreated": false
+    "stageRunId": "36402476070",
+    "stageId": "b47b2fcc-924e-4a1c-a9e2-7f55d14b634c",
+    "shasum": "53852a5efc18a97ff74d575aed2a5ee5c7d5d176",
+    "sourceCommit": "6e23275162d95661d55d0d36d1723c5d18361e0b",
+    "gitTag": "v1.0.0-rc.2",
+    "gitTagCreated": true,
+    "githubReleaseCreated": true,
+    "externalActionRunId": "36405018499",
+    "externalActionVerified": true
   }
 }
