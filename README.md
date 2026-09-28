@@ -14,27 +14,34 @@ HandoffProbe is local-first, deterministic and open source. The bundled test pat
 
 ## Current status
 
-| | |
-| --- | --- |
-| Public release | `handoffprobe@0.4.0` |
-| Repository candidate | `handoffprobe@1.0.0-rc.1` — not yet published |
-| Stable corpus | **23 stable attacks total** |
-| Composition | 12 P0 + 10 P1 + 1 advanced |
-| Latest stable addition | `HP-AUTH-006` |
-| Protocol baseline | A2A 1.0 → MCP 2026-07-28 |
-| Report schema | `1` |
-| Node.js | `>=24 <25` |
-| License | Apache-2.0 |
+|                               |                                          |
+| ----------------------------- | ---------------------------------------- |
+| Stable npm channel (`latest`) | `handoffprobe@0.4.0`                     |
+| Repository package version    | `handoffprobe@1.0.0-rc.2`                |
+| v1 prerelease channel         | npm dist-tag `next` — prerelease, not GA |
+| Stable corpus                 | **23 stable attacks total**              |
+| Composition                   | 12 P0 + 10 P1 + 1 advanced               |
+| Latest stable addition        | `HP-AUTH-006`                            |
+| Protocol baseline             | A2A 1.0 → MCP 2026-07-28                 |
+| Report schema                 | `1`                                      |
+| Node.js                       | `>=24 <25`                               |
+| License                       | Apache-2.0                               |
 
-Public release metadata remains **`handoffprobe@0.4.0`**.
+The stable npm channel remains **`handoffprobe@0.4.0`** under `latest`.
 
-This repository currently carries **`handoffprobe@1.0.0-rc.1`** as an unpublished release candidate. No npm stage, npm publication, prerelease tag or GitHub Release has been created for it yet.
+HandoffProbe v1 release candidates use the npm `next` dist-tag. Because `next` is a moving prerelease channel, the npm registry is authoritative for the exact version it currently resolves:
 
-HandoffProbe v0.4.0 is the current verified public release. The package, `v0.4.0` tag, GitHub Release and reusable Action were verified after publication.
+```bash
+npm view handoffprobe dist-tags --json
+```
+
+`handoffprobe@1.0.0-rc.1` completed the real npm staged Trusted Publishing path on 2026-09-26. Registry provenance, signatures, clean installation and the 23/23 secure corpus execution were verified. The repository package version has advanced to **`handoffprobe@1.0.0-rc.2`** for release-facing metadata correction and further prerelease validation.
+
+HandoffProbe v0.4.0 remains the reviewed stable (`latest`) release. Its package, `v0.4.0` tag, GitHub Release and reusable Action were verified after publication.
 
 ## What HandoffProbe tests
 
-~~~text
+```text
 Human / calling service
         |
         v
@@ -45,7 +52,7 @@ Human / calling service
         | MCP
         v
        Tool
-~~~
+```
 
 The stable corpus tests handoff properties including:
 
@@ -73,14 +80,14 @@ Requirements:
 
 Run the exact verified public release:
 
-~~~bash
+```bash
 npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe --version
 npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test
-~~~
+```
 
 Expected secure high-level result:
 
-~~~text
+```text
 Target: secure
 Protocols: A2A 1.0 | MCP 2026-07-28
 Selected attacks: 23
@@ -92,25 +99,47 @@ Summary:
   TOTAL: 23
 
 Security gate: PASS
-~~~
+```
 
 The default target is a bundled synthetic secure fixture.
+
+### v1 prerelease validation
+
+The v1 prerelease channel is intentionally separate from the stable `latest` channel and does not represent GA.
+
+Inspect the current registry mapping before testing:
+
+```bash
+npm view handoffprobe dist-tags --json
+npm exec --yes --package=handoffprobe@next -- handoffprobe --version
+npm exec --yes --package=handoffprobe@next -- handoffprobe test
+```
+
+The `next` tag is intentionally movable. For reproducible CI or evidence collection, resolve the current prerelease once and pin that exact version instead of relying on a moving tag.
+
+### v1 prerelease feedback
+
+Testing RC.2? Report install/CI problems, unclear CLI/docs or reproducible RC defects here:
+
+- [Share v1 prerelease feedback — GitHub issue #168](https://github.com/Heaviside479/handoffprobe/issues/168)
+
+Use the adoption/integration form below for real usage. Security-sensitive reports must follow [`SECURITY.md`](SECURITY.md).
 
 ### Reproduce a handoff failure
 
 Run the intentionally vulnerable `HP-AUTH-001` demonstration:
 
-~~~bash
+```bash
 npm exec --yes --package=handoffprobe@0.4.0 -- handoffprobe test --target vulnerable --test HP-AUTH-001
-~~~
+```
 
 Expected finding:
 
-~~~text
+```text
 FAIL           HP-AUTH-001 Delegated authority amplification [HIGH]
 
 Security gate: FAIL
-~~~
+```
 
 A security exit code `1` means HandoffProbe completed correctly and detected a qualifying security failure. It is not a scanner crash.
 
@@ -120,13 +149,13 @@ The current release also includes `HP-AUTH-006 — Stale task authorization reus
 
 The stable command surface is:
 
-~~~text
+```text
 handoffprobe test [options]
 handoffprobe list
 handoffprobe explain <HP-ID>
 handoffprobe --version
 handoffprobe --help
-~~~
+```
 
 The full CLI contract — including attack selection, severity thresholds, configuration, terminal/JSON/Markdown reporters, output files, exit codes and troubleshooting — lives in:
 
@@ -143,7 +172,7 @@ HandoffProbe includes a **source-backed composite GitHub Action** in [`action.ym
 
 For security-sensitive use, pin the Action to the reviewed immutable v0.4.0 release commit:
 
-~~~yaml
+```yaml
 name: HandoffProbe
 
 on:
@@ -166,7 +195,7 @@ jobs:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
-~~~
+```
 
 The pin above is the reviewed exact release commit for HandoffProbe v0.4.0.
 

@@ -4,11 +4,13 @@ All notable project changes will be documented here.
 
 ## Unreleased
 
-No new public package release is currently authorized.
+The stable npm `latest` channel remains `0.4.0`.
 
-Repository candidate `1.0.0-rc.1` was prepared after the separate version-transition authorization on 2026-09-25. It is not yet staged or published, and no prerelease tag or GitHub Release exists for it. The public npm release remains `0.4.0`.
+`handoffprobe@1.0.0-rc.1` was published under the `next` dist-tag on 2026-09-26 through npm staged Trusted Publishing. Its registry provenance, signatures, clean consumer installation and 23/23 secure-corpus execution were verified.
 
-The candidate preserves the 23-attack stable corpus and frozen v1 public contract while the remaining npm stage, provenance and external-evidence gates continue.
+The repository package version is now `1.0.0-rc.2`. RC.2 is a prerelease correction candidate that reconciles release-facing metadata after RC.1 and hardens prerelease dist-tag safety. It does not add a stable attack or change the frozen v1 runtime/security contract.
+
+Prerelease publication must not move npm `latest`; `next` remains the dedicated v1 prerelease channel.
 
 Post-v0.4.0 repository work includes reliability hardening, research/evidence
 follow-ups, commercial validation and documentation reconciliation. Those activities

@@ -63,7 +63,7 @@ describe('P12.1 GA readiness audit', () => {
 describe('current roadmap execution model', () => {
   it('keeps the public release at 0.4.0 without forcing intermediate minors', () => {
     expect(roadmap).toContain('## Current execution model — authoritative from 2026-09-21');
-    expect(roadmap).toContain('Current verified public release: **`handoffprobe@0.4.0`**');
+    expect(roadmap).toContain('Current stable npm release (`latest`): **`handoffprobe@0.4.0`**.');
     expect(roadmap).toContain(
       '`0.5.0` through `0.9.0`: only for independently justified backward-compatible',
     );
@@ -101,11 +101,15 @@ describe('current roadmap execution model', () => {
       'at that decision checkpoint, the concrete prerelease version transition remained a separately controlled step',
     );
     expect(phase12).toContain(
-      'On 2026-09-25, the version transition to `1.0.0-rc.1` was separately authorized and prepared in source/package metadata.',
+      'On 2026-09-25, the version transition to `1.0.0-rc.1` was separately',
     );
     expect(phase12).toContain(
-      'npm stage, npm publication, prerelease tag creation and GitHub Release creation remain separately controlled',
+      'authorized and prepared in source/package metadata. At that checkpoint the',
     );
+    expect(phase12).toContain(
+      'stage/publication proof is recorded above; prerelease tag creation and GitHub',
+    );
+    expect(phase12).toContain('Release creation remain separately controlled.');
   });
 
   it('keeps Cloud and Enterprise demand-gated without blocking technical expansion', () => {

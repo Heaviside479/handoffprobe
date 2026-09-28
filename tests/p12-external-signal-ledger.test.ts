@@ -43,6 +43,24 @@ describe('P12.6 external signal ledger', () => {
     expect(ledger).toContain('it did not publish a package');
   });
 
+  it('records the live rc publication without promoting it to adoption', () => {
+    expect(ledger).toContain('## RC.1 live prerelease publication — 2026-09-26');
+    expect(ledger).toContain('36248869620');
+    expect(ledger).toContain('3c220007-493b-4d09-bb99-ac90ef129912');
+    expect(ledger).toContain('https://slsa.dev/provenance/v1');
+    expect(ledger).toContain('HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK');
+    expect(ledger).toContain('does not itself satisfy P12.6');
+    expect(ledger).toContain('The repository candidate is `handoffprobe@1.0.0-rc.2`.');
+  });
+
+  it('records the Sanction Gate wait-state follow-up', () => {
+    expect(ledger).toContain(
+      'https://github.com/math-r-association/sanction-gate/issues/2#issuecomment-5847135938',
+    );
+    expect(ledger).toContain('there is currently no Sanction Gate vector available for comparison');
+    expect(ledger).toContain('No response from HandoffProbe is required at this point.');
+  });
+
   it('indexes the new ledger', () => {
     expect(docsIndex).toContain(
       '[`P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md`](P12_6_EXTERNAL_SIGNAL_LEDGER_20260925.md)',
@@ -53,6 +71,6 @@ describe('P12.6 external signal ledger', () => {
     expect(ledger).toContain('does not authorize npm stage');
     expect(ledger).toContain('does not authorize npm publication');
     expect(ledger).toContain('does not authorize `1.0.0`');
-    expect(ledger).toContain('The verified public npm release remains `handoffprobe@0.4.0`.');
+    expect(ledger).toContain('The stable npm `latest` release remains `handoffprobe@0.4.0`.');
   });
 });

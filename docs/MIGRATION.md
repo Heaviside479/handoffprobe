@@ -1,6 +1,6 @@
 # Migration guide
 
-Status: current user guidance for `handoffprobe@0.4.0`.
+Status: stable-channel migration guidance for `handoffprobe@0.4.0`; v1 release candidates remain prerelease validation builds.
 
 ## Purpose
 
@@ -12,7 +12,7 @@ It is the user-facing companion to the versioned-contract policy in
 
 ## Current release
 
-The current verified public release is `handoffprobe@0.4.0`.
+The current stable npm release (`latest`) is `handoffprobe@0.4.0`. V1 release candidates use npm `next` and are not GA.
 
 The v0.4.0 release is documented as a backward-compatible minor release. It
 preserves:

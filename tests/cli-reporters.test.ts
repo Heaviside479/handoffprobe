@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { VERSION } from '../src/index.js';
+
 import {
   CLI_REPORT_SCHEMA_VERSION,
   renderJsonReport,
@@ -24,7 +26,7 @@ describe('CLI reporters', () => {
     const second = renderCliTestRun(run, 'high');
 
     expect(first).toBe(second);
-    expect(first).toContain('Version: 1.0.0-rc.1');
+    expect(first).toContain(`Version: ${VERSION}`);
     expect(first).toContain('Protocols: A2A 1.0 | MCP 2026-07-28');
     expect(first).toContain('Evidence:');
     expect(first).toContain('refs:');
@@ -52,7 +54,7 @@ describe('CLI reporters', () => {
     ]);
 
     expect(parsed.schemaVersion).toBe(CLI_REPORT_SCHEMA_VERSION);
-    expect(parsed.handoffProbeVersion).toBe('1.0.0-rc.1');
+    expect(parsed.handoffProbeVersion).toBe(VERSION);
     expect(parsed.target).toBe('secure');
     expect(parsed.threshold).toBe('high');
 
@@ -86,7 +88,7 @@ describe('CLI reporters', () => {
 
     expect(first).toBe(second);
     expect(first).toContain('# HandoffProbe Report');
-    expect(first).toContain('- Version: 1.0.0-rc.1');
+    expect(first).toContain(`- Version: ${VERSION}`);
     expect(first).toContain('- Protocols: A2A 1.0 | MCP 2026-07-28');
     expect(first).toContain('- Gate: FAIL');
     expect(first).toContain('## Summary');

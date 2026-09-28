@@ -56,6 +56,37 @@ At this freeze point:
 - no executable Sanction Gate conformance vector is available;
 - no validated Sanction Gate conformance result exists.
 
+## External follow-up — 2026-09-26
+
+External comment:
+
+https://github.com/math-r-association/sanction-gate/issues/2#issuecomment-5847135938
+
+Comment metadata:
+
+- comment ID: `5847135938`;
+- author: `01ehex`;
+- observed date: `2026-09-26`.
+
+The external maintainer agrees that any later work should remain a comparison
+of the boundary rather than a conformance or adoption claim.
+
+The external maintainer also confirms that:
+
+- withdrawal ordering semantics are not yet written;
+- execution-boundary semantics are not yet written;
+- no Sanction Gate vector currently exists for comparison;
+- no implementation timeline is available;
+- issue #2 is the natural place for a future comparison if a concrete vector is
+  later published.
+
+This does not increase the evidence level. It narrows the current action to
+**WAIT**.
+
+HandoffProbe should not add another reply merely to acknowledge the wait state.
+A further response becomes useful only when executable semantics, a reference
+implementation or another concrete testable artifact appears.
+
 ## HandoffProbe classification
 
 Classification:
@@ -168,13 +199,20 @@ This record:
 
 The stable public corpus remains **23 attacks**.
 
-The public package remains **handoffprobe@0.4.0**.
+The stable npm `latest` package remains **handoffprobe@0.4.0**.
+
+The verified public v1 prerelease under `next` is
+**handoffprobe@1.0.0-rc.1**.
 
 ## Traceability decision
 
 The Sanction Gate issue is qualified external technical input and now has a dedicated HandoffProbe freeze / overlap record.
 
-Because no HandoffProbe execution result exists yet, it remains an open research follow-up rather than a completed evidence entry.
+The 2026-09-26 external follow-up explicitly confirms that the executable
+semantics needed for direct comparison still do not exist.
+
+Because no HandoffProbe execution result exists yet, it remains an open
+wait-state research follow-up rather than a completed evidence entry.
 
 The historical `docs/EXTERNAL_GITHUB_THREAD_TRACEABILITY_AUDIT_20260918.md` is not rewritten. Its permanent cross-reference rule applies to this new work.
 

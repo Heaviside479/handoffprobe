@@ -14,6 +14,9 @@ describe('P11.2 npm stage-only publication', () => {
     expect(workflow).toContain('contents: read');
     expect(workflow).toContain('test "$GITHUB_REF" = "refs/heads/main"');
     expect(workflow).toContain('npm install --global npm@11.19.1');
+    expect(workflow).toContain('default: next');
+    expect(workflow).toContain('Prerelease versions must use npm dist-tag next.');
+    expect(workflow).toContain('Stable versions must use npm dist-tag latest.');
   });
 
   it('can stage but cannot directly publish or approve', () => {

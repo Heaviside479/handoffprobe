@@ -90,7 +90,7 @@ describe('v0.1 research and launch documentation', () => {
       'docs/RESEARCH_ARTICLE.md',
       'docs/LAUNCH_EXAMPLES.md',
       'docs/RELEASE_CHECKLIST.md',
-      'Public release metadata remains **`handoffprobe@0.4.0`**.',
+      'The stable npm channel remains **`handoffprobe@0.4.0`** under `latest`.',
     ]) {
       expect(readme).toContain(text);
     }

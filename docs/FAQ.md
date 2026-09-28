@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-Status: current user guidance for `handoffprobe@0.4.0`.
+Status: current stable-channel guidance for `handoffprobe@0.4.0` with separate v1 prerelease validation under npm `next`.
 
 ## What is HandoffProbe?
 

@@ -13,11 +13,27 @@
     "mcp": "2026-07-28"
   },
   "candidate": {
-    "version": "1.0.0-rc.1",
-    "status": "prepared-not-published",
-    "authorizedDate": "2026-09-25",
+    "version": "1.0.0-rc.2",
+    "status": "prepared-for-prerelease-validation",
+    "authorizedDate": "2026-09-26",
     "npmStage": false,
     "npmPublished": false,
+    "gitTagCreated": false,
+    "githubReleaseCreated": false,
+    "basedOnPublishedPrerelease": "1.0.0-rc.1"
+  },
+  "prerelease": {
+    "version": "1.0.0-rc.1",
+    "status": "published-and-verified",
+    "publishedDate": "2026-09-26",
+    "npmTag": "next",
+    "npmStage": true,
+    "npmPublished": true,
+    "provenanceVerified": true,
+    "registrySignaturesVerified": true,
+    "stageRunId": "36248869620",
+    "stageId": "3c220007-493b-4d09-bb99-ac90ef129912",
+    "shasum": "b35fe00b060b9ce64895ae80f3ca56007fd4e96f",
     "gitTagCreated": false,
     "githubReleaseCreated": false
   }

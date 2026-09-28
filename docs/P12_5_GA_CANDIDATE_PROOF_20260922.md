@@ -2,17 +2,25 @@
 
 Date: 2026-09-22
 
-Status: **IN PROGRESS — candidate, reproducibility, SBOM, external consumer, user-guidance and prerelease-decision proof complete**
+Status: **COMPLETE — candidate, staged Trusted Publishing, public prerelease, provenance and clean consumer verification complete**
 
 Frozen candidate commit: `63d4a7d4712c5bf068b186c236b0c3a1cbb1cfcc`
 
-Current verified public release remains `handoffprobe@0.4.0`.
+Current stable npm release (`latest`) remains `handoffprobe@0.4.0`.
+
+Verified public v1 prerelease (`next`): `handoffprobe@1.0.0-rc.1`.
+
+Current repository package version: `handoffprobe@1.0.0-rc.2`.
 
 ## Purpose
 
 Record the first live P12.5 release-engineering evidence against one exact GA-candidate commit without authorizing a new version, npm staging, publication, tag or GitHub Release.
 
-P12.5 remains incomplete until its separately gated publication, provenance, external-use and final prerelease-decision work is complete.
+P12.5 is now complete following the separately authorized live staged
+publication and provenance proof recorded below.
+
+External-use and adoption evidence remains independently tracked under P12.6;
+P12.6 is not completed merely because P12.5 release engineering is complete.
 
 ## Candidate identity
 
@@ -291,7 +299,9 @@ This authorization does **not** authorize:
 - `1.0.0` GA;
 - waiver of P11.6 or P12.6.
 
-The public npm release remains `handoffprobe@0.4.0` until a later publication action is separately authorized and successfully verified.
+At the 2026-09-25 authorization checkpoint, the stable public npm release
+remained `handoffprobe@0.4.0`. The later separately authorized RC.1 staged
+publication and verification are recorded below.
 
 ## 2026-09-25 repository-candidate admission and stage preflight
 
@@ -324,7 +334,112 @@ workflow was dispatched.
 No npm stage, publication, prerelease Git tag or GitHub Release occurred during
 this preflight.
 
-The real npm stage remains separately authorization-gated.
+At this 2026-09-25 preflight checkpoint, the real npm stage remained separately authorization-gated.
+
+## 2026-09-26 live npm staged publication and provenance proof
+
+The separately authorized live prerelease path was exercised for
+`handoffprobe@1.0.0-rc.1`.
+
+### Trusted Publishing stage
+
+Observed workflow:
+
+- workflow: `npm Stage`;
+- workflow run ID: `36248869620`;
+- workflow result: `success`;
+- source branch: `main`;
+- source commit:
+  `f2e4bbae5149ca6dc2b084776163dc6452a654db`;
+- requested version: `1.0.0-rc.1`;
+- requested npm dist-tag: `next`;
+- pinned npm used by the workflow: `11.19.1`;
+- repository quality gates: passed;
+- publication-payload verification: passed;
+- `npm stage publish`: passed.
+
+Authenticated npm read-back then returned:
+
+- package: `handoffprobe`;
+- version: `1.0.0-rc.1`;
+- stage ID: `3c220007-493b-4d09-bb99-ac90ef129912`;
+- actor: `GitHub Actions`;
+- actor type: `trusted automation`;
+- access: `public`;
+- staged shasum:
+  `b35fe00b060b9ce64895ae80f3ca56007fd4e96f`;
+- status before maintainer approval: `staged`.
+
+The staged package was then approved by the maintainer through npm's
+proof-of-presence authentication flow. npm reported that the staged package was
+approved and published successfully.
+
+This was the intended release boundary: GitHub trusted automation was allowed
+to create the staged package, while final public promotion required maintainer
+authentication.
+
+### Public registry verification
+
+Post-publication registry read-back verified:
+
+- `handoffprobe@1.0.0-rc.1` exists publicly;
+- npm `next` -> `1.0.0-rc.1`;
+- npm `latest` -> `0.4.0`;
+- the staged-package list returned `[]` after approval;
+- published shasum:
+  `b35fe00b060b9ce64895ae80f3ca56007fd4e96f`;
+- published integrity:
+  `sha512-aLvzMgjDygIF3Y8ijRQlRn+OgSugDidGZBvTEnoy/41QIDgX0DGt6Dvt+sZ33DlP0o4XdcK7FNofY1yh6jJOZQ==`;
+- published file count: `296`;
+- published unpacked size: `666589`.
+
+The registry metadata exposes an npm attestation for
+`handoffprobe@1.0.0-rc.1` with SLSA provenance predicate type:
+
+`https://slsa.dev/provenance/v1`
+
+The package metadata also exposes a registry signature.
+
+A clean consumer installation of the exact published prerelease then verified:
+
+- install: passed;
+- `handoffprobe --version`: `HandoffProbe 1.0.0-rc.1`;
+- secure full corpus: `23 PASS / 0 FAIL / 0 NOT_APPLICABLE / 0 INCONCLUSIVE / 0 ERROR`;
+- security gate: PASS;
+- `npm audit signatures`: exit `0`;
+- registry-signature verification completed successfully;
+- attestation verification completed successfully.
+
+Final local publication-verification marker:
+
+`HANDOFFPROBE_RC_PUBLICATION_VERIFY=OK`
+
+This proves the real staged Trusted Publishing and public provenance path. It
+does not by itself complete P11.6 or P12.6, does not authorize `1.0.0` GA, and
+does not create a prerelease Git tag or GitHub Release.
+
+### RC.2 correction candidate
+
+After verifying RC.1 publicly, release-facing metadata was found to contain
+pre-publication wording that had been true when RC.1 was packed but became stale
+after publication.
+
+The repository therefore advances to `1.0.0-rc.2` as a prerelease correction
+candidate.
+
+RC.2:
+
+- does not add or modify a stable attack;
+- preserves the 23-attack corpus;
+- preserves the frozen v1 runtime/security contract;
+- reconciles stable (`latest`) versus prerelease (`next`) wording;
+- avoids npm README wording that becomes false merely because the package is
+  subsequently published;
+- hardens `.github/workflows/npm-stage.yml` so prerelease versions require
+  `next` and stable versions require `latest`.
+
+RC.1 remains immutable historical publication evidence and is not unpublished
+or rewritten.
 
 ## P12.5 completion state
 
@@ -339,10 +454,10 @@ Completed:
 - [x] verify upgrade/migration/troubleshooting guidance against the candidate;
 - [x] decide whether prerelease publication materially improves final validation.
 
-Still open:
+Completed live-publication gates:
 
-- [ ] exercise the real npm stage / Trusted Publishing path with a release version that has been separately authorized;
-- [ ] verify npm provenance from the real publishing path;
+- [x] exercise the real npm stage / Trusted Publishing path with a release version that has been separately authorized;
+- [x] verify npm provenance from the real publishing path;
 
 ## Release boundary
 
@@ -360,10 +475,23 @@ At the 2026-09-23 decision checkpoint, this evidence did not:
 - waive P12.6 external-use evidence;
 - add a stable attack.
 
-The release-boundary list above records what the 2026-09-23 decision itself did not authorize. The later 2026-09-25 authorization covers only the repository version transition to `1.0.0-rc.1`; npm stage, npm publication, prerelease tag creation and GitHub Release creation remain unauthorized.
+The release-boundary list above records what the 2026-09-23 decision itself
+did not authorize. The 2026-09-25 authorization covered only the repository
+version transition to `1.0.0-rc.1`; at that checkpoint npm stage, npm
+publication, prerelease tag creation and GitHub Release creation remained
+unauthorized. The separately authorized 2026-09-26 staged publication proof is
+recorded above. Prerelease Git tag and GitHub Release creation remain separately
+controlled.
 
-The public package remains `handoffprobe@0.4.0`.
+The stable npm `latest` channel remains `handoffprobe@0.4.0`.
+
+The verified public v1 prerelease is `handoffprobe@1.0.0-rc.1` under `next`.
+
+The repository package version is `handoffprobe@1.0.0-rc.2`.
 
 The stable public corpus remains 23 attacks.
 
-The next P12.5 action must respect the separate release-authorization boundary.
+P12.5 is complete. Remaining GA work continues under the independently tracked
+P11.6 / P12.6 external-evidence gates and the final GA decision. Prerelease Git
+tag creation, GitHub Release creation and `1.0.0` GA remain separately
+controlled.

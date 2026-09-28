@@ -4,7 +4,7 @@ HandoffProbe welcomes contributions that improve defensive testing of security-s
 
 ## Before contributing
 
-Read `PROJECT_CONTEXT.md`, `AGENTS.md` and the relevant documents under `docs/`. The current verified public release is `handoffprobe@0.4.0` with 23 stable attacks: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`). The public protocol baseline remains A2A 1.0 -> MCP 2026-07-28. Repository research/conformance tooling is not automatically part of the stable public runtime surface.
+Read `PROJECT_CONTEXT.md`, `AGENTS.md` and the relevant documents under `docs/`. The current stable npm release (`latest`) is `handoffprobe@0.4.0` with 23 stable attacks: 12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`). The public protocol baseline remains A2A 1.0 -> MCP 2026-07-28. Repository research/conformance tooling is not automatically part of the stable public runtime surface.
 
 ## Good early contributions
 

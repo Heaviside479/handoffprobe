@@ -24,6 +24,16 @@ describe('Sanction Gate #2 stale-authority external signal', () => {
     );
   });
 
+  it('records the 2026-09-26 external wait-state follow-up', () => {
+    expect(record).toContain(
+      'https://github.com/math-r-association/sanction-gate/issues/2#issuecomment-5847135938',
+    );
+    expect(record).toContain('comment ID: `5847135938`');
+    expect(record).toContain('author: `01ehex`');
+    expect(record).toContain('no Sanction Gate vector currently exists for comparison');
+    expect(record).toContain('HandoffProbe should not add another reply');
+  });
+
   it('records the three-property decomposition and future vector', () => {
     expect(record).toContain('the sanction artifact is authentic and structurally valid');
     expect(record).toContain(
@@ -55,7 +65,8 @@ describe('Sanction Gate #2 stale-authority external signal', () => {
     expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
     expect(readme).toContain('23 stable attacks total');
     expect(record).toContain('The stable public corpus remains **23 attacks**.');
-    expect(record).toContain('The public package remains **handoffprobe@0.4.0**.');
+    expect(record).toContain('The stable npm `latest` package remains **handoffprobe@0.4.0**.');
+    expect(record).toContain('**handoffprobe@1.0.0-rc.1**');
     expect(record).toContain('does not reserve a new `HP-*` identifier');
   });
 
