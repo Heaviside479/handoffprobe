@@ -12,18 +12,20 @@ Current stable npm product:
 - report schema `1`
 - Node.js `>=24 <25`
 
-Current repository package version:
+Current repository and public prerelease package version:
 
 - `handoffprobe@1.0.0-rc.2`
-- prerelease candidate, not GA
+- verified public prerelease, not GA
 - v1 prereleases use npm dist-tag `next`
-- exact current `next` resolution must be read from the npm registry
+- stable npm `latest` remains `handoffprobe@0.4.0`
 
-Verified prerelease publication proof:
+Verified RC.2 publication proof:
 
-- `handoffprobe@1.0.0-rc.1` published 2026-09-26 through npm staged Trusted Publishing
-- registry provenance and signatures verified
-- clean consumer execution passed with 23 PASS / 0 FAIL / 0 ERROR
+- `handoffprobe@1.0.0-rc.2` published 2026-09-28 through npm staged Trusted Publishing
+- registry identity, SLSA provenance and signature/attestation verification passed
+- clean public consumer execution passed with 23 PASS / 0 FAIL / 0 ERROR
+- annotated `v1.0.0-rc.2` tag and GitHub Prerelease verified
+- external tagged GitHub Action execution passed
 
 Useful repository-level entry points:
 

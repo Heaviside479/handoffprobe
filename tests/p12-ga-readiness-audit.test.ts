@@ -107,9 +107,9 @@ describe('current roadmap execution model', () => {
       'authorized and prepared in source/package metadata. At that checkpoint the',
     );
     expect(phase12).toContain(
-      'stage/publication proof is recorded above; prerelease tag creation and GitHub',
+      'stage/publication proof is recorded above. At that historical checkpoint,',
     );
-    expect(phase12).toContain('Release creation remain separately controlled.');
+    expect(phase12).toContain('RC.2 later completed both through a separately controlled release');
   });
 
   it('keeps Cloud and Enterprise demand-gated without blocking technical expansion', () => {

@@ -1,6 +1,8 @@
 # P12.6 external signal ledger
 
-Initial date: 2026-09-25\n\nLast live review: 2026-09-26
+Initial date: 2026-09-25
+
+Last live review: 2026-09-28
 
 Status: **ACTIVE — external signals classified; no P12.6 product-use gate claimed**
 
@@ -376,9 +378,44 @@ This resolves the P12.5 live stage/provenance engineering proof. It is
 maintainer-created release evidence, not third-party adoption, and therefore
 does not itself satisfy P12.6.
 
-The repository has moved to `handoffprobe@1.0.0-rc.2` for a metadata /
-release-safety correction candidate. RC.2 does not change the stable security
-corpus or create new P12.6 product-use evidence.
+The repository then advanced to `handoffprobe@1.0.0-rc.2` for a metadata /
+release-safety correction candidate. That candidate is now publicly verified as
+described below. RC.2 does not change the stable security corpus or create new
+P12.6 product-use evidence.
+
+## RC.2 live prerelease publication and tagged Action verification — 2026-09-28
+
+Current public v1 prerelease evidence:
+
+- package: `handoffprobe@1.0.0-rc.2`;
+- npm `next`: `1.0.0-rc.2`;
+- npm stable `latest`: `0.4.0`;
+- source commit: `6e23275162d95661d55d0d36d1723c5d18361e0b`;
+- npm Stage workflow run: `36402476070` — success;
+- stage ID: `b47b2fcc-924e-4a1c-a9e2-7f55d14b634c`;
+- published shasum:
+  `53852a5efc18a97ff74d575aed2a5ee5c7d5d176`;
+- public secure-corpus execution:
+  `23 PASS / 0 FAIL / 0 ERROR`;
+- public dependency audit: 0 vulnerabilities;
+- npm signature/attestation audit: passed;
+- SLSA provenance predicate:
+  `https://slsa.dev/provenance/v1`;
+- annotated Git tag: `v1.0.0-rc.2`;
+- GitHub Prerelease: published;
+- external tagged Action run: `36405018499` — success;
+- external Action outputs: exit code `0`, result `pass`.
+
+Issue #168 now exposes the v1 prerelease feedback path as well as the stable
+v0.4.0 feedback path.
+
+Classification:
+
+**verified maintainer-created RC release-engineering and onboarding evidence.**
+
+This is not independent product adoption. It does not by itself increase the
+external-use evidence level already recorded above, complete P12.6 or authorize
+`1.0.0` GA.
 
 ## Sanction Gate #2 follow-up — 2026-09-26
 
@@ -421,15 +458,17 @@ the thread without new evidence.
 6. Do not interrupt the current A2A #1769 Poke-nushi / ogasurfproject-jpg
    field-mapping exchange unless a concrete HandoffProbe question or vector is
    directed back to this project.
-7. Invite relevant external reviewers to run the exact public prerelease and
-   update issue #168 with an exact-version installation path. Prefer the immutable
-   published version over the moving `next` tag for evidence collection.
+7. Invite relevant external reviewers to run exact public
+   `handoffprobe@1.0.0-rc.2`. Issue #168 now carries the stable + prerelease
+   feedback route; prefer the immutable exact version over moving `next` for
+   evidence collection.
 8. Define the minimum GA external-evidence threshold explicitly.
 9. [COMPLETED] Local npm authentication was refreshed only for registry/stage
    inspection and maintainer approval; the GitHub OIDC staged-publishing path was
    preserved.
-10. Keep npm stage, publication, prerelease tag creation and GitHub Release
-    creation separately authorized.
+10. Keep any future npm stage/publication, release tag or GitHub Release
+    separately authorized. RC.2's authorized publication/tag/release path is
+    complete; `1.0.0` GA remains separately gated.
 
 ## Release boundary
 
@@ -446,6 +485,8 @@ This ledger:
 
 The stable npm `latest` release remains `handoffprobe@0.4.0`.
 
-The verified public prerelease is `handoffprobe@1.0.0-rc.1` under `next`.
+The verified public prerelease is `handoffprobe@1.0.0-rc.2` under `next`.
 
-The repository candidate is `handoffprobe@1.0.0-rc.2`.
+The repository package version is `handoffprobe@1.0.0-rc.2`. P12.6 remains
+active because integration, repeated use, broader adoption and the minimum GA
+external-evidence threshold remain unresolved.

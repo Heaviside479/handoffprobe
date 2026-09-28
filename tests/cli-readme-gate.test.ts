@@ -90,7 +90,7 @@ describe('compact README developer experience contract', () => {
     expect(readme).toContain('handoffprobe@1.0.0-rc.2');
     expect(readme).toContain('npm view handoffprobe dist-tags --json');
     expect(readme).toContain(
-      '`handoffprobe@1.0.0-rc.1` completed the real npm staged Trusted Publishing path',
+      '`handoffprobe@1.0.0-rc.2` is the verified public v1 prerelease under `next`',
     );
 
     expect(readme).not.toContain('not yet published');

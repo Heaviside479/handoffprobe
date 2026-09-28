@@ -6,11 +6,9 @@ All notable project changes will be documented here.
 
 The stable npm `latest` channel remains `0.4.0`.
 
-`handoffprobe@1.0.0-rc.1` was published under the `next` dist-tag on 2026-09-26 through npm staged Trusted Publishing. Its registry provenance, signatures, clean consumer installation and 23/23 secure-corpus execution were verified.
+The current verified v1 prerelease is `handoffprobe@1.0.0-rc.2` under `next`. `1.0.0` GA remains separately gated and is not authorized by this prerelease.
 
-The repository package version is now `1.0.0-rc.2`. RC.2 is a prerelease correction candidate that reconciles release-facing metadata after RC.1 and hardens prerelease dist-tag safety. It does not add a stable attack or change the frozen v1 runtime/security contract.
-
-Prerelease publication must not move npm `latest`; `next` remains the dedicated v1 prerelease channel.
+RC.1 remains immutable historical prerelease publication evidence. Prerelease publication does not move npm `latest`; `next` remains the dedicated v1 prerelease channel.
 
 Post-v0.4.0 repository work includes reliability hardening, research/evidence
 follow-ups, commercial validation and documentation reconciliation. Those activities
@@ -19,6 +17,31 @@ do not by themselves constitute a new stable capability or justify a version bum
 The pre-v0.1 foundation/bootstrap entries that previously remained under
 `Unreleased` were historical shipped work and were removed from this section during
 the 2026-09-18 repository cleanup.
+
+## 1.0.0-rc.2 — 2026-09-28
+
+### Release engineering
+
+- reconciles release-facing metadata after RC.1 without changing the 23-attack stable corpus or frozen v1 runtime/security contract
+- hardens npm staging so prereleases require `next` and stable versions require `latest`
+- publishes through npm staged Trusted Publishing with maintainer proof-of-presence approval
+- preserves stable npm `latest` at `0.4.0`
+
+### Verification
+
+- public npm `next` resolves to `1.0.0-rc.2`
+- public package shasum is `53852a5efc18a97ff74d575aed2a5ee5c7d5d176`
+- SLSA provenance v1 is exposed by the registry
+- `npm audit signatures` passed in a clean RC.2 consumer environment
+- clean public execution produced 23 PASS / 0 FAIL / 0 ERROR and 0 dependency vulnerabilities
+- annotated `v1.0.0-rc.2` tag and GitHub Prerelease resolve to release source commit `6e23275162d95661d55d0d36d1723c5d18361e0b`
+- external GitHub Action execution using `Heaviside479/handoffprobe@v1.0.0-rc.2` passed
+
+## 1.0.0-rc.1 — 2026-09-26
+
+- first public v1 prerelease published through npm staged Trusted Publishing under `next`
+- established the live Trusted Publishing, provenance and clean-consumer proof path
+- remains immutable historical publication evidence after RC.2
 
 ## 0.4.0 — 2026-09-16
 

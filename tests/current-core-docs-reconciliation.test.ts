@@ -13,6 +13,8 @@ describe('Cleanup B.2 current core documentation', () => {
   it('keeps current public product truth in the canonical context', () => {
     expect(context).toContain('Current stable npm release (`latest`): `handoffprobe@0.4.0`');
     expect(context).toContain('Stable public corpus: **23 attacks**');
+    expect(context).toContain('handoffprobe@1.0.0-rc.2');
+    expect(context).toContain('v1.0.0-rc.2');
     expect(context).toContain('12 P0 + 10 P1 + 1 advanced (`HP-AUTH-006`)');
     expect(context).toContain('Public npm package / CLI: `handoffprobe`');
     expect(context).not.toContain('Planned npm package / CLI');

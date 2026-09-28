@@ -1,7 +1,7 @@
 # HandoffProbe Roadmap
 
 Status: active
-Current checkpoint: 2026-09-26
+Current checkpoint: 2026-09-28
 
 Strategy:
 
@@ -17,7 +17,7 @@ Strategy:
 
 Current stable npm release (`latest`): **`handoffprobe@0.4.0`**.
 
-Verified public v1 prerelease (`next`): **`handoffprobe@1.0.0-rc.1`**.
+Verified public v1 prerelease (`next`): **`handoffprobe@1.0.0-rc.2`**.
 
 Current repository package version: **`handoffprobe@1.0.0-rc.2`**.
 
@@ -2001,7 +2001,7 @@ hardening alone does not.
 
 ## P12.5 — GA candidate and live release-engineering proof
 
-Status: **COMPLETE — live RC.1 Trusted Publishing, public prerelease and provenance verified; repository advanced to RC.2 correction candidate**
+Status: **COMPLETE — RC.2 Trusted Publishing, public prerelease, provenance, GitHub Prerelease and tagged Action verification complete**
 
 Prerequisite: internal technical GA gates P12.2 through P12.4 are green.
 
@@ -2085,6 +2085,33 @@ unpublished or replaced. The repository advances to `1.0.0-rc.2` to correct
 release-facing metadata and harden prerelease dist-tag safety before further
 external validation.
 
+2026-09-28 RC.2 public prerelease completion:
+
+- protected release source commit:
+  `6e23275162d95661d55d0d36d1723c5d18361e0b`;
+- npm Stage workflow run `36402476070`: success;
+- stage ID: `b47b2fcc-924e-4a1c-a9e2-7f55d14b634c`;
+- maintainer proof-of-presence approval published RC.2 successfully;
+- npm `next` resolves to `1.0.0-rc.2`;
+- npm `latest` remains `0.4.0`;
+- public shasum:
+  `53852a5efc18a97ff74d575aed2a5ee5c7d5d176`;
+- clean public consumer: 23 PASS / 0 FAIL / 0 ERROR;
+- dependency audit: 0 vulnerabilities;
+- npm signature/attestation verification: passed;
+- SLSA provenance v1: verified;
+- annotated `v1.0.0-rc.2` tag resolves to the exact release source commit;
+- GitHub Prerelease `HandoffProbe v1.0.0-rc.2`: published;
+- external tagged GitHub Action run `36405018499`: success;
+- Action outputs: exit code `0`, result `pass`;
+- temporary Action-verification branch: deleted after successful verification;
+- issue #168 updated for stable + v1 prerelease feedback;
+- stable corpus remains 23 attacks;
+- `1.0.0` GA remains unauthorized.
+
+This completes the RC.2 release-engineering surface. It does not complete P11.6
+or P12.6 and is not independent adoption evidence.
+
 Prerelease decision completed 2026-09-23:
 
 - an evidence-backed `1.0.0-rc.1` materially improves final validation;
@@ -2096,8 +2123,10 @@ Prerelease decision completed 2026-09-23:
 On 2026-09-25, the version transition to `1.0.0-rc.1` was separately
 authorized and prepared in source/package metadata. At that checkpoint the
 authorization covered the version transition only. The subsequent 2026-09-26
-stage/publication proof is recorded above; prerelease tag creation and GitHub
-Release creation remain separately controlled.
+stage/publication proof is recorded above. At that historical checkpoint,
+prerelease tag creation and GitHub Release creation remained separately
+controlled. RC.2 later completed both through a separately controlled release
+step on 2026-09-28.
 
 Further candidate fixes may use `1.0.0-rc.2`, `1.0.0-rc.3`, and so on when
 SemVer prerelease progression is appropriate.
@@ -2203,7 +2232,7 @@ Tasks:
       predicate refinement requires a separate proof gate;
 - [ ] define the minimum GA evidence threshold;
 - [ ] continue targeted, non-spammy external onboarding;
-- [ ] make the current exact-version or RC path easy to reproduce;
+- [x] make the current exact-version or RC path easy to reproduce;
 - [ ] capture qualifying evidence with source and scope;
 - [ ] distinguish reviewers, researchers, users and paying customers;
 - [ ] feed reproducible defects back into the technical spine immediately;
@@ -3042,7 +3071,7 @@ A new external technical traceability signal is frozen at:
 - no adoption, conformance or independent HandoffProbe reproduction is claimed;
 - no new stable attack is admitted;
 - stable public corpus remains **23 attacks**;
-- stable npm `latest` remains `0.4.0`; public prerelease `next` is `1.0.0-rc.1`;
+- stable npm `latest` remains `0.4.0`; public prerelease `next` is `1.0.0-rc.2`;
 - no release is triggered;
 - future direct comparison is gated on concrete withdrawal ordering, execution-boundary semantics and a reference implementation or executable conformance vector.
 
